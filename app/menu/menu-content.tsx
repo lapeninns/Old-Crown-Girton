@@ -5,13 +5,6 @@ import { Search, UtensilsCrossed, Wheat, Leaf, Fish, Milk, Clock, MapPin, Star }
 import menuData from '../../menu-new.json';
 
 // Type definitions for better TypeScript support
-interface MenuItem {
-  name: string;
-  description?: string;
-  price: string;
-  gluten_free?: boolean;
-  vegetarian?: boolean;
-}
 
 interface BadgeProps {
   text: string;
@@ -36,7 +29,7 @@ const OldCrownMenu: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('starters');
 
   // Menu categories for navigation
-  const menuCategories = [
+  const menuCategories = useMemo(() => [
     { id: 'starters', label: 'Starters', icon: UtensilsCrossed },
     { id: 'grills', label: 'Mixed Grills', icon: Fish },
     { id: 'specialties', label: 'Specialties', icon: Star },
@@ -45,7 +38,7 @@ const OldCrownMenu: React.FC = () => {
     { id: 'sides', label: 'Sides & Fries', icon: Milk },
     { id: 'classics', label: 'Pub Classics', icon: UtensilsCrossed },
     { id: 'desserts', label: 'Desserts', icon: Star }
-  ];
+  ], []);
 
   // Scroll to section function
   const scrollToSection = (sectionId: string) => {
@@ -62,8 +55,8 @@ const OldCrownMenu: React.FC = () => {
 
   // Intersection Observer to update active section based on scroll position
   useEffect(() => {
-    const observerOptions: IntersectionObserverInit = {
-      root: null,
+    const observerOptions = {
+      root: null as Element | null,
       rootMargin: '-120px 0px -80% 0px',
       threshold: 0
     };
@@ -88,7 +81,7 @@ const OldCrownMenu: React.FC = () => {
   }, [menuCategories]);
 
   // Badge Component with proper styling
-  const Badge: React.FC<BadgeProps> = ({ text, type = 'default' }) => {
+  const Badge: React.FC<BadgeProps> = ({ text }) => {
     const badgeStyles: Record<string, string> = {
       'GF': 'bg-emerald-50 text-emerald-700 border border-emerald-200',
       'V': 'bg-green-50 text-green-700 border border-green-200',
@@ -120,7 +113,7 @@ const OldCrownMenu: React.FC = () => {
         name.toLowerCase().includes(searchLower) || 
         (description && description.toLowerCase().includes(searchLower))
       );
-    }, [name, description, searchTerm]);
+    }, [name, description]);
     
     if (!shouldShow) return null;
 
@@ -377,10 +370,10 @@ const OldCrownMenu: React.FC = () => {
 
                   <SubSectionTitle title="KORMA / MASALA" />
                   <div className="grid grid-cols-2 gap-x-4 sm:gap-x-6 space-y-1">
-                    <MenuItem name="VEG" price={menuData.menu.home_made_authentic_dishes.prices.veg.korma_masala} badges={['GF', 'V']} />
-                    <MenuItem name="CHICKEN" price={menuData.menu.home_made_authentic_dishes.prices.chicken.korma_masala} badges={['GF']} />
-                    <MenuItem name="LAMB" price={menuData.menu.home_made_authentic_dishes.prices.lamb.korma_masala} badges={['GF']} />
-                    <MenuItem name="KING PRAWN" price={menuData.menu.home_made_authentic_dishes.prices.king_prawn.korma_masala} badges={['GF']} />
+                    <MenuItem name="VEG" price={menuData.menu.home_made_authentic_dishes.prices.veg.other_curries} badges={['GF', 'V']} />
+                    <MenuItem name="CHICKEN" price={menuData.menu.home_made_authentic_dishes.prices.chicken.other_curries} badges={['GF']} />
+                    <MenuItem name="LAMB" price={menuData.menu.home_made_authentic_dishes.prices.lamb.other_curries} badges={['GF']} />
+                    <MenuItem name="KING PRAWN" price={menuData.menu.home_made_authentic_dishes.prices.king_prawn.other_curries} badges={['GF']} />
                   </div>
 
                   <SubSectionTitle title="BALTI/KARAHI/BHUNA/SAAG/DHANSAK/JALFREZI/MADRAS/VINDALOO/PHAAL" />

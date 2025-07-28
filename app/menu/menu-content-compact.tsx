@@ -23,13 +23,6 @@ import {
 import menuData from '../../menu-new.json';
 
 // Simplified Types - only using JSON data
-interface MenuItem {
-  name: string;
-  description?: string;
-  price: string;
-  gluten_free?: boolean;
-  vegetarian?: boolean;
-}
 
 interface BadgeProps {
   text: string;
@@ -103,8 +96,8 @@ const CompactMenu: React.FC = () => {
 
   // Intersection observer for active section tracking
   useEffect(() => {
-    const observerOptions: IntersectionObserverInit = {
-      root: null,
+    const observerOptions = {
+      root: null as Element | null,
       rootMargin: '-140px 0px -60% 0px',
       threshold: 0.1
     };
@@ -150,7 +143,7 @@ const CompactMenu: React.FC = () => {
         name.toLowerCase().includes(searchLower) || 
         (description && description.toLowerCase().includes(searchLower))
       );
-    }, [name, description, searchTerm]);
+    }, [name, description]);
     
     if (!shouldShow) return null;
 
@@ -531,19 +524,19 @@ const CompactMenu: React.FC = () => {
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <div className="flex justify-between">
                       <span>Veg <Badge text="GF" /> <Badge text="V" /></span>
-                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.veg.korma_masala}</span>
+                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.veg.other_curries}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Chicken <Badge text="GF" /></span>
-                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.chicken.korma_masala}</span>
+                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.chicken.other_curries}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Lamb <Badge text="GF" /></span>
-                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.lamb.korma_masala}</span>
+                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.lamb.other_curries}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>King Prawn <Badge text="GF" /></span>
-                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.king_prawn.korma_masala}</span>
+                      <span className="font-medium text-crown-gold">{menuData.menu.home_made_authentic_dishes.prices.king_prawn.other_curries}</span>
                     </div>
                   </div>
                 </div>

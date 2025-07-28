@@ -2,13 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   icon?: LucideIcon;
   iconPosition?: 'left' | 'right';
   isLoading?: boolean;
   children: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -21,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   disabled,
   onClick,
-  ...props
+  type = 'button'
 }) => {
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
   
@@ -51,7 +55,7 @@ const Button: React.FC<ButtonProps> = ({
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
       disabled={disabled || isLoading}
       onClick={onClick}
-    >
+      type={type}
     >
       {isLoading ? (
         <div className={`animate-spin rounded-full border-2 border-current border-t-transparent ${iconSize[size]}`} />

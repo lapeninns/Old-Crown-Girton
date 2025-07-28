@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
             What Our Customers Say
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Don't just take our word for it - hear from our valued customers about their dining experience
+            Don&apos;t just take our word for it - hear from our valued customers about their dining experience
           </p>
         </motion.div>
 
@@ -54,7 +54,7 @@ export default function TestimonialsSection() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {testimonials.slice(0, 6).map((testimonial: any, index: number) => (
+          {testimonials.slice(0, 6).map((testimonial: any) => (
             <motion.div
               key={testimonial.id}
               variants={cardVariants}
@@ -78,7 +78,7 @@ export default function TestimonialsSection() {
 
               {/* Testimonial Text */}
               <blockquote className="text-gray-700 mb-4 leading-relaxed">
-                "{testimonial.text}"
+                &ldquo;{testimonial.text}&rdquo;
               </blockquote>
 
               {/* Author Info */}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from './Button';
 
@@ -71,7 +71,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 </button>
               </div>
               <p className="text-gray-600 mt-2">
-                Reserve your table at Old Crown. We'll call you within 1 hour to confirm.
+                Reserve your table at Old Crown. We&apos;ll call you within 1 hour to confirm.
               </p>
             </div>
 
@@ -234,7 +234,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   Request Booking
                 </Button>
                 <p className="text-xs text-gray-500 mt-2 text-center">
-                  * Required fields. We'll call you within 1 hour to confirm availability.
+                  * Required fields. We&apos;ll call you within 1 hour to confirm availability.
                 </p>
               </div>
             </form>

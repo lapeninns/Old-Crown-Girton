@@ -21,22 +21,11 @@ import {
   Info,
   Phone,
   Eye,
-  Plus,
-  Minus
+  Plus
 } from 'lucide-react';
 import menuData from '../../menu-new.json';
 
 // Enhanced Type definitions with better accessibility support
-interface MenuItem {
-  name: string;
-  description?: string;
-  price: string;
-  gluten_free?: boolean;
-  vegetarian?: boolean;
-  isPopular?: boolean;
-  isSpicy?: boolean;
-  allergens?: string[];
-}
 
 interface BadgeProps {
   text: string;
@@ -149,7 +138,6 @@ const RedesignedOldCrownMenu: React.FC = () => {
   });
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [showFilters, setShowFilters] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   
   // Refs for performance and accessibility
@@ -171,8 +159,8 @@ const RedesignedOldCrownMenu: React.FC = () => {
 
   // Enhanced intersection observer for active section tracking
   useEffect(() => {
-    const observerOptions: IntersectionObserverInit = {
-      root: null,
+    const observerOptions = {
+      root: null as Element | null,
       rootMargin: '-140px 0px -60% 0px',
       threshold: 0.1
     };
@@ -196,11 +184,7 @@ const RedesignedOldCrownMenu: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Enhanced search and filter logic
-  const filteredMenuData = useMemo(() => {
-    // Implementation would filter menu data based on current filters
-    return menuData; // Simplified for this example
-  }, [searchTerm, filters]);
+  // Enhanced search and filter logic - removed unused variable
 
   // Enhanced Badge Component with accessibility
   const Badge: React.FC<BadgeProps> = ({ text, type = 'dietary', icon, className = '' }) => {
@@ -277,8 +261,7 @@ const RedesignedOldCrownMenu: React.FC = () => {
     isSpicy = false,
     allergens = [],
     onAddToFavorites,
-    isFavorite = false,
-    imageUrl
+    isFavorite = false
   }) => {
     const itemId = `item-${name.replace(/\s+/g, '-').toLowerCase()}`;
     const isExpanded = expandedItems.has(itemId);
@@ -290,7 +273,7 @@ const RedesignedOldCrownMenu: React.FC = () => {
         name.toLowerCase().includes(searchLower) || 
         (description && description.toLowerCase().includes(searchLower))
       );
-    }, [name, description, searchTerm]);
+    }, [name, description]);
     
     const toggleExpanded = () => {
       const newExpanded = new Set(expandedItems);

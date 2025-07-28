@@ -24,8 +24,8 @@
         "price": "£4.50"
       },
       {
-        "name": "Garlic Mushroom",
-        "price": "£5.75",
+        "name": "Chilli Mogo",
+        "price": "£5.25",
         "gluten_free": true
       },
       {
@@ -33,12 +33,22 @@
         "price": "£5.50"
       },
       {
+        "name": "Garlic Mushroom",
+        "price": "£5.75",
+        "gluten_free": true
+      },
+      {
         "name": "Momo (Veg)",
         "price": "£6.25",
-        "description": "Famous traditional Nepalese dumplings made with various seasonal vegetables"
+        "description": "Famous traditional Nepalese dumplings made with various seasonal vegetables."
       },
       {
         "name": "Stuff Tandoori Mushroom",
+        "price": "£6.25",
+        "gluten_free": true
+      },
+      {
+        "name": "Chilli Paneer",
         "price": "£6.25",
         "gluten_free": true
       },
@@ -62,12 +72,11 @@
       {
         "name": "Momo (Chicken)",
         "price": "£6.75",
-        "description": "Made with chicken mince and herbs"
+        "description": "Made with chicken mince and herba"
       },
       {
-        "name": "Sheek Kebab",
-        "price": "£7.00",
-        "gluten_free": true
+        "name": "Chilli Chicken",
+        "price": "£7.00"
       },
       {
         "name": "Crispy Hot Wings",
@@ -79,9 +88,9 @@
         "gluten_free": true
       },
       {
-        "name": "Mixed Platter",
+        "name": "Sheek Kebab",
         "price": "£7.50",
-        "description": "Includes Onion Bhaji, Chicken Tikka, Seekh Kebab"
+        "gluten_free": true
       },
       {
         "name": "Lamb Chops",
@@ -122,125 +131,115 @@
     ],
     "old_crown_speciality_dishes": [
       {
-        "name": "Chilli Mogo",
+        "name": "Bhutuwa (chicken/lamb)",
         "price": "£12.00/13.00",
+        "description": "Traditional Nepalese speciality cooked with dried crushed chilli and crushed garlic",
         "gluten_free": true
       },
       {
-        "name": "Chilli Paneer",
+        "name": "Lasun Kukhura Khursani (LKK/LLK)",
         "price": "£12.00/13.00",
+        "description": "Tender pieces of chicken rooked with garlic, crushed chilli, spring onions, fresh cream in the chef's apecial Nepekne sauce",
         "gluten_free": true
-      },
-      {
-        "name": "Chilli Chicken",
-        "price": "£13.00"
       },
       {
         "name": "Kathmandu Tikka (Served in Grill)",
         "price": "£13.00",
-        "description": "Succulent chicken breast cubes marinated in cheese and cream with a hint of crushed black peppers",
-        "gluten_free": true
-      },
-      {
-        "name": "Rack of Lamb",
-        "price": "£14.00",
-        "description": "Lamb chops marinated overnight to give extra softness and tender, cooked in tandoor",
+        "description": "Succulent chicken bwantcubes marinated in cheese and cream witha hint of crushed black peppers.",
         "gluten_free": true
       },
       {
         "name": "Paneer Saslick",
         "price": "£13.00",
-        "description": "Soft cheese cooked in tandoor oven served in sizzler with onion and peppers",
-        "gluten_free": true
-      },
-      {
-        "name": "Salmon Tikka",
-        "price": "£16.00",
-        "description": "Pieces of salmon flavoured with cumin seeds and chargrilled in tandoor",
-        "gluten_free": true
-      },
-      {
-        "name": "Tandoori King Prawn",
-        "price": "£18.00",
-        "description": "King prawn marinated in nepalese spices and herbs and cooked in tandoor",
-        "gluten_free": true
-      },
-      {
-        "name": "Himali Lamb",
-        "price": "£14.00",
-        "description": "Green curry seasoned with Himalayan salt and yoghurt blend with fresh mint, green chilli and Nepalese spice",
-        "gluten_free": true
-      },
-      {
-        "name": "Rara King Prawn",
-        "price": "£13.50",
-        "description": "King prawn cooked in coconut based medium sauce with blend of Nepalese spices, tarmind and mustard"
-      },
-      {
-        "name": "Lasun Kukhura Khursani (LKK/LLK)",
-        "price": "£11.00",
-        "description": "Tender pieces of chicken cooked with garlic, crushed chilli, spring onions, fresh cream in the chef's special Nepalese sauce",
-        "gluten_free": true
-      },
-      {
-        "name": "Khasi Ko Masu (Goat Curry)",
-        "price": "£14.00",
-        "description": "A rich and flavoursome slow cooked goat on the bone/off the bone with unique blend of Nepalese spices",
-        "gluten_free": true
-      },
-      {
-        "name": "Pokhareli Fish Curry",
-        "price": "£13.00",
-        "description": "Another traditional flavourful curry with a hint of mustard, coconut milk, exhilarating",
+        "description": "Soft cheese cooked in tandoor oren served in sizzler with onion and peppers",
         "gluten_free": true
       },
       {
         "name": "Chicken Rum Rum",
-        "price": "£15.00",
-        "description": "Must try Nepalese dish. Chicken cooked with himalayan herbs, nepalese black peppers (timur)",
+        "price": "£13.00",
+        "description": "Must ny Nepalese duh. Chicken cooked with himalayan herbs, nepalese black peppers itimurl",
         "gluten_free": true
       },
       {
-        "name": "Bhutuwa (chicken/lamb)",
-        "price": "£20.00",
-        "description": "Traditional Nepalese speciality cooked with dried crushed chilli and crushed garlic",
+        "name": "Khasi Ko Masu (Goat Curry)",
+        "price": "£13.50",
+        "description": "A rich and flavoursome slow cooked gear in the bong/off the bane with unique blend of Nepalese spices.",
+        "gluten_free": true
+      },
+      {
+        "name": "Rack of Lamb",
+        "price": "£14.00",
+        "description": "Lamb chops marinated overnight to give extra softnem and tender, cooked in tandoor",
         "gluten_free": true
       },
       {
         "name": "Special Butter Chicken",
         "price": "£14.00",
-        "description": "One butter chicken is irresistibility creamy with methi flavour and a hint of chilli. Fancy a mild one? Let us know",
+        "description": "One butter chicken is irwsistibility creamy with mothi flavour and a hint of chilli. Fancy a mild one? Let us know.",
+        "gluten_free": true
+      },
+      {
+        "name": "Himali Lamb",
+        "price": "£14.00",
+        "description": "Green curry samoned with Himalayan saltand yoghurt bend with fresh mint, green chill and Nepalese apie",
+        "gluten_free": true
+      },
+      {
+        "name": "Pokhareli Fish Curry",
+        "price": "£14.00",
+        "description": "Another traditional flavourful curry with a hint of mustard, coconut milk, xhilarating",
+        "gluten_free": true
+      },
+      {
+        "name": "Rara King Prawn",
+        "price": "£15.00",
+        "description": "King prawn cooled in coconut hased medium sauce with blend of Nepalese spices, termind and mustard"
+      },
+      {
+        "name": "Salmon Tikka",
+        "price": "£16.00",
+        "description": "Pieces of aadion flavoured with cumin seeds and chargrilled in tandoor.",
+        "gluten_free": true
+      },
+      {
+        "name": "Tandoori King Prawn",
+        "price": "£18.00",
+        "description": "King prawn marinated in nepalese spices and herbs and onokel in tandour.",
         "gluten_free": true
       },
       {
         "name": "Lamb Shank",
-        "price": "£14.00",
-        "description": "Absolutely delicious and succulent, this LAMB dish is to die for or shall we say to live for!",
+        "price": "£20.00",
+        "description": "Absolutely delicious and succulent, this LAMB dich is to die for or shall we say to live forf",
         "gluten_free": true
       }
     ],
     "home_made_authentic_dishes": {
-      "curry_types": ["Curry", "Korma/Masala", "Balti/Karahi/Bhuna/Saag/Dhansak/Jalfrezi/Madras/Vindaloo/Phaal"],
+      "curry_types": [
+        "Curry",
+        "Korma/Masala",
+        "Balti/Karahi/Bhuna/Saag/Dhansak/Jalfrezi/Madras/Vindaloo/Phaal"
+      ],
       "prices": {
         "veg": {
           "curry": "£10.00",
-          "korma_masala": "£11.00",
-          "other_curries": "£11.00"
+          "other_curries": "£11.00",
+          "gluten_free": true
         },
         "chicken": {
           "curry": "£11.00",
-          "korma_masala": "£12.00",
-          "other_curries": "£12.00"
+          "other_curries": "£12.00",
+          "gluten_free": true
         },
         "lamb": {
           "curry": "£12.00",
-          "korma_masala": "£13.00",
-          "other_curries": "£13.00"
+          "other_curries": "£13.00",
+          "gluten_free": true
         },
         "king_prawn": {
           "curry": "£13.00",
-          "korma_masala": "£14.00",
-          "other_curries": "£14.00"
+          "other_curries": "£14.00",
+          "gluten_free": true
         }
       }
     },
@@ -248,32 +247,25 @@
       {
         "name": "Veggie Biryani",
         "price": "£13.00",
-        "description": "Well seasoned one pot dish, made by layering fragrant basmati rice"
+        "description": "A well semarned one pot dish, made by layering fragrant barmati rice"
       },
       {
         "name": "Chicken Biryani",
         "price": "£14.00",
-        "description": "Well seasoned one pot dish, made by layering fragrant basmati rice"
+        "description": "A well semarned one pot dish, made by layering fragrant barmati rice"
       },
       {
         "name": "Lamb Biryani",
         "price": "£15.00",
-        "description": "Well seasoned one pot dish, made by layering fragrant basmati rice"
+        "description": "A well semarned one pot dish, made by layering fragrant barmati rice"
       },
       {
         "name": "King Prawn Biryani",
         "price": "£16.00",
-        "description": "Well seasoned one pot dish, made by layering fragrant basmati rice"
+        "description": "A well semarned one pot dish, made by layering fragrant barmati rice"
       }
     ],
     "sides": [
-      {
-        "name": "Special Veggie Tarkari",
-        "price": "£11.00",
-        "description": "Nepalese style vegetarian semi dry curry cooked with aromatic spices and herbs full of flavours",
-        "vegetarian": true,
-        "gluten_free": true
-      },
       {
         "name": "Tadka Daal (Lentil)",
         "price": "£6.00"
@@ -300,7 +292,7 @@
       },
       {
         "name": "Mushroom Bhaji",
-        "price": "£6.50"
+        "price": "£6.00"
       },
       {
         "name": "Saag Paneer",
@@ -311,6 +303,13 @@
         "name": "Matar Paneer",
         "price": "£6.50",
         "description": "Green peas and cottage cheese"
+      },
+      {
+        "name": "Special Veggie Tarkari",
+        "price": "£11.00",
+        "description": "Nepalese style vegetarian semi dry curry cooled with aromatic splos and herbe full of flavours",
+        "vegetarian": true,
+        "gluten_free": true
       }
     ],
     "rice": [
@@ -337,6 +336,10 @@
     ],
     "naans": [
       {
+        "name": "Roti",
+        "price": "£3.50"
+      },
+      {
         "name": "Plain",
         "price": "£3.75"
       },
@@ -359,10 +362,6 @@
       {
         "name": "Keema",
         "price": "£4.75"
-      },
-      {
-        "name": "Roti",
-        "price": "£3.50"
       },
       {
         "name": "Signature",
@@ -399,35 +398,30 @@
       {
         "name": "Cheesy Chips Wrap",
         "price": "£7.00",
-        "description": "Served with chips, salad, mayo and sweet chilli sauce"
+        "description": "Our wraps are serve with chips, salad, mayo and sweet chilli sauce"
       },
       {
         "name": "Sweet Chilli Wrap (Crispy)",
         "price": "£7.75",
-        "description": "Served with chips, salad, mayo and sweet chilli sauce"
+        "description": "Our wraps are serve with chips, salad, mayo and sweet chilli sauce"
       },
       {
         "name": "Chicken Tikka Wrap",
         "price": "£8.50",
-        "description": "Served with chips, salad, mayo and sweet chilli sauce"
+        "description": "Our wraps are serve with chips, salad, mayo and sweet chilli sauce"
       },
       {
         "name": "Kebab Wrap",
         "price": "£8.75",
-        "description": "Served with chips, salad, mayo and sweet chilli sauce"
+        "description": "Our wraps are serve with chips, salad, mayo and sweet chilli sauce"
       },
       {
         "name": "Special Wrap (Mix)",
         "price": "£9.75",
-        "description": "Served with chips, salad, mayo and sweet chilli sauce"
+        "description": "Our wraps are serve with chips, salad, mayo and sweet chilli sauce"
       }
     ],
     "pub_classics": [
-      {
-        "name": "Fish & Chips",
-        "price": "£12.00",
-        "description": "Medium battered cod fish served with tartar sauce"
-      },
       {
         "name": "Chicken Strips with Chips",
         "price": "£9.00"
@@ -435,23 +429,28 @@
       {
         "name": "Peri-Peri Chicken with Chips",
         "price": "£9.00"
+      },
+      {
+        "name": "Fish & Chips",
+        "price": "£12.00",
+        "description": "MEDIUM BATTERED COD FISH SERVED WITH TARTAR SAUCE"
       }
     ],
     "burgers": [
       {
-        "name": "Veg/Vegan Burger",
+        "name": "Veg/Vegan",
         "price": "£9.00",
-        "description": "Served with chips"
+        "description": "servd with chips"
       },
       {
-        "name": "Chicken Burger",
+        "name": "Chicken",
         "price": "£10.00",
-        "description": "Served with chips"
+        "description": "servd with chips"
       },
       {
-        "name": "Beef Burger",
+        "name": "Beef",
         "price": "£11.00",
-        "description": "Served with chips"
+        "description": "servd with chips"
       }
     ],
     "salads": [
@@ -466,6 +465,11 @@
     ],
     "kids_menu": [
       {
+        "name": "Popcorn Chicken",
+        "price": "£5.75",
+        "description": "Choose either chips or rice"
+      },
+      {
         "name": "Nuggets",
         "price": "£6.00",
         "description": "Choose either chips or rice"
@@ -478,11 +482,6 @@
       {
         "name": "Chicken Pakora",
         "price": "£6.00",
-        "description": "Choose either chips or rice"
-      },
-      {
-        "name": "Popcorn Chicken",
-        "price": "£5.75",
         "description": "Choose either chips or rice"
       },
       {
@@ -503,12 +502,12 @@
       {
         "name": "Chocolate Fondant",
         "price": "£4.50",
-        "description": "Chocolate sponge with chocolate liquid in the middle"
+        "description": "(chocolate sponge with chocolate liquid in the middle)"
       },
       {
         "name": "Punky Ice Cream",
         "price": "£5.00",
-        "description": "Kiddies ice cream"
+        "description": "(Kiddies ice cream)"
       },
       {
         "name": "Vanilla and Honey Toffee Ice Cream",
@@ -517,8 +516,9 @@
     ]
   },
   "notes": {
-    "allergen_warning": "If you have any food allergies, please let us know before you order. Please be aware that although all due care is taken, there is risk of allergen.",
+    "allergen_warning": "If you have any food allergies, Please let us know before you order.. Please be aware that although all due care is taken, there is risk of allergen.",
     "bespoke_orders": "We can do bespoke order, tell us your spice level.",
-    "gluten_free_note": "(GF) indicates Gluten Free items"
+    "gluten_free_note": "(GF) Gluten Free",
+    "mixed_grill_option": "Swap your chicken wings to crispy wings £1.00"
   }
 }
