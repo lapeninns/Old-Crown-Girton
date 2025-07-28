@@ -1,0 +1,471 @@
+{
+  "restaurant": {
+    "identity": {
+      "name": "Old Crown Girton",
+      "tagline": "Authentic Indian & Nepalese Cuisine",
+      "description": "Traditional flavors meets modern dining in the heart of Girton, Cambridge",
+      "established": "2010",
+      "type": "Indian & Nepalese Restaurant",
+      "cuisine_types": ["Indian", "Nepalese", "Vegetarian", "Vegan"],
+      "logo": {
+        "main": "logos/old-crown-logo.png",
+        "favicon": "logos/favicon.ico",
+        "alt": "Old Crown Girton Restaurant Logo"
+      }
+    },
+    "contact": {
+      "phone": {
+        "primary": "+44 1223 276027",
+        "display": "01223 276027",
+        "whatsapp": "+44 1223 276027"
+      },
+      "email": {
+        "primary": "info@oldcrowngirton.co.uk",
+        "bookings": "bookings@oldcrowngirton.co.uk",
+        "events": "events@oldcrowngirton.co.uk"
+      },
+      "address": {
+        "street": "High Street",
+        "area": "Girton",
+        "city": "Cambridge",
+        "postcode": "CB3 0QQ",
+        "country": "United Kingdom",
+        "coordinates": {
+          "lat": 52.2434,
+          "lng": 0.0838
+        },
+        "google_maps_url": "https://maps.google.com/?q=Old+Crown+Girton"
+      }
+    },
+    "hours": {
+      "kitchen": {
+        "monday": "12:00-15:00,17:00-22:00",
+        "tuesday": "12:00-15:00,17:00-22:00",
+        "wednesday": "12:00-15:00,17:00-22:00",
+        "thursday": "12:00-15:00,17:00-22:00",
+        "friday": "12:00-15:00,17:00-22:00",
+        "saturday": "12:00-22:00",
+        "sunday": "12:00-21:00"
+      },
+      "bar": {
+        "monday": "12:00-22:00",
+        "tuesday": "12:00-22:00",
+        "wednesday": "12:00-22:00",
+        "thursday": "12:00-22:00",
+        "friday": "12:00-23:00",
+        "saturday": "12:00-23:00",
+        "sunday": "12:00-22:00"
+      },
+      "display": {
+        "kitchen": {
+          "weekdays": "12PM-3PM & 5PM-10PM",
+          "saturday": "12PM-10PM",
+          "sunday": "12PM-9PM"
+        },
+        "bar": {
+          "mon_thu": "12PM-10PM",
+          "fri_sat": "12PM-11PM",
+          "sunday": "12PM-10PM"
+        }
+      }
+    },
+    "social": {
+      "facebook": {
+        "url": "https://facebook.com/oldcrowngirton",
+        "handle": "@oldcrowngirton"
+      },
+      "instagram": {
+        "url": "https://instagram.com/oldcrowngirton",
+        "handle": "@oldcrowngirton"
+      },
+      "twitter": {
+        "url": "https://twitter.com/oldcrowngirton",
+        "handle": "@oldcrowngirton"
+      },
+      "website": "https://oldcrowngirton.co.uk"
+    }
+  },
+  "menu": {
+    "metadata": {
+      "last_updated": "2024-01-15T00:00:00Z",
+      "version": "2.1",
+      "currency": "GBP",
+      "currency_symbol": "£",
+      "allergen_info": "If you have any food allergies, please let us know before you order",
+      "disclaimer": "Please be aware that although all due care is taken, there is risk of allergen contamination",
+      "notes": [
+        "We can do bespoke orders - tell us your spice level preference",
+        "All dishes are prepared fresh to order",
+        "Gluten-free options available - please ask your server"
+      ],
+      "dietary_legend": {
+        "GF": "Gluten Free",
+        "V": "Vegetarian",
+        "VE": "Vegan",
+        "N": "Contains Nuts",
+        "D": "Contains Dairy",
+        "S": "Spicy"
+      }
+    },
+    "categories": [
+      {
+        "id": "starters",
+        "name": "Starters",
+        "description": "Begin your meal with our authentic appetizers",
+        "order": 1,
+        "subcategories": [
+          {
+            "id": "veg_starters",
+            "name": "Vegetarian Starters",
+            "order": 1,
+            "items": [
+              {
+                "id": "onion_bhaji",
+                "name": "Onion Bhaji",
+                "description": "Traditional crispy onion fritters seasoned with aromatic spices",
+                "price": {
+                  "amount": 4.25,
+                  "display": "£4.25"
+                },
+                "dietary": ["GF", "V"],
+                "spice_level": 1,
+                "image": "/dishes/onion-bhaji.jpg",
+                "available": true,
+                "popular": true,
+                "prep_time": "10-15 minutes"
+              },
+              {
+                "id": "samosas_veg",
+                "name": "Vegetable Samosas",
+                "description": "Crispy pastries filled with spiced vegetables",
+                "price": {
+                  "amount": 4.50,
+                  "display": "£4.50"
+                },
+                "dietary": ["V"],
+                "spice_level": 2,
+                "image": "/dishes/veg-samosas.jpg",
+                "available": true,
+                "popular": false,
+                "prep_time": "8-12 minutes"
+              }
+            ]
+          },
+          {
+            "id": "meat_starters",
+            "name": "Meat Starters",
+            "order": 2,
+            "items": [
+              {
+                "id": "chicken_tikka",
+                "name": "Chicken Tikka",
+                "description": "Tender chicken pieces marinated in yogurt and spices, grilled in tandoor",
+                "price": {
+                  "amount": 7.25,
+                  "display": "£7.25"
+                },
+                "dietary": ["GF", "D"],
+                "spice_level": 2,
+                "image": "/dishes/chicken-tikka.jpg",
+                "available": true,
+                "popular": true,
+                "prep_time": "15-20 minutes"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mains",
+        "name": "Main Courses",
+        "description": "Our signature curries and main dishes",
+        "order": 2,
+        "subcategories": [
+          {
+            "id": "chicken_curries",
+            "name": "Chicken Curries",
+            "order": 1,
+            "items": [
+              {
+                "id": "chicken_tikka_masala",
+                "name": "Chicken Tikka Masala",
+                "description": "Britain's favourite curry - tender chicken in creamy tomato sauce",
+                "price": {
+                  "amount": 11.95,
+                  "display": "£11.95"
+                },
+                "dietary": ["GF", "D"],
+                "spice_level": 2,
+                "image": "/dishes/chicken-tikka-masala.jpg",
+                "available": true,
+                "popular": true,
+                "prep_time": "20-25 minutes"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "gallery": {
+    "hero": {
+      "main": {
+        "src": "/hero-restaurant.jpg",
+        "alt": "Old Crown Girton restaurant exterior view",
+        "caption": "Welcome to Old Crown Girton"
+      },
+      "secondary": [
+        {
+          "src": "/restaurant-interior.jpg",
+          "alt": "Interior dining area",
+          "caption": "Comfortable dining atmosphere"
+        },
+        {
+          "src": "/hero-restaurant.jpg",
+          "alt": "Selection of dishes",
+          "caption": "Authentic Indian & Nepalese cuisine"
+        }
+      ]
+    },
+    "categories": {
+      "dishes": [
+        {
+          "src": "/dishes/curry-selection.jpg",
+          "alt": "Selection of authentic curries",
+          "caption": "Our signature curry collection",
+          "category": "mains"
+        },
+        {
+          "src": "/dishes/tandoori-platter.jpg",
+          "alt": "Mixed tandoori platter",
+          "caption": "Fresh from our tandoor oven",
+          "category": "starters"
+        }
+      ],
+      "restaurant": [
+        {
+          "src": "/restaurant/dining-room.jpg",
+          "alt": "Main dining area with traditional decor",
+          "caption": "Warm and welcoming atmosphere"
+        },
+        {
+          "src": "/restaurant/bar-area.jpg",
+          "alt": "Bar area with drinks selection",
+          "caption": "Full bar with Indian beers and wines"
+        }
+      ],
+      "events": [
+        {
+          "src": "/events/diwali-celebration.jpg",
+          "alt": "Diwali celebration at Old Crown",
+          "caption": "Special festival celebrations"
+        }
+      ]
+    }
+  },
+  "testimonials": [
+    {
+      "id": "testimonial_1",
+      "text": "Absolutely fantastic food and service. The best Indian restaurant in Cambridge! The chicken tikka masala is incredible.",
+      "author": "Sarah M.",
+      "rating": 5,
+      "date": "2024-01-10",
+      "verified": true,
+      "platform": "Google Reviews",
+      "location": "Cambridge, UK"
+    },
+    {
+      "id": "testimonial_2",
+      "text": "Amazing authentic flavors and generous portions. The staff are so friendly and helpful with recommendations.",
+      "author": "David P.",
+      "rating": 5,
+      "date": "2024-01-08",
+      "verified": true,
+      "platform": "TripAdvisor",
+      "location": "Girton, UK"
+    },
+    {
+      "id": "testimonial_3",
+      "text": "Been coming here for years and it never disappoints. Great vegetarian options too!",
+      "author": "Priya K.",
+      "rating": 5,
+      "date": "2024-01-05",
+      "verified": true,
+      "platform": "Facebook",
+      "location": "Cambridge, UK"
+    }
+  ],
+  "events": [
+    {
+      "id": "diwali_2024",
+      "title": "Diwali Celebration Menu",
+      "description": "Join us for a special Diwali celebration with traditional festive dishes and decorations throughout the restaurant",
+      "date": {
+        "start": "2024-11-01",
+        "end": "2024-11-03"
+      },
+      "image": "/events/diwali-menu.jpg",
+      "special_menu": true,
+      "booking_required": true,
+      "discount": {
+        "type": "percentage",
+        "value": 10,
+        "description": "10% off all mains during Diwali celebration"
+      }
+    },
+    {
+      "id": "mothers_day_2024",
+      "title": "Mother's Day Special",
+      "description": "Treat your mother to a special dining experience with complimentary appetizers",
+      "date": {
+        "start": "2024-03-31",
+        "end": "2024-03-31"
+      },
+      "image": "/events/mothers-day-special.jpg",
+      "special_menu": false,
+      "booking_required": true,
+      "offer": "Free starter with every main course ordered"
+    }
+  ],
+  "seo": {
+    "title": "Old Crown Girton - Authentic Indian & Nepalese Restaurant Cambridge",
+    "description": "Experience the finest Indian and Nepalese cuisine in Cambridge. Located in Girton, we offer traditional flavors with modern dining. Book your table today!",
+    "keywords": [
+      "Indian restaurant Cambridge",
+      "Nepalese food Girton",
+      "curry house Cambridge",
+      "authentic spices",
+      "tandoori restaurant",
+      "takeaway Cambridge",
+      "Indian delivery Girton"
+    ],
+    "og": {
+      "title": "Old Crown Girton - Best Indian Restaurant in Cambridge",
+      "description": "Authentic Indian & Nepalese cuisine in Girton, Cambridge. Fresh ingredients, traditional recipes, modern dining.",
+      "image": "/hero/restaurant-exterior.jpg",
+      "url": "https://oldcrowngirton.co.uk"
+    },
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Old Crown Girton",
+      "cuisine": ["Indian", "Nepalese"],
+      "priceRange": "££",
+      "servesCuisine": ["Indian", "Nepalese"],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "High Street",
+        "addressLocality": "Girton",
+        "addressRegion": "Cambridge",
+        "postalCode": "CB3 0QQ",
+        "addressCountry": "GB"
+      }
+    }
+  },
+  "features": {
+    "services": {
+      "dine_in": true,
+      "takeaway": true,
+      "delivery": true,
+      "catering": true,
+      "private_events": false
+    },
+    "dining": {
+      "reservations": true,
+      "walk_ins": true,
+      "group_bookings": true,
+      "private_dining": false,
+      "outdoor_seating": false
+    },
+    "accessibility": {
+      "wheelchair_accessible": true,
+      "disabled_parking": true,
+      "accessible_toilets": true
+    },
+    "amenities": {
+      "parking": true,
+      "wifi": true,
+      "air_conditioning": true,
+      "background_music": true
+    },
+    "payment_methods": [
+      "cash",
+      "credit_card",
+      "debit_card",
+      "contactless",
+      "apple_pay",
+      "google_pay"
+    ]
+  },
+  "delivery": {
+    "available": true,
+    "radius_miles": 5,
+    "minimum_order": {
+      "amount": 15.00,
+      "display": "£15.00"
+    },
+    "delivery_fee": {
+      "amount": 2.50,
+      "display": "£2.50"
+    },
+    "free_delivery_threshold": {
+      "amount": 25.00,
+      "display": "£25.00"
+    },
+    "estimated_time": "30-45 minutes",
+    "partners": [
+      {
+        "name": "Deliveroo",
+        "url": "https://deliveroo.co.uk/menu/cambridge/girton/old-crown-girton"
+      },
+      {
+        "name": "Just Eat",
+        "url": "https://www.just-eat.co.uk/restaurants-old-crown-girton"
+      },
+      {
+        "name": "Uber Eats",
+        "url": "https://www.ubereats.com/gb/cambridge/food-delivery/old-crown-girton"
+      }
+    ],
+    "coverage_areas": [
+      "Girton",
+      "Cambridge",
+      "Histon",
+      "Impington",
+      "Madingley"
+    ]
+  },
+  "booking": {
+    "phone": "+44 1223 276027",
+    "email": "bookings@oldcrowngirton.co.uk", 
+    "online_booking": false,
+    "advance_booking_days": 14,
+    "party_size_limit": 12,
+    "deposit_required": false,
+    "cancellation_policy": "24 hours notice required for groups of 6 or more"
+  },
+  "nutrition": {
+    "allergen_policy": "We take allergies seriously. Please inform staff of any allergies when ordering.",
+    "common_allergens": [
+      "gluten",
+      "dairy",
+      "nuts",
+      "eggs",
+      "soy",
+      "sesame"
+    ],
+    "dietary_accommodations": [
+      "gluten_free",
+      "vegetarian", 
+      "vegan",
+      "dairy_free"
+    ]
+  },
+  "template_info": {
+    "version": "1.0",
+    "created": "2024-01-15T00:00:00Z",
+    "description": "Unified restaurant data template for Old Crown Girton",
+    "structure": "Modular JSON template with sections for restaurant identity, menu, gallery, testimonials, events, SEO, and operational features",
+    "usage": "This template provides a standardized structure for managing all restaurant data in a single, easily editable format"
+  }
+}

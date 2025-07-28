@@ -1,0 +1,217 @@
+{
+  "restaurant": {
+    "name": "Old Crown, Girton",
+    "tagline": "Authentic Nepalese cuisine & traditional pub classics",
+    "description": "Located in the charming village of Girton, just 3 miles from Cambridge city center, the Old Crown offers a unique dining experience that bridges the flavors of Nepal with traditional British pub classics.",
+    "address": {
+      "street": "High Street",
+      "town": "Girton",
+      "city": "Cambridge",
+      "postcode": "CB3 0QQ",
+      "coordinates": {
+        "lat": 52.2385,
+        "lng": 0.0926
+      }
+    },
+    "contact": {
+      "phone": "01223 276027",
+      "email": "info@oldcrowngirton.co.uk",
+      "website": "https://oldcrowngirton.co.uk"
+    },
+    "hours": {
+      "restaurant": {
+        "monday": "12:00-22:00",
+        "tuesday": "12:00-22:00",
+        "wednesday": "12:00-22:00",
+        "thursday": "12:00-22:00",
+        "friday": "12:00-22:30",
+        "saturday": "12:00-22:30",
+        "sunday": "12:00-21:30"
+      },
+      "bar": {
+        "monday": "12:00-23:00",
+        "tuesday": "12:00-23:00",
+        "wednesday": "12:00-23:00",
+        "thursday": "12:00-23:00",
+        "friday": "12:00-00:00",
+        "saturday": "12:00-00:00",
+        "sunday": "12:00-22:30"
+      }
+    },
+    "social": {
+      "facebook": "https://facebook.com/oldcrowngirton",
+      "instagram": "https://instagram.com/oldcrowngirton"
+    },
+    "features": [
+      "Outdoor terrace garden",
+      "Free parking",
+      "Dog-friendly",
+      "Private dining room",
+      "Wheelchair accessible",
+      "Free WiFi"
+    ],
+    "awards": [
+      {
+        "title": "BII Sustainability Champion",
+        "year": "2024",
+        "icon": "🌱"
+      },
+      {
+        "title": "4.8/5 Customer Rating",
+        "year": "2024",
+        "icon": "⭐"
+      },
+      {
+        "title": "CAMRA Recommended",
+        "year": "2023",
+        "icon": "🍺"
+      }
+    ]
+  },
+  "menu": {
+    "featured": [
+      {
+        "id": "momo",
+        "title": "Chicken Momo",
+        "description": "Traditional Nepalese dumplings filled with seasoned chicken, served with our signature tomato chutney",
+        "price": "£8.95",
+        "category": "appetizers",
+        "spiceLevel": "medium",
+        "isVegetarian": false,
+        "image": "/dishes/momo.jpg",
+        "allergens": ["gluten", "soy"]
+      },
+      {
+        "id": "dal-bhat",
+        "title": "Dal Bhat",
+        "description": "Nepal's national dish featuring lentil soup, basmati rice, and seasonal vegetables",
+        "price": "£12.50",
+        "category": "mains",
+        "spiceLevel": "mild",
+        "isVegetarian": true,
+        "image": "/dishes/dal-bhat.jpg",
+        "allergens": []
+      },
+      {
+        "id": "lamb-curry",
+        "title": "Lamb Curry",
+        "description": "Tender lamb slow-cooked in aromatic spices with fresh herbs and traditional seasonings",
+        "price": "£16.95",
+        "category": "mains",
+        "spiceLevel": "hot",
+        "isVegetarian": false,
+        "image": "/dishes/lamb-curry.jpg",
+        "allergens": ["dairy"]
+      },
+      {
+        "id": "fish-chips",
+        "title": "Fish & Chips",
+        "description": "Fresh cod in golden beer batter with hand-cut chips and mushy peas - a pub classic",
+        "price": "£14.50",
+        "category": "pub-classics",
+        "spiceLevel": null,
+        "isVegetarian": false,
+        "image": "/dishes/fish-chips.jpg",
+        "allergens": ["gluten", "fish"]
+      },
+      {
+        "id": "vegetable-thali",
+        "title": "Vegetable Thali",
+        "description": "A complete vegetarian feast with multiple curries, rice, bread, and pickles",
+        "price": "£13.95",
+        "category": "mains",
+        "spiceLevel": "medium",
+        "isVegetarian": true,
+        "image": "/dishes/thali.jpg",
+        "allergens": ["gluten", "dairy"]
+      },
+      {
+        "id": "grilled-salmon",
+        "title": "Grilled Salmon",
+        "description": "Pan-seared salmon fillet with seasonal vegetables and herb butter",
+        "price": "£18.95",
+        "category": "pub-classics",
+        "spiceLevel": null,
+        "isVegetarian": false,
+        "image": "/dishes/salmon.jpg",
+        "allergens": ["fish", "dairy"]
+      }
+    ],
+    "categories": [
+      {
+        "id": "appetizers",
+        "name": "Appetizers",
+        "description": "Start your meal with our delicious starters"
+      },
+      {
+        "id": "mains",
+        "name": "Nepalese Mains",
+        "description": "Authentic dishes from the heart of Nepal"
+      },
+      {
+        "id": "pub-classics",
+        "name": "Pub Classics",
+        "description": "Traditional British favorites"
+      },
+      {
+        "id": "desserts",
+        "name": "Desserts",
+        "description": "Sweet endings to your meal"
+      },
+      {
+        "id": "drinks",
+        "name": "Drinks",
+        "description": "Beers, wines, and specialty beverages"
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": "curry-night",
+      "title": "Curry Night Special",
+      "description": "Every Tuesday - 20% off all Nepalese curries",
+      "date": "Every Tuesday",
+      "image": "/events/curry-night.jpg",
+      "isRecurring": true
+    },
+    {
+      "id": "quiz-night",
+      "title": "Pub Quiz Night",
+      "description": "Test your knowledge every Thursday at 8pm. Prizes to be won!",
+      "date": "Every Thursday, 8:00 PM",
+      "image": "/events/quiz-night.jpg",
+      "isRecurring": true
+    },
+    {
+      "id": "live-music",
+      "title": "Live Music Weekend",
+      "description": "Enjoy acoustic performances in our beer garden",
+      "date": "First Saturday of each month",
+      "image": "/events/live-music.jpg",
+      "isRecurring": true
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Sarah Johnson",
+      "rating": 5,
+      "comment": "Absolutely amazing food! The momos were incredible and the staff were so friendly. Will definitely be back!",
+      "date": "2024-01-15"
+    },
+    {
+      "id": 2,
+      "name": "David Chen",
+      "rating": 5,
+      "comment": "Best Nepalese food in Cambridge! The dal bhat reminded me of my travels in Nepal. Authentic flavors and great atmosphere.",
+      "date": "2024-01-10"
+    },
+    {
+      "id": 3,
+      "name": "Emma Wilson",
+      "rating": 5,
+      "comment": "Perfect place for a family meal. Great mix of traditional pub food and exotic Nepalese dishes. The beer garden is lovely too!",
+      "date": "2024-01-08"
+    }
+  ]
+}
