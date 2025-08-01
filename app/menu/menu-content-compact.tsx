@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { 
   Search, 
   UtensilsCrossed, 
@@ -12,7 +13,7 @@ import {
   Clock, 
   MapPin, 
   Star,
-  Filter,
+  SlidersHorizontal as Filter,
   X,
   ChefHat,
   Sparkles,
@@ -34,6 +35,7 @@ interface MenuItemProps {
   description?: string;
   price: string;
   badges?: string[];
+  image?: string;
 }
 
 interface FilterState {
@@ -122,12 +124,12 @@ const CompactMenu: React.FC = () => {
   // Compact Badge Component
   const Badge: React.FC<BadgeProps> = ({ text, className = '' }) => {
     const config = {
-      'GF': { bg: 'bg-blue-50 border-blue-200', text: 'text-blue-700', icon: <Wheat className="w-2.5 h-2.5" /> },
-      'V': { bg: 'bg-green-50 border-green-200', text: 'text-green-700', icon: <Leaf className="w-2.5 h-2.5" /> }
+      'GF': { bg: 'bg-blue-50 border-blue-200', text: 'text-blue-700', icon: <Wheat className="w-3 h-3" /> },
+      'V': { bg: 'bg-green-50 border-green-200', text: 'text-green-700', icon: <Leaf className="w-3 h-3" /> }
     }[text] || { bg: 'bg-gray-50 border-gray-200', text: 'text-gray-700', icon: null };
     
     return (
-      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium border ${config.bg} ${config.text} ${className}`}>
+      <span className={`badge-touch gap-1.5 rounded-full text-xs font-medium border ${config.bg} ${config.text} ${className}`}>
         {config.icon}
         {text}
       </span>
@@ -135,7 +137,7 @@ const CompactMenu: React.FC = () => {
   };
 
   // Compact Menu Item Component
-  const MenuItem: React.FC<MenuItemProps> = ({ name, description, price, badges = [] }) => {
+  const MenuItem: React.FC<MenuItemProps> = ({ name, description, price, badges = [], image }) => {
     const shouldShow = useMemo(() => {
       if (!searchTerm) return true;
       const searchLower = searchTerm.toLowerCase();
@@ -151,8 +153,22 @@ const CompactMenu: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="group flex items-start justify-between py-2 sm:py-3 border-b border-gray-100 last:border-b-0 hover:bg-gray-50/50 transition-colors duration-200"
+        className="group flex items-start gap-3 py-2 sm:py-3 border-b border-gray-100 last:border-b-0 hover:bg-gray-50/50 transition-colors duration-200"
       >
+        {/* Image */}
+        {image && (
+          <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-gray-100">
+            <Image
+              src={image}
+              alt={name}
+              width={80}
+              height={80}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            />
+          </div>
+        )}
+        
+        {/* Content */}
         <div className="flex-1 min-w-0 pr-3">
           <div className="flex items-start gap-2 mb-1">
             <h3 className="font-medium text-gray-900 text-sm sm:text-base leading-tight group-hover:text-crown-gold transition-colors">
@@ -172,6 +188,8 @@ const CompactMenu: React.FC = () => {
             </p>
           )}
         </div>
+        
+        {/* Price */}
         <div className="flex-shrink-0">
           <span className="font-semibold text-crown-gold text-sm sm:text-base group-hover:text-crown-gold-dark transition-colors">
             {price}
@@ -413,6 +431,7 @@ const CompactMenu: React.FC = () => {
                     name={item.name}
                     description={item.description}
                     price={item.price}
+                    image={(item as any).image}
                     badges={[
                       ...(item.gluten_free ? ['GF'] : []),
                       ...(item.name.toLowerCase().includes('veg') ? ['V'] : [])
@@ -442,6 +461,7 @@ const CompactMenu: React.FC = () => {
                     name={item.name}
                     description={item.description}
                     price={item.price}
+                    image={(item as any).image}
                     badges={item.name.toLowerCase().includes('veg') ? ['V'] : []}
                   />
                 ))}
@@ -473,6 +493,7 @@ const CompactMenu: React.FC = () => {
                     name={item.name}
                     description={item.description}
                     price={item.price}
+                    image={(item as any).image}
                     badges={[
                       ...(item.gluten_free ? ['GF'] : []),
                       ...(item.name.toLowerCase().includes('paneer') ? ['V'] : [])
@@ -588,6 +609,7 @@ const CompactMenu: React.FC = () => {
                     name={item.name}
                     description={item.description}
                     price={item.price}
+                    image={(item as any).image}
                     badges={item.name.includes('Veggie') ? ['V'] : []}
                   />
                 ))}

@@ -40,7 +40,7 @@ export default function Button({
   disabled = false,
   fullWidth = false,
 }: ButtonProps) {
-  const baseStyles = 'font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-opacity-50';
+  const baseStyles = 'touch-target font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-opacity-50';
   const widthStyle = fullWidth ? 'w-full' : '';
   const disabledStyle = disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
   

@@ -16,7 +16,7 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
     <div className="border border-gray-200 rounded-lg overflow-hidden mb-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 flex justify-between items-center"
+        className="touch-target w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 flex justify-between items-center"
       >
         <span className="text-lg font-semibold text-crown-slate">{title}</span>
         <motion.svg

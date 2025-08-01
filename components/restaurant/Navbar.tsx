@@ -38,7 +38,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-crown-slate hover:text-crown-gold px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="touch-target text-crown-slate hover:text-crown-gold px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-3">
             <a
               href="tel:01223276027"
-              className="bg-primary hover:bg-crown-gold-dark text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+              className="touch-target bg-crown-gold text-crown-dark px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-500 transition-colors duration-200"
             >
               📞 Call Us
             </a>
@@ -60,7 +60,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-crown-slate hover:text-crown-gold hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              className="touch-target inline-flex items-center justify-center p-2 rounded-md text-crown-slate hover:text-crown-gold hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? (
@@ -92,7 +92,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-crown-slate hover:text-crown-gold block px-3 py-2 rounded-md text-base font-medium"
+                  className="touch-target text-crown-slate hover:text-crown-gold block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
@@ -102,7 +102,7 @@ export default function Navbar() {
                 <div className="px-3">
                   <a
                     href="tel:01223276027"
-                    className="block bg-primary hover:bg-crown-gold-dark text-white px-4 py-3 rounded-lg font-medium transition-colors duration-200 text-center"
+                    className="touch-target block bg-crown-gold text-crown-dark px-4 py-3 rounded-lg font-medium hover:bg-yellow-500 transition-colors duration-200 text-center"
                   >
                     📞 Call: 01223 276027
                   </a>

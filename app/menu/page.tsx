@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
-import CompactMenu from './menu-content-compact';
+import dynamic from 'next/dynamic';
+import RestaurantLayout from '@/components/restaurant/Layout';
+
+// Dynamic import for menu component to reduce initial bundle size
+const CompactMenu = dynamic(() => import('./menu-content-compact'), {
+  loading: () => (
+    <div className="animate-pulse">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="h-8 bg-gray-200 rounded mb-6"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="h-24 bg-gray-200 rounded"></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+  ssr: true, // Enable SSR for SEO
+});
 
 export const metadata: Metadata = {
   title: 'Menu | Old Crown, Girton - Authentic Nepalese & Indian Cuisine',
@@ -62,7 +80,22 @@ export default function MenuPage() {
           __html: JSON.stringify(menuSchema),
         }}
       />
-      <CompactMenu />
+      <RestaurantLayout>
+        <Suspense fallback={
+          <div className="animate-pulse">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              <div className="h-8 bg-gray-200 rounded mb-6"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="h-24 bg-gray-200 rounded"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        }>
+          <CompactMenu />
+        </Suspense>
+      </RestaurantLayout>
     </>
   );
 }

@@ -4,6 +4,7 @@ import { Viewport } from "next";
 import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
+import { WebVitalsTracker, PerformanceDebugPanel } from "@/components/ui/PerformanceTracker";
 import config from "@/config";
 import "./globals.css";
 
@@ -43,6 +44,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       )}
       <body className={inter.className}>
         <ClientLayout>{children}</ClientLayout>
+        <WebVitalsTracker />
+        <PerformanceDebugPanel />
       </body>
     </html>
   );
