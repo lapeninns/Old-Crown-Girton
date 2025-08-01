@@ -1,0 +1,717 @@
+/* Accessibility Enhancement Styles - WCAG 2.1 AA Compliant */
+
+/* Base accessibility variables */
+:root {
+  --accessibility-focus-width: 3px;
+  --accessibility-focus-color: #005fcc;
+  --accessibility-focus-offset: 2px;
+  --accessibility-bg-primary: #ffffff;
+  --accessibility-text-primary: #212529;
+  --accessibility-bg-secondary: #f8f9fa;
+  --accessibility-text-secondary: #6c757d;
+  --accessibility-border-primary: #dee2e6;
+  --accessibility-error: #dc3545;
+  --accessibility-success: #28a745;
+  --accessibility-warning: #ffc107;
+  --accessibility-info: #17a2b8;
+  
+  /* Motion preferences */
+  --accessibility-animation-duration: 0.3s;
+  --accessibility-animation-easing: ease-in-out;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --accessibility-animation-duration: 0.01ms;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode */
+.accessibility-high-contrast {
+  --accessibility-bg-primary: #000000;
+  --accessibility-text-primary: #ffffff;
+  --accessibility-bg-secondary: #1a1a1a;
+  --accessibility-text-secondary: #cccccc;
+  --accessibility-border-primary: #ffffff;
+  --accessibility-focus-color: #ffff00;
+  --accessibility-error: #ff6b6b;
+  --accessibility-success: #51cf66;
+  --accessibility-warning: #ffd43b;
+  --accessibility-info: #74c0fc;
+  
+  background-color: var(--accessibility-bg-primary) !important;
+  color: var(--accessibility-text-primary) !important;
+  
+  /* Force high contrast for all elements */
+  * {
+    background-color: transparent !important;
+    color: inherit !important;
+    border-color: var(--accessibility-border-primary) !important;
+  }
+  
+  /* Specific overrides for interactive elements */
+  button,
+  input,
+  select,
+  textarea {
+    background-color: var(--accessibility-bg-secondary) !important;
+    color: var(--accessibility-text-primary) !important;
+    border: 2px solid var(--accessibility-border-primary) !important;
+  }
+  
+  /* High contrast for links */
+  a {
+    color: #74c0fc !important;
+    text-decoration: underline !important;
+  }
+  
+  a:hover,
+  a:focus {
+    color: #ffd43b !important;
+    background-color: var(--accessibility-bg-secondary) !important;
+  }
+  
+  /* High contrast for images */
+  img {
+    filter: contrast(1.2) brightness(1.1) !important;
+  }
+  
+  /* Remove background images that interfere with readability */
+  *[style*="background-image"] {
+    background-image: none !important;
+  }
+}
+
+/* Large Text Mode */
+.accessibility-large-text {
+  font-size: 1.25em !important;
+  line-height: 1.6 !important;
+  
+  * {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+  
+  /* Scale specific elements appropriately */
+  h1 { font-size: 2.5em !important; }
+  h2 { font-size: 2em !important; }
+  h3 { font-size: 1.75em !important; }
+  h4 { font-size: 1.5em !important; }
+  h5 { font-size: 1.25em !important; }
+  h6 { font-size: 1.1em !important; }
+  
+  /* Increase padding for better touch targets */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    padding: 0.75em 1em !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  /* Scale icons */
+  svg,
+  .icon {
+    width: 1.5em !important;
+    height: 1.5em !important;
+  }
+}
+
+/* Extra Large Text Mode */
+.accessibility-extra-large-text {
+  font-size: 1.5em !important;
+  line-height: 1.8 !important;
+  
+  * {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+  
+  h1 { font-size: 3em !important; }
+  h2 { font-size: 2.5em !important; }
+  h3 { font-size: 2em !important; }
+  h4 { font-size: 1.75em !important; }
+  h5 { font-size: 1.5em !important; }
+  h6 { font-size: 1.25em !important; }
+  
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    padding: 1em 1.25em !important;
+    min-height: 56px !important;
+    min-width: 56px !important;
+  }
+  
+  svg,
+  .icon {
+    width: 2em !important;
+    height: 2em !important;
+  }
+}
+
+/* Dyslexia-Friendly Mode */
+.accessibility-dyslexia-friendly {
+  font-family: 'Arial', 'Helvetica', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+  line-height: 1.8 !important;
+  
+  /* Remove italics and decorative fonts */
+  * {
+    font-family: inherit !important;
+    font-style: normal !important;
+    font-weight: inherit !important;
+    text-transform: none !important;
+  }
+  
+  /* Increase paragraph spacing */
+  p {
+    margin-bottom: 1.5em !important;
+  }
+  
+  /* Clear text alignment */
+  * {
+    text-align: left !important;
+  }
+  
+  /* Remove text shadows and effects */
+  * {
+    text-shadow: none !important;
+  }
+  
+  /* Consistent heading styling */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: inherit !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.75em !important;
+  }
+  
+  /* Better link styling */
+  a {
+    text-decoration: underline !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Enhanced Focus Indicators */
+.accessibility-enhanced-focus *:focus {
+  outline: var(--accessibility-focus-width) solid var(--accessibility-focus-color) !important;
+  outline-offset: var(--accessibility-focus-offset) !important;
+  box-shadow: 0 0 0 calc(var(--accessibility-focus-width) + var(--accessibility-focus-offset)) rgba(0, 95, 204, 0.3) !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+/* Keyboard navigation highlighting */
+.accessibility-keyboard-nav .keyboard-focused {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 2px !important;
+  background-color: rgba(255, 255, 0, 0.1) !important;
+}
+
+/* Skip links */
+.accessibility-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--accessibility-focus-color);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  z-index: 1000;
+  transition: top var(--accessibility-animation-duration) var(--accessibility-animation-easing);
+}
+
+.accessibility-skip-link:focus {
+  top: 6px;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Make screen reader content visible when focused */
+.sr-only:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0.25rem 0.5rem !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  background: var(--accessibility-focus-color) !important;
+  color: white !important;
+  border-radius: 4px !important;
+}
+
+/* Improved form accessibility */
+.accessibility-enhanced-forms input,
+.accessibility-enhanced-forms textarea,
+.accessibility-enhanced-forms select {
+  border: 2px solid var(--accessibility-border-primary) !important;
+  padding: 0.75em !important;
+  font-size: 1rem !important;
+  border-radius: 4px !important;
+  background-color: var(--accessibility-bg-primary) !important;
+  color: var(--accessibility-text-primary) !important;
+}
+
+.accessibility-enhanced-forms input:focus,
+.accessibility-enhanced-forms textarea:focus,
+.accessibility-enhanced-forms select:focus {
+  border-color: var(--accessibility-focus-color) !important;
+  box-shadow: 0 0 0 2px rgba(0, 95, 204, 0.3) !important;
+}
+
+.accessibility-enhanced-forms input:invalid,
+.accessibility-enhanced-forms textarea:invalid,
+.accessibility-enhanced-forms select:invalid {
+  border-color: var(--accessibility-error) !important;
+}
+
+.accessibility-enhanced-forms label {
+  display: block !important;
+  margin-bottom: 0.5em !important;
+  font-weight: 600 !important;
+  color: var(--accessibility-text-primary) !important;
+}
+
+.accessibility-enhanced-forms .error-message {
+  color: var(--accessibility-error) !important;
+  font-size: 0.875em !important;
+  margin-top: 0.25em !important;
+  display: block !important;
+}
+
+/* Enhanced button styling */
+.accessibility-enhanced-buttons button,
+.accessibility-enhanced-buttons .button {
+  padding: 0.75em 1.5em !important;
+  min-height: 44px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border: 2px solid transparent !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: all var(--accessibility-animation-duration) var(--accessibility-animation-easing) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5em !important;
+}
+
+.accessibility-enhanced-buttons button:hover,
+.accessibility-enhanced-buttons .button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.accessibility-enhanced-buttons button:active,
+.accessibility-enhanced-buttons .button:active {
+  transform: translateY(0) !important;
+}
+
+.accessibility-enhanced-buttons button:disabled,
+.accessibility-enhanced-buttons .button:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Enhanced link styling */
+.accessibility-enhanced-links a {
+  color: var(--accessibility-info) !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+  transition: all var(--accessibility-animation-duration) var(--accessibility-animation-easing) !important;
+}
+
+.accessibility-enhanced-links a:hover {
+  background-color: rgba(23, 162, 184, 0.1) !important;
+  text-decoration-thickness: 3px !important;
+}
+
+.accessibility-enhanced-links a:focus {
+  background-color: rgba(23, 162, 184, 0.2) !important;
+}
+
+/* Touch target improvements */
+.accessibility-enhanced-touch-targets button,
+.accessibility-enhanced-touch-targets a,
+.accessibility-enhanced-touch-targets input,
+.accessibility-enhanced-touch-targets select,
+.accessibility-enhanced-touch-targets textarea,
+.accessibility-enhanced-touch-targets [role="button"],
+.accessibility-enhanced-touch-targets [role="link"] {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  padding: 0.75em !important;
+}
+
+/* Color contrast improvements for text */
+.accessibility-enhanced-contrast {
+  color: var(--accessibility-text-primary) !important;
+  background-color: var(--accessibility-bg-primary) !important;
+}
+
+.accessibility-enhanced-contrast .text-muted,
+.accessibility-enhanced-contrast .text-secondary {
+  color: var(--accessibility-text-secondary) !important;
+}
+
+/* Table accessibility improvements */
+.accessibility-enhanced-tables table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.accessibility-enhanced-tables th,
+.accessibility-enhanced-tables td {
+  padding: 0.75rem !important;
+  border: 1px solid var(--accessibility-border-primary) !important;
+  text-align: left !important;
+}
+
+.accessibility-enhanced-tables th {
+  background-color: var(--accessibility-bg-secondary) !important;
+  font-weight: 600 !important;
+}
+
+.accessibility-enhanced-tables tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Animation control for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .accessibility-respect-motion-preference *,
+  .accessibility-respect-motion-preference *::before,
+  .accessibility-respect-motion-preference *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode accessibility improvements */
+@media (prefers-color-scheme: dark) {
+  .accessibility-respect-color-scheme {
+    --accessibility-bg-primary: #1a1a1a;
+    --accessibility-text-primary: #ffffff;
+    --accessibility-bg-secondary: #2d2d2d;
+    --accessibility-text-secondary: #cccccc;
+    --accessibility-border-primary: #404040;
+  }
+}
+
+/* Print accessibility */
+@media print {
+  .accessibility-print-friendly {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt !important;
+    line-height: 1.5 !important;
+  }
+  
+  .accessibility-print-friendly a::after {
+    content: " (" attr(href) ")" !important;
+    font-size: 0.8em !important;
+    color: #666 !important;
+  }
+  
+  .accessibility-print-friendly .no-print {
+    display: none !important;
+  }
+}
+
+/* Loading state accessibility */
+.accessibility-loading {
+  position: relative;
+}
+
+.accessibility-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.accessibility-loading::before {
+  content: 'Loading...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  font-weight: 600;
+  color: var(--accessibility-text-primary);
+}
+
+/* Error state accessibility */
+.accessibility-error-state {
+  border: 2px solid var(--accessibility-error) !important;
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: var(--accessibility-error) !important;
+  padding: 1rem !important;
+  border-radius: 4px !important;
+  margin: 1rem 0 !important;
+}
+
+.accessibility-error-state::before {
+  content: '⚠ ';
+  font-weight: bold;
+}
+
+/* Success state accessibility */
+.accessibility-success-state {
+  border: 2px solid var(--accessibility-success) !important;
+  background-color: rgba(40, 167, 69, 0.1) !important;
+  color: var(--accessibility-success) !important;
+  padding: 1rem !important;
+  border-radius: 4px !important;
+  margin: 1rem 0 !important;
+}
+
+.accessibility-success-state::before {
+  content: '✓ ';
+  font-weight: bold;
+}
+
+/* Accessibility control panel specific styles */
+.accessibility-control-panel {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 9999;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 350px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.accessibility-control-panel * {
+  box-sizing: border-box;
+}
+
+.accessibility-control-panel .panel-header {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f9fa;
+  border-radius: 6px 6px 0 0;
+}
+
+.accessibility-control-panel .panel-content {
+  padding: 1rem;
+}
+
+.accessibility-control-panel .setting-group {
+  margin-bottom: 1.5rem;
+}
+
+.accessibility-control-panel .setting-group:last-child {
+  margin-bottom: 0;
+}
+
+.accessibility-control-panel .setting-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.accessibility-control-panel .toggle-switch {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accessibility-control-panel .toggle-switch.active {
+  background: #4CAF50;
+}
+
+.accessibility-control-panel .toggle-switch .toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.accessibility-control-panel .toggle-switch.active .toggle-thumb {
+  transform: translateX(26px);
+}
+
+/* Responsive accessibility improvements */
+@media (max-width: 768px) {
+  .accessibility-mobile-friendly {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+  }
+  
+  .accessibility-mobile-friendly button,
+  .accessibility-mobile-friendly a,
+  .accessibility-mobile-friendly input,
+  .accessibility-mobile-friendly select,
+  .accessibility-mobile-friendly textarea {
+    min-height: 48px !important;
+    padding: 1rem !important;
+    font-size: 1rem !important;
+  }
+  
+  .accessibility-control-panel {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    transform: none;
+    width: auto;
+    max-height: 60vh;
+  }
+}
+
+/* Focus trap for modals and dialogs */
+.accessibility-focus-trap {
+  position: relative;
+}
+
+.accessibility-focus-trap::before,
+.accessibility-focus-trap::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Announcement region for screen readers */
+.accessibility-announcements {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Utility classes for common accessibility patterns */
+.accessibility-clickable {
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+.accessibility-clickable:hover {
+  opacity: 0.8 !important;
+}
+
+.accessibility-focusable {
+  outline: none !important;
+}
+
+.accessibility-focusable:focus {
+  outline: 3px solid var(--accessibility-focus-color) !important;
+  outline-offset: 2px !important;
+}
+
+.accessibility-hidden {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.accessibility-visible {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* High contrast mode support for Windows */
+@media (prefers-contrast: high) {
+  .accessibility-system-high-contrast {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+  }
+  
+  .accessibility-system-high-contrast button {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1px solid ButtonText !important;
+  }
+  
+  .accessibility-system-high-contrast a {
+    color: LinkText !important;
+  }
+}
+
+/* Animation and transition utilities */
+.accessibility-smooth-transitions * {
+  transition: all var(--accessibility-animation-duration) var(--accessibility-animation-easing) !important;
+}
+
+.accessibility-no-transitions * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Text selection improvements */
+.accessibility-enhanced-selection ::selection {
+  background: rgba(0, 95, 204, 0.3) !important;
+  color: inherit !important;
+}
+
+.accessibility-enhanced-selection ::-moz-selection {
+  background: rgba(0, 95, 204, 0.3) !important;
+  color: inherit !important;
+}

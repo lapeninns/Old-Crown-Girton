@@ -5,8 +5,15 @@ import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
 import { WebVitalsTracker, PerformanceDebugPanel } from "@/components/ui/PerformanceTracker";
+import InstallPrompt, { OfflineNotification, UpdateNotification } from "@/components/ui/InstallPrompt";
+import ServiceWorkerManager from "@/components/ui/ServiceWorkerManager";
+import { AnalyticsProvider } from "@/components/ui/AnalyticsIntegration";
+import { SchemaInjector } from "@/components/seo/RestaurantSchema";
+import { LocalSEODashboard } from "@/components/seo/LocalSEO";
+import { AccessibilityControlPanel } from "@/components/accessibility/AccessibilityControlPanel";
 import config from "@/config";
 import "./globals.css";
+import "../styles/accessibility.css";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -40,12 +47,55 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <PlausibleProvider domain={config.domainName} />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+          
+          {/* PWA Manifest */}
+          <link rel="manifest" href="/manifest.json" />
+          
+          {/* PWA Icons */}
+          <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/icon.png" />
+          
+          {/* PWA Meta Tags */}
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="apple-mobile-web-app-title" content="Old Crown" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="msapplication-TileColor" content="#D4941E" />
+          <meta name="msapplication-tap-highlight" content="no" />
+          
+          {/* Preload critical resources */}
+          <link rel="preload" href="/hero-restaurant.jpg" as="image" />
         </head>
       )}
       <body className={inter.className}>
-        <ClientLayout>{children}</ClientLayout>
-        <WebVitalsTracker />
-        <PerformanceDebugPanel />
+        {/* SEO Schema Markup */}
+        <SchemaInjector type="restaurant" />
+        
+        {/* Skip to main content link for accessibility */}
+        <a href="#main-content" className="accessibility-skip-link">
+          Skip to main content
+        </a>
+        
+        <AnalyticsProvider>
+          <main id="main-content">
+            <ClientLayout>{children}</ClientLayout>
+          </main>
+          
+          {/* PWA Components */}
+          <ServiceWorkerManager />
+          <InstallPrompt />
+          <OfflineNotification />
+          <UpdateNotification />
+          
+          {/* Performance Monitoring */}
+          <WebVitalsTracker />
+          <PerformanceDebugPanel />
+          
+          {/* SEO & Accessibility Dashboards */}
+          <LocalSEODashboard />
+          <AccessibilityControlPanel />
+        </AnalyticsProvider>
       </body>
     </html>
   );
