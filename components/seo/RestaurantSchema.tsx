@@ -1,7 +1,7 @@
 // Restaurant Schema Markup - Comprehensive structured data implementation
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // Schema.org types for restaurant
 interface RestaurantSchema {

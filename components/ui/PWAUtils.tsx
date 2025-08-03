@@ -46,7 +46,7 @@ export const useServiceWorker = () => {
       setRegistration(reg);
       setIsRegistered(true);
 
-      console.log('[PWA] Service Worker registered successfully');
+      // Service Worker registered successfully
 
       // Check for updates
       reg.addEventListener('updatefound', () => {
@@ -55,7 +55,7 @@ export const useServiceWorker = () => {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
               setUpdateAvailable(true);
-              console.log('[PWA] New service worker available');
+              // New service worker available
             }
           });
         }
@@ -63,7 +63,7 @@ export const useServiceWorker = () => {
 
       // Handle messages from service worker
       navigator.serviceWorker.addEventListener('message', (event) => {
-        console.log('[PWA] Message from SW:', event.data);
+        // Message received from SW
       });
 
     } catch (error) {
@@ -106,7 +106,7 @@ export const useInstallPrompt = () => {
       e.preventDefault();
       setDeferredPrompt(e);
       setIsInstallable(true);
-      console.log('[PWA] Install prompt available');
+      // Install prompt available
     };
 
     // Listen for successful install
@@ -114,7 +114,7 @@ export const useInstallPrompt = () => {
       setIsInstalled(true);
       setIsInstallable(false);
       setDeferredPrompt(null);
-      console.log('[PWA] App installed successfully');
+      // App installed successfully
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -134,12 +134,12 @@ export const useInstallPrompt = () => {
       const { outcome } = await (deferredPrompt as any).userChoice;
       
       if (outcome === 'accepted') {
-        console.log('[PWA] User accepted install prompt');
+        // User accepted install prompt
         setIsInstallable(false);
         setDeferredPrompt(null);
         return true;
       } else {
-        console.log('[PWA] User dismissed install prompt');
+        // User dismissed install prompt
         return false;
       }
     } catch (error) {
@@ -166,7 +166,7 @@ export const useOnlineStatus = () => {
     const handleOnline = () => {
       setIsOnline(true);
       if (wasOffline) {
-        console.log('[PWA] Connection restored');
+        // Connection restored
         // Could trigger a sync or show a notification
       }
       setWasOffline(false);
@@ -175,7 +175,7 @@ export const useOnlineStatus = () => {
     const handleOffline = () => {
       setIsOnline(false);
       setWasOffline(true);
-      console.log('[PWA] Connection lost');
+      // Connection lost
     };
 
     window.addEventListener('online', handleOnline);
@@ -207,7 +207,7 @@ export const useBackgroundSync = () => {
       const registration = await navigator.serviceWorker.ready;
       if (registration.sync) {
         await registration.sync.register(tag);
-        console.log(`[PWA] Background sync registered: ${tag}`);
+        // Background sync registered
         return true;
       }
       console.warn('[PWA] Background sync not supported');
@@ -258,7 +258,7 @@ export const usePushNotifications = () => {
       });
 
       setSubscription(sub);
-      console.log('[PWA] Push subscription successful');
+      // Push subscription successful
       return sub;
     } catch (error) {
       console.error('[PWA] Push subscription failed:', error);
@@ -271,7 +271,7 @@ export const usePushNotifications = () => {
       try {
         await subscription.unsubscribe();
         setSubscription(null);
-        console.log('[PWA] Push unsubscription successful');
+        // Push unsubscription successful
         return true;
       } catch (error) {
         console.error('[PWA] Push unsubscription failed:', error);
@@ -338,7 +338,7 @@ export const useOfflineStorage = () => {
         request.onerror = () => reject(request.error);
       });
 
-      console.log(`[PWA] Data stored offline in ${storeName}`);
+      // Data stored offline
       return true;
     } catch (error) {
       console.error('[PWA] Offline storage failed:', error);
@@ -398,7 +398,7 @@ export const usePWAMetrics = () => {
 
     // Track PWA usage
     if (isStandalone) {
-      console.log('[PWA] Running in standalone mode');
+      // Running in standalone mode
       // Could send analytics event here
     }
   }, []);

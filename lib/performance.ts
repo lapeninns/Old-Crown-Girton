@@ -32,7 +32,6 @@ function getConnectionSpeed(): string {
  */
 function sendToAnalytics(metric: WebVital): void {
   if (process.env.NODE_ENV !== 'production') {
-    console.log('Performance Metric:', metric);
     return;
   }
   
@@ -61,7 +60,40 @@ function sendToAnalytics(metric: WebVital): void {
         'content-type': 'application/json',
       },
       keepalive: true,
-    }).catch(console.error);
+    }).catch(() => {
+      // Silent failure for analytics
+    });
+  }
+}
+
+/**
+ * Custom analytics for component performance (not Web Vitals)
+ */
+function sendComponentAnalytics(metric: { name: string; value: number; component: string }): void {
+  if (typeof window === 'undefined') return;
+  
+  const body = JSON.stringify({
+    metric: metric.name,
+    value: metric.value,
+    component: metric.component,
+    url: window.location.pathname,
+    timestamp: Date.now()
+  });
+
+  // Use sendBeacon for reliability, fallback to fetch
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon('/api/analytics', body);
+  } else {
+    fetch('/api/analytics', {
+      body,
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      keepalive: true,
+    }).catch(() => {
+      // Silent failure for analytics
+    });
   }
 }
 
@@ -79,9 +111,9 @@ export async function setupPerformanceMonitoring(): Promise<void> {
     onLCP(sendToAnalytics);
     onTTFB(sendToAnalytics);
 
-    console.log('✅ Performance monitoring initialized');
+    // Setup complete - Web Vitals monitoring initialized
   } catch (error) {
-    console.warn('⚠️ Failed to initialize performance monitoring:', error);
+    // Performance monitoring initialization failed
   }
 }
 
@@ -142,9 +174,13 @@ export class ComponentPerformanceTracker {
       componentMetrics.shift();
     }
 
-    // Log slow renders in development
-    if (process.env.NODE_ENV === 'development' && duration > 16) {
-      console.warn(`🐌 Slow render detected: ${componentName} took ${duration.toFixed(2)}ms`);
+    // Track slow renders for production analytics
+    if (duration > 16) {
+      sendComponentAnalytics({
+        name: 'slow_render',
+        value: duration,
+        component: componentName
+      });
     }
   }
 
@@ -206,14 +242,7 @@ export function useComponentPerformance(componentName: string) {
 export function logBundleSize(): void {
   if (typeof window === 'undefined') return;
   
-  // Log bundle information in development
-  if (process.env.NODE_ENV === 'development') {
-    console.group('📦 Bundle Information');
-    console.log('Page:', window.location.pathname);
-    console.log('User Agent:', navigator.userAgent);
-    console.log('Connection:', getConnectionSpeed());
-    console.groupEnd();
-  }
+  // Bundle monitoring - only log critical information in production
 }
 
 /**
@@ -229,12 +258,12 @@ export function monitorMemoryUsage(): void {
   const total = Math.round(memory.totalJSHeapSize / 1048576); // MB
   const limit = Math.round(memory.jsHeapSizeLimit / 1048576); // MB
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`🧠 Memory Usage: ${used}MB / ${total}MB (Limit: ${limit}MB)`);
-  }
-
-  // Alert if memory usage is high
+  // Alert if memory usage is high (production only)
   if (used > limit * 0.8) {
-    console.warn('⚠️ High memory usage detected:', { used, total, limit });
+    sendComponentAnalytics({
+      name: 'high_memory_usage',
+      value: used,
+      component: 'memory_monitor'
+    });
   }
 }

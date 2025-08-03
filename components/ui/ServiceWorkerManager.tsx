@@ -16,7 +16,7 @@ const ServiceWorkerManager = (): null => {
 
   useEffect(() => {
     if (isRegistered) {
-      console.log('[PWA] Service Worker is active');
+      // Service Worker is active
       
       // Prefetch critical pages for offline access
       const criticalPages = ['/menu', '/about', '/contact', '/events'];

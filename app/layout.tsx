@@ -4,13 +4,9 @@ import { Viewport } from "next";
 import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
-import { WebVitalsTracker, PerformanceDebugPanel } from "@/components/ui/PerformanceTracker";
 import InstallPrompt, { OfflineNotification, UpdateNotification } from "@/components/ui/InstallPrompt";
 import ServiceWorkerManager from "@/components/ui/ServiceWorkerManager";
-import { AnalyticsProvider } from "@/components/ui/AnalyticsIntegration";
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
-import { LocalSEODashboard } from "@/components/seo/LocalSEO";
-import { AccessibilityControlPanel } from "@/components/accessibility/AccessibilityControlPanel";
 import config from "@/config";
 import "./globals.css";
 import "../styles/accessibility.css";
@@ -77,25 +73,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to main content
         </a>
         
-        <AnalyticsProvider>
-          <main id="main-content">
-            <ClientLayout>{children}</ClientLayout>
-          </main>
-          
-          {/* PWA Components */}
-          <ServiceWorkerManager />
-          <InstallPrompt />
-          <OfflineNotification />
-          <UpdateNotification />
-          
-          {/* Performance Monitoring */}
-          <WebVitalsTracker />
-          <PerformanceDebugPanel />
-          
-          {/* SEO & Accessibility Dashboards */}
-          <LocalSEODashboard />
-          <AccessibilityControlPanel />
-        </AnalyticsProvider>
+        <main id="main-content">
+          <ClientLayout>{children}</ClientLayout>
+        </main>
+        
+        {/* PWA Components */}
+        <ServiceWorkerManager />
+        <InstallPrompt />
+        <OfflineNotification />
+        <UpdateNotification />
       </body>
     </html>
   );
