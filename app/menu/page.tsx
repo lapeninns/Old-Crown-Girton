@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import RestaurantLayout from '@/components/restaurant/Layout';
 
 // Dynamic import for menu component to reduce initial bundle size
-const CompactMenu = dynamic(() => import('./menu-content-compact'), {
+const CompleteMenu = dynamic(() => import('./menu-content-complete'), {
   loading: () => (
     <div className="animate-pulse">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -93,7 +93,7 @@ export default function MenuPage() {
             </div>
           </div>
         }>
-          <CompactMenu />
+          <CompleteMenu />
         </Suspense>
       </RestaurantLayout>
     </>

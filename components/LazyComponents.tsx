@@ -10,23 +10,7 @@ export const LazyCompleteMenu = dynamic(
   () => import('../app/menu/menu-content-complete'),
   {
     loading: () => <LoadingState type="menu" />,
-    ssr: false // Disable SSR for heavy animated components
-  }
-);
-
-export const LazyCompactMenu = dynamic(
-  () => import('../app/menu/menu-content-compact'),
-  {
-    loading: () => <LoadingState type="menu" />,
-    ssr: true // Keep SSR for simpler compact version
-  }
-);
-
-export const LazyRedesignedMenu = dynamic(
-  () => import('../app/menu/menu-content-redesigned'),
-  {
-    loading: () => <LoadingState type="menu" />,
-    ssr: false
+    ssr: true // Enable SSR for SEO
   }
 );
 
@@ -57,16 +41,12 @@ export const LazyTestimonials = dynamic(
 
 // Memoized lazy components
 export const MemoizedLazyCompleteMenu = memo(LazyCompleteMenu);
-export const MemoizedLazyCompactMenu = memo(LazyCompactMenu);
-export const MemoizedLazyRedesignedMenu = memo(LazyRedesignedMenu);
 export const MemoizedLazyHero = memo(LazyHero);
 export const MemoizedLazyMenuHighlights = memo(LazyMenuHighlights);
 export const MemoizedLazyTestimonials = memo(LazyTestimonials);
 
 // Display names for debugging
 MemoizedLazyCompleteMenu.displayName = 'MemoizedLazyCompleteMenu';
-MemoizedLazyCompactMenu.displayName = 'MemoizedLazyCompactMenu';
-MemoizedLazyRedesignedMenu.displayName = 'MemoizedLazyRedesignedMenu';
 MemoizedLazyHero.displayName = 'MemoizedLazyHero';
 MemoizedLazyMenuHighlights.displayName = 'MemoizedLazyMenuHighlights';
 MemoizedLazyTestimonials.displayName = 'MemoizedLazyTestimonials';
