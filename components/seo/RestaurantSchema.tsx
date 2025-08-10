@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { getRestaurantIdentity, getContactInfo, getHours, getMenu, getTestimonials } from '@/lib/restaurantData';
 
 // Schema.org types for restaurant
 interface RestaurantSchema {
@@ -145,72 +146,21 @@ interface PropertyValue {
   value: boolean | string;
 }
 
-// Restaurant data configuration
-const RESTAURANT_DATA = {
-  name: "Old Crown",
-  alternateName: "Old Crown Girton",
-  description: "Authentic Nepalese cuisine and traditional pub classics in Girton, Cambridge. Award-winning restaurant with beautiful terrace garden and cozy interior.",
-  url: "https://www.oldcrowngirton.co.uk",
-  telephone: "+44 1223 276071",
-  email: "info@oldcrowngirton.co.uk",
-  address: {
-    streetAddress: "1 High Street",
-    addressLocality: "Girton",
-    addressRegion: "Cambridgeshire",
-    postalCode: "CB3 0QG",
-    addressCountry: "GB"
-  },
-  coordinates: {
-    latitude: 52.2434,
-    longitude: 0.0835
-  },
-  openingHours: [
-    {
-      days: ["Monday", "Tuesday", "Wednesday", "Thursday"],
-      opens: "12:00",
-      closes: "23:00"
-    },
-    {
-      days: ["Friday", "Saturday"],
-      opens: "12:00",
-      closes: "00:00"
-    },
-    {
-      days: ["Sunday"],
-      opens: "12:00",
-      closes: "22:30"
-    }
-  ],
-  cuisine: ["Nepalese", "Indian", "British", "Pub Food", "Asian"],
-  priceRange: "££",
-  paymentMethods: ["Cash", "Credit Card", "Debit Card", "Contactless Payment"],
-  currency: "GBP",
-  menuUrl: "https://www.oldcrowngirton.co.uk/menu",
-  rating: {
-    value: "4.5",
-    count: "127",
-    bestRating: "5",
-    worstRating: "1"
-  },
-  socialMedia: [
-    "https://www.facebook.com/oldcrowngirton",
-    "https://www.instagram.com/oldcrowngirton",
-    "https://www.tripadvisor.co.uk/oldcrowngirton"
-  ],
-  amenities: [
-    { name: "Wheelchair Accessible", value: true },
-    { name: "Outdoor Seating", value: true },
-    { name: "Parking Available", value: true },
-    { name: "Free WiFi", value: true },
-    { name: "Dog Friendly", value: true },
-    { name: "Family Friendly", value: true },
-    { name: "Takeaway Available", value: true },
-    { name: "Reservations Accepted", value: true }
-  ],
-  awards: [
-    "TripAdvisor Certificate of Excellence 2024",
-    "Local Restaurant of the Year 2023"
-  ]
+// Build dynamic data from central template to avoid drift
+const buildBaseData = () => {
+  const identity = getRestaurantIdentity();
+  const contact = getContactInfo();
+  const hours = getHours();
+  const menu = getMenu();
+  const kitchen = hours?.kitchen || {};
+  const openingHours: { days: string[]; opens: string; closes: string }[] = [];
+  Object.entries(kitchen).forEach(([day, ranges]) => {
+    const firstRange = (ranges as string).split(',')[0];
+    const [opens, closes] = firstRange.split('-');
+    openingHours.push({ days: [day.charAt(0).toUpperCase() + day.slice(1)], opens, closes });
+  });
+  const paymentMethods = ['Cash', 'Credit Card', 'Debit Card', 'Contactless'];
+  return { identity, contact, menu, openingHours, paymentMethods };
 };
 
 // Sample menu data for schema
@@ -259,46 +209,56 @@ const MENU_ITEMS = {
 export const useRestaurantSchema = () => {
   // Generate main restaurant schema
   const generateRestaurantSchema = (): RestaurantSchema => {
+    const data = buildBaseData();
+    const testimonials = getTestimonials() || [];
+    const ratingValue = testimonials.length
+      ? (testimonials.reduce((s: number, t: any) => s + (t.rating || 0), 0) / testimonials.length).toFixed(1)
+      : '4.8';
+    const reviews: Review[] = testimonials.slice(0, 12).map((t: any) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: t.author },
+      datePublished: t.date,
+      reviewBody: t.text,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: String(t.rating),
+        bestRating: '5',
+        worstRating: '1'
+      }
+    }));
     return {
       '@context': 'https://schema.org',
       '@type': 'Restaurant',
-      name: RESTAURANT_DATA.name,
-      alternateName: RESTAURANT_DATA.alternateName,
-      description: RESTAURANT_DATA.description,
-      url: RESTAURANT_DATA.url,
-      telephone: RESTAURANT_DATA.telephone,
-      email: RESTAURANT_DATA.email,
+      name: data.identity.name,
+      alternateName: data.identity.tagline,
+      description: data.identity.description,
+      url: 'https://oldcrowngirton.co.uk',
+      telephone: data.contact?.phone.primary,
+      email: data.contact?.email.primary,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: RESTAURANT_DATA.address.streetAddress,
-        addressLocality: RESTAURANT_DATA.address.addressLocality,
-        addressRegion: RESTAURANT_DATA.address.addressRegion,
-        postalCode: RESTAURANT_DATA.address.postalCode,
-        addressCountry: RESTAURANT_DATA.address.addressCountry
+        streetAddress: data.contact?.address.street,
+        addressLocality: data.contact?.address.area,
+        addressRegion: data.contact?.address.city,
+        postalCode: data.contact?.address.postcode,
+        addressCountry: data.contact?.address.country
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: RESTAURANT_DATA.coordinates.latitude,
-        longitude: RESTAURANT_DATA.coordinates.longitude
+        latitude: data.contact?.address.coordinates.lat,
+        longitude: data.contact?.address.coordinates.lng
       },
-      openingHoursSpecification: RESTAURANT_DATA.openingHours.map(hours => ({
+      openingHoursSpecification: data.openingHours.map(h => ({
         '@type': 'OpeningHoursSpecification',
-        dayOfWeek: hours.days.map(day => `https://schema.org/${day}`),
-        opens: hours.opens,
-        closes: hours.closes
+        dayOfWeek: h.days.map(day => `https://schema.org/${day}`),
+        opens: h.opens,
+        closes: h.closes
       })),
-      servesCuisine: RESTAURANT_DATA.cuisine,
-      priceRange: RESTAURANT_DATA.priceRange,
-      paymentAccepted: RESTAURANT_DATA.paymentMethods,
-      currenciesAccepted: RESTAURANT_DATA.currency,
-      hasMenu: RESTAURANT_DATA.menuUrl,
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: RESTAURANT_DATA.rating.value,
-        bestRating: RESTAURANT_DATA.rating.bestRating,
-        worstRating: RESTAURANT_DATA.rating.worstRating,
-        ratingCount: RESTAURANT_DATA.rating.count
-      },
+      servesCuisine: data.identity.cuisine_types,
+      priceRange: '££',
+      paymentAccepted: data.paymentMethods,
+      currenciesAccepted: 'GBP',
+      hasMenu: 'https://oldcrowngirton.co.uk/menu',
       image: [
         '/hero-restaurant.jpg',
         '/restaurant-interior.jpg',
@@ -306,16 +266,21 @@ export const useRestaurantSchema = () => {
         '/restaurant/terrace.jpg'
       ],
       logo: '/logos/old-crown-logo.png',
-      sameAs: RESTAURANT_DATA.socialMedia,
-      amenityFeature: RESTAURANT_DATA.amenities.map(amenity => ({
-        '@type': 'PropertyValue',
-        name: amenity.name,
-        value: amenity.value
-      })),
+      sameAs: [
+        'https://www.facebook.com/oldcrowngirton',
+        'https://www.instagram.com/oldcrowngirton'
+      ],
       smokingAllowed: false,
       acceptsReservations: true,
-      foundingDate: '1995',
-      award: RESTAURANT_DATA.awards
+      foundingDate: data.identity.established,
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue,
+        bestRating: '5',
+        worstRating: '1',
+        ratingCount: String(testimonials.length)
+      },
+      review: reviews
     };
   };
 
@@ -411,6 +376,7 @@ export const useRestaurantSchema = () => {
     location?: string;
     offers?: { price: string; url: string };
   }) => {
+    const data = buildBaseData();
     return {
       '@context': 'https://schema.org',
       '@type': 'Event',
@@ -420,20 +386,20 @@ export const useRestaurantSchema = () => {
       endDate: eventData.endDate,
       location: {
         '@type': 'Place',
-        name: RESTAURANT_DATA.name,
+        name: data.identity.name,
         address: {
           '@type': 'PostalAddress',
-          streetAddress: RESTAURANT_DATA.address.streetAddress,
-          addressLocality: RESTAURANT_DATA.address.addressLocality,
-          addressRegion: RESTAURANT_DATA.address.addressRegion,
-          postalCode: RESTAURANT_DATA.address.postalCode,
-          addressCountry: RESTAURANT_DATA.address.addressCountry
+          streetAddress: data.contact?.address.street,
+          addressLocality: data.contact?.address.area,
+          addressRegion: data.contact?.address.city,
+          postalCode: data.contact?.address.postcode,
+          addressCountry: data.contact?.address.country
         }
       },
       organizer: {
         '@type': 'Organization',
-        name: RESTAURANT_DATA.name,
-        url: RESTAURANT_DATA.url
+        name: data.identity.name,
+        url: 'https://oldcrowngirton.co.uk'
       },
       offers: eventData.offers ? {
         '@type': 'Offer',
@@ -444,23 +410,61 @@ export const useRestaurantSchema = () => {
     };
   };
 
+  const generateLocalBusinessSchema = () => {
+    const data = buildBaseData();
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      name: data.identity.name,
+      description: data.identity.description,
+      telephone: data.contact?.phone.primary,
+      email: data.contact?.email.primary,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: data.contact?.address.street,
+        addressLocality: data.contact?.address.area,
+        addressRegion: data.contact?.address.city,
+        postalCode: data.contact?.address.postcode,
+        addressCountry: data.contact?.address.country
+      },
+      openingHoursSpecification: data.openingHours.map(h => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: h.days.map(day => `https://schema.org/${day}`),
+        opens: h.opens,
+        closes: h.closes
+      }))
+    };
+  };
+
+  const generateFAQSchema = (faqs: { question: string; answer: string }[]) => ({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer }
+    }))
+  });
+
   return {
     generateRestaurantSchema,
     generateMenuSchema,
     generateBreadcrumbSchema,
-    generateEventSchema
+    generateEventSchema,
+    generateLocalBusinessSchema,
+    generateFAQSchema
   };
 };
 
 // Schema injection component
 interface SchemaInjectorProps {
-  type: 'restaurant' | 'menu' | 'breadcrumb' | 'event';
+  type: 'restaurant' | 'menu' | 'breadcrumb' | 'event' | 'local' | 'faq';
   data?: any;
   page?: string;
 }
 
 export const SchemaInjector = ({ type, data, page = 'home' }: SchemaInjectorProps): null => {
-  const { generateRestaurantSchema, generateMenuSchema, generateBreadcrumbSchema, generateEventSchema } = useRestaurantSchema();
+  const { generateRestaurantSchema, generateMenuSchema, generateBreadcrumbSchema, generateEventSchema, generateLocalBusinessSchema, generateFAQSchema } = useRestaurantSchema();
 
   useEffect(() => {
     let schema: any = {};
@@ -477,6 +481,12 @@ export const SchemaInjector = ({ type, data, page = 'home' }: SchemaInjectorProp
         break;
       case 'event':
         schema = generateEventSchema(data);
+        break;
+      case 'local':
+        schema = generateLocalBusinessSchema();
+        break;
+      case 'faq':
+        schema = generateFAQSchema(data || []);
         break;
       default:
         return;

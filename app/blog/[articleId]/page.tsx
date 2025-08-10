@@ -175,6 +175,16 @@ export default async function Article({
           {/* ARTICLE CONTENT */}
           <section className="w-full max-md:pt-4 md:pr-20 space-y-12 md:space-y-20">
             {article.content}
+            <div className="border-t pt-10 mt-16 space-y-6">
+              <h2 className="text-2xl md:text-3xl font-display font-bold">Plan Your Visit</h2>
+              <p className="text-base-content/80 max-w-2xl">Experience the blend of a historic Girton thatched pub and authentic Nepalese flavour: reserve a table, explore our menu or join an upcoming event.</p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/menu" className="btn btn-primary">View Menu</Link>
+                <Link href="/events" className="btn btn-secondary">Events & What’s On</Link>
+                <Link href="/contact" className="btn">Book / Enquire</Link>
+              </div>
+              <p className="text-sm text-base-content/60">Looking for more stories? Read about our <Link href="/about" className="link">heritage</Link> or see recent <Link href="/blog" className="link">blog posts</Link>.</p>
+            </div>
           </section>
         </div>
       </article>

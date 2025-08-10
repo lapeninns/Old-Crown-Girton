@@ -2,12 +2,16 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { getRestaurantIdentity, getContactInfo, getGallery } from '@/lib/restaurantData';
+import { getRestaurantIdentity, getContactInfo, getGallery, getHours } from '@/lib/restaurantData';
 
 export default function Hero() {
   const identity = getRestaurantIdentity();
   const contact = getContactInfo();
   const gallery = getGallery();
+  const hours = getHours();
+  const kitchenWeek = hours?.display?.kitchen?.weekdays;
+  const barWeek = hours?.display?.bar?.mon_thu;
+  const hoursSnippet = kitchenWeek && barWeek ? `Kitchen ${kitchenWeek} | Bar ${barWeek}` : 'Open – see full hours';
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center">
       {/* Background Image */}
@@ -31,17 +35,28 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6">
-            <span className="text-crown-gold">{identity.name.split(' ')[0]} {identity.name.split(' ')[1]}</span>
-            <br />
-            <span className="text-3xl md:text-4xl lg:text-5xl">{identity.name.split(' ')[2] || ''}</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+            <span className="block text-crown-gold">Girton’s Historic Thatched Pub</span>
+            <span className="block text-white text-3xl md:text-4xl lg:text-5xl">with Himalayan Flavour</span>
           </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
-            {identity.tagline}
-            <br className="hidden md:block" />
-            {identity.description}
+
+          <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+            A welcoming village hub just outside Cambridge – authentic Nepalese dishes alongside trusted British pub comfort in a distinctive thatched setting.
           </p>
+
+          <div className="flex flex-wrap justify-center gap-3 text-sm md:text-base text-white/85 mb-10 max-w-4xl mx-auto">
+            {[
+              'Authentic Nepalese + Pub Classics',
+              'Family & Dog Friendly',
+              'Near Girton College',
+              'Garden • Live Sports',
+              'Community Events'
+            ].map((item) => (
+              <span key={item} className="px-3 py-1 bg-white/10 rounded-full backdrop-blur border border-white/15">
+                {item}
+              </span>
+            ))}
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -80,7 +95,7 @@ export default function Hero() {
               <svg className="w-5 h-5 text-crown-gold" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
               </svg>
-              <span>Open Daily 12:00-22:00</span>
+              <span>{hoursSnippet}</span>
             </div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-crown-gold" fill="currentColor" viewBox="0 0 20 20">

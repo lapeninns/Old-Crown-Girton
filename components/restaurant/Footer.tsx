@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getRestaurantIdentity, getContactInfo, getHours, getSocialMedia } from '@/lib/restaurantData';
+import AllergenNotice from './AllergenNotice';
 
 export default function Footer() {
   const identity = getRestaurantIdentity();
@@ -58,7 +59,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Social Links & Copyright */}
+  <AllergenNotice compact />
+  {/* Social Links & Copyright */}
         <div className="border-t border-gray-600 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="flex space-x-4 mb-4 md:mb-0">
             <a href={social?.facebook?.url || "https://facebook.com"} className="text-gray-400 hover:text-crown-gold transition-colors">

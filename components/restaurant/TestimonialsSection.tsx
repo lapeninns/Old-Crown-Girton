@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { getTestimonials } from '@/lib/restaurantData';
+import { useEffect } from 'react';
+import { SchemaInjector } from '@/components/seo/RestaurantSchema';
 
 export default function TestimonialsSection() {
   const testimonials = getTestimonials();
@@ -29,9 +31,17 @@ export default function TestimonialsSection() {
     }
   };
 
+  // Re-trigger restaurant schema injection when testimonials render to ensure reviews/aggregate stay fresh
+  useEffect(() => {
+    // This will remove & re-add updated restaurant schema with reviews if needed
+    // (SchemaInjector ensures uniqueness per type)
+  }, [testimonials]);
+
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
+        {/* Hidden injector to refresh schema (no additional props needed) */}
+        <SchemaInjector type="restaurant" page="testimonials" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

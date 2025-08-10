@@ -2,6 +2,9 @@ import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import RestaurantLayout from '@/components/restaurant/Layout';
+import { SchemaInjector } from '@/components/seo/RestaurantSchema';
+import { getMenu, getRestaurantIdentity } from '@/lib/restaurantData';
+import AllergenNotice from '@/components/restaurant/AllergenNotice';
 
 // Dynamic import for menu component to reduce initial bundle size
 const CompleteMenu = dynamic(() => import('./menu-content-complete'), {
@@ -35,6 +38,9 @@ export const metadata: Metadata = {
 };
 
 export default function MenuPage() {
+  const identity = getRestaurantIdentity();
+  const menu = getMenu();
+  const allergenStatement = menu?.metadata?.allergen_info || 'Please inform us of any allergies before ordering.';
   const menuSchema = {
     "@context": "https://schema.org",
     "@type": "Menu",
@@ -81,6 +87,23 @@ export default function MenuPage() {
         }}
       />
       <RestaurantLayout>
+        <SchemaInjector type="breadcrumb" data={[
+          { name: 'Home', url: 'https://oldcrowngirton.co.uk/' },
+          { name: 'Menu', url: 'https://oldcrowngirton.co.uk/menu' }
+        ]} page="menu" />
+        <section className="bg-crown-cream py-16">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-crown-slate mb-4">Menus: Nepalese Craft & Pub Comfort</h1>
+            <p className="text-gray-700 text-lg leading-relaxed mb-6">A dual identity: authentic Himalayan-inspired dishes prepared with balanced aromatics alongside trusted British pub favourites, lighter lunch options and a traditional Sunday focus (subject to availability).</p>
+            <div className="flex flex-wrap justify-center gap-3 text-xs md:text-sm">
+              {["Authentic Nepalese","Pub Classics","Family Friendly","Balanced Spice","Vegetarian Options","Takeaway Available"].map(k => (
+                <span key={k} className="px-3 py-1 bg-white rounded-full border border-gray-200">{k}</span>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500 mt-6">Menu items & availability may change. Please confirm in venue.</p>
+            <AllergenNotice />
+          </div>
+        </section>
         <Suspense fallback={
           <div className="animate-pulse">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

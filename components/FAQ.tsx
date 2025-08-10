@@ -12,25 +12,11 @@ interface FAQItemProps {
 }
 
 const faqList: FAQItemProps[] = [
-  {
-    question: "What do I get exactly?",
-    answer: <div className="space-y-2 leading-relaxed">Loreum Ipseum</div>,
-  },
-  {
-    question: "Can I get a refund?",
-    answer: (
-      <p>
-        Yes! You can request a refund within 7 days of your purchase. Reach out
-        by email.
-      </p>
-    ),
-  },
-  {
-    question: "I have another question",
-    answer: (
-      <div className="space-y-2 leading-relaxed">Cool, contact us by email</div>
-    ),
-  },
+  { question: 'Do I need to book in advance?', answer: <p>Walk-ins welcome; book for Thu–Sat evenings or groups of 6+.</p> },
+  { question: 'Do you offer takeaway?', answer: <p>Yes. Call to order selected Nepalese favourites & pub classics.</p> },
+  { question: 'Can you cater for allergies?', answer: <p>Inform staff before ordering; we identify common allergens & advise alternatives.</p> },
+  { question: 'Is the pub dog friendly?', answer: <p>Dogs welcome in bar area & garden if well-behaved.</p> },
+  { question: 'Do you host private events?', answer: <p>Yes. Enquire for area reservations or tailored menus for milestones & meet-ups.</p> },
 ];
 
 const FaqItem = ({ item }: { item: FAQItemProps }) => {
@@ -94,6 +80,7 @@ const FaqItem = ({ item }: { item: FAQItemProps }) => {
 };
 
 const FAQ = () => {
+  // Schema now injected globally via SchemaInjector (faq type) where needed.
   return (
     <section className="bg-base-200" id="faq">
       <div className="py-24 px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-12">

@@ -65,8 +65,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </head>
       )}
       <body className={inter.className}>
-        {/* SEO Schema Markup */}
-        <SchemaInjector type="restaurant" />
+  {/* SEO Schema Markup */}
+  <SchemaInjector type="restaurant" />
+  <SchemaInjector type="local" />
         
         {/* Skip to main content link for accessibility */}
         <a href="#main-content" className="accessibility-skip-link">

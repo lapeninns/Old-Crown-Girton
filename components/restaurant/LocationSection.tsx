@@ -2,27 +2,25 @@
 
 import { motion } from 'framer-motion';
 import Accordion from './Accordion';
+import { getContactInfo, getHours } from '@/lib/restaurantData';
 
 export default function LocationSection() {
-  const restaurantHours = [
-    { day: 'Monday', hours: '12:00 - 22:00' },
-    { day: 'Tuesday', hours: '12:00 - 22:00' },
-    { day: 'Wednesday', hours: '12:00 - 22:00' },
-    { day: 'Thursday', hours: '12:00 - 22:00' },
-    { day: 'Friday', hours: '12:00 - 22:30' },
-    { day: 'Saturday', hours: '12:00 - 22:30' },
-    { day: 'Sunday', hours: '12:00 - 21:30' },
-  ];
-
-  const barHours = [
-    { day: 'Monday', hours: '12:00 - 23:00' },
-    { day: 'Tuesday', hours: '12:00 - 23:00' },
-    { day: 'Wednesday', hours: '12:00 - 23:00' },
-    { day: 'Thursday', hours: '12:00 - 23:00' },
-    { day: 'Friday', hours: '12:00 - 00:00' },
-    { day: 'Saturday', hours: '12:00 - 00:00' },
-    { day: 'Sunday', hours: '12:00 - 22:30' },
-  ];
+  const contact = getContactInfo();
+  const hours = getHours();
+  const mapKitchen = hours?.kitchen || {};
+  const mapBar = hours?.bar || {};
+  const pretty = (range?: string) => {
+    if (!range) return '';
+    // Convert 24h times like 12:00-15:00,17:00-22:00 -> 12:00–15:00 / 17:00–22:00 and then compress minutes :00 to no minutes for display
+    return range.split(',')
+      .map(slot => slot.trim().replace('-', '–'))
+      .map(slot => slot.replace(/:00/g, ''))
+      .join(' / ');
+  };
+  const order = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+  const label: Record<string,string> = {monday:'Monday',tuesday:'Tuesday',wednesday:'Wednesday',thursday:'Thursday',friday:'Friday',saturday:'Saturday',sunday:'Sunday'};
+  const restaurantHours = order.map(d => ({ day: label[d], hours: pretty((mapKitchen as any)[d]) })).filter(r => r.hours);
+  const barHours = order.map(d => ({ day: label[d], hours: pretty((mapBar as any)[d]) })).filter(r => r.hours);
 
   return (
     <section className="py-16 bg-crown-cream">
@@ -60,9 +58,9 @@ export default function LocationSection() {
               </h3>
               <p className="text-gray-600">
                 Old Crown<br />
-                High Street<br />
-                Girton, Cambridge<br />
-                CB3 0QQ
+                {contact?.address.street || 'High Street'}<br />
+                {contact?.address.area}, {contact?.address.city}<br />
+                {contact?.address.postcode}
               </p>
             </div>
 
@@ -76,13 +74,13 @@ export default function LocationSection() {
                 <p>
                   <strong>Phone:</strong> 
                   <a href="tel:01223276027" className="text-crown-gold hover:underline ml-2">
-                    01223 276027
+                    {contact?.phone.display || '01223 276027'}
                   </a>
                 </p>
                 <p>
                   <strong>Email:</strong> 
                   <a href="mailto:info@oldcrowngirton.co.uk" className="text-crown-gold hover:underline ml-2">
-                    info@oldcrowngirton.co.uk
+                    {contact?.email.primary || 'info@oldcrowngirton.co.uk'}
                   </a>
                 </p>
               </div>

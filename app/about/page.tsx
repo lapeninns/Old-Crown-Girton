@@ -1,8 +1,23 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
+import { SchemaInjector } from "@/components/seo/RestaurantSchema";
+import { getContactInfo, getHours } from "@/lib/restaurantData";
 
 export default function AboutPage() {
+  const contact = getContactInfo();
+  const hours = getHours();
+  const postcode = contact?.address.postcode || "CB3 0QQ";
+  // Derive a concise combined hours summary for quick display
+  const kitchenWeek = hours?.display?.kitchen?.weekdays;
+  const kitchenWeekend = `${hours?.display?.kitchen?.saturday || ''}${hours?.display?.kitchen?.saturday && hours?.display?.kitchen?.sunday ? ' / ' : ''}${hours?.display?.kitchen?.sunday || ''}`;
+  const barWeek = hours?.display?.bar?.mon_thu;
+  const barWeekend = `${hours?.display?.bar?.fri_sat || ''}${hours?.display?.bar?.fri_sat && hours?.display?.bar?.sunday ? ' / ' : ''}${hours?.display?.bar?.sunday || ''}`;
+  const quickHours = kitchenWeek || barWeek ? `Kitchen ${kitchenWeek}${kitchenWeekend ? ` • W/E ${kitchenWeekend}` : ''} | Bar ${barWeek}${barWeekend ? ` • W/E ${barWeekend}` : ''}` : undefined;
   return (
     <RestaurantLayout>
+      <SchemaInjector type="breadcrumb" data={[
+        { name: 'Home', url: 'https://oldcrowngirton.co.uk/' },
+        { name: 'About', url: 'https://oldcrowngirton.co.uk/about' }
+      ]} page="about" />
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <div className="relative bg-crown-slate text-white py-20">
@@ -11,7 +26,7 @@ export default function AboutPage() {
               About <span className="text-crown-gold">Old Crown</span>
             </h1>
             <p className="text-xl text-crown-cream/90 max-w-2xl mx-auto">
-              A unique blend of authentic Nepalese cuisine and traditional British pub culture
+              Historic thatched village pub near Cambridge blending community heritage & authentic Nepalese flavour
             </p>
           </div>
         </div>
@@ -19,65 +34,61 @@ export default function AboutPage() {
         {/* Main Content */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="prose prose-lg max-w-none">
-            <h2 className="text-3xl font-display font-bold text-crown-slate mb-6">
-              Our Story
-            </h2>
+            <h2 className="text-3xl font-display font-bold text-crown-slate mb-6">Our Story</h2>
             
-            <p className="text-gray-600 mb-6">
-              Located in the picturesque village of Girton, just minutes from Cambridge, 
-              Old Crown offers a truly unique dining experience. We proudly serve authentic 
-              Nepalese cuisine alongside traditional pub classics, creating a warm and 
-              welcoming atmosphere for locals and visitors alike.
-            </p>
-            
-            <p className="text-gray-600 mb-6">
-              Whether you&apos;re looking for an authentic taste of the Himalayas or comforting pub fare, 
-              our talented chefs use only the freshest ingredients and time-honored recipes.
-            </p>
-            
-            <p className="text-gray-600 mb-6">
-              As part of the Le Papillon Inns group, we&apos;re committed to providing exceptional 
-              hospitality and unforgettable dining experiences. Join us for lunch, dinner, 
-              or just a drink in our cozy bar.
-            </p>
+            <p className="text-gray-600 mb-6">Located on Girton High Street just minutes from Cambridge, The Old Crown blends the charm of a historic thatched English pub with a warmly spiced Nepalese kitchen. After previous periods of change, today we focus on a clear, consistent dual identity: heritage setting + Himalayan flavour.</p>
+            <p className="text-gray-600 mb-6">We welcome Girton locals, families, Girton College students & staff, professionals from the wider “Silicon Fen” and visitors seeking an authentic village pub experience with something unexpectedly delicious.</p>
+            <p className="text-gray-600 mb-6">Our kitchen balances aromatic Nepalese spice profiles with familiar British comfort options and calmer choices for younger or milder palates.</p>
 
-            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4 mt-8">
-              Awards & Recognition
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-crown-cream p-6 rounded-lg">
-                <h4 className="font-bold text-crown-slate mb-2">🏆 Best Curry House 2023</h4>
-                <p className="text-gray-600">Cambridge Food Awards</p>
-              </div>
-              <div className="bg-crown-cream p-6 rounded-lg">
-                <h4 className="font-bold text-crown-slate mb-2">⭐ TripAdvisor Excellence</h4>
-                <p className="text-gray-600">Certificate of Excellence</p>
-              </div>
-            </div>
+            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4 mt-8">Heritage Timeline</h3>
+            <ul className="list-disc pl-6 text-gray-600 space-y-2 mb-8">
+              <li><span className="font-semibold">1930s:</span> Present thatched structure established (continuing village inn legacy).</li>
+              <li><span className="font-semibold">Transitions:</span> Various management changes created fragmented online identity.</li>
+              <li><span className="font-semibold">Current Chapter:</span> Unified “Pub + Nepalese” positioning serving Girton & wider Cambridge audiences.</li>
+            </ul>
 
-            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4">
-              Visit Us Today
-            </h3>
-            
-            <p className="text-gray-600 mb-6">
-              Experience the perfect blend of Nepalese hospitality and British pub tradition. 
-              Call us to book your table or place a takeaway order.
-            </p>
+            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4">What Makes Us Different</h3>
+            <ul className="list-disc pl-6 text-gray-600 space-y-2 mb-8">
+              <li>Distinctive thatched landmark building</li>
+              <li>Authentic Nepalese dishes alongside pub favourites</li>
+              <li>Inclusive space: locals, families, students, professionals & visitors</li>
+              <li>Close Girton College & north Cambridge access</li>
+              <li>Garden & flexible areas for informal gatherings</li>
+            </ul>
+
+            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4">Community Involvement</h3>
+            <p className="text-gray-600 mb-6">We aim to support village life, collaborate on local initiatives and provide a neutral meeting place. <span className="italic">[placeholder: add specific partnership / sponsorship once confirmed]</span></p>
+
+            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4">For Different Audiences</h3>
+            <ul className="list-disc pl-6 text-gray-600 space-y-2 mb-8">
+              <li><strong>Locals:</strong> Reliable, familiar, welcoming.</li>
+              <li><strong>Families:</strong> Garden space & mild dish options.</li>
+              <li><strong>Students & Staff:</strong> Walkable social venue near college.</li>
+              <li><strong>Professionals:</strong> Relaxed out‑of‑city meet point.</li>
+              <li><strong>Visitors:</strong> Memorable thatched setting + unexpected cuisine.</li>
+            </ul>
+
+            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4">Kitchen Ethos</h3>
+            <p className="text-gray-600 mb-6">Balanced spice, aromatic depth, respectful technique. British staples remain for guests seeking traditional comfort. <span className="italic">[placeholder: add sourcing or supplier note]</span></p>
+
+            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4">Private Hire & Groups</h3>
+            <p className="text-gray-600 mb-6">Enquire about gatherings, society evenings or seasonal celebrations. <span className="italic">[placeholder: capacity / room details]</span></p>
+
+            <h3 className="text-2xl font-display font-bold text-crown-slate mb-4">Visit Us</h3>
+            <p className="text-gray-600 mb-6">Plan a meal, relaxed pint, quiz night or post‑lecture catch‑up. We look forward to welcoming you.</p>
 
             <div className="bg-crown-gold/10 rounded-xl p-8 text-center">
-              <h4 className="text-xl font-display font-bold text-crown-slate mb-4">
-                Ready to dine with us?
-              </h4>
+              <h4 className="text-xl font-display font-bold text-crown-slate mb-4">Ready to Book?</h4>
               <a
                 href="tel:01223276027"
                 className="inline-block bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
               >
-                📞 Call: 01223 276027
+                📞 Call to Book: 01223 276027
               </a>
               <div className="mt-4 text-sm text-gray-600">
-                <p>Open Daily: 12:00 - 22:00 (Restaurant)</p>
-                <p>Bar: 12:00 - 23:00</p>
+                <p><span className="font-semibold">Address:</span> 89 High St, Girton, Cambridge {postcode}</p>
+                <p><span className="font-semibold">Opening Hours:</span> <span className="italic">{quickHours || 'See footer for full hours'}</span></p>
+                {/* TODO: Replace remaining placeholders elsewhere on page (partnership, sourcing note, capacity) once details confirmed */}
               </div>
             </div>
           </div>

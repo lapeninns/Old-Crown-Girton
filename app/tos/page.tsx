@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSEOTags } from "@/libs/seo";
 import config from "@/config";
+import { CANCELLATION_POLICY, DEPOSIT_POLICY } from "@/lib/policies";
 
 // CHATGPT PROMPT TO GENERATE YOUR TERMS & SERVICES — replace with your own data 👇
 
@@ -26,7 +27,8 @@ import config from "@/config";
 // Please write a simple Terms & Services for my site. Add the current date. Do not add or explain your reasoning. Answer:
 
 export const metadata = getSEOTags({
-  title: `Terms and Conditions | ${config.appName}`,
+  title: `Terms of Service | ${config.appName}`,
+  description: "Readable terms governing site use, enquiries and bookings for The Old Crown Girton.",
   canonicalUrlRelative: "/tos",
 });
 
@@ -49,48 +51,43 @@ const TOS = () => {
           </svg>
           Back
         </Link>
-        <h1 className="text-3xl font-extrabold pb-6">
-          Terms and Conditions for {config.appName}
-        </h1>
-
-        <pre
-          className="leading-relaxed whitespace-pre-wrap"
-          style={{ fontFamily: "sans-serif" }}
-        >
-          {`Last Updated: September 26, 2023
-
-Welcome to ShipFast!
-
-These Terms of Service ("Terms") govern your use of the ShipFast website at https://shipfa.st ("Website") and the services provided by ShipFast. By using our Website and services, you agree to these Terms.
-
-1. Description of ShipFast
-
-ShipFast is a platform that offers a JavaScript code boilerplate to assist entrepreneurs in launching their startups more efficiently.
-
-2. Ownership and Usage Rights
-
-When you purchase a package from ShipFast, you gain the right to download and use the code provided for creating applications. You own the code you create but do not have the right to resell it. We offer a full refund within 7 days of purchase, as specified in our refund policy.
-
-3. User Data and Privacy
-
-We collect and store user data, including name, email, and payment information, as necessary to provide our services. For details on how we handle your data, please refer to our Privacy Policy at https://shipfa.st/privacy-policy.
-
-4. Non-Personal Data Collection
-
-We use web cookies to collect non-personal data for the purpose of improving our services and user experience.
-
-5. Governing Law
-
-These Terms are governed by the laws of France.
-
-6. Updates to the Terms
-
-We may update these Terms from time to time. Users will be notified of any changes via email.
-
-For any questions or concerns regarding these Terms of Service, please contact us at marc@shipfa.st.
-
-Thank you for using ShipFast!`}
-        </pre>
+        <h1 className="text-3xl font-extrabold pb-6">Terms of Service</h1>
+        <div className="leading-relaxed space-y-6 text-sm">
+          <p><strong>Effective Date:</strong> <span>10 August 2025</span></p>
+          <p>These Terms govern your use of this website (the “Site”) operated for <strong>The Old Crown Girton</strong> ("we", "us"). By accessing or using the Site you agree to these Terms. If you do not agree, discontinue use.</p>
+          <h2 className="text-xl font-bold mt-4">1. Scope</h2>
+          <p>Applies to browsing the Site, submitting enquiries, reservation requests, private hire/event enquiries and optional newsletter sign‑ups.</p>
+          <h2 className="text-xl font-bold mt-4">2. Not Restaurant Contract</h2>
+          <p>Content is informational. A confirmed booking / event agreement (verbal or written) forms the service arrangement. Menu items, prices and availability may change without notice.</p>
+          <h2 className="text-xl font-bold mt-4">3. User Responsibilities</h2>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Provide accurate information in forms</li>
+            <li>No unlawful, disruptive or automated scraping activities</li>
+            <li>Do not misuse contact channels (spam / abusive language)</li>
+          </ul>
+          <h2 className="text-xl font-bold mt-4">4. Reservations & Enquiries</h2>
+          <p>Submission does not guarantee fulfilment until confirmed by us (email / phone / on‑screen). We may decline or adjust requests (capacity, timing or operational reasons). <strong>Cancellation / No‑Show:</strong> {CANCELLATION_POLICY}</p>
+          <h2 className="text-xl font-bold mt-4">5. Private Hire & Events</h2>
+          <p>Additional terms (minimum spend, deposit, timings, music / equipment rules) may apply and will be communicated on confirmation. {DEPOSIT_POLICY}</p>
+          <h2 className="text-xl font-bold mt-4">6. Intellectual Property</h2>
+          <p>All Site text, structure, graphics, and branding are owned by or licensed to us. You may not reproduce or republish without permission except for limited personal, non‑commercial reference.</p>
+          <h2 className="text-xl font-bold mt-4">7. Reviews & Feedback</h2>
+          <p>By submitting optional feedback you grant us a non‑exclusive licence to display, reproduce or adapt it (may be anonymised) for promotional or improvement purposes.</p>
+          <h2 className="text-xl font-bold mt-4">8. Third‑Party Links</h2>
+          <p>Links to external services (maps, booking widgets, social platforms) are provided for convenience; we are not responsible for their content or policies.</p>
+          <h2 className="text-xl font-bold mt-4">9. Privacy</h2>
+          <p>See our <a href="/privacy-policy" className="underline">Privacy Policy</a> for data handling details.</p>
+          <h2 className="text-xl font-bold mt-4">10. Liability</h2>
+          <p>The Site is provided “as is.” To the extent permitted by law we exclude implied warranties and are not liable for indirect, incidental, or consequential loss from Site use. Nothing limits liability for fraud or personal injury caused by negligence.</p>
+          <h2 className="text-xl font-bold mt-4">11. Changes</h2>
+          <p>We may modify these Terms; updates will show a new Effective Date. Continued use = acceptance.</p>
+          <h2 className="text-xl font-bold mt-4">12. Severability</h2>
+          <p>If any provision is unenforceable the remainder remains effective.</p>
+          <h2 className="text-xl font-bold mt-4">13. Governing Law</h2>
+          <p>England & Wales law; courts of England & Wales have exclusive jurisdiction.</p>
+          <h2 className="text-xl font-bold mt-4">14. Contact</h2>
+          <p>Questions: <span>legal@oldcrowngirton.co.uk</span></p>
+        </div>
       </div>
     </main>
   );

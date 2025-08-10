@@ -20,24 +20,9 @@ export default function AboutSection() {
             </h2>
             
             <div className="prose prose-lg text-gray-600 space-y-4">
-              <p>
-                Located in the charming village of Girton, just 3 miles from Cambridge city center, 
-                the Old Crown offers a unique dining experience that bridges the flavors of Nepal 
-                with traditional British pub classics.
-              </p>
-              
-              <p>
-                Our beautiful terrace garden provides the perfect setting for al fresco dining, 
-                while our warm, welcoming interior creates an intimate atmosphere for any occasion. 
-                Whether you&apos;re looking for an authentic taste of the Himalayas or comforting pub fare, 
-                our talented chefs use only the freshest ingredients and time-honored recipes.
-              </p>
-              
-              <p>
-                As part of the Le Papillon Inns group, we&apos;re committed to providing exceptional 
-                hospitality and unforgettable dining experiences. Join us for lunch, dinner, 
-                or just a drink in our cozy bar.
-              </p>
+              <p>Girton’s historic thatched pub just outside Cambridge – blending community heritage with a warmly spiced Nepalese kitchen and familiar British pub comfort.</p>
+              <p>Garden space for long summer evenings, cosy interior for winter gatherings, and a welcoming spot for locals, families, students, professionals & visitors.</p>
+              <p>Our dual identity means you can explore aromatic Himalayan-inspired dishes while friends opt for classic favourites – shared tables, shared experiences.</p>
             </div>
 
             {/* Awards Section */}
@@ -48,23 +33,14 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="mt-8 p-6 bg-crown-cream rounded-lg"
             >
-              <h3 className="text-xl font-display font-bold text-crown-slate mb-4">
-                🏆 Awards & Recognition
-              </h3>
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="text-green-600">🌱</span>
-                  <span>BII Sustainability Champion</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="text-crown-gold">⭐</span>
-                  <span>4.8/5 Customer Rating</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="text-blue-600">🍺</span>
-                  <span>CAMRA Recommended</span>
-                </div>
-              </div>
+              <h3 className="text-xl font-display font-bold text-crown-slate mb-4">Why Guests Visit</h3>
+              <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                <li>Distinctive thatched setting & village feel</li>
+                <li>Authentic Nepalese flavour + pub classics</li>
+                <li>Inclusive for mixed groups & families</li>
+                <li>Close to Girton College / north Cambridge</li>
+                <li>Garden & seasonal community events</li>
+              </ul>
             </motion.div>
           </motion.div>
 

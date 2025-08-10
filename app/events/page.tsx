@@ -1,53 +1,73 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
+import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 
 export default function EventsPage() {
   const events = [
     {
-      title: "Curry Night Special",
-      description: "Every Tuesday - 20% off all Nepalese curries",
-      frequency: "Every Tuesday",
-      icon: "🌶️"
-    },
-    {
-      title: "Pub Quiz Night",
-      description: "Test your knowledge every Thursday at 8pm. Prizes to be won!",
-      frequency: "Every Thursday, 8:00 PM",
+      title: "Weekly Pub Quiz",
+      description: "Community teams, students & locals — general knowledge + themed rounds.",
+      frequency: "Thursday 8:00 PM",
+      startDate: "2025-08-14T20:00:00+01:00",
       icon: "🧠"
     },
     {
-      title: "Live Music Weekend",
-      description: "Enjoy acoustic performances in our beer garden",
-      frequency: "First Saturday of each month",
-      icon: "🎵"
+      title: "Curry & Community Night",
+      description: "Celebrate our Nepalese kitchen: featured dish & mild family option.",
+      frequency: "Wednesday Evening",
+      startDate: "2025-08-13T18:00:00+01:00",
+      icon: "🌶️"
+    },
+    {
+      title: "Live Sports Highlights",
+      description: "Key football & rugby fixtures on screen – garden when weather allows.",
+      frequency: "Major fixtures schedule",
+      startDate: "2025-08-16T15:00:00+01:00",
+      icon: "⚽"
+    },
+    {
+      title: "Seasonal Garden Social",
+      description: "Long summer evenings with relaxed sharing plates. (Seasonal)",
+      frequency: "Summer Series",
+      startDate: "2025-06-01T18:00:00+01:00",
+      endDate: "2025-08-31T22:00:00+01:00",
+      icon: "🌿"
     }
   ];
 
   return (
     <RestaurantLayout>
+      {/* Breadcrumb Schema */}
+      <SchemaInjector type="breadcrumb" data={[
+        { name: 'Home', url: 'https://oldcrowngirton.co.uk/' },
+        { name: 'Events', url: 'https://oldcrowngirton.co.uk/events' }
+      ]} page="events" />
+      {/* Individual Event Schemas */}
+      {events.map((e, i) => (
+        <SchemaInjector key={i} type="event" data={{ name: e.title, description: e.description, startDate: e.startDate, endDate: (e as any).endDate }} page={`events-${i}`} />
+      ))}
       <div className="min-h-screen bg-crown-cream py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-crown-slate mb-4">
-              Events & <span className="text-crown-gold">Special Offers</span>
+              What’s On & <span className="text-crown-gold">Community Events</span>
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-              Join us for regular events and special occasions throughout the year. 
-              Call ahead to reserve your spot!
+              Recurring favourites plus seasonal highlights reflecting Girton village life & Cambridge academic rhythm. Call to reserve or enquire about group space.
             </p>
           </div>
 
           {/* Regular Events */}
           <div className="space-y-6 mb-12">
             {events.map((event, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-6">
+              <div key={index} className="bg-white rounded-xl shadow-lg p-6" itemScope itemType="https://schema.org/Event">
                 <div className="flex items-start gap-4">
                   <span className="text-4xl">{event.icon}</span>
                   <div className="flex-1">
-                    <h3 className="text-xl font-display font-bold text-crown-slate mb-2">
-                      {event.title}
-                    </h3>
-                    <p className="text-gray-600 mb-2">{event.description}</p>
-                    <p className="text-sm font-medium text-crown-gold">{event.frequency}</p>
+                    <h3 className="text-xl font-display font-bold text-crown-slate mb-2" itemProp="name">{event.title}</h3>
+                    <p className="text-gray-600 mb-2" itemProp="description">{event.description}</p>
+                    <meta itemProp="startDate" content={event.startDate} />
+                    {(event as any).endDate && <meta itemProp="endDate" content={(event as any).endDate} />}
+                    <p className="text-sm font-medium text-crown-gold" itemProp="eventSchedule">{event.frequency}</p>
                   </div>
                 </div>
               </div>
@@ -59,22 +79,21 @@ export default function EventsPage() {
             <div className="text-center">
               <span className="text-6xl mb-4 block">🎉</span>
               <h2 className="text-2xl font-display font-bold text-crown-slate mb-4">
-                Private Events & Functions
+                Private Hire & Functions
               </h2>
               <p className="text-gray-600 mb-6">
-                Planning a birthday, anniversary, business meeting, or special celebration? 
-                Our private dining room and terrace garden are perfect for your event.
+                Birthdays, society evenings, project celebrations, milestone family gatherings or informal professional socials — enquire about space and tailored food options.
               </p>
               
               <div className="bg-crown-cream rounded-lg p-6 mb-6">
-                <h3 className="font-bold text-crown-slate mb-3">We can accommodate:</h3>
+                <h3 className="font-bold text-crown-slate mb-3">Sample Use Cases:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
-                  <div>• Birthday parties</div>
-                  <div>• Business meetings</div>
-                  <div>• Anniversary celebrations</div>
-                  <div>• Wedding receptions</div>
-                  <div>• Corporate events</div>
-                  <div>• Family gatherings</div>
+                  <div>• Birthday / anniversary</div>
+                  <div>• Society socials</div>
+                  <div>• Project / team wrap-up</div>
+                  <div>• Family celebrations</div>
+                  <div>• Seasonal gatherings</div>
+                  <div>• Visitor meet-ups</div>
                 </div>
               </div>
               
@@ -82,18 +101,16 @@ export default function EventsPage() {
                 href="tel:01223276027"
                 className="inline-block bg-primary hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
               >
-                📞 Call to Book: 01223 276027
+                📞 Enquire / Book: 01223 276027
               </a>
             </div>
           </div>
 
           {/* Contact for Updates */}
           <div className="bg-crown-gold/10 border-2 border-crown-gold rounded-xl p-6 text-center">
-            <h3 className="text-xl font-display font-bold text-crown-slate mb-3">
-              Stay Updated
-            </h3>
+            <h3 className="text-xl font-display font-bold text-crown-slate mb-3">Stay Updated</h3>
             <p className="text-gray-600 mb-4">
-              Follow us on social media or call for the latest events and special offers.
+              Follow for fixture announcements, seasonal dates & last‑minute quiz availability.
             </p>
             <div className="flex justify-center space-x-4">
               <a href="https://facebook.com" className="text-crown-gold hover:text-crown-gold-dark transition-colors">
