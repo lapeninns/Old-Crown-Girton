@@ -8,6 +8,29 @@ import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import config from "@/config";
+import StickyCallButton from "./StickyCallButton";
+import dynamic from "next/dynamic";
+import * as React from "react";
+
+// Lazy load booking modal only when needed
+const BookingModal = dynamic(() => import("./restaurant/BookingModal"), { ssr: false });
+
+const BookingModalPortal = () => {
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("open-booking-modal", handler as EventListener);
+    return () => window.removeEventListener("open-booking-modal", handler as EventListener);
+  }, []);
+  React.useEffect(() => {
+    if (open) {
+      window.dispatchEvent(new CustomEvent("booking-modal-open"));
+    } else {
+      window.dispatchEvent(new CustomEvent("booking-modal-close"));
+    }
+  }, [open]);
+  return <BookingModal isOpen={open} onClose={() => setOpen(false)} />;
+};
 
 // Crisp customer chat support:
 // This component is separated from ClientLayout because it needs to be wrapped with <SessionProvider> to use useSession() hook
@@ -89,6 +112,10 @@ const ClientLayout = ({ children }: { children: ReactNode }) => {
 
       {/* Set Crisp customer chat support */}
       <CrispChat />
+
+  {/* Floating Call / Book FAB */}
+  <StickyCallButton />
+  <BookingModalPortal />
     </>
   );
 };

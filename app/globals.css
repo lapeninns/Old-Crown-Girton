@@ -100,4 +100,11 @@ progress::-webkit-progress-value {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Subtle slower pulse animation for attention (reduced motion respected automatically by Tailwind's motion-safe) */
+  @keyframes pulse-slow {
+    0%,100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.05); }
+  }
+  .animate-pulse-slow { @apply motion-safe:animate-[pulse-slow_3.2s_ease-in-out_infinite]; }
 }
