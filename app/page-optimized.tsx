@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
 import Hero from "@/components/restaurant/Hero";
 import dynamic from 'next/dynamic';

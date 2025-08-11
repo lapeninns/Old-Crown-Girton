@@ -1,0 +1,19 @@
+{
+  "sections": [
+    {
+      "title": "LINKS",
+      "links": [
+        { "href": "/#pricing", "label": "Pricing" },
+        { "href": "/blog", "label": "Blog" },
+        { "href": "https://affiliate.example.com", "label": "Affiliates", "external": true }
+      ]
+    },
+    {
+      "title": "LEGAL",
+      "links": [
+        { "href": "/tos", "label": "Terms of services" },
+        { "href": "/privacy-policy", "label": "Privacy policy" }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bookingData from "@/data/restaurant.json"; // contains phone
+import { useParsedData } from "@/hooks/useParsedData";
+import { MarketingDataSchema, MarketingDataParsed } from "@/lib/schemas";
 import config from "@/config";
 import { usePathname } from "next/navigation";
 
@@ -29,9 +31,14 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	const restaurantPhone = phone || bookingData?.restaurant?.contact?.phone || "01223 276027";
 	const pathname = usePathname();
 
-	// Routes where FAB should not appear
+	// Marketing copy (button labels) externalized
+	const { data: marketing } = useParsedData<MarketingDataParsed>("marketing.json", MarketingDataSchema);
+	const btnLabelCall = marketing?.buttons?.callUs || `Call ${restaurantPhone.replace(/\s+/g, " ")}`;
+	const btnLabelBook = marketing?.buttons?.bookTable || "Book a Table";
+	const btnLabelMenu = marketing?.buttons?.viewMenu || "Takeaway Menu";
+
+	// Routes where FAB should not appear (can't early return before hooks; decide later)
 	const excludedRoutes = ["/admin", "/dashboard", "/signin"]; // add more as needed
-	if (excludedRoutes.some((r) => pathname?.startsWith(r))) return null;
 
 	// Gentle attention nudge after 6s (once per session)
 	useEffect(() => {
@@ -107,6 +114,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 
 	const hidden = hideForFooter || hideForModal;
 
+	if (excludedRoutes.some((r) => pathname?.startsWith(r))) return null;
 	return (
 		<div
 			className={`fixed z-[55] right-4 sm:right-6 pointer-events-none print:hidden transition-opacity duration-300 ${hidden ? "opacity-0 pointer-events-none" : "opacity-100"}`}
@@ -139,7 +147,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 								data-analytics-phone={restaurantPhone}
 							>
 								<span className="flex h-9 w-9 items-center justify-center rounded-full bg-crown-dark/10 text-lg">📞</span>
-								<span>Call {restaurantPhone.replace(/\s+/g, " ")}</span>
+								<span>{btnLabelCall}</span>
 							</a>
 						</li>
 						<li>
@@ -154,7 +162,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 								data-analytics-event="fab_book_click"
 							>
 								<span className="flex h-9 w-9 items-center justify-center rounded-full bg-crown-gold/15 text-lg">🗓️</span>
-								<span>Book a Table</span>
+								<span>{btnLabelBook}</span>
 							</button>
 						</li>
 						<li>
@@ -168,7 +176,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 								data-analytics-event="fab_takeaway_click"
 							>
 								<span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-lg">🥡</span>
-								<span>Takeaway Menu</span>
+								<span>{btnLabelMenu}</span>
 							</a>
 						</li>
 					</motion.ul>

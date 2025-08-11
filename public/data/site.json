@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "projects": [
+    { "id": "alpha", "title": "Alpha", "description": "First experiment", "tags": ["react", "api"], "url": "https://example.com/alpha" },
+    { "id": "beta", "title": "Beta", "description": "Content from JSON", "tags": ["json", "cdn"] }
+  ]
+}

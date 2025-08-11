@@ -1,0 +1,10 @@
+{
+  "links": [
+    { "href": "/", "label": "Home" },
+    { "href": "/menu", "label": "Menu" },
+    { "href": "/about", "label": "About" },
+    { "href": "/events", "label": "Events" },
+    { "href": "/contact", "label": "Contact" },
+    { "href": "/projects", "label": "Projects" }
+  ]
+}

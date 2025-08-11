@@ -19,8 +19,9 @@ const BookingModalPortal = () => {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     const handler = () => setOpen(true);
-    window.addEventListener("open-booking-modal", handler as EventListener);
-    return () => window.removeEventListener("open-booking-modal", handler as EventListener);
+  // TypeScript knows handler matches EventListener signature; avoid referencing global EventListener identifier (no-undef)
+  window.addEventListener("open-booking-modal", handler);
+  return () => window.removeEventListener("open-booking-modal", handler);
   }, []);
   React.useEffect(() => {
     if (open) {

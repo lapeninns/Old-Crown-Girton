@@ -8,10 +8,6 @@ import { SchemaInjector } from '@/components/seo/RestaurantSchema';
 export default function TestimonialsSection() {
   const testimonials = getTestimonials();
 
-  if (!testimonials || testimonials.length === 0) {
-    return null;
-  }
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -36,6 +32,11 @@ export default function TestimonialsSection() {
     // This will remove & re-add updated restaurant schema with reviews if needed
     // (SchemaInjector ensures uniqueness per type)
   }, [testimonials]);
+
+  // If there are no testimonials, render nothing (after hook declarations)
+  if (!testimonials || testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
