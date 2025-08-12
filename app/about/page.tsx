@@ -1,8 +1,11 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
+import marketing from '@/public/data/marketing.json';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 import { getContactInfo, getHours } from "@/lib/restaurantData";
 
 export default function AboutPage() {
+  const labels = (marketing as any).buttons || {};
+  const labelBookOnline = labels.bookOnline || 'Book Online';
   const contact = getContactInfo();
   const hours = getHours();
   const postcode = contact?.address.postcode || "CB3 0QQ";
@@ -29,14 +32,12 @@ export default function AboutPage() {
               Historic thatched village pub near Cambridge blending community heritage & authentic Nepalese flavour
             </p>
           </div>
-        </div>
+          </div>
 
-        {/* Main Content */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="prose prose-lg max-w-none">
-            <h2 className="text-3xl font-display font-bold text-crown-slate mb-6">Our Story</h2>
-            
-            <p className="text-gray-600 mb-6">Located on Girton High Street just minutes from Cambridge, The Old Crown blends the charm of a historic thatched English pub with a warmly spiced Nepalese kitchen. After previous periods of change, today we focus on a clear, consistent dual identity: heritage setting + Himalayan flavour.</p>
+          {/* Main Content */}
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="prose prose-lg max-w-none">
+              <p className="text-gray-600 mb-6">Located on Girton High Street just minutes from Cambridge, The Old Crown blends the charm of a historic thatched English pub with a warmly spiced Nepalese kitchen. After previous periods of change, today we focus on a clear, consistent dual identity: heritage setting + Himalayan flavour.</p>
             <p className="text-gray-600 mb-6">We welcome Girton locals, families, Girton College students & staff, professionals from the wider “Silicon Fen” and visitors seeking an authentic village pub experience with something unexpectedly delicious.</p>
             <p className="text-gray-600 mb-6">Our kitchen balances aromatic Nepalese spice profiles with familiar British comfort options and calmer choices for younger or milder palates.</p>
 
@@ -80,10 +81,12 @@ export default function AboutPage() {
             <div className="bg-crown-gold/10 rounded-xl p-8 text-center">
               <h4 className="text-xl font-display font-bold text-crown-slate mb-4">Ready to Book?</h4>
               <a
-                href="tel:01223276027"
+                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
               >
-                📞 Call to Book: 01223 276027
+                {labelBookOnline}
               </a>
               <div className="mt-4 text-sm text-gray-600">
                 <p><span className="font-semibold">Address:</span> 89 High St, Girton, Cambridge {postcode}</p>

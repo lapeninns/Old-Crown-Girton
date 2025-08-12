@@ -4,9 +4,13 @@ import { motion } from 'framer-motion';
 import { getTestimonials } from '@/lib/restaurantData';
 import { useEffect } from 'react';
 import { SchemaInjector } from '@/components/seo/RestaurantSchema';
+import { useParsedData } from '@/hooks/useParsedData';
+import { MarketingDataSchema } from '@/lib/schemas';
 
 export default function TestimonialsSection() {
   const testimonials = getTestimonials();
+  const { data: marketing } = useParsedData('marketing.json', MarketingDataSchema);
+  const labelBookTableOnline = marketing?.buttons?.bookTableOnline || 'Book Your Table Online';
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -130,12 +134,14 @@ export default function TestimonialsSection() {
             Ready to create your own memorable dining experience?
           </p>
           <motion.a
-            href="tel:01223276027"
+            href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-block bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
           >
-            Book Your Table Today
+            {labelBookTableOnline}
           </motion.a>
         </motion.div>
       </div>

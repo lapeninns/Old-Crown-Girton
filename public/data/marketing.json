@@ -1,9 +1,15 @@
 {
   "buttons": {
-    "bookTable": "Book a Table",
-    "callUs": "Call Us",
-    "viewMenu": "View Menu",
-    "getStarted": "Get Started",
-    "contact": "Contact Us"
+  "bookTable": "Book a Table",
+  "bookOnline": "Book Online",
+  "bookTableOnline": "Book Your Table Online",
+  "bookRoastOnline": "Book Sunday Roast Online",
+  "bookVisitOnline": "Book Your Visit Online",
+  "callUs": "Call Us",
+  "callForTakeaway": "Call for Takeaway",
+  "orderTakeaway": "Order Takeaway",
+  "viewMenu": "View Menu",
+  "getStarted": "Get Started",
+  "contact": "Contact Us"
   }
 }

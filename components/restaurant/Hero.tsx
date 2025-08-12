@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { getRestaurantIdentity, getContactInfo, getGallery, getHours } from '@/lib/restaurantData';
+import { useParsedData } from '@/hooks/useParsedData';
+import { MarketingDataSchema } from '@/lib/schemas';
 
 export default function Hero() {
   const identity = getRestaurantIdentity();
@@ -12,6 +14,9 @@ export default function Hero() {
   const kitchenWeek = hours?.display?.kitchen?.weekdays;
   const barWeek = hours?.display?.bar?.mon_thu;
   const hoursSnippet = kitchenWeek && barWeek ? `Kitchen ${kitchenWeek} | Bar ${barWeek}` : 'Open – see full hours';
+  const { data: marketing } = useParsedData('marketing.json', MarketingDataSchema);
+  const labelBookOnline = marketing?.buttons?.bookOnline || 'Book Online';
+  const labelCallForTakeaway = marketing?.buttons?.callForTakeaway || 'Call for Takeaway';
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center">
       {/* Background Image */}
@@ -61,12 +66,14 @@ export default function Hero() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.a
-              href={`tel:${contact?.phone.primary || '01223276027'}`}
+              href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-primary hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
             >
-              📞 Call to Book: {contact?.phone.display || '01223 276027'}
+              {labelBookOnline}
             </motion.a>
             <motion.a
               href={`tel:${contact?.phone.primary || '01223276027'}`}
@@ -74,7 +81,7 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-4 px-8 rounded-lg text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
             >
-              📞 Call for Takeaway
+              📞 {labelCallForTakeaway}
             </motion.a>
           </div>
 

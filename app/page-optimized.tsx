@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
+import marketing from '@/public/data/marketing.json';
 import Hero from "@/components/restaurant/Hero";
 import dynamic from 'next/dynamic';
 // Dynamic non-LCP sections
@@ -26,6 +27,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const labels = (marketing as any).buttons || {};
+  const labelBookOnline = labels.bookOnline || 'Book Online';
+  const labelViewMenu = labels.viewMenu || 'View Menu';
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -282,7 +286,7 @@ export default function Page() {
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-bold text-crown-slate mb-2">Do you need to book for Sunday roast?</h3>
-                  <p className="text-gray-700">Booking is recommended for Sunday roast, especially for larger groups. Call 01223 276027 or book online.</p>
+                  <p className="text-gray-700">Booking is recommended for Sunday roast, especially for larger groups. Call 01223 276027 or <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="text-crown-gold underline">{labelBookOnline.toLowerCase()}</a>.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
@@ -326,11 +330,11 @@ export default function Page() {
               Perfect for families, couples, groups, and your four-legged friends too!
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="tel:01223276027" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
-                📞 Call to Book: 01223 276027
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
+                {labelBookOnline}
               </a>
               <Link href="/menu" className="bg-crown-slate hover:bg-black text-white font-bold py-4 px-8 rounded-lg text-lg">
-                View Full Menu
+                {labelViewMenu}
               </Link>
               <Link href="/events" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
                 What's On This Week

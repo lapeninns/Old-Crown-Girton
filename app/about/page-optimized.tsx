@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
+import marketing from '@/public/data/marketing.json';
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from 'next';
@@ -19,6 +20,8 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const labels = (marketing as any).buttons || {};
+  const labelBookVisitOnline = labels.bookVisitOnline || 'Book Your Visit Online';
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -377,8 +380,8 @@ export default function AboutPage() {
               to our innovative cuisine, every detail tells the tale of Girton's unique pub.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="tel:01223276027" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
-                📞 Book Your Visit: 01223 276027
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
+                {labelBookVisitOnline}
               </a>
               <Link href="/menu" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
                 Explore Our Menu

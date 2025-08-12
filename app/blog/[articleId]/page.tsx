@@ -1,4 +1,5 @@
 import Link from "next/link";
+import marketing from '@/public/data/marketing.json';
 import Script from "next/script";
 import { articles } from "../_assets/content";
 import BadgeCategory from "../_assets/components/BadgeCategory";
@@ -41,6 +42,9 @@ export default async function Article({
 }: {
   params: { articleId: string };
 }) {
+  const labels = (marketing as any).buttons || {};
+  const labelViewMenu = labels.viewMenu || 'View Menu';
+  const labelBookOnline = labels.bookOnline || 'Book Online';
   const article = articles.find((article) => article.slug === params.articleId);
   const articlesRelated = articles
     .filter(
@@ -179,9 +183,9 @@ export default async function Article({
               <h2 className="text-2xl md:text-3xl font-display font-bold">Plan Your Visit</h2>
               <p className="text-base-content/80 max-w-2xl">Experience the blend of a historic Girton thatched pub and authentic Nepalese flavour: reserve a table, explore our menu or join an upcoming event.</p>
               <div className="flex flex-wrap gap-4">
-                <Link href="/menu" className="btn btn-primary">View Menu</Link>
-                <Link href="/events" className="btn btn-secondary">Events & What’s On</Link>
-                <Link href="/contact" className="btn">Book / Enquire</Link>
+                <Link href="/menu" className="btn btn-primary">{labelViewMenu}</Link>
+                <Link href="/events" className="btn btn-secondary">Events & Whats On</Link>
+                <Link href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="btn">{labelBookOnline}</Link>
               </div>
               <p className="text-sm text-base-content/60">Looking for more stories? Read about our <Link href="/about" className="link">heritage</Link> or see recent <Link href="/blog" className="link">blog posts</Link>.</p>
             </div>

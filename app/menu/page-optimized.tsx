@@ -2,6 +2,7 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import Link from "next/link";
 import { Metadata } from 'next';
+import marketing from '@/public/data/marketing.json';
 
 export const metadata: Metadata = {
   title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
@@ -18,6 +19,10 @@ export const metadata: Metadata = {
 };
 
 export default function MenuPage() {
+  const labels = (marketing as any).buttons || {};
+  const labelBookOnline = labels.bookOnline || 'Book Online';
+  const labelOrderTakeaway = labels.orderTakeaway || 'Order Takeaway';
+  const labelBookRoastOnline = labels.bookRoastOnline || 'Book Sunday Roast Online';
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Menu",
@@ -91,11 +96,11 @@ export default function MenuPage() {
               historic thatched pub. Every dish made fresh with authentic recipes and quality ingredients.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="tel:01223276027" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-3 px-6 rounded-lg">
-                📞 Order Takeaway: 01223 276027
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-3 px-6 rounded-lg">
+                {labelBookOnline}
               </a>
               <a href="tel:01223276027" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 rounded-lg">
-                Book a Table
+                📞 {labelOrderTakeaway}: 01223 276027
               </a>
             </div>
           </div>
@@ -389,8 +394,8 @@ export default function MenuPage() {
                 <strong>Served:</strong> Sundays 12:00 - 21:00 (or until sold out)<br/>
                 <strong>Booking recommended</strong> especially for larger groups
               </p>
-              <a href="tel:01223276027" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 rounded-lg">
-                Book Sunday Roast: 01223 276027
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 rounded-lg">
+                {labelBookRoastOnline}
               </a>
             </div>
           </div>
@@ -451,11 +456,11 @@ export default function MenuPage() {
               Book a table or order takeaway to experience the best of Nepal and Britain at Girton's historic thatched pub.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="tel:01223276027" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
-                📞 Book: 01223 276027
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
+                {labelBookOnline}
               </a>
               <a href="tel:01223276027" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
-                Order Takeaway
+                {labelOrderTakeaway}
               </a>
               <Link href="/about" className="bg-white hover:bg-gray-100 text-crown-slate font-bold py-4 px-8 rounded-lg text-lg">
                 Learn Our Story

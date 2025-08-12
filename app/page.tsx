@@ -8,9 +8,13 @@ const TestimonialsSection = dynamic(() => import("@/components/restaurant/Testim
 const TakeawayBanner = dynamic(() => import("@/components/restaurant/TakeawayBanner"));
 const LocationSection = dynamic(() => import("@/components/restaurant/LocationSection"));
 import Link from "next/link";
+import marketing from '@/public/data/marketing.json';
 
 export default function Page() {
   // FAQ schema now injected only where FAQ component is rendered; not on home by default.
+  const labels = (marketing as any).buttons || {};
+  const labelViewMenu = labels.viewMenu || 'View Menu';
+  const labelBookOnline = labels.bookOnline || 'Book Online';
 
   return (
   <>
@@ -47,9 +51,9 @@ export default function Page() {
             <h2 className="font-display font-bold text-crown-slate mb-4 h2">Ready to Experience Girton’s Thatched Nepalese Pub?</h2>
             <p className="text-gray-600 mb-6 text-body">Reserve a table, explore the menu or plan an event – we’d love to host you.</p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/menu" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-3 px-6 rounded-lg text-sm md:text-base">View Menu</Link>
+              <Link href="/menu" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-3 px-6 rounded-lg text-sm md:text-base">{labelViewMenu}</Link>
               <Link href="/events" className="bg-crown-slate hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-sm md:text-base">What’s On</Link>
-              <Link href="/contact" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 rounded-lg text-sm md:text-base">Book / Enquire</Link>
+              <Link href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 rounded-lg text-sm md:text-base">{labelBookOnline}</Link>
             </div>
           </div>
         </section>

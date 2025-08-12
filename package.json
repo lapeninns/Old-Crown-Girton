@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
+  "check:links": "node scripts/check-links.mjs http://localhost:3001",
   "build:clean": "npm run clean && npm run build",
   "clean": "rm -rf .next",
   "start": "next start",
