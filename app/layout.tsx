@@ -74,9 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to main content
         </a>
         
-        <main id="main-content">
-          <ClientLayout>{children}</ClientLayout>
-        </main>
+        <ClientLayout>{children}</ClientLayout>
         
         {/* PWA Components */}
         <ServiceWorkerManager />

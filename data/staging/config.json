@@ -1,0 +1,12 @@
+{
+  "env": "staging",
+  "featureFlags": { "cms": false, "posSync": false },
+  "api": { 
+    "baseUrl": "https://staging.oldcrowngirton.co.uk", 
+    "menuEndpoint": "https://staging.oldcrowngirton.co.uk/api/menu",
+    "marketingEndpoint": "https://staging.oldcrowngirton.co.uk/api/marketing",
+    "restaurantEndpoint": "https://staging.oldcrowngirton.co.uk/api/restaurant"
+  },
+  "cms": { "enabled": false },
+  "metadata": { "appName": "Old Crown (Staging)", "domainName": "staging.oldcrowngirton.co.uk" }
+}

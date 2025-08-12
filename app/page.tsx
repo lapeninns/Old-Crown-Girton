@@ -8,11 +8,12 @@ const TestimonialsSection = dynamic(() => import("@/components/restaurant/Testim
 const TakeawayBanner = dynamic(() => import("@/components/restaurant/TakeawayBanner"));
 const LocationSection = dynamic(() => import("@/components/restaurant/LocationSection"));
 import Link from "next/link";
-import marketing from '@/public/data/marketing.json';
+import { getMarketingSmart } from '@/src/lib/data/loader';
 
-export default function Page() {
+export default async function Page() {
   // FAQ schema now injected only where FAQ component is rendered; not on home by default.
-  const labels = (marketing as any).buttons || {};
+  const m = await getMarketingSmart();
+  const labels = m.buttons || {};
   const labelViewMenu = labels.viewMenu || 'View Menu';
   const labelBookOnline = labels.bookOnline || 'Book Online';
 
@@ -28,17 +29,17 @@ export default function Page() {
               <div className="p-6 rounded-lg border border-gray-200 bg-crown-cream/40">
                 <h3 className="font-display font-bold text-xl mb-2 text-crown-slate">Community & Events</h3>
                 <p className="text-gray-600 text-sm mb-4">Quiz nights, seasonal gatherings & live sports – see what’s coming up.</p>
-                <Link href="/events" className="text-crown-gold font-semibold hover:underline">View Events →</Link>
+                <Link href="/events" className="text-crown-gold-dark font-semibold hover:underline">View Events →</Link>
               </div>
               <div className="p-6 rounded-lg border border-gray-200 bg-crown-cream/40">
                 <h3 className="font-display font-bold text-xl mb-2 text-crown-slate">Heritage & Story</h3>
                 <p className="text-gray-600 text-sm mb-4">Discover how our thatched village pub evolved into a Nepalese + British hub.</p>
-                <Link href="/about" className="text-crown-gold font-semibold hover:underline">Explore Heritage →</Link>
+                <Link href="/about" className="text-crown-gold-dark font-semibold hover:underline">Explore Heritage →</Link>
               </div>
               <div className="p-6 rounded-lg border border-gray-200 bg-crown-cream/40">
                 <h3 className="font-display font-bold text-xl mb-2 text-crown-slate">Planning a Gathering?</h3>
                 <p className="text-gray-600 text-sm mb-4">Group meal, society social or family celebration – get in touch.</p>
-                <Link href="/contact" className="text-crown-gold font-semibold hover:underline">Enquire →</Link>
+                <Link href="/contact" className="text-crown-gold-dark font-semibold hover:underline">Enquire →</Link>
               </div>
             </div>
           </div>

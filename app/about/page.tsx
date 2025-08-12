@@ -1,10 +1,11 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import marketing from '@/public/data/marketing.json';
+import { getMarketingSmart } from '@/src/lib/data/loader';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 import { getContactInfo, getHours } from "@/lib/restaurantData";
 
-export default function AboutPage() {
-  const labels = (marketing as any).buttons || {};
+export default async function AboutPage() {
+  const m = await getMarketingSmart();
+  const labels = m.buttons || {};
   const labelBookOnline = labels.bookOnline || 'Book Online';
   const contact = getContactInfo();
   const hours = getHours();

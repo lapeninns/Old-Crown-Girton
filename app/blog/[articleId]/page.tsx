@@ -1,5 +1,5 @@
 import Link from "next/link";
-import marketing from '@/public/data/marketing.json';
+import { getMarketingSmart } from '@/src/lib/data/loader';
 import Script from "next/script";
 import { articles } from "../_assets/content";
 import BadgeCategory from "../_assets/components/BadgeCategory";
@@ -42,7 +42,8 @@ export default async function Article({
 }: {
   params: { articleId: string };
 }) {
-  const labels = (marketing as any).buttons || {};
+  const m = await getMarketingSmart();
+  const labels = m.buttons || {};
   const labelViewMenu = labels.viewMenu || 'View Menu';
   const labelBookOnline = labels.bookOnline || 'Book Online';
   const article = articles.find((article) => article.slug === params.articleId);

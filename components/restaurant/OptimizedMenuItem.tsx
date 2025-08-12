@@ -150,7 +150,7 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
           {/* Overlay badges */}
           <div className="absolute top-3 left-3 flex flex-wrap gap-1">
             {isNew && (
-              <Badge label="NEW" className="bg-crown-gold text-crown-dark font-bold" />
+              <Badge label="NEW" className="bg-crown-gold text-white font-bold" />
             )}
             {isSignature && (
               <Badge label="SIGNATURE" className="bg-crown-red text-white font-bold" />
@@ -222,7 +222,7 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
           
           <button
             onClick={handleAddToCart}
-            className="touch-target flex-1 bg-crown-gold hover:bg-crown-gold-dark text-crown-dark px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+            className="touch-target flex-1 bg-crown-gold hover:bg-crown-gold-dark text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Add to Order

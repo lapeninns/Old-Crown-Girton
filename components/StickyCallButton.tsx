@@ -152,7 +152,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 				<motion.a
 					href={formatTelHref(restaurantPhone)}
 					aria-label={btnLabelCall}
-					className={`group relative flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-crown-gold text-crown-dark focus:outline-none focus-visible:ring-4 focus-visible:ring-crown-gold/40 hover:brightness-105 active:scale-95 transition`}
+					className={`group relative flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-crown-gold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-crown-gold/40 hover:brightness-105 active:scale-95 transition`}
 					data-analytics-event="fab_call_click"
 					onClick={() => track("call_click", { phone: restaurantPhone })}
 				>

@@ -12,7 +12,7 @@ export default function RestaurantLayout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-neutral">
       <Navbar />
-      <main className="overflow-x-hidden">
+      <main className="overflow-x-hidden" id="main-content">
         {children}
       </main>
       <Footer />

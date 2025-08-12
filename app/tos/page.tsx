@@ -34,7 +34,7 @@ export const metadata = getSEOTags({
 
 const TOS = () => {
   return (
-    <main className="max-w-xl mx-auto">
+    <div className="max-w-xl mx-auto">
       <div className="p-5">
         <Link href="/" className="btn btn-ghost">
           <svg
@@ -89,7 +89,7 @@ const TOS = () => {
           <p>Questions: <span>legal@oldcrowngirton.co.uk</span></p>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

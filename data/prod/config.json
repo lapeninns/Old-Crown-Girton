@@ -1,0 +1,12 @@
+{
+  "env": "prod",
+  "featureFlags": { "cms": false, "posSync": false },
+  "api": { 
+    "baseUrl": "https://oldcrowngirton.co.uk", 
+    "menuEndpoint": "https://oldcrowngirton.co.uk/api/menu",
+    "marketingEndpoint": "https://oldcrowngirton.co.uk/api/marketing",
+    "restaurantEndpoint": "https://oldcrowngirton.co.uk/api/restaurant"
+  },
+  "cms": { "enabled": false },
+  "metadata": { "appName": "Old Crown", "domainName": "oldcrowngirton.co.uk" }
+}

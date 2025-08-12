@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
-import marketing from '@/public/data/marketing.json';
+import { getMarketingSmart } from '@/src/lib/data/loader';
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from 'next';
@@ -19,8 +19,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
-  const labels = (marketing as any).buttons || {};
+export default async function AboutPage() {
+  const m = await getMarketingSmart();
+  const labels = m.buttons || {};
   const labelBookVisitOnline = labels.bookVisitOnline || 'Book Your Visit Online';
   const structuredData = {
     "@context": "https://schema.org",

@@ -6,7 +6,7 @@ export default function AllergenNotice({ compact = false }: { compact?: boolean 
   const statement = meta?.allergen_info || 'Please inform us of any allergies before ordering.';
   const disclaimer = meta?.disclaimer || 'Cross-contamination is possible despite care.';
   return (
-    <div className={`text-xs ${compact ? 'mt-4' : 'mt-8'} text-gray-500 leading-relaxed`}>
+    <div className={`text-xs ${compact ? 'mt-4' : 'mt-8'} text-gray-100 leading-relaxed`}>
       <p><strong>Allergens:</strong> {statement}</p>
       {!compact && (
         <>

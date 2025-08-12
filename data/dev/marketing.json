@@ -1,0 +1,9 @@
+{
+  "hero": { "title": "Historic Thatched Pub & Nepalese Restaurant", "subtitle": "Welcome to The Old Crown, Girton" },
+  "promos": [
+    { "id": "p1", "title": "Curry Night Tuesday", "body": "Special set menus every Tuesday." },
+    { "id": "p2", "title": "Sunday Roast", "body": "Traditional roasts every Sunday." }
+  ],
+  "seo": { "title": "The Old Crown Girton", "description": "Authentic Nepalese cuisine and British pub classics in Girton, Cambridge." },
+  "buttons": { "bookOnline": "Book Online", "viewMenu": "View Menu" }
+}

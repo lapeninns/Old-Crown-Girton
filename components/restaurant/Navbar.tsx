@@ -20,7 +20,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-display font-bold text-crown-gold">
+              <span className="text-2xl font-display font-bold text-crown-gold-dark">
                 Old Crown
               </span>
               <span className="ml-2 text-sm text-crown-slate hidden sm:block">
@@ -32,7 +32,7 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {loading && <span className="text-xs text-gray-400 animate-pulse">Loading...</span>}
+              {loading && <span className="text-xs text-gray-600 animate-pulse">Loading...</span>}
               {error && <span className="text-xs text-red-500">Nav failed</span>}
               {navLinks.map((link: NavDataParsed['links'][number]) => (
                 <Link
@@ -50,7 +50,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-3">
             <a
               href="tel:01223276027"
-              className="touch-target bg-crown-gold text-crown-dark px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-500 transition-colors duration-200"
+              className="touch-target bg-crown-gold text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-crown-gold-dark transition-colors duration-200"
             >
               📞 {callLabel}
             </a>
@@ -88,7 +88,7 @@ export default function Navbar() {
             className="md:hidden bg-white border-b border-gray-200"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {loading && <div className="px-3 py-2 text-xs text-gray-400">Loading...</div>}
+              {loading && <div className="px-3 py-2 text-xs text-gray-600">Loading...</div>}
               {error && <div className="px-3 py-2 text-xs text-red-500">Nav failed</div>}
               {navLinks.map((link: NavDataParsed['links'][number]) => (
                 <Link
@@ -104,7 +104,7 @@ export default function Navbar() {
                 <div className="px-3">
                   <a
                     href="tel:01223276027"
-                    className="touch-target block bg-crown-gold text-crown-dark px-4 py-3 rounded-lg font-medium hover:bg-yellow-500 transition-colors duration-200 text-center"
+                    className="touch-target block bg-crown-gold text-white px-4 py-3 rounded-lg font-medium hover:bg-crown-gold-dark transition-colors duration-200 text-center"
                   >
                     📞 {callLabel}: 01223 276027
                   </a>

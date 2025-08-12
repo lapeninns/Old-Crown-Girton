@@ -1,3 +1,23 @@
+## Data layer and environment setup
+
+This app now loads restaurant data from JSON files under `data/{env}` with runtime validation via Zod.
+
+- Environments: `dev`, `staging`, `prod`. The active env resolves from `NEXT_PUBLIC_APP_ENV` or `NODE_ENV` (prod => `prod`, else => `dev`).
+- Files per env: `menu.json`, `restaurant.json`, `marketing.json`, `config.json`.
+- Public surface: utilities in `src/lib/data` provide typed loaders: `getMenuData`, `getRestaurantInfo`, `getMarketingContent`, `getConfigData`.
+- Component `src/components/menu/Menu.tsx` is prop-driven and renders a validated `Menu` model.
+
+Validation errors are caught with friendly fallbacks in pages/components using `ErrorBoundary`.
+
+### REST + SWR hooks
+
+- API routes: `/api/menu`, `/api/marketing`, `/api/restaurant` serve validated JSON from the env data loader.
+- Client hooks:
+	- `useMenu()` -> fetches `/api/menu`
+	- `useMarketing(endpoint?)` -> defaults `/api/marketing`
+	- `useRestaurant(endpoint?)` -> defaults `/api/restaurant`
+	- All responses validated via Zod to ensure type-safety at runtime.
+
 # External JSON Content Loader
 
 This project now supports runtime-loaded JSON content so updates can be deployed by publishing new JSON to a CDN (no app redeploy required).

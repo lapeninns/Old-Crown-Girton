@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
-import marketing from '@/public/data/marketing.json';
+import { getMarketingSmart } from '@/src/lib/data/loader';
 import Hero from "@/components/restaurant/Hero";
 import dynamic from 'next/dynamic';
 // Dynamic non-LCP sections
@@ -26,8 +26,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  const labels = (marketing as any).buttons || {};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const m = await getMarketingSmart();
+    if (m.seo) {
+      return { title: m.seo.title, description: m.seo.description };
+    }
+  } catch {}
+  return metadata;
+}
+
+export default async function Page() {
+  const m = await getMarketingSmart();
+  const labels: Record<string, string> = m.buttons || {};
   const labelBookOnline = labels.bookOnline || 'Book Online';
   const labelViewMenu = labels.viewMenu || 'View Menu';
   const structuredData = {

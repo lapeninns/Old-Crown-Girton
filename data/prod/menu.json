@@ -1,0 +1,71 @@
+{
+  "updatedAt": "2025-08-12T00:00:00Z",
+  "sections": [
+    {
+      "id": "starters",
+      "name": "Starters",
+      "items": [
+        {
+          "id": "onion-bhaji",
+          "name": "Onion Bhaji",
+          "description": "Crispy fried onions with spices",
+          "price": { "amount": 4.25, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": []
+        },
+        {
+          "id": "veg-momo",
+          "name": "Momo (Veg)",
+          "description": "Traditional Nepalese dumplings with seasonal vegetables",
+          "price": { "amount": 6.25, "currency": "GBP" },
+          "available": true,
+          "dietary": { "vegetarian": true },
+          "tags": ["nepalese", "dumpling"]
+        },
+        {
+          "id": "chicken-wings",
+          "name": "Chicken Wings",
+          "description": "Spiced grilled wings",
+          "price": { "amount": 6.75, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "specials",
+      "name": "Old Crown Specialities",
+      "items": [
+        {
+          "id": "bhutuwa-chicken",
+          "name": "Bhutuwa (Chicken)",
+          "description": "Traditional Nepalese speciality with crushed chilli and garlic",
+          "price": { "amount": 12.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": ["nepalese"]
+        },
+        {
+          "id": "kathmandu-tikka",
+          "name": "Kathmandu Tikka",
+          "description": "Chicken breast cubes marinated in cheese and cream",
+          "price": { "amount": 13.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": ["tandoor"]
+        },
+        {
+          "id": "lamb-shank",
+          "name": "Lamb Shank",
+          "description": "Slow-cooked, tender and flavourful",
+          "price": { "amount": 20.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": ["chef-special"]
+        }
+      ]
+    }
+  ]
+}
