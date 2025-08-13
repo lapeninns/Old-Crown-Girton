@@ -22,8 +22,8 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src={gallery.hero.main.src || "/hero-restaurant.jpg"}
-          alt={gallery.hero.main.alt || "Old Crown restaurant interior"}
+          src="/images/OldCrownGirtonBuilding.png"
+          alt="Old Crown Girton Building"
           fill
           className="object-cover"
           priority
