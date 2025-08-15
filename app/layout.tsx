@@ -8,6 +8,7 @@ import InstallPrompt, { OfflineNotification, UpdateNotification } from "@/compon
 import ServiceWorkerManager from "@/components/ui/ServiceWorkerManager";
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 import config from "@/config";
+import { themes } from '@/theme/colors';
 import "./globals.css";
 import "../styles/accessibility.css";
 
@@ -21,8 +22,10 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
 });
 
+const THEME = themes.light.colors;
+
 export const viewport: Viewport = {
-  themeColor: "#D4941E", // Crown gold color
+  themeColor: THEME.primaryAccent, // Crown gold color from centralized tokens
   width: "device-width",
   initialScale: 1,
 };
@@ -57,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
           <meta name="apple-mobile-web-app-title" content="Old Crown" />
           <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="msapplication-TileColor" content="#D4941E" />
+          <meta name="msapplication-TileColor" content={THEME.primaryAccent} />
           <meta name="msapplication-tap-highlight" content="no" />
           
           {/* Preload critical resources */}

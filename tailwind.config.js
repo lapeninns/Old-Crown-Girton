@@ -1,3 +1,6 @@
+const { themes, base } = require('./theme/colors');
+const LIGHT = themes.light.colors;
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,30 +11,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Old Crown Brand Colors
+        // Old Crown Brand Colors (sourced from theme/colors.js)
         crown: {
-          gold: '#674C0A', // Dark gold for 4.5:1 contrast with white text  
-          'gold-light': '#D4941E', // Original gold
-          'gold-dark': '#4A360A',
-          dark: '#FFFFFF', // White text color for dark gold backgrounds
+          gold: base.brand.goldDark,
+          'gold-light': base.brand.gold,
+          'gold-dark': base.brand.goldDark,
+          dark: LIGHT.text,
           ochre: '#CC8400',
-          slate: '#475569',
-          'slate-light': '#64748B',
-          'slate-dark': '#334155',
-          red: '#7A1A1A', // Dark red for 4.5:1 contrast with white text
-          'red-light': '#DC2626', // Original red
+          slate: base.neutral[700],
+          'slate-light': base.neutral[600],
+          'slate-dark': base.neutral[800],
+          red: base.brand.red,
+          'red-light': '#DC2626',
           'red-dark': '#5A1010',
-          cream: '#FEF7ED',
+          cream: base.brand.cream,
           'cream-dark': '#FED7AA',
         },
         // Semantic colors for restaurant
-        primary: '#674C0A', // Dark gold for main CTAs with white text
-        secondary: '#475569', // Slate for secondary actions
-        accent: '#7A1A1A', // Dark red for urgency/special offers with white text
-        neutral: '#F8FAFC',
-        success: '#059669',
-        warning: '#D97706',
-        error: '#DC2626',
+        primary: LIGHT.primary,
+        secondary: LIGHT.secondary,
+        accent: LIGHT.accent,
+        neutral: base.neutral[100],
+        success: LIGHT.success,
+        warning: LIGHT.warning,
+        error: LIGHT.error,
       },
       fontFamily: {
         'display': ['var(--font-playfair)', 'Playfair Display', 'serif'], // For headings

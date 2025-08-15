@@ -1,20 +1,24 @@
 // Critical CSS for above-the-fold content
 // This CSS will be inlined in the HTML head for fastest loading
 
+const { themes } = require('../theme/colors');
+
+const LIGHT = themes.light.colors;
+
 export const criticalCSS = `
 /* Essential layout and typography */
 .font-display { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
 .font-sans { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
 
 /* Crown brand colors - most critical */
-.text-crown-gold { color: #D4AF37; }
-.bg-crown-gold { background-color: #D4AF37; }
-.text-crown-gold-dark { color: #B8941F; }
-.bg-crown-gold-dark { background-color: #B8941F; }
-.text-crown-cream { color: #FDF6E3; }
-.bg-crown-cream { background-color: #FDF6E3; }
-.text-crown-slate { color: #334155; }
-.bg-crown-slate { background-color: #334155; }
+.text-crown-gold { color: ${LIGHT.primaryAccent}; }
+.bg-crown-gold { background-color: ${LIGHT.primaryAccent}; }
+.text-crown-gold-dark { color: ${LIGHT.primary}; }
+.bg-crown-gold-dark { background-color: ${LIGHT.primary}; }
+.text-crown-cream { color: ${LIGHT.surface}; }
+.bg-crown-cream { background-color: ${LIGHT.surface}; }
+.text-crown-slate { color: ${LIGHT.secondary}; }
+.bg-crown-slate { background-color: ${LIGHT.secondary}; }
 
 /* Critical layout utilities */
 .min-h-screen { min-height: 100vh; }
@@ -48,20 +52,20 @@ export const criticalCSS = `
 
 /* Hero section critical styles */
 .hero-gradient { 
-  background: linear-gradient(135deg, #FDF6E3 0%, rgba(212, 175, 55, 0.1) 100%);
+  background: linear-gradient(135deg, ${LIGHT.surface} 0%, rgba(212, 175, 55, 0.1) 100%);
 }
 
 /* Button essentials */
 .btn-primary {
-  background-color: #D4AF37;
-  color: white;
+  background-color: ${LIGHT.primary};
+  color: ${LIGHT.text};
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
   transition: background-color 0.2s;
 }
 .btn-primary:hover {
-  background-color: #B8941F;
+  background-color: ${LIGHT.primaryAccent};
 }
 
 /* Loading states */
