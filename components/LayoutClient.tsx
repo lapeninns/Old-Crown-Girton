@@ -9,20 +9,40 @@ import { Toaster } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import config from "@/config";
 import StickyCallButton from "./StickyCallButton";
-import dynamic from "next/dynamic";
 import * as React from "react";
-
-// Lazy load booking modal only when needed
-const BookingModal = dynamic(() => import("./restaurant/BookingModal"), { ssr: false });
+import BookingModal from "./restaurant/BookingModal";
 
 const BookingModalPortal = () => {
   const [open, setOpen] = React.useState(false);
+
   React.useEffect(() => {
-    const handler = () => setOpen(true);
-  // TypeScript knows handler matches EventListener signature; avoid referencing global EventListener identifier (no-undef)
-  window.addEventListener("open-booking-modal", handler);
-  return () => window.removeEventListener("open-booking-modal", handler);
+    const handler = () => {
+      try { console.debug && console.debug('BookingModalPortal: received open-booking-modal'); } catch {}
+      setOpen(true);
+    };
+
+    window.addEventListener("open-booking-modal", handler);
+
+    // Mark that the booking portal has mounted so tests can wait for it.
+    try {
+      document.documentElement.setAttribute('data-booking-portal-mounted', '1');
+    } catch (e) {}
+
+    // Consume any queued events that fired before this component mounted
+    try {
+      const q = (window as any).__bookingModalQueue;
+      if (Array.isArray(q) && q.length > 0) {
+        try { console.debug && console.debug('BookingModalPortal: consuming queued events', q.length); } catch {}
+        setOpen(true);
+        (window as any).__bookingModalQueue = [];
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    return () => window.removeEventListener("open-booking-modal", handler);
   }, []);
+
   React.useEffect(() => {
     if (open) {
       window.dispatchEvent(new CustomEvent("booking-modal-open"));
@@ -30,7 +50,13 @@ const BookingModalPortal = () => {
       window.dispatchEvent(new CustomEvent("booking-modal-close"));
     }
   }, [open]);
-  return <BookingModal isOpen={open} onClose={() => setOpen(false)} />;
+
+  // Add a mount marker so tests can wait for portal availability
+  return (
+    <div data-booking-portal-mounted={open ? "1" : "0"}>
+      <BookingModal isOpen={open} onClose={() => setOpen(false)} />
+    </div>
+  );
 };
 
 // Crisp customer chat support:
@@ -39,7 +65,7 @@ const CrispChat = (): null => {
   const pathname = usePathname();
 
   const supabase = createClientComponentClient();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
 
   // This is used to get the user data from Supabase Auth (if logged in) => user ID is used to identify users in Crisp
   useEffect(() => {
@@ -114,9 +140,9 @@ const ClientLayout = ({ children }: { children: ReactNode }) => {
       {/* Set Crisp customer chat support */}
       <CrispChat />
 
-  {/* Floating Call / Book FAB */}
-  <StickyCallButton />
-  <BookingModalPortal />
+      {/* Floating Call / Book FAB */}
+      <StickyCallButton />
+      <BookingModalPortal />
     </>
   );
 };

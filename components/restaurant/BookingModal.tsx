@@ -38,7 +38,13 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Booking modal"
+          data-testid="booking-modal"
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -58,7 +64,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             {/* Header */}
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-display font-bold text-crown-slate">
+                <h2 id="booking-modal-title" className="text-2xl font-display font-bold text-crown-slate">
                   Book a Table
                 </h2>
                 <button

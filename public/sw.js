@@ -224,7 +224,7 @@ async function cacheFirstImages(request) {
   } catch (error) {
     // Return placeholder image for offline
     return new Response(
-      '<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="var(--color-neutral-80, #f3f4f6)"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" font-family="Arial" font-size="14" fill="var(--color-text-secondary, #6b7280)">Image unavailable offline</text></svg>',
+      '<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f3f4f6"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" font-family="Arial" font-size="14" fill="#6b7280">Image unavailable offline</text></svg>',
       {
         headers: {
           'Content-Type': 'image/svg+xml',
@@ -247,24 +247,23 @@ async function handleOfflineFallback(request) {
     }
     
     // Fallback offline HTML
-    return new Response(`
+        return new Response(`
       <!DOCTYPE html>
       <html lang="en">
         <head>
           <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Offline - Old Crown Restaurant</title>
           <style>
             body { 
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-              margin: 0; padding: 20px; text-align: center; background: var(--color-background, #f9fafb);
+              margin: 0; padding: 20px; text-align: center; background: #f9fafb;
             }
             .container { 
               max-width: 400px; margin: 100px auto; padding: 40px; 
-              background: var(--color-surface, white); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+              background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             }
-            h1 { color: var(--color-brand-primary-light, #D4941E); margin-bottom: 16px; }
-            p { color: var(--color-text-secondary, #6b7280); line-height: 1.6; }
+            h1 { color: #D4941E; margin-bottom: 16px; }
+            p { color: #6b7280; line-height: 1.6; }
             .icon { font-size: 48px; margin-bottom: 20px; }
           </style>
         </head>
@@ -274,7 +273,7 @@ async function handleOfflineFallback(request) {
             <h1>You're Offline</h1>
             <p>It looks like you've lost your internet connection. The Old Crown Restaurant app works offline for previously visited pages.</p>
             <p><strong>Try:</strong></p>
-            <ul style="text-align: left; color: var(--color-text-secondary, #6b7280);">
+            <ul style="text-align: left; color: #6b7280;">
               <li>Check your internet connection</li>
               <li>Go back to a previously visited page</li>
               <li>Visit our menu (if you've been there before)</li>
