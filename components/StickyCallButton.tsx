@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bookingData from "@/data/restaurant.json"; // contains phone
 import { useParsedData } from "@/hooks/useParsedData";
@@ -115,6 +116,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	};
 
 	const hidden = hideForFooter || hideForModal;
+	// removed preview/confirmation state — Directions now opens app immediately
 
 	if (excludedRoutes.some((r) => pathname?.startsWith(r))) return null;
 	return (
@@ -130,6 +132,49 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 			>
 				{/* Stack actions vertically at bottom-right; keep pointer-events only on inner wrapper */}
 				<div className={`relative pointer-events-auto flex flex-col items-end gap-3`}>
+				{/** Directions button: open Apple Maps on iOS, Google Maps otherwise */}
+				{
+					(() => {
+						const lat = '52.2425913';
+						const lng = '0.0814946';
+						// Google Maps directions URL (origin omitted = current location in most clients)
+						const googleHref = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
+						// Apple Maps directions URL (https fallback)
+						const appleHref = `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`;
+						// iOS native maps scheme (attempt to open native app)
+						const appleNative = `maps://?daddr=${lat},${lng}&dirflg=d`;
+						const isiOS = typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent);
+						const href = isiOS ? appleHref : googleHref; // DOM-facing href (https) so tests can read it
+
+						return (
+							<a
+								href={href}
+								aria-label="Get directions"
+								data-testid="directions-sticky"
+								className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-crown-blue text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-crown-blue/40 hover:brightness-95 active:scale-95 transition"
+								onClick={(e) => {
+									// Attempt native maps on iOS immediately
+									if (isiOS) {
+										e.preventDefault();
+										try {
+											window.location.href = appleNative;
+											// Fallback to https appleHref after a short delay in case native scheme isn't handled
+											window.setTimeout(() => window.open(appleHref, '_blank', 'noopener'), 1200);
+										} catch (err) {
+											window.open(appleHref, '_blank', 'noopener');
+										}
+									} else {
+										// non-iOS: let the anchor navigate (opens Google Maps URL)
+									}
+									track('directions_click', { href });
+								}}
+							>
+								<span aria-hidden className="text-lg">🧭</span>
+								<span className="sr-only">Directions</span>
+							</a>
+						);
+					})()
+				}
 				<AnimatePresence>
 					{showNudge && (
 						<motion.div
