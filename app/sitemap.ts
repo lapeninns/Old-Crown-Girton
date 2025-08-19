@@ -60,13 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     
-    // Blog/News - medium priority, updated weekly
-    {
-      url: `${BASE_URL}/blog`,
-      lastModified: lastWeek,
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    },
+  // (blog removed)
     
     // Legal pages - low priority, rarely updated
     {

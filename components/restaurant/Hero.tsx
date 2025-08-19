@@ -18,7 +18,7 @@ export default function Hero() {
   const labelBookOnline = marketing?.buttons?.bookOnline || 'Book Online';
   const labelCallForTakeaway = marketing?.buttons?.callForTakeaway || 'Call for Takeaway';
   return (
-    <section className="relative h-screen min-h-[600px] flex items-center justify-center">
+  <section className="relative h-[60vh] sm:h-[65vh] md:h-screen flex items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -40,16 +40,16 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-snug md:leading-tight">
             <span className="block text-crown-gold">Girton’s Historic Thatched Pub</span>
-            <span className="block text-white text-3xl md:text-4xl lg:text-5xl">with Himalayan Flavour</span>
+            <span className="block text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl">with Himalayan Flavour</span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
             A welcoming village hub just outside Cambridge – authentic Nepalese dishes alongside trusted British pub comfort in a distinctive thatched setting.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3 text-sm md:text-base text-white/85 mb-10 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-3 text-sm md:text-base text-white/85 mb-10 max-w-3xl mx-auto">
             {[
               'Authentic Nepalese + Pub Classics',
               'Family & Dog Friendly',
@@ -71,7 +71,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-primary hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
+              className="bg-primary hover:bg-crown-gold-dark text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
             >
               {labelBookOnline}
             </motion.a>
@@ -79,7 +79,7 @@ export default function Hero() {
               href={`tel:${contact?.phone.primary || '01223276027'}`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-4 px-8 rounded-lg text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
+              className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
             >
               📞 {labelCallForTakeaway}
             </motion.a>

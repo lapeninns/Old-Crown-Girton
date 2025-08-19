@@ -3,8 +3,7 @@
     {
       "title": "LINKS",
       "links": [
-        { "href": "/#pricing", "label": "Pricing" },
-        { "href": "/blog", "label": "Blog" },
+  { "href": "/#pricing", "label": "Pricing" },
         { "href": "https://affiliate.example.com", "label": "Affiliates", "external": true }
       ]
     },
