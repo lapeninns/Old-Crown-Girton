@@ -783,34 +783,7 @@
         }
       ]
     },
-    {
-      "id": "pub-classics",
-      "name": "Pub Classics",
-      "items": [
-        {
-          "id": "fish-and-chips",
-          "name": "Fish & Chips",
-          "description": "Medium battered cod fish served with tartar sauce",
-          "price": { "amount": 12.0, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        },
-        {
-          "id": "chicken-strips-with-chips",
-          "name": "Chicken Strips with Chips",
-          "price": { "amount": 9.0, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        },
-        {
-          "id": "peri-peri-chicken-with-chips",
-          "name": "Peri-Peri Chicken with Chips",
-          "price": { "amount": 9.0, "currency": "GBP" },
-          "available": true,
-          "tags": ["spicy"]
-        }
-      ]
-    },
+    
     {
       "id": "burgers",
       "name": "Burgers",
