@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Metadata } from 'next';
 import { getMarketingSmart, getMenuSmart } from '@/src/lib/data/loader';
 import MenuHero from '@/components/menu/MenuHero';
-import MenuNav from '@/components/menu/MenuNav';
-import MenuSections from '@/components/menu/MenuSections';
+import MenuInteractive from '@/components/menu/MenuInteractive';
+import MenuInfoCollapse from '@/components/menu/MenuInfoCollapse';
 
 export const metadata: Metadata = {
 	title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
@@ -63,55 +63,27 @@ export default async function MenuPage() {
 				{/* Hero Section (component) */}
 				<MenuHero labelBookOnline={labelBookOnline} labelOrderTakeaway={labelOrderTakeaway} />
 
-				{/* Menu navigation (component) */}
-				<MenuNav sections={menu?.sections || []} />
-
-				{/* Sections (component) */}
-				<MenuSections sections={menu?.sections || []} />
+				{/* Interactive menu navigation + sections (single-page, no routes) */}
+				<MenuInteractive sections={menu?.sections || []} defaultSelected={(menu as any)?.defaultSection || null} />
 
 				{/* Traditional British Pub Classics removed per request */}
-				{/* Dietary Information & FAQ */}
+				{/* Dietary Information & FAQ - collapsed accordion */}
 				<section className="py-16 bg-crown-cream/20">
 					<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 						<h2 className="text-3xl font-display font-bold text-crown-slate text-center mb-12">
 							Menu Information & Dietary Requirements
 						</h2>
-            
-						<div className="grid md:grid-cols-2 gap-8">
-							<div className="space-y-6">
-								<div className="p-6 bg-white rounded-lg">
-									<h3 className="font-bold text-crown-slate mb-2">Are there vegetarian options on the Nepalese menu?</h3>
-									<p className="text-gray-700">Yes! We offer dal bhat, vegetable momo, vegetable thali, and several vegetarian curries. All clearly marked on our menu.</p>
-								</div>
-                
-								<div className="p-6 bg-white rounded-lg">
-									<h3 className="font-bold text-crown-slate mb-2">Can you adjust spice levels?</h3>
-									<p className="text-gray-700">Absolutely! Our chefs can adjust spice levels for most Nepalese dishes. Just let your server know your preference when ordering.</p>
-								</div>
-                
-								<div className="p-6 bg-white rounded-lg">
-									<h3 className="font-bold text-crown-slate mb-2">Do you have a children's menu?</h3>
-									<p className="text-gray-700">Yes, we offer mild Nepalese dishes and traditional pub favorites sized for children, including fish & chips, chicken nuggets, and pasta.</p>
-								</div>
-							</div>
-              
-							<div className="space-y-6">
-								<div className="p-6 bg-white rounded-lg">
-									<h3 className="font-bold text-crown-slate mb-2">What about gluten-free options?</h3>
-									<p className="text-gray-700">Many of our Nepalese curries are naturally gluten-free. We also offer gluten-free alternatives for fish & chips and other pub classics.</p>
-								</div>
-                
-								<div className="p-6 bg-white rounded-lg">
-									<h3 className="font-bold text-crown-slate mb-2">Is takeaway available for all menu items?</h3>
-									<p className="text-gray-700">Yes! All our dishes are available for takeaway. Call 01223 276027 to place your order. Collection typically ready in 20-30 minutes.</p>
-								</div>
-                
-								<div className="p-6 bg-white rounded-lg">
-									<h3 className="font-bold text-crown-slate mb-2">How authentic is your Nepalese food?</h3>
-									<p className="text-gray-700">Our Nepalese dishes use traditional recipes and cooking methods, with spices imported directly from Nepal for authentic flavors.</p>
-								</div>
-							</div>
-						</div>
+
+						<MenuInfoCollapse
+							items={[
+								{ title: 'Are there vegetarian options on the Nepalese menu?', content: <>Yes! We offer dal bhat, vegetable momo, vegetable thali, and several vegetarian curries. All clearly marked on our menu.</> },
+								{ title: 'Can you adjust spice levels?', content: <>Absolutely! Our chefs can adjust spice levels for most Nepalese dishes. Just let your server know your preference when ordering.</> },
+								{ title: "Do you have a children's menu?", content: <>Yes, we offer mild Nepalese dishes and traditional pub favorites sized for children, including fish & chips, chicken nuggets, and pasta.</> },
+								{ title: 'What about gluten-free options?', content: <>Many of our Nepalese curries are naturally gluten-free. We also offer gluten-free alternatives for fish & chips and other pub classics.</> },
+								{ title: 'Is takeaway available for all menu items?', content: <>Yes! All our dishes are available for takeaway. Call 01223 276027 to place your order. Collection typically ready in 20-30 minutes.</> },
+								{ title: 'How authentic is your Nepalese food?', content: <>Our Nepalese dishes use traditional recipes and cooking methods, with spices imported directly from Nepal for authentic flavors.</> },
+							]}
+						/>
 					</div>
 				</section>
 
