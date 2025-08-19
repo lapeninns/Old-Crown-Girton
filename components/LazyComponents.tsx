@@ -7,7 +7,7 @@ import { LoadingState } from './ui/AdvancedSkeleton';
 
 // Code-split menu components with advanced loading states
 export const LazyCompleteMenu = dynamic(
-  () => import('../app/menu/menu-content-complete'),
+  () => import('../app/menu/page-optimized'),
   {
     loading: () => <LoadingState type="menu" />,
     ssr: true // Enable SSR for SEO
