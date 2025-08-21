@@ -87,7 +87,7 @@ export default async function MenuPage() {
       />
       <RestaurantLayout>
         {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-crown-slate to-crown-slate/80">
+        <section className="relative py-20 bg-gradient-to-br from-brand-700 to-brand-800">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
               Our Menu: Authentic Nepalese & Traditional British Cuisine
@@ -97,10 +97,10 @@ export default async function MenuPage() {
               historic thatched pub. Every dish made fresh with authentic recipes and quality ingredients.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-3 px-6 rounded-lg">
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-6 rounded-lg">
                 {labelBookOnline}
               </a>
-              <a href="tel:01223276027" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 rounded-lg">
+              <a href="tel:01223276027" className="bg-crimson-500 hover:bg-crimson-600 text-white font-bold py-3 px-6 rounded-lg">
                 📞 {labelOrderTakeaway}: 01223 276027
               </a>
             </div>
@@ -108,7 +108,7 @@ export default async function MenuPage() {
         </section>
 
         {/* Menu Navigation */}
-        <section className="py-8 bg-crown-cream/30 sticky top-0 z-10">
+        <section className="py-8 bg-neutral-100/30 sticky top-0 z-10">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="flex flex-wrap justify-center gap-4">
               {[
@@ -122,7 +122,7 @@ export default async function MenuPage() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="px-4 py-2 bg-white hover:bg-crown-gold hover:text-white rounded-lg text-crown-slate font-semibold transition-colors"
+                  className="px-4 py-2 bg-white hover:bg-accent-500 hover:text-white rounded-lg text-brand-700 font-semibold transition-colors"
                 >
                   {item.name}
                 </a>
@@ -135,7 +135,7 @@ export default async function MenuPage() {
         <section id="nepalese" className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate mb-4">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-700 mb-4">
                 Authentic Nepalese Specialties
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -147,14 +147,14 @@ export default async function MenuPage() {
             <div className="grid gap-8 md:grid-cols-2">
               {/* Signature Dishes */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-crown-slate mb-6 border-b-2 border-crown-gold pb-2">
+                <h3 className="text-2xl font-bold text-brand-700 mb-6 border-b-2 border-accent-500 pb-2">
                   Signature Dishes
                 </h3>
 
-                <div className="p-6 bg-crown-cream/20 rounded-lg">
+                <div className="p-6 bg-neutral-100/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
-                    <h4 className="text-xl font-bold text-crown-slate">Chicken Momo</h4>
-                    <span className="text-lg font-bold text-crown-gold">£8.95</span>
+                    <h4 className="text-xl font-bold text-brand-700">Chicken Momo</h4>
+                    <span className="text-lg font-bold text-accent-500">£8.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Traditional <strong>Nepalese dumplings</strong> filled with seasoned chicken and fresh herbs, 
@@ -166,10 +166,10 @@ export default async function MenuPage() {
                   </div>
                 </div>
 
-                <div className="p-6 bg-crown-cream/20 rounded-lg">
+                <div className="p-6 bg-neutral-100/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
-                    <h4 className="text-xl font-bold text-crown-slate">Dal Bhat</h4>
-                    <span className="text-lg font-bold text-crown-gold">£12.50</span>
+                    <h4 className="text-xl font-bold text-brand-700">Dal Bhat</h4>
+                    <span className="text-lg font-bold text-accent-500">£12.50</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     <strong>Nepal's national dish</strong> - a complete meal featuring aromatic lentil soup, fluffy basmati rice, 
@@ -181,10 +181,10 @@ export default async function MenuPage() {
                   </div>
                 </div>
 
-                <div className="p-6 bg-crown-cream/20 rounded-lg">
+                <div className="p-6 bg-neutral-100/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
-                    <h4 className="text-xl font-bold text-crown-slate">Vegetable Thali</h4>
-                    <span className="text-lg font-bold text-crown-gold">£13.95</span>
+                    <h4 className="text-xl font-bold text-brand-700">Vegetable Thali</h4>
+                    <span className="text-lg font-bold text-accent-500">£13.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     A complete <strong>vegetarian feast</strong> with multiple seasonal curries, dal, rice, 
