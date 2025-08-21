@@ -10,7 +10,17 @@ export const criticalCSS = `
 .font-display { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
 .font-sans { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
 
-/* Crown brand colors - most critical */
+/* Himalayan Spice brand colors - most critical */
+.text-brand-terracotta { color: ${LIGHT.primary}; }
+.bg-brand-terracotta { background-color: ${LIGHT.primary}; }
+.text-accent-saffron { color: ${LIGHT.primaryAccent}; }
+.bg-accent-saffron { background-color: ${LIGHT.primaryAccent}; }
+.text-neutral-cream { color: ${LIGHT.surface}; }
+.bg-neutral-cream { background-color: ${LIGHT.surface}; }
+.text-secondary-teal { color: ${LIGHT.secondary}; }
+.bg-secondary-teal { background-color: ${LIGHT.secondary}; }
+
+/* Backward compatibility with Crown classes */
 .text-crown-gold { color: ${LIGHT.primaryAccent}; }
 .bg-crown-gold { background-color: ${LIGHT.primaryAccent}; }
 .text-crown-gold-dark { color: ${LIGHT.primary}; }
@@ -52,7 +62,10 @@ export const criticalCSS = `
 
 /* Hero section critical styles */
 .hero-gradient { 
-  background: linear-gradient(135deg, ${LIGHT.surface} 0%, rgba(212, 175, 55, 0.1) 100%);
+  background: linear-gradient(135deg, ${LIGHT.surface} 0%, rgba(244, 196, 48, 0.1) 100%);
+}
+.himalayan-gradient {
+  background: linear-gradient(135deg, ${LIGHT.surface} 0%, rgba(244, 196, 48, 0.1) 100%);
 }
 
 /* Button essentials */

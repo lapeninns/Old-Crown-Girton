@@ -46,12 +46,12 @@ export default async function AboutPage() {
       />
       <RestaurantLayout>
         {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-crown-slate to-crown-slate/80">
+        <section className="relative py-20 bg-gradient-to-br from-brand-700 to-brand-800">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-neutral-50 mb-6">
               The Story of The Old Crown: Historic Thatched Pub Heritage
             </h1>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-neutral-200 max-w-3xl mx-auto leading-relaxed">
               Discover how Girton's largest thatched pub evolved from a traditional village inn 
               into Cambridge's unique destination for authentic Nepalese cuisine and British classics.
             </p>
@@ -66,13 +66,13 @@ export default async function AboutPage() {
                 <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate mb-6">
                   A Historic Thatched Pub with a Modern Heart
                 </h2>
-                <p className="text-lg text-gray-700 mb-6">
+                <p className="text-lg text-neutral-700 mb-6">
                   The Old Crown proudly stands as the <strong>largest thatched pub in the country</strong>, 
                   a distinctive architectural marvel that has been welcoming guests to <strong>Girton village</strong> 
                   since the 1930s. Our striking thatched roof and traditional English pub character 
                   create an atmosphere that's both timeless and uniquely memorable.
                 </p>
-                <p className="text-lg text-gray-700 mb-6">
+                <p className="text-lg text-neutral-700 mb-6">
                   Located just 2 miles from <strong>Cambridge city centre</strong> on Girton's historic High Street, 
                   we've evolved from a simple village inn into something truly special - a place where 
                   authentic <strong>Nepalese cuisine</strong> meets beloved British pub traditions 
@@ -85,24 +85,24 @@ export default async function AboutPage() {
                 </p>
               </div>
               <div className="relative">
-                <div className="bg-crown-cream/30 p-8 rounded-lg">
+                <div className="bg-neutral-100 p-8 rounded-lg">
                   <div className="text-6xl mb-4 text-center">🏛️</div>
-                  <h3 className="text-2xl font-bold text-crown-slate text-center mb-4">Historic Landmark</h3>
-                  <ul className="space-y-3 text-gray-700">
+                  <h3 className="text-2xl font-bold text-brand-700 text-center mb-4">Historic Landmark</h3>
+                  <ul className="space-y-3 text-neutral-700">
                     <li className="flex items-start">
-                      <span className="text-crown-gold mr-2">•</span>
+                      <span className="text-accent-500 mr-2">•</span>
                       <span>Built in the 1930s on historic foundations</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-crown-gold mr-2">•</span>
+                      <span className="text-accent-500 mr-2">•</span>
                       <span>Largest thatched pub roof in the UK</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-crown-gold mr-2">•</span>
+                      <span className="text-accent-500 mr-2">•</span>
                       <span>Grade II listed architectural significance</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-crown-gold mr-2">•</span>
+                      <span className="text-accent-500 mr-2">•</span>
                       <span>Heart of Girton village for over 90 years</span>
                     </li>
                   </ul>
@@ -111,18 +111,18 @@ export default async function AboutPage() {
             </div>
 
             {/* Timeline Section */}
-            <div className="border-t border-gray-200 pt-16">
-              <h2 className="text-3xl font-display font-bold text-crown-slate text-center mb-12">
+            <div className="border-t border-neutral-200 pt-16">
+              <h2 className="text-3xl font-display font-bold text-brand-700 text-center mb-12">
                 Our Journey Through Time
               </h2>
               
               <div className="space-y-8">
                 <div className="flex gap-6 items-start">
-                  <div className="flex-shrink-0 w-20 h-20 bg-crown-gold/20 rounded-full flex items-center justify-center">
-                    <span className="text-crown-gold font-bold">1930s</span>
+                  <div className="flex-shrink-0 w-20 h-20 bg-accent-100 rounded-full flex items-center justify-center">
+                    <span className="text-accent-600 font-bold">1930s</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-crown-slate mb-2">The Foundation Years</h3>
+                    <h3 className="text-xl font-bold text-brand-700 mb-2">The Foundation Years</h3>
                     <p className="text-gray-700">
                       The Old Crown was built to replace an earlier inn, featuring the distinctive 
                       <strong>thatched roof design</strong> that would become our signature. From day one, 
@@ -132,11 +132,11 @@ export default async function AboutPage() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="flex-shrink-0 w-20 h-20 bg-crown-gold/20 rounded-full flex items-center justify-center">
-                    <span className="text-crown-gold font-bold">1960s-90s</span>
+                  <div className="flex-shrink-0 w-20 h-20 bg-accent-100 rounded-full flex items-center justify-center">
+                    <span className="text-accent-600 font-bold">1960s-90s</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-crown-slate mb-2">The Traditional Pub Era</h3>
+                    <h3 className="text-xl font-bold text-brand-700 mb-2">The Traditional Pub Era</h3>
                     <p className="text-gray-700">
                       For decades, The Old Crown operated as a classic English village pub, 
                       serving traditional ales and hearty pub grub to generations of Girton families. 
@@ -146,11 +146,11 @@ export default async function AboutPage() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="flex-shrink-0 w-20 h-20 bg-crown-gold/20 rounded-full flex items-center justify-center">
-                    <span className="text-crown-gold font-bold">2000s</span>
+                  <div className="flex-shrink-0 w-20 h-20 bg-accent-100 rounded-full flex items-center justify-center">
+                    <span className="text-accent-600 font-bold">2000s</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-crown-slate mb-2">Culinary Evolution</h3>
+                    <h3 className="text-xl font-bold text-brand-700 mb-2">Culinary Evolution</h3>
                     <p className="text-gray-700">
                       Under various managements, The Old Crown experimented with different culinary directions, 
                       including a period as an upscale gastropub. Each era added to our rich tapestry 
@@ -160,11 +160,11 @@ export default async function AboutPage() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="flex-shrink-0 w-20 h-20 bg-crown-gold/20 rounded-full flex items-center justify-center">
-                    <span className="text-crown-gold font-bold">Today</span>
+                  <div className="flex-shrink-0 w-20 h-20 bg-accent-100 rounded-full flex items-center justify-center">
+                    <span className="text-accent-600 font-bold">Today</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-crown-slate mb-2">The Nepalese-British Fusion</h3>
+                    <h3 className="text-xl font-bold text-brand-700 mb-2">The Nepalese-British Fusion</h3>
                     <p className="text-gray-700">
                       Under current management, we've discovered our unique identity: combining 
                       <strong>authentic Nepalese cuisine</strong> with traditional British pub classics. 
@@ -180,14 +180,14 @@ export default async function AboutPage() {
         {/* Girton Village Context */}
         <section className="py-16 bg-crown-cream/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-700 text-center mb-12">
               Heart of Girton Village & Cambridge Community
             </h2>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center p-6 bg-white rounded-lg">
+              <div className="text-center p-6 bg-neutral-50 rounded-lg">
                 <div className="text-4xl mb-4">🏘️</div>
-                <h3 className="text-xl font-bold text-crown-slate mb-4">Girton Village Heritage</h3>
+                <h3 className="text-xl font-bold text-brand-700 mb-4">Girton Village Heritage</h3>
                 <p className="text-gray-700">
                   <strong>Girton</strong> has roots stretching back to Roman times, evolving into a charming 
                   village that perfectly balances historic character with modern convenience. 
@@ -195,9 +195,9 @@ export default async function AboutPage() {
                 </p>
               </div>
 
-              <div className="text-center p-6 bg-white rounded-lg">
+              <div className="text-center p-6 bg-neutral-50 rounded-lg">
                 <div className="text-4xl mb-4">🎓</div>
-                <h3 className="text-xl font-bold text-crown-slate mb-4">Cambridge University Connection</h3>
+                <h3 className="text-xl font-bold text-brand-700 mb-4">Cambridge University Connection</h3>
                 <p className="text-gray-700">
                   Just steps from <strong>Girton College</strong> (Cambridge's first women's college), 
                   we've welcomed generations of students, faculty, and visitors who appreciate 
@@ -205,9 +205,9 @@ export default async function AboutPage() {
                 </p>
               </div>
 
-              <div className="text-center p-6 bg-white rounded-lg">
+              <div className="text-center p-6 bg-neutral-50 rounded-lg">
                 <div className="text-4xl mb-4">🤝</div>
-                <h3 className="text-xl font-bold text-crown-slate mb-4">Community Hub</h3>
+                <h3 className="text-xl font-bold text-brand-700 mb-4">Community Hub</h3>
                 <p className="text-gray-700">
                   From <strong>Girton Feast Week</strong> celebrations to weekly quiz nights, 
                   we're proud to host the moments that bring our community together. 
@@ -219,20 +219,20 @@ export default async function AboutPage() {
         </section>
 
         {/* Our Nepalese Story */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-neutral-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate mb-6">
+                <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-700 mb-6">
                   Why Nepalese Cuisine? Our Unique Culinary Journey
                 </h2>
-                <p className="text-lg text-gray-700 mb-6">
+                <p className="text-lg text-neutral-700 mb-6">
                   Our decision to serve <strong>authentic Nepalese food</strong> wasn't random - it reflects 
                   Cambridge's vibrant international community and our commitment to offering something 
                   truly special. In a region saturated with traditional pub food and standard curry houses, 
                   we saw an opportunity to introduce the distinct, refined flavors of Nepal.
                 </p>
-                <p className="text-lg text-gray-700 mb-6">
+                <p className="text-lg text-neutral-700 mb-6">
                   <strong>Nepalese cuisine</strong> is uniquely positioned between Indian, Tibetan, and Chinese 
                   influences, creating dishes that are both familiar and wonderfully different. 
                   Our <strong>momos</strong> (traditional dumplings) and <strong>dal bhat</strong> 
@@ -246,8 +246,8 @@ export default async function AboutPage() {
               </div>
               
               <div className="space-y-6">
-                <div className="p-6 bg-crown-gold/10 rounded-lg">
-                  <h4 className="font-bold text-crown-slate mb-3">🍛 What Makes Nepalese Food Special?</h4>
+                <div className="p-6 bg-accent-50 rounded-lg">
+                  <h4 className="font-bold text-brand-700 mb-3">🍛 What Makes Nepalese Food Special?</h4>
                   <ul className="space-y-2 text-gray-700">
                     <li>• Fresh spices and aromatic herbs from the Himalayas</li>
                     <li>• Lighter, more refined than typical Indian curries</li>
@@ -256,8 +256,8 @@ export default async function AboutPage() {
                   </ul>
                 </div>
                 
-                <div className="p-6 bg-crown-gold/10 rounded-lg">
-                  <h4 className="font-bold text-crown-slate mb-3">🏆 Recognition & Reviews</h4>
+                <div className="p-6 bg-accent-50 rounded-lg">
+                  <h4 className="font-bold text-brand-700 mb-3">🏆 Recognition & Reviews</h4>
                   <ul className="space-y-2 text-gray-700">
                     <li>• Rated #1 restaurant in Girton on TripAdvisor</li>
                     <li>• 4.8/5 average rating across all platforms</li>
@@ -271,16 +271,16 @@ export default async function AboutPage() {
         </section>
 
         {/* Values & Philosophy */}
-        <section className="py-16 bg-crown-cream/20">
+        <section className="py-16 bg-neutral-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate mb-8">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-700 mb-8">
               Our Values & Philosophy
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8 text-left">
               <div className="space-y-6">
-                <div className="p-6 bg-white rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2 flex items-center">
+                <div className="p-6 bg-neutral-50 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">🏠</span> Community First
                   </h3>
                   <p className="text-gray-700">
@@ -289,8 +289,8 @@ export default async function AboutPage() {
                   </p>
                 </div>
                 
-                <div className="p-6 bg-white rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2 flex items-center">
+                <div className="p-6 bg-neutral-50 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">🌿</span> Authentic Quality
                   </h3>
                   <p className="text-gray-700">
@@ -301,8 +301,8 @@ export default async function AboutPage() {
               </div>
               
               <div className="space-y-6">
-                <div className="p-6 bg-white rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2 flex items-center">
+                <div className="p-6 bg-neutral-50 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">👨‍👩‍👧‍👦</span> Family Friendly
                   </h3>
                   <p className="text-gray-700">
@@ -311,8 +311,8 @@ export default async function AboutPage() {
                   </p>
                 </div>
                 
-                <div className="p-6 bg-white rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2 flex items-center">
+                <div className="p-6 bg-neutral-50 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">🌍</span> Cultural Bridge
                   </h3>
                   <p className="text-gray-700">
@@ -328,41 +328,41 @@ export default async function AboutPage() {
         {/* FAQ About Us */}
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-display font-bold text-crown-slate text-center mb-12">
+            <h2 className="text-3xl font-display font-bold text-brand-700 text-center mb-12">
               Frequently Asked Questions About The Old Crown
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
-                <div className="p-6 bg-crown-cream/30 rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2">Is The Old Crown really the largest thatched pub?</h3>
+                <div className="p-6 bg-neutral-100 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2">Is The Old Crown really the largest thatched pub?</h3>
                   <p className="text-gray-700">Yes! Our thatched roof covers the largest area of any pub in the country, making us a unique architectural landmark in Girton and beyond.</p>
                 </div>
                 
-                <div className="p-6 bg-crown-cream/30 rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2">How long have you been serving Nepalese food?</h3>
+                <div className="p-6 bg-neutral-100 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2">How long have you been serving Nepalese food?</h3>
                   <p className="text-gray-700">We introduced our Nepalese menu in recent years as part of our evolution. It quickly became our signature offering due to its authenticity and popularity.</p>
                 </div>
                 
-                <div className="p-6 bg-crown-cream/30 rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2">Do you still serve traditional pub food?</h3>
+                <div className="p-6 bg-neutral-100 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2">Do you still serve traditional pub food?</h3>
                   <p className="text-gray-700">Absolutely! Alongside our Nepalese specialties, we maintain a full menu of British pub classics including fish & chips, Sunday roast, and hearty mains.</p>
                 </div>
               </div>
               
               <div className="space-y-6">
-                <div className="p-6 bg-crown-cream/30 rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2">What makes your location special?</h3>
+                <div className="p-6 bg-neutral-100 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2">What makes your location special?</h3>
                   <p className="text-gray-700">We're perfectly positioned in Girton village - close enough to Cambridge for easy access, but far enough to maintain peaceful village charm and free parking.</p>
                 </div>
                 
-                <div className="p-6 bg-crown-cream/30 rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2">Do you host private events?</h3>
+                <div className="p-6 bg-neutral-100 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2">Do you host private events?</h3>
                   <p className="text-gray-700">Yes! Our historic setting and flexible spaces make us perfect for celebrations, business gatherings, and community events. Contact us to discuss your requirements.</p>
                 </div>
                 
-                <div className="p-6 bg-crown-cream/30 rounded-lg">
-                  <h3 className="font-bold text-crown-slate mb-2">Are you accessible for visitors with mobility needs?</h3>
+                <div className="p-6 bg-neutral-100 rounded-lg">
+                  <h3 className="font-bold text-brand-700 mb-2">Are you accessible for visitors with mobility needs?</h3>
                   <p className="text-gray-700">We're wheelchair accessible with accessible parking and facilities. Our ground floor dining areas ensure everyone can enjoy our historic pub atmosphere.</p>
                 </div>
               </div>
@@ -371,28 +371,28 @@ export default async function AboutPage() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-16 bg-crown-slate text-white">
+        <section className="py-16 bg-brand-700 text-neutral-50">
           <div className="max-w-4xl mx-auto text-center px-4">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
               Experience Our Story Yourself
             </h2>
-            <p className="text-xl text-gray-200 mb-8">
+            <p className="text-xl text-neutral-200 mb-8">
               Visit The Old Crown and become part of our continuing story. From our historic thatched roof 
               to our innovative cuisine, every detail tells the tale of Girton's unique pub.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-accent-500 hover:bg-accent-600 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg">
                 {labelBookVisitOnline}
               </a>
-              <Link href="/menu" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
+              <Link href="/menu" className="bg-crimson-500 hover:bg-crimson-600 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg">
                 Explore Our Menu
               </Link>
-              <Link href="/events" className="bg-white hover:bg-gray-100 text-crown-slate font-bold py-4 px-8 rounded-lg text-lg">
+              <Link href="/events" className="bg-neutral-50 hover:bg-neutral-100 text-brand-700 font-bold py-4 px-8 rounded-lg text-lg">
                 Upcoming Events
               </Link>
             </div>
             
-            <div className="mt-8 text-sm text-gray-300">
+            <div className="mt-8 text-sm text-neutral-300">
               <p><strong>The Old Crown</strong> • 89 High Street, Girton, Cambridge CB3 0QQ</p>
               <p>Where heritage meets flavor • Since the 1930s</p>
             </div>
