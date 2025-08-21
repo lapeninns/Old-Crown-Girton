@@ -1,5 +1,5 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import Hero from "@/components/restaurant/Hero";
+import Showcase from '@/components/slideshow/Showcase';
 import dynamic from 'next/dynamic';
 // Dynamic non-LCP sections
 const AboutSection = dynamic(() => import("@/components/restaurant/AboutSection"), { ssr: true });
@@ -20,7 +20,8 @@ export default async function Page() {
   return (
   <>
       <RestaurantLayout>
-        <Hero />
+  {/* Slideshow (replaces static hero for now) */}
+  <Showcase />
         <AboutSection />
         <MenuHighlights />
   <section className="py-12 bg-white lazy-section">
