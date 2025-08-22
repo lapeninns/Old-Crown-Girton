@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getMarketingSmart } from '@/src/lib/data/loader';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
@@ -27,10 +28,10 @@ export default async function AboutPage() {
         <div className="relative bg-brand-700 text-neutral-50 py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              About <span className="text-accent-900 font-semibold">Himalayan Spice</span>
+              About <span className="text-accent-950 font-semibold">Himalayan Spice</span>
             </h1>
-            <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
-              Historic thatched village pub near Cambridge blending community heritage & authentic Nepalese flavour
+              <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
+              Historic thatched village pub near Cambridge blending community heritage &amp; authentic Nepalese flavour
             </p>
           </div>
           </div>

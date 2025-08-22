@@ -2,7 +2,6 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getMarketingSmart } from '@/src/lib/data/loader';
 import Link from "next/link";
-import Image from "next/image";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

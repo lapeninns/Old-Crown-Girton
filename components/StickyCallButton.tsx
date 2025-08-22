@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bookingData from "@/data/restaurant.json"; // contains phone
 import { useParsedData } from "@/hooks/useParsedData";
@@ -28,7 +27,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	const [hideForFooter, setHideForFooter] = useState(false);
 	const [hideForModal, setHideForModal] = useState(false);
 	const [crispOffset, setCrispOffset] = useState(false);
-	const [isMobile, setIsMobile] = useState(false);
+		// Responsive flag removed: not currently used (kept minimal to avoid UI changes)
 	const restaurantPhone = phone || bookingData?.restaurant?.contact?.phone || "01223 276027";
 	const pathname = usePathname();
 
@@ -52,14 +51,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 		}
 	}, []);
 
-	// Track viewport size for responsive behavior (bottom sheet on mobile)
-	useEffect(() => {
-		const mm = window.matchMedia('(max-width: 640px)');
-		const update = () => setIsMobile(mm.matches);
-		update();
-		mm.addEventListener('change', update);
-		return () => mm.removeEventListener('change', update);
-	}, []);
+		// viewport tracking removed — not used in current behavior
 
 	// No menu to close anymore
 

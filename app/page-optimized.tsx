@@ -32,7 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
     if (m.seo) {
       return { title: m.seo.title, description: m.seo.description };
     }
-  } catch {}
+  } catch (e) {
+    // Intentionally ignore metadata fetch failures and fall back to defaults
+    // (e.g., during build or when the API is unavailable).
+  }
   return metadata;
 }
 

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import useStableId from '@/hooks/useStableId';
 import type { Menu } from '@/src/lib/data/schemas';
 import MenuSections from './MenuSections';
 
@@ -44,7 +43,7 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
       }
     }
   return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
+  }, [defaultSelected, sections, selected]);
 
   return (
     <>
@@ -70,10 +69,17 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
                 </button>
               </div>
               {(sections || []).map((section) => {
-                // Use a deterministic stable id so aria-controls always references an id
+                // Use a deterministic stable id so aria-controls always references an id.
+                // We avoid calling hooks inside a loop (eslint rules-of-hooks) by using the
+                // deterministic seed directly — `useStableId` would return the seed when
+                // provided, so this keeps server/client IDs stable and satisfies lint.
                 const idSeed = normalizeId(section?.id || section?.name);
-                const id = useStableId(idSeed);
+                const id = idSeed;
                 const isActive = selected === id;
+                // Only include aria-controls when the referenced section is actually rendered in the DOM.
+                // Sections are rendered when `selected` is null (show all), when this section is the selected one,
+                // or when it's the `previous` outgoing section used for the crossfade animation.
+                const controlsId = (selected === null || selected === id || previous === id) ? id : undefined;
                 return (
                   <button
                     key={section.id || section.name}
@@ -98,7 +104,7 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
                     }}
                     className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-accent text-white' : 'bg-white text-brand-700 hover:bg-accent hover:text-white'}`}
                     aria-pressed={isActive}
-                    aria-controls={id}
+                    aria-controls={controlsId}
                   >
                     {section.name || ''}
                   </button>

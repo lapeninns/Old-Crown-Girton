@@ -24,10 +24,18 @@ export async function POST(req: NextRequest) {
   let event;
 
   // Create a private supabase client using the secret service_role API key
-  const supabase = new SupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseServiceKey) {
+    // If the keys are not set, return a 500 with a clear message instead of throwing during prerender or build.
+    // This ensures hosting/build pipelines do not fail with an uncaught exception.
+    // eslint-disable-next-line no-console
+    console.error('Supabase webhook: missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+    return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
+  }
+
+  const supabase = new SupabaseClient(supabaseUrl, supabaseServiceKey);
 
   // verify Stripe event is legit
   try {

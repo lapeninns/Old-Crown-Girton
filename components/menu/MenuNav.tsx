@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import type { Menu } from '@/src/lib/data/schemas';
 
 type Props = {
   sections: any[];

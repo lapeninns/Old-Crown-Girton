@@ -514,7 +514,7 @@ export const SchemaInjector = ({ type, data, page = 'home' }: SchemaInjectorProp
         scriptToRemove.remove();
       }
     };
-  }, [type, data, page, generateRestaurantSchema, generateMenuSchema, generateBreadcrumbSchema, generateEventSchema]);
+  }, [type, data, page, generateRestaurantSchema, generateMenuSchema, generateBreadcrumbSchema, generateEventSchema, generateLocalBusinessSchema, generateFAQSchema]);
 
   return null; // This component doesn't render anything
 };
