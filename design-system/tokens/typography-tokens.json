@@ -1,0 +1,30 @@
+{
+  "name": "typography-tokens",
+  "version": "1.0.0",
+  "description": "Typography tokens (font families, scale, line-heights, clamps) extracted from project critical CSS and globals",
+  "tokens": {
+    "fonts": {
+      "display": "var(--font-playfair), 'Playfair Display', serif",
+      "body": "var(--font-inter), Inter, sans-serif"
+    },
+    "scale": {
+      "h1": { "mobile": "2.25rem", "desktop": "3rem", "lineHeight": "1" },
+      "h2": { "mobile": "1.875rem", "desktop": "2.25rem", "lineHeight": "1.25" },
+      "h3": { "mobile": "1.5rem", "desktop": "1.75rem", "lineHeight": "1.3" },
+      "body-lg": { "size": "1.125rem", "lineHeight": "1.75rem" },
+      "body": { "size": "1rem", "lineHeight": "1.6" },
+      "small": { "size": "0.875rem", "lineHeight": "1.4" }
+    },
+    "clampRecommendations": {
+      "h1": "clamp(1.5rem, 2vw + 1rem, 3rem)",
+      "h2": "clamp(1.25rem, 1.6vw + 0.9rem, 2.25rem)",
+      "h3": "clamp(1.125rem, 1.2vw + 0.8rem, 1.75rem)"
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  }
+}

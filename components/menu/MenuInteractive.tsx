@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import useStableId from '@/hooks/useStableId';
 import type { Menu } from '@/src/lib/data/schemas';
 import MenuSections from './MenuSections';
 
@@ -69,13 +70,10 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
                 </button>
               </div>
               {(sections || []).map((section) => {
-                const id = normalizeId(section?.id || section?.name);
+                // Use a deterministic stable id so aria-controls always references an id
+                const idSeed = normalizeId(section?.id || section?.name);
+                const id = useStableId(idSeed);
                 const isActive = selected === id;
-                // Determine whether the controlled section is currently present in the DOM.
-                // If `selected` is null we render all sections (so controls are valid).
-                // If `selected` is a specific id then only that section is rendered —
-                // in that case we should only set `aria-controls` for the active button.
-                const controlsPresent = selected === null || isActive;
                 return (
                   <button
                     key={section.id || section.name}
@@ -100,7 +98,7 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
                     }}
                     className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-accent text-white' : 'bg-white text-brand-700 hover:bg-accent hover:text-white'}`}
                     aria-pressed={isActive}
-                    {...(controlsPresent ? { 'aria-controls': id } : {})}
+                    aria-controls={id}
                   >
                     {section.name || ''}
                   </button>

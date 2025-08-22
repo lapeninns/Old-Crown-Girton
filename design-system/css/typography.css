@@ -1,0 +1,24 @@
+/* Typography styles driven by design-system/tokens/typography-tokens.json
+   This file provides semantic classes and clamp recommendations to ensure responsive, accessible typography.
+*/
+
+:root {
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 2vw + 1rem, 3rem); line-height: 1; }
+.h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.25rem, 1.6vw + 0.9rem, 2.25rem); line-height: 1.25; }
+.h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.125rem, 1.2vw + 0.8rem, 1.75rem); line-height: 1.3; }
+
+.lead { font-family: var(--font-body); font-size: 1.125rem; line-height: 1.75; }
+.p { font-family: var(--font-body); font-size: 1rem; line-height: 1.6; }
+.small { font-family: var(--font-body); font-size: 0.875rem; line-height: 1.4; }
+
+/* Utility classes to produce semantic markup (h1-h3, p) with optional visually-hidden elements for screen readers */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* Respect reduced motion and prefer-reduced-motion for typography animations (if any) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-text { animation: none !important; transition: none !important; }
+}
