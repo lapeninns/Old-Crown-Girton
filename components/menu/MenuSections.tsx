@@ -50,7 +50,7 @@ export default function MenuSections({ sections, selectedId }: Props) {
                           {isVegan && <span className="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-800 rounded">VE</span>}
                         </div>
                       </div>
-                      <div className="text-sm sm:text-base font-semibold text-accent tabular-nums">{priceText}</div>
+                      <div className="text-sm sm:text-base font-semibold text-foreground-strong tabular-nums">{priceText}</div>
                     </li>
                   );
                 })}

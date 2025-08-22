@@ -30,17 +30,17 @@ export default async function Page() {
               <div className="p-6 rounded-lg border border-gray-200 bg-neutral/40">
                 <h3 className="font-display font-bold text-xl mb-2 text-brand-700">Community & Events</h3>
                 <p className="text-gray-600 text-sm mb-4">Quiz nights, seasonal gatherings & live sports – see what’s coming up.</p>
-                <Link href="/events" className="text-accent-950 font-semibold hover:underline">View Events →</Link>
+                <Link href="/events" className="text-foreground-strong font-semibold hover:underline">View Events →</Link>
               </div>
               <div className="p-6 rounded-lg border border-gray-200 bg-neutral/40">
                 <h3 className="font-display font-bold text-xl mb-2 text-brand-700">Heritage & Story</h3>
                 <p className="text-gray-600 text-sm mb-4">Discover how our thatched village pub evolved into a Nepalese + British hub.</p>
-                <Link href="/about" className="text-accent-950 font-semibold hover:underline">Explore Heritage →</Link>
+                <Link href="/about" className="text-foreground-strong font-semibold hover:underline">Explore Heritage →</Link>
               </div>
               <div className="p-6 rounded-lg border border-gray-200 bg-neutral/40">
                 <h3 className="font-display font-bold text-xl mb-2 text-brand-700">Planning a Gathering?</h3>
                 <p className="text-gray-600 text-sm mb-4">Group meal, society social or family celebration – get in touch.</p>
-                <Link href="/contact" className="text-accent-950 font-semibold hover:underline">Enquire →</Link>
+                <Link href="/contact" className="text-foreground-strong font-semibold hover:underline">Enquire →</Link>
               </div>
             </div>
           </div>

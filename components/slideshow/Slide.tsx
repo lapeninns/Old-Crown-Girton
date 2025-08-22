@@ -14,8 +14,8 @@ const Slide: React.FC<{ slide: SlideType; active?: boolean }> = ({ slide }) => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-snug md:leading-tight">
-            <span className="block text-accent">{slide.eyebrow}</span>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-snug md:leading-tight">
+            <span className="block text-foreground-strong">{slide.eyebrow}</span>
             <span className="block text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl">{slide.headline}</span>
           </h1>
 

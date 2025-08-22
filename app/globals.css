@@ -242,6 +242,13 @@ progress::-webkit-progress-value {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 
+  /* Adaptive foreground utilities that follow the semantic token --color-text and variants.
+    Use these for small UI text (prices, metadata, feature lists) so they adapt to light/dark
+    mode and always meet contrast requirements when used on standard surfaces. */
+  .text-foreground { color: var(--color-text) !important; }
+  .text-foreground-strong { color: var(--color-text-primary) !important; }
+  .text-foreground-subtle { color: var(--color-text-secondary) !important; }
+
   /* Hide scrollbar utility */
   .scrollbar-hide {
     -ms-overflow-style: none;

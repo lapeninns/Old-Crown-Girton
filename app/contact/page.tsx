@@ -7,7 +7,7 @@ export default function ContactPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
-              Contact <span className="text-accent-950 font-semibold">Us</span>
+              Contact <span className="text-neutral-50 font-semibold">Us</span>
             </h1>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
               Get in touch with Himalayan Spice, Girton. We&apos;re here to help with reservations, 
@@ -60,7 +60,7 @@ export default function ContactPage() {
                 </div>
                 <a
                   href="mailto:info@oldcrowngirton.co.uk"
-                  className="text-accent-950 hover:text-accent-950 font-semibold transition-colors duration-200"
+                    className="text-foreground-strong hover:text-foreground-strong font-semibold transition-colors duration-200"
                   aria-label="Email Himalayan Spice"
                 >
                   info@oldcrowngirton.co.uk
@@ -124,27 +124,27 @@ export default function ContactPage() {
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div className="flex items-center gap-2">
                     <span>🌿</span>
-                    <span>Outdoor terrace</span>
+                    <span className="text-foreground">Outdoor terrace</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🅿️</span>
-                    <span>Free parking</span>
+                      <span className="text-foreground">Free parking</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🐕</span>
-                    <span>Dog-friendly</span>
+                      <span className="text-foreground">Dog-friendly</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>♿</span>
-                    <span>Accessible</span>
+                    <span className="text-foreground">Accessible</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>📶</span>
-                    <span>Free WiFi</span>
+                      <span className="text-foreground">Free WiFi</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🎉</span>
-                    <span>Private dining</span>
+                      <span className="text-foreground">Private dining</span>
                   </div>
                 </div>
               </div>

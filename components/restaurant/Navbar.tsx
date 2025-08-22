@@ -40,7 +40,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="touch-target text-stout-700 hover:text-accent-950 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="touch-target text-stout-700 hover:text-foreground-strong px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -63,7 +63,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="touch-target inline-flex items-center justify-center p-2 rounded-md text-stout-700 hover:text-accent-950 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              className="touch-target inline-flex items-center justify-center p-2 rounded-md text-stout-700 hover:text-foreground-strong hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? (
@@ -97,7 +97,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="touch-target text-stout-700 hover:text-accent-950 block px-3 py-2 rounded-md text-base font-medium"
+                  className="touch-target text-stout-700 hover:text-foreground-strong block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
