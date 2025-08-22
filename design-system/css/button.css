@@ -81,3 +81,28 @@ html.dark .ds-button--destructive:hover { background: var(--color-crimson-800); 
 :root[data-theme='dark'] .ds-button--accent:hover { background: var(--color-crimson-800); }
 :root[data-theme='dark'] .ds-button--destructive { background: var(--color-crimson-700); color: #ffffff; }
 :root[data-theme='dark'] .ds-button--destructive:hover { background: var(--color-crimson-800); }
+
+/* Be robust against where data-theme might be applied (html, :root or other ancestor). */
+[data-theme='dark'] .ds-button--primary { background: var(--color-brass-700); color: #ffffff; }
+[data-theme='dark'] .ds-button--primary:hover { background: var(--color-brass-800); }
+[data-theme='dark'] .ds-button--secondary { background: var(--color-chakra-700); color: #ffffff; }
+[data-theme='dark'] .ds-button--secondary:hover { background: var(--color-chakra-800); }
+[data-theme='dark'] .ds-button--accent { background: var(--color-crimson-700); color: #ffffff; }
+[data-theme='dark'] .ds-button--accent:hover { background: var(--color-crimson-800); }
+[data-theme='dark'] .ds-button--destructive { background: var(--color-crimson-700); color: #ffffff; }
+[data-theme='dark'] .ds-button--destructive:hover { background: var(--color-crimson-800); }
+
+/* Also cover html[data-theme='dark'] specifically to be exhaustive */
+html[data-theme='dark'] .ds-button--primary { background: var(--color-brass-700); color: #ffffff; }
+html[data-theme='dark'] .ds-button--primary:hover { background: var(--color-brass-800); }
+html[data-theme='dark'] .ds-button--secondary { background: var(--color-chakra-700); color: #ffffff; }
+html[data-theme='dark'] .ds-button--secondary:hover { background: var(--color-chakra-800); }
+html[data-theme='dark'] .ds-button--accent { background: var(--color-crimson-700); color: #ffffff; }
+html[data-theme='dark'] .ds-button--accent:hover { background: var(--color-crimson-800); }
+html[data-theme='dark'] .ds-button--destructive { background: var(--color-crimson-700); color: #ffffff; }
+html[data-theme='dark'] .ds-button--destructive:hover { background: var(--color-crimson-800); }
+
+/* Respect users' reduced-motion preference even if Tailwind motion utilities are not present. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin { animation: none !important; }
+}

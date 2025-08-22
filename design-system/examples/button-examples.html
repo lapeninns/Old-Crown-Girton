@@ -39,6 +39,7 @@
       <button class="ds-button ds-button--link ds-button--md">Link</button>
       <button class="ds-button ds-button--destructive ds-button--md">Delete</button>
     </div>
+  <p style="font-size:13px;color:#666;max-width:720px;">Note: <strong>ghost</strong>, <strong>link</strong>, and <strong>outline</strong> variants are contextual — their perceptible contrast depends on the background. See the examples below showing these variants on light and dark backgrounds.</p>
   </section>
 
   <section aria-labelledby="sizes">
@@ -56,6 +57,28 @@
       <button class="ds-button ds-button--primary ds-button--icon" aria-label="Search">
         🔍
       </button>
+    </div>
+  </section>
+
+  <section aria-labelledby="contextual-examples">
+    <h2 id="contextual-examples">Contextual variants (light vs dark surface)</h2>
+    <div style="display:flex;gap:24px;align-items:flex-start;">
+      <div style="padding:16px;background:#ffffff;border:1px solid #eee;border-radius:8px;">
+        <div style="margin-bottom:8px;font-weight:600;">On light surface</div>
+        <div class="demo-row">
+          <button class="ds-button ds-button--outline ds-button--md">Outline</button>
+          <button class="ds-button ds-button--ghost ds-button--md">Ghost</button>
+          <button class="ds-button ds-button--link ds-button--md">Link</button>
+        </div>
+      </div>
+      <div style="padding:16px;background:#111827;color:#fff;border-radius:8px;">
+        <div style="margin-bottom:8px;font-weight:600;">On dark surface</div>
+        <div class="demo-row">
+          <button class="ds-button ds-button--outline ds-button--md">Outline</button>
+          <button class="ds-button ds-button--ghost ds-button--md">Ghost</button>
+          <button class="ds-button ds-button--link ds-button--md">Link</button>
+        </div>
+      </div>
     </div>
   </section>
 
