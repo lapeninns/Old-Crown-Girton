@@ -23,7 +23,7 @@ export default function LocationSection() {
   const barHours = order.map(d => ({ day: label[d], hours: pretty((mapBar as any)[d]) })).filter(r => r.hours);
 
   return (
-    <section className="py-16 bg-crown-cream">
+    <section className="py-16 bg-brand-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -32,8 +32,8 @@ export default function LocationSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-crown-slate mb-4">
-            Find <span className="text-crown-gold">Us</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-4">
+            Find <span className="text-accent">Us</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Located in the heart of Girton village, we&apos;re easily accessible 
@@ -52,8 +52,8 @@ export default function LocationSection() {
           >
             {/* Address */}
             <div className="bg-white p-6 rounded-xl shadow-lg">
-              <h3 className="text-xl font-display font-bold text-crown-slate mb-4 flex items-center gap-2">
-                <span className="text-crown-gold">📍</span>
+              <h3 className="text-xl font-display font-bold text-stout-700 mb-4 flex items-center gap-2">
+                <span className="text-accent">📍</span>
                 Address
               </h3>
               <p className="text-gray-600">
@@ -66,20 +66,20 @@ export default function LocationSection() {
 
             {/* Contact Details */}
             <div className="bg-white p-6 rounded-xl shadow-lg">
-              <h3 className="text-xl font-display font-bold text-crown-slate mb-4 flex items-center gap-2">
-                <span className="text-crown-gold">📞</span>
+              <h3 className="text-xl font-display font-bold text-stout-700 mb-4 flex items-center gap-2">
+                <span className="text-accent">📞</span>
                 Contact
               </h3>
               <div className="space-y-2 text-gray-600">
                 <p>
                   <strong>Phone:</strong> 
-                  <a href="tel:01223276027" className="text-crown-gold hover:underline ml-2">
+                  <a href="tel:01223276027" className="text-accent hover:underline ml-2">
                     {contact?.phone.display || '01223 276027'}
                   </a>
                 </p>
                 <p>
                   <strong>Email:</strong> 
-                  <a href="mailto:info@oldcrowngirton.co.uk" className="text-crown-gold hover:underline ml-2">
+                  <a href="mailto:info@oldcrowngirton.co.uk" className="text-accent hover:underline ml-2">
                     {contact?.email.primary || 'info@oldcrowngirton.co.uk'}
                   </a>
                 </p>
@@ -89,8 +89,8 @@ export default function LocationSection() {
             {/* Opening Hours */}
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="p-6 pb-2">
-                <h3 className="text-xl font-display font-bold text-crown-slate mb-4 flex items-center gap-2">
-                  <span className="text-crown-gold">⏰</span>
+                <h3 className="text-xl font-display font-bold text-stout-700 mb-4 flex items-center gap-2">
+                  <span className="text-accent">⏰</span>
                   Opening Hours
                 </h3>
               </div>
@@ -100,7 +100,7 @@ export default function LocationSection() {
                   <div className="space-y-2">
                     {restaurantHours.map((item) => (
                       <div key={item.day} className="flex justify-between items-center">
-                        <span className="font-medium text-crown-slate">{item.day}</span>
+                        <span className="font-medium text-stout-700">{item.day}</span>
                         <span className="text-gray-600">{item.hours}</span>
                       </div>
                     ))}
@@ -111,7 +111,7 @@ export default function LocationSection() {
                   <div className="space-y-2">
                     {barHours.map((item) => (
                       <div key={item.day} className="flex justify-between items-center">
-                        <span className="font-medium text-crown-slate">{item.day}</span>
+                        <span className="font-medium text-stout-700">{item.day}</span>
                         <span className="text-gray-600">{item.hours}</span>
                       </div>
                     ))}

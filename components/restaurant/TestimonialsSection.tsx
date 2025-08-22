@@ -54,7 +54,7 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-stout-700 mb-4">
             What Our Customers Say
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -99,7 +99,7 @@ export default function TestimonialsSection() {
               {/* Author Info */}
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-crown-slate">{testimonial.author}</p>
+                  <p className="font-semibold text-stout-700">{testimonial.author}</p>
                   <p className="text-sm text-gray-500">{testimonial.location}</p>
                 </div>
                 <div className="text-right">
@@ -139,7 +139,7 @@ export default function TestimonialsSection() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
+            className="inline-block bg-accent hover:bg-accent-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
           >
             {labelBookTableOnline}
           </motion.a>

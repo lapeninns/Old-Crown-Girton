@@ -18,9 +18,10 @@ interface ButtonProps {
 }
 
 const variantStyles = {
-  primary: 'bg-primary hover:bg-crown-gold-dark text-white shadow-lg',
-  secondary: 'bg-crown-slate hover:bg-crown-slate-dark text-white shadow-lg',
-  accent: 'bg-crown-red hover:bg-crown-red-dark text-white shadow-lg',
+  // Use semantic Tailwind mappings present in tailwind.config.js
+  primary: 'bg-primary hover:bg-accent text-white shadow-lg',
+  secondary: 'bg-secondary hover:bg-secondary-700 text-white shadow-lg',
+  accent: 'bg-crimson hover:bg-crimson-700 text-white shadow-lg',
   outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
 };
 

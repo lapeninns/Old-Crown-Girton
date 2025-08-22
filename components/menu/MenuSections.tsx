@@ -27,8 +27,8 @@ export default function MenuSections({ sections, selectedId }: Props) {
           <section key={sectionId} id={sectionId} className="py-8 bg-white" data-mounted={!firstRenderRef.current}>
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <div className="mb-4">
-                <h2 className="text-lg sm:text-xl font-semibold text-crown-slate inline-block border-b-2 border-crown-gold pb-1">{section.name}</h2>
-              </div>
+                  <h2 className="text-lg sm:text-xl font-semibold text-brand-700 inline-block border-b-2 border-accent pb-1">{section.name}</h2>
+                </div>
 
               <ul className="divide-y">
                 {(section.items || []).map((item) => {
@@ -39,16 +39,18 @@ export default function MenuSections({ sections, selectedId }: Props) {
                     ? new Intl.NumberFormat('en-GB', { style: 'currency', currency: item.price.currency || 'GBP' }).format(item.price.amount)
                     : '';
                   return (
-                    <li key={item.id || item.name} className="py-3 flex justify-between items-center" aria-label={`${item.name} ${priceText}`}>
+                    // This is a static content list item (not interactive). Removing invalid ARIA attributes
+                    // and relying on semantic markup. Prices are visually emphasized for contrast.
+                    <li key={item.id || item.name} className="py-3 flex justify-between items-center">
                       <div className="flex items-center gap-3">
-                        <span className="text-sm sm:text-base text-crown-slate">{item.name}</span>
-                        <div className="flex items-center gap-2" aria-hidden>
+                        <span className="text-sm sm:text-base text-stout-700">{item.name}</span>
+                        <div className="flex items-center gap-2" aria-hidden={true}>
                           {isGlutenFree && <span className="text-xs px-1.5 py-0.5 bg-green-100 text-green-800 rounded">GF</span>}
                           {isVeg && <span className="text-xs px-1.5 py-0.5 bg-yellow-100 text-yellow-800 rounded">V</span>}
                           {isVegan && <span className="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-800 rounded">VE</span>}
                         </div>
                       </div>
-                      <div className="text-sm sm:text-base font-medium text-crown-gold tabular-nums">{priceText}</div>
+                      <div className="text-sm sm:text-base font-semibold text-accent tabular-nums">{priceText}</div>
                     </li>
                   );
                 })}

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function TakeawayBanner() {
   return (
-    <section className="bg-gradient-to-r from-crown-red to-crown-red-dark py-12">
+  <section className="bg-gradient-to-r from-crimson to-crimson-700 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -35,7 +35,7 @@ export default function TakeawayBanner() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="tel:01223276027"
-              className="bg-white text-crown-red hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+              className="bg-white text-crimson hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
             >
               📞 Call to Order: 01223 276027
             </a>

@@ -13,6 +13,10 @@ const FALLBACK_SCRIPT = `(function(){try{function createFallback(){ try{ if(docu
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <title>The Old Crown Girton | Historic Thatched Pub & Nepalese Restaurant</title>
+        <meta name="description" content="Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223 276027" />
+      </head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: QUEUE_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: FALLBACK_SCRIPT }} />

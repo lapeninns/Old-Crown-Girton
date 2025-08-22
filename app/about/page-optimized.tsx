@@ -63,7 +63,7 @@ export default async function AboutPage() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
               <div>
-                <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate mb-6">
+                <h2 className="text-3xl md:text-4xl font-display font-bold text-stout-700 mb-6">
                   A Historic Thatched Pub with a Modern Heart
                 </h2>
                 <p className="text-lg text-neutral-700 mb-6">
@@ -90,19 +90,19 @@ export default async function AboutPage() {
                   <h3 className="text-2xl font-bold text-brand-700 text-center mb-4">Historic Landmark</h3>
                   <ul className="space-y-3 text-neutral-700">
                     <li className="flex items-start">
-                      <span className="text-accent-500 mr-2">•</span>
+                      <span className="text-accent mr-2">•</span>
                       <span>Built in the 1930s on historic foundations</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-accent-500 mr-2">•</span>
+                      <span className="text-accent mr-2">•</span>
                       <span>Largest thatched pub roof in the UK</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-accent-500 mr-2">•</span>
+                      <span className="text-accent mr-2">•</span>
                       <span>Grade II listed architectural significance</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-accent-500 mr-2">•</span>
+                      <span className="text-accent mr-2">•</span>
                       <span>Heart of Girton village for over 90 years</span>
                     </li>
                   </ul>
@@ -178,7 +178,7 @@ export default async function AboutPage() {
         </section>
 
         {/* Girton Village Context */}
-        <section className="py-16 bg-crown-cream/20">
+        <section className="py-16 bg-brand-50/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-700 text-center mb-12">
               Heart of Girton Village & Cambridge Community
@@ -381,7 +381,7 @@ export default async function AboutPage() {
               to our innovative cuisine, every detail tells the tale of Girton's unique pub.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-accent-500 hover:bg-accent-600 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg">
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-accent hover:bg-accent-700 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg">
                 {labelBookVisitOnline}
               </a>
               <Link href="/menu" className="bg-crimson-500 hover:bg-crimson-600 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg">

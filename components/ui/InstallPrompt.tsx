@@ -62,14 +62,14 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
       >
         <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 relative overflow-hidden">
           {/* Background pattern */}
-          <div className="absolute inset-0 bg-gradient-to-r from-crown-gold/5 to-crown-cream/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-brand-50/10" />
           
           {/* Content */}
           <div className="relative">
             <div className="flex items-start space-x-4">
               {/* App icon */}
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-crown-gold rounded-2xl flex items-center justify-center shadow-lg">
+                <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center shadow-lg">
                   <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2L13.09 8.26L22 9L17.5 13.74L22.18 17.02L12 15L1.82 17.02L6.5 13.74L2 9L10.91 8.26L12 2Z" />
                   </svg>
@@ -77,7 +77,7 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
               </div>
               
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold text-crown-slate mb-1">
+                <h3 className="text-lg font-semibold text-stout-700 mb-1">
                   Install Old Crown App
                 </h3>
                 <p className="text-sm text-gray-600 mb-4 leading-relaxed">
@@ -146,7 +146,7 @@ export const InstallButton = () => {
   return (
     <motion.button
       onClick={handleInstall}
-      className="flex items-center space-x-2 px-4 py-2 bg-crown-gold hover:bg-crown-gold-dark text-white rounded-full text-sm font-medium transition-colors shadow-lg"
+  className="flex items-center space-x-2 px-4 py-2 bg-accent hover:bg-accent-700 text-white rounded-full text-sm font-medium transition-colors shadow-lg"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >

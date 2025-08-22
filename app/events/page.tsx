@@ -99,7 +99,7 @@ export default function EventsPage() {
               
               <a
                 href="tel:01223276027"
-                className="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+                className="inline-block bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
               >
                 📞 Enquire / Book: 01223 276027
               </a>

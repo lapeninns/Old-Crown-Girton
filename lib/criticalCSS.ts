@@ -3,32 +3,30 @@
 
 const { themes } = require('../theme/colors');
 
-const LIGHT = themes.light.colors;
-
+// Use CSS custom properties (defined in app/globals.css) so critical CSS matches runtime variables
 export const criticalCSS = `
 /* Essential layout and typography */
 .font-display { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
 .font-sans { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
 
-/* Himalayan Spice brand colors - most critical */
-.text-brand-terracotta { color: ${LIGHT.primary}; }
-.bg-brand-terracotta { background-color: ${LIGHT.primary}; }
-.text-accent-saffron { color: ${LIGHT.primaryAccent}; }
-.bg-accent-saffron { background-color: ${LIGHT.primaryAccent}; }
-.text-neutral-cream { color: ${LIGHT.surface}; }
-.bg-neutral-cream { background-color: ${LIGHT.surface}; }
-.text-secondary-teal { color: ${LIGHT.secondary}; }
-.bg-secondary-teal { background-color: ${LIGHT.secondary}; }
+/* Himalayan Spice brand colors - most critical (use CSS variables) */
+.text-brand-terracotta { color: var(--color-primary); }
+.bg-brand-terracotta { background-color: var(--color-primary); }
+.text-accent-saffron { color: var(--color-accent); }
+.bg-accent-saffron { background-color: var(--color-accent); }
+.text-neutral-cream { color: var(--color-surface-base); }
+.bg-neutral-cream { background-color: var(--color-surface-base); }
+.text-secondary-teal { color: var(--color-secondary); }
+.bg-secondary-teal { background-color: var(--color-secondary); }
 
-/* Backward compatibility with Crown classes */
-.text-crown-gold { color: ${LIGHT.primaryAccent}; }
-.bg-crown-gold { background-color: ${LIGHT.primaryAccent}; }
-.text-crown-gold-dark { color: ${LIGHT.primary}; }
-.bg-crown-gold-dark { background-color: ${LIGHT.primary}; }
-.text-crown-cream { color: ${LIGHT.surface}; }
-.bg-crown-cream { background-color: ${LIGHT.surface}; }
-.text-crown-slate { color: ${LIGHT.secondary}; }
-.bg-crown-slate { background-color: ${LIGHT.secondary}; }
+.text-accent-500 { color: var(--color-accent); }
+.bg-accent-500 { background-color: var(--color-accent); }
+.text-accent-600 { color: var(--color-primary); }
+.bg-accent-600 { background-color: var(--color-primary); }
+.text-brand-50 { color: var(--color-surface-base); }
+.bg-brand-50 { background-color: var(--color-surface-base); }
+.text-stout-700 { color: var(--color-secondary); }
+.bg-stout-700 { background-color: var(--color-secondary); }
 
 /* Critical layout utilities */
 .min-h-screen { min-height: 100vh; }
@@ -62,23 +60,23 @@ export const criticalCSS = `
 
 /* Hero section critical styles */
 .hero-gradient { 
-  background: linear-gradient(135deg, ${LIGHT.surface} 0%, rgba(244, 196, 48, 0.1) 100%);
+  background: linear-gradient(135deg, var(--color-surface-base) 0%, rgba(244, 196, 48, 0.1) 100%);
 }
 .himalayan-gradient {
-  background: linear-gradient(135deg, ${LIGHT.surface} 0%, rgba(244, 196, 48, 0.1) 100%);
+  background: linear-gradient(135deg, var(--color-surface-base) 0%, rgba(244, 196, 48, 0.1) 100%);
 }
 
 /* Button essentials */
 .btn-primary {
-  background-color: ${LIGHT.primary};
-  color: ${LIGHT.text};
+  background-color: var(--color-primary);
+  color: var(--color-text);
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
   transition: background-color 0.2s;
 }
 .btn-primary:hover {
-  background-color: ${LIGHT.primaryAccent};
+  background-color: var(--color-accent);
 }
 
 /* Loading states */

@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 
 export default function OfflinePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-crown-cream to-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         {/* Offline icon */}
         <div className="mb-8">
-          <div className="w-24 h-24 mx-auto bg-crown-gold/10 rounded-full flex items-center justify-center">
+          <div className="w-24 h-24 mx-auto bg-accent/10 rounded-full flex items-center justify-center">
             <svg 
-              className="w-12 h-12 text-crown-gold" 
+              className="w-12 h-12 text-accent" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -32,7 +32,7 @@ export default function OfflinePage() {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold text-crown-slate mb-4 font-display">
+        <h1 className="text-3xl font-bold text-stout-700 mb-4 font-display">
           You&apos;re Offline
         </h1>
 
@@ -43,7 +43,7 @@ export default function OfflinePage() {
 
         {/* Features available offline */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-8">
-          <h2 className="text-lg font-semibold text-crown-slate mb-4">
+          <h2 className="text-lg font-semibold text-stout-700 mb-4">
             Available Offline:
           </h2>
           
@@ -92,8 +92,8 @@ export default function OfflinePage() {
 
       {/* Background decoration */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-crown-gold/5 rounded-full"></div>
-        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-crown-slate/5 rounded-full"></div>
+  <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-accent/5 rounded-full"></div>
+        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-stout-700/5 rounded-full"></div>
       </div>
 
       {/* Auto-reconnect script */}

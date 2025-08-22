@@ -8,7 +8,7 @@ export default function AboutPage() {
         <div className="relative bg-brand-700 text-neutral-50 py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              About <span className="text-accent-500">Himalayan Spice</span>
+              About <span className="text-accent">Himalayan Spice</span>
             </h1>
             <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
               A unique blend of authentic Nepalese cuisine and traditional British pub culture
@@ -71,7 +71,7 @@ export default function AboutPage() {
               </h4>
               <a
                 href="tel:01223276027"
-                className="inline-block bg-accent-500 hover:bg-accent-600 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+                className="inline-block bg-accent hover:bg-accent-700 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
               >
                 📞 Call: 01223 276027
               </a>

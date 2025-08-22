@@ -27,7 +27,7 @@ export default async function AboutPage() {
         <div className="relative bg-brand-700 text-neutral-50 py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              About <span className="text-accent-500">Himalayan Spice</span>
+              About <span className="text-accent-900 font-semibold">Himalayan Spice</span>
             </h1>
             <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
               Historic thatched village pub near Cambridge blending community heritage & authentic Nepalese flavour
@@ -42,14 +42,14 @@ export default async function AboutPage() {
             <p className="text-neutral-600 mb-6">We welcome Girton locals, families, Girton College students & staff, professionals from the wider "Silicon Fen" and visitors seeking an authentic village pub experience with something unexpectedly delicious.</p>
             <p className="text-neutral-600 mb-6">Our kitchen balances aromatic Nepalese spice profiles with familiar British comfort options and calmer choices for younger or milder palates.</p>
 
-            <h3 className="text-2xl font-display font-bold text-brand-700 mb-4 mt-8">Heritage Timeline</h3>
+            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4 mt-8">Heritage Timeline</h2>
             <ul className="list-disc pl-6 text-neutral-600 space-y-2 mb-8">
               <li><span className="font-semibold">1930s:</span> Present thatched structure established (continuing village inn legacy).</li>
               <li><span className="font-semibold">Transitions:</span> Various management changes created fragmented online identity.</li>
               <li><span className="font-semibold">Current Chapter:</span> Unified “Pub + Nepalese” positioning serving Girton & wider Cambridge audiences.</li>
             </ul>
 
-            <h3 className="text-2xl font-display font-bold text-brand-700 mb-4">What Makes Us Different</h3>
+            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">What Makes Us Different</h2>
             <ul className="list-disc pl-6 text-neutral-600 space-y-2 mb-8">
               <li>Distinctive thatched landmark building</li>
               <li>Authentic Nepalese dishes alongside pub favourites</li>
@@ -58,10 +58,10 @@ export default async function AboutPage() {
               <li>Garden & flexible areas for informal gatherings</li>
             </ul>
 
-            <h3 className="text-2xl font-display font-bold text-brand-700 mb-4">Community Involvement</h3>
+            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Community Involvement</h2>
             <p className="text-neutral-600 mb-6">We aim to support village life, collaborate on local initiatives and provide a neutral meeting place. <span className="italic">[placeholder: add specific partnership / sponsorship once confirmed]</span></p>
 
-            <h3 className="text-2xl font-display font-bold text-brand-700 mb-4">For Different Audiences</h3>
+            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">For Different Audiences</h2>
             <ul className="list-disc pl-6 text-neutral-600 space-y-2 mb-8">
               <li><strong>Locals:</strong> Reliable, familiar, welcoming.</li>
               <li><strong>Families:</strong> Garden space & mild dish options.</li>
@@ -70,22 +70,23 @@ export default async function AboutPage() {
               <li><strong>Visitors:</strong> Memorable thatched setting + unexpected cuisine.</li>
             </ul>
 
-            <h3 className="text-2xl font-display font-bold text-brand-700 mb-4">Kitchen Ethos</h3>
+            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Kitchen Ethos</h2>
             <p className="text-neutral-600 mb-6">Balanced spice, aromatic depth, respectful technique. British staples remain for guests seeking traditional comfort. <span className="italic">[placeholder: add sourcing or supplier note]</span></p>
 
-            <h3 className="text-2xl font-display font-bold text-brand-700 mb-4">Private Hire & Groups</h3>
+            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Private Hire & Groups</h2>
             <p className="text-neutral-600 mb-6">Enquire about gatherings, society evenings or seasonal celebrations. <span className="italic">[placeholder: capacity / room details]</span></p>
 
-            <h3 className="text-2xl font-display font-bold text-brand-700 mb-4">Visit Us</h3>
+            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Visit Us</h2>
             <p className="text-neutral-600 mb-6">Plan a meal, relaxed pint, quiz night or post‑lecture catch‑up. We look forward to welcoming you.</p>
 
             <div className="bg-accent-50 rounded-xl p-8 text-center">
-              <h4 className="text-xl font-display font-bold text-brand-700 mb-4">Ready to Book?</h4>
+              <h2 className="text-xl font-display font-bold text-brand-700 mb-4">Ready to Book?</h2>
               <a
                 href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-accent-500 hover:bg-accent-600 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+                className="inline-block bg-accent-950 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 hover:bg-accent-950 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60"
+                aria-label={labelBookOnline}
               >
                 {labelBookOnline}
               </a>

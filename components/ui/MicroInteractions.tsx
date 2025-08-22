@@ -33,10 +33,10 @@ const AnimatedButton = memo<AnimatedButtonProps>(({
   const baseClasses = 'relative font-medium rounded-full transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden';
   
   const variants = {
-    primary: 'bg-crown-gold hover:bg-crown-gold-dark text-white focus:ring-crown-gold/50 disabled:bg-gray-400',
-    secondary: 'bg-crown-slate hover:bg-crown-slate-dark text-white focus:ring-crown-slate/50 disabled:bg-gray-400',
-    ghost: 'bg-transparent hover:bg-gray-100 text-crown-slate focus:ring-gray-200 disabled:text-gray-400',
-    outline: 'border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-white focus:ring-crown-gold/50 disabled:border-gray-300 disabled:text-gray-400'
+    primary: 'bg-accent hover:bg-accent-700 text-white focus:ring-accent/50 disabled:bg-gray-400',
+    secondary: 'bg-stout-700 hover:bg-stout-800 text-white focus:ring-stout-700/50 disabled:bg-gray-400',
+    ghost: 'bg-transparent hover:bg-gray-100 text-stout-700 focus:ring-gray-200 disabled:text-gray-400',
+    outline: 'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent/50 disabled:border-gray-300 disabled:text-gray-400'
   };
 
   const sizes = {
@@ -175,7 +175,7 @@ const AnimatedInput = memo<AnimatedInputProps>(({
       <motion.label
         className={`absolute left-3 transition-all duration-200 pointer-events-none ${
           isFocused || hasValue
-            ? 'text-sm text-crown-gold -top-2 bg-white px-2'
+  ? 'text-sm text-accent -top-2 bg-white px-2'
             : 'text-gray-500 top-3'
         }`}
         animate={{
@@ -196,7 +196,7 @@ const AnimatedInput = memo<AnimatedInputProps>(({
         onBlur={() => setIsFocused(false)}
         className={`
           w-full px-3 py-3 border rounded-lg transition-all duration-200
-          focus:ring-2 focus:ring-crown-gold/50 focus:border-crown-gold
+          focus:ring-2 focus:ring-accent/50 focus:border-accent
           ${error ? 'border-red-500' : 'border-gray-300'}
         `}
         whileFocus={{ scale: 1.01 }}
@@ -228,7 +228,7 @@ const LoadingDots = memo(() => {
       {[0, 1, 2].map((index) => (
         <motion.div
           key={index}
-          className="w-2 h-2 bg-crown-gold rounded-full"
+          className="w-2 h-2 bg-accent rounded-full"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.5, 1, 0.5]

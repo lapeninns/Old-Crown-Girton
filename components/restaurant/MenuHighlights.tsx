@@ -49,7 +49,7 @@ const featuredDishes = [
 
 export default function MenuHighlights() {
   return (
-    <section className="py-16 bg-crown-cream">
+    <section className="py-16 bg-brand-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -58,8 +58,8 @@ export default function MenuHighlights() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-crown-slate mb-4">
-            Our <span className="text-crown-gold">Signature</span> Dishes
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
+            Our <span className="text-accent">Signature</span> Dishes
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             From authentic Nepalese specialties to beloved pub classics, 
@@ -86,7 +86,7 @@ export default function MenuHighlights() {
         >
           <Link
             href="/menu"
-            className="inline-block bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+            className="inline-block bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
           >
             View Full Menu
           </Link>

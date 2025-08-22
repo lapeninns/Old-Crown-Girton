@@ -7,7 +7,7 @@ export default function ContactPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
-              Contact <span className="text-accent-500">Us</span>
+              Contact <span className="text-accent-900 font-semibold">Us</span>
             </h1>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
               Get in touch with Himalayan Spice, Girton. We&apos;re here to help with reservations, 
@@ -23,16 +23,11 @@ export default function ContactPage() {
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-4xl">📞</span>
                   <div>
-                    <h3 className="text-xl font-display font-bold text-brand-700">Phone</h3>
+                    <h2 className="text-xl font-display font-bold text-brand-700">Phone</h2>
                     <p className="text-neutral-600">Call us for reservations and enquiries</p>
                   </div>
                 </div>
-                <a
-                  href="tel:01223276027"
-                  className="inline-block bg-primary hover:bg-accent-600 text-neutral-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200"
-                >
-                  📞 01223 276027
-                </a>
+                <a href="tel:01223276027" style={{ backgroundColor: 'var(--color-accent-950)' }} className="inline-block bg-accent-950 hover:bg-accent-950 text-neutral-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60" aria-label="Call Himalayan Spice" type="button">📞 01223 276027</a>
               </div>
 
               {/* Address */}
@@ -40,7 +35,7 @@ export default function ContactPage() {
                 <div className="flex items-start gap-4 mb-4">
                   <span className="text-4xl">📍</span>
                   <div>
-                    <h3 className="text-xl font-display font-bold text-brand-700 mb-2">Address</h3>
+                    <h2 className="text-xl font-display font-bold text-brand-700 mb-2">Address</h2>
                     <div className="text-neutral-600">
                       <p>Himalayan Spice</p>
                       <p>High Street</p>
@@ -59,13 +54,14 @@ export default function ContactPage() {
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-4xl">📧</span>
                   <div>
-                    <h3 className="text-xl font-display font-bold text-brand-700">Email</h3>
+                    <h2 className="text-xl font-display font-bold text-brand-700">Email</h2>
                     <p className="text-neutral-600">Send us a message</p>
                   </div>
                 </div>
                 <a
                   href="mailto:info@oldcrowngirton.co.uk"
-                  className="text-accent-500 hover:text-accent-600 font-medium transition-colors duration-200"
+                  className="text-accent-900 hover:text-accent-950 font-semibold transition-colors duration-200"
+                  aria-label="Email Himalayan Spice"
                 >
                   info@oldcrowngirton.co.uk
                 </a>
@@ -78,12 +74,12 @@ export default function ContactPage() {
               <div className="bg-neutral-100 p-6 rounded-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="text-4xl">⏰</span>
-                  <h3 className="text-xl font-display font-bold text-brand-700">Opening Hours</h3>
+                  <h2 className="text-xl font-display font-bold text-brand-700">Opening Hours</h2>
                 </div>
                 
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-bold text-brand-700 mb-2">Restaurant</h4>
+                    <h3 className="font-bold text-brand-700 mb-2">Restaurant</h3>
                     <div className="space-y-1 text-neutral-600">
                       <div className="flex justify-between">
                         <span>Monday - Thursday</span>
@@ -101,7 +97,7 @@ export default function ContactPage() {
                   </div>
                   
                   <div className="border-t border-neutral-300 pt-4">
-                    <h4 className="font-bold text-brand-700 mb-2">Bar</h4>
+                    <h3 className="font-bold text-brand-700 mb-2">Bar</h3>
                     <div className="space-y-1 text-neutral-600">
                       <div className="flex justify-between">
                         <span>Monday - Thursday</span>
@@ -122,9 +118,9 @@ export default function ContactPage() {
 
               {/* Features */}
               <div className="bg-neutral-50 border-2 border-neutral-200 p-6 rounded-xl">
-                <h3 className="text-xl font-display font-bold text-crown-slate mb-4">
+                <h2 className="text-xl font-display font-bold text-stout-700 mb-4">
                   What We Offer
-                </h3>
+                </h2>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div className="flex items-center gap-2">
                     <span>🌿</span>
@@ -155,16 +151,16 @@ export default function ContactPage() {
 
               {/* Social Media */}
               <div className="bg-accent-50 border-2 border-accent-500 p-6 rounded-xl text-center">
-                <h3 className="text-xl font-display font-bold text-crown-slate mb-4">
+                <h2 className="text-xl font-display font-bold text-stout-700 mb-4">
                   Follow Us
-                </h3>
+                </h2>
                 <p className="text-neutral-600 mb-4">
                   Stay updated with our latest news and special offers
                 </p>
                 <div className="flex justify-center space-x-6">
                   <a 
                     href="https://facebook.com" 
-                    className="text-accent-500 hover:text-accent-600 transition-colors"
+                    className="text-accent hover:text-accent-700 transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -175,7 +171,7 @@ export default function ContactPage() {
                   </a>
                   <a 
                     href="https://instagram.com" 
-                    className="text-accent-500 hover:text-accent-600 transition-colors"
+                    className="text-accent hover:text-accent-700 transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
