@@ -154,7 +154,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-neutral-100/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-brand-700">Chicken Momo</h4>
-                    <span className="text-lg font-bold text-accent">£8.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£8.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Traditional <strong>Nepalese dumplings</strong> filled with seasoned chicken and fresh herbs, 
@@ -169,7 +169,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-neutral-100/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-brand-700">Dal Bhat</h4>
-                    <span className="text-lg font-bold text-accent">£12.50</span>
+                    <span className="text-lg font-bold text-foreground-strong">£12.50</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     <strong>Nepal's national dish</strong> - a complete meal featuring aromatic lentil soup, fluffy basmati rice, 
@@ -207,7 +207,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-brand-50/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Lamb Curry (Khasi Ko Masu)</h4>
-                    <span className="text-lg font-bold text-accent">£16.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£16.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Tender lamb slow-cooked in aromatic <strong>Himalayan spices</strong> with fresh herbs, 
@@ -222,7 +222,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-brand-50/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Chicken Curry (Kukhura Ko Masu)</h4>
-                    <span className="text-lg font-bold text-accent">£14.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£14.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Free-range chicken cooked in traditional Nepalese style with ginger, garlic, and warm spices. 
@@ -236,7 +236,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-brand-50/20 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Vegetable Momo</h4>
-                    <span className="text-lg font-bold text-accent">£7.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£7.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     <strong>Vegetarian dumplings</strong> filled with fresh seasonal vegetables and herbs, 
@@ -284,7 +284,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Beer Battered Fish & Chips</h4>
-                    <span className="text-lg font-bold text-accent">£14.50</span>
+                    <span className="text-lg font-bold text-foreground-strong">£14.50</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Fresh cod in our signature golden beer batter, served with hand-cut chips, mushy peas, 
@@ -298,7 +298,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Grilled Salmon</h4>
-                    <span className="text-lg font-bold text-accent">£18.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£18.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Pan-seared salmon fillet with seasonal vegetables, new potatoes, and herb butter. 
@@ -312,7 +312,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Steak & Ale Pie</h4>
-                    <span className="text-lg font-bold text-accent">£15.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£15.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Tender chunks of beef slow-cooked in local ale with vegetables, encased in golden pastry. 
@@ -332,7 +332,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">8oz Ribeye Steak</h4>
-                    <span className="text-lg font-bold text-accent">£22.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£22.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Prime British beef cooked to your liking, served with hand-cut chips, 
@@ -346,7 +346,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Homemade Burger</h4>
-                    <span className="text-lg font-bold text-accent">£13.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£13.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     100% British beef patty with lettuce, tomato, red onion, and chips. 
@@ -360,7 +360,7 @@ export default async function MenuPage() {
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-bold text-stout-700">Vegetarian Wellington</h4>
-                    <span className="text-lg font-bold text-accent">£14.95</span>
+                    <span className="text-lg font-bold text-foreground-strong">£14.95</span>
                   </div>
                   <p className="text-gray-700 mb-3">
                     Roasted vegetables, nuts, and herbs wrapped in golden puff pastry. 
@@ -390,7 +390,7 @@ export default async function MenuPage() {
                 pork, or chicken. All served with Yorkshire pudding, roast potatoes, seasonal vegetables, 
                 and our homemade gravy.
               </p>
-              <div className="text-2xl font-bold text-accent mb-4">£16.95 - £19.95</div>
+              <div className="text-2xl font-bold text-foreground-strong mb-4">£16.95 - £19.95</div>
               <p className="text-sm text-gray-600 mb-6">
                 <strong>Served:</strong> Sundays 12:00 - 21:00 (or until sold out)<br/>
                 <strong>Booking recommended</strong> especially for larger groups
