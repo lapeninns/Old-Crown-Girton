@@ -71,7 +71,7 @@ export async function getConfigData(env: AppEnv = resolveEnv()): Promise<AppConf
 
 // --- REST fetchers (client/server) -------------------------------------------------
 
-async function fetchJsonValidated<T>(url: string, schema: ZodTypeAny, init?: RequestInit): Promise<T> {
+async function fetchJsonValidated<T>(url: string, schema: ZodTypeAny, init?: any): Promise<T> {
   const res = await fetch(url, { ...init, headers: { 'accept': 'application/json', ...(init?.headers || {}) } });
   if (!res.ok) {
     throw new Error(`Fetch failed ${res.status} ${res.statusText} for ${url}`);
@@ -93,7 +93,8 @@ export async function fetchMenuFromApi(endpoint?: string, env: AppEnv = resolveE
         const cfg = await getConfigData(env);
         url = cfg.api.menuEndpoint || `${cfg.api.baseUrl ?? ''}/api/menu`;
       } catch {
-        url = '/api/menu';
+  // If config lookup fails, fall back to local API path
+  url = '/api/menu';
       }
     } else {
       url = '/api/menu';

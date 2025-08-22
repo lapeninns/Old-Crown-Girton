@@ -52,6 +52,8 @@ const useIntersectionObserver = (
     return () => {
       observer.disconnect();
     };
+  // loadImage is stable in this scope; intentionally omit from deps to avoid repeated observers
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.rootMargin, options.threshold, options.once, hasIntersected]);
 
   return { ref, isIntersecting, hasIntersected };

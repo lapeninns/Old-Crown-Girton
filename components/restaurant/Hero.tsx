@@ -2,14 +2,12 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { getRestaurantIdentity, getContactInfo, getGallery, getHours } from '@/lib/restaurantData';
+import { getContactInfo, getHours } from '@/lib/restaurantData';
 import { useParsedData } from '@/hooks/useParsedData';
 import { MarketingDataSchema } from '@/lib/schemas';
 
 export default function Hero() {
-  const identity = getRestaurantIdentity();
   const contact = getContactInfo();
-  const gallery = getGallery();
   const hours = getHours();
   const kitchenWeek = hours?.display?.kitchen?.weekdays;
   const barWeek = hours?.display?.bar?.mon_thu;

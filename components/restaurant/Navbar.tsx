@@ -12,6 +12,8 @@ export default function Navbar() {
   const { data: marketing } = useParsedData<MarketingDataParsed>('marketing.json', MarketingDataSchema);
   const navLinks = data?.links || [];
   const callLabel = marketing?.buttons?.callUs || 'Call Us';
+  // If CMS-provided label already includes the word 'Call', avoid doubling it in aria-label
+  const callAriaLabel = (callLabel || '').toLowerCase().startsWith('call') ? callLabel : `Call ${callLabel}`;
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
@@ -38,7 +40,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="touch-target text-stout-700 hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="touch-target text-stout-700 hover:text-accent-950 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -51,7 +53,7 @@ export default function Navbar() {
             <a
               href="tel:01223276027"
               className="touch-target bg-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-accent-700 transition-colors duration-200"
-              aria-label={`Call ${callLabel}`}
+              aria-label={callAriaLabel}
             >
               📞 {callLabel}
             </a>
@@ -61,7 +63,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="touch-target inline-flex items-center justify-center p-2 rounded-md text-stout-700 hover:text-accent hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              className="touch-target inline-flex items-center justify-center p-2 rounded-md text-stout-700 hover:text-accent-950 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? (
@@ -95,7 +97,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="touch-target text-stout-700 hover:text-accent block px-3 py-2 rounded-md text-base font-medium"
+                  className="touch-target text-stout-700 hover:text-accent-950 block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}

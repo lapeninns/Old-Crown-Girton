@@ -17,7 +17,7 @@ const BookingModalPortal = () => {
 
   React.useEffect(() => {
     const handler = () => {
-      try { console.debug && console.debug('BookingModalPortal: received open-booking-modal'); } catch {}
+    try { console.debug && console.debug('BookingModalPortal: received open-booking-modal'); } catch (e) { /* ignore */ }
       setOpen(true);
     };
 
@@ -26,19 +26,17 @@ const BookingModalPortal = () => {
     // Mark that the booking portal has mounted so tests can wait for it.
     try {
       document.documentElement.setAttribute('data-booking-portal-mounted', '1');
-    } catch (e) {}
+    } catch (e) { /* ignore */ }
 
     // Consume any queued events that fired before this component mounted
     try {
       const q = (window as any).__bookingModalQueue;
       if (Array.isArray(q) && q.length > 0) {
-        try { console.debug && console.debug('BookingModalPortal: consuming queued events', q.length); } catch {}
+        try { console.debug && console.debug('BookingModalPortal: consuming queued events', q.length); } catch (e) { /* ignore */ }
         setOpen(true);
         (window as any).__bookingModalQueue = [];
       }
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) { /* ignore */ }
 
     return () => window.removeEventListener("open-booking-modal", handler);
   }, []);

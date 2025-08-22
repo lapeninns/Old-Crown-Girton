@@ -27,7 +27,7 @@ const variantStyles = {
   accent: 'bg-crimson hover:bg-crimson-700 text-white shadow-lg',
   outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
   ghost: 'bg-transparent hover:bg-primary/10 text-primary',
-  link: 'bg-transparent underline text-primary hover:text-accent',
+  link: 'bg-transparent underline text-primary hover:text-accent-950',
   destructive: 'bg-crimson-600 hover:bg-crimson-700 text-white shadow-sm',
 };
 

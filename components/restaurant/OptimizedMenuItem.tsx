@@ -1,18 +1,6 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Heart, 
-  Star, 
-  Plus, 
-  ShoppingCart, 
-  Eye, 
-  Info,
-  Leaf,
-  Wheat,
-  Milk,
-  Sparkles,
-  MapPin
-} from 'lucide-react';
+import { Heart, Plus, Info, Leaf, Wheat, Milk, Sparkles, MapPin } from 'lucide-react';
 
 // Performance-optimized Badge component
 const Badge = memo<{ 
@@ -179,7 +167,7 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
       <div className="p-6">
         {/* Header */}
         <div className="flex justify-between items-start mb-3">
-          <h3 className="text-xl font-display font-bold text-stout-700 group-hover:text-accent transition-colors">
+          <h3 className="text-xl font-display font-bold text-stout-700 group-hover:text-accent-950 transition-colors">
             {name}
           </h3>
           <span className="text-xl font-bold text-accent ml-4 flex-shrink-0">
