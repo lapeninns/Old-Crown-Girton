@@ -131,9 +131,9 @@ export default async function Page() {
                 The Old Crown Girton: Historic Thatched Pub & Authentic Nepalese Restaurant
               </h1>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                Welcome to Girton's unique dining destination, where the largest thatched pub in the country serves 
+                Welcome to Girton&apos;s unique dining destination, where the largest thatched pub in the country serves 
                 exceptional <strong>Nepalese cuisine</strong> alongside beloved <strong>British pub classics</strong>. 
-                Just minutes from <strong>Cambridge</strong> and <strong>Girton College</strong>, we're your 
+                Just minutes from <strong>Cambridge</strong> and <strong>Girton College</strong>, we&apos;re your 
                 family-friendly, dog-welcoming village hub for memorable meals and community gathering.
               </p>
             </div>
@@ -178,7 +178,7 @@ export default async function Page() {
                   </li>
                   <li className="flex items-start">
                     <span className="text-accent mr-2">•</span>
-                    <span><strong>Dal Bhat</strong> - Nepal's national dish with lentils, rice & vegetables</span>
+                    <span><strong>Dal Bhat</strong> - Nepal&apos;s national dish with lentils, rice &amp; vegetables</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-accent mr-2">•</span>

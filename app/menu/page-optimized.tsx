@@ -93,7 +93,7 @@ export default async function MenuPage() {
               Our Menu: Authentic Nepalese & Traditional British Cuisine
             </h1>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-8">
-              Discover the unique flavors of Nepal alongside your favorite pub classics at Girton's 
+              Discover the unique flavors of Nepal alongside your favorite pub classics at Girton&apos;s 
               historic thatched pub. Every dish made fresh with authentic recipes and quality ingredients.
             </p>
             <div className="flex flex-wrap justify-center gap-4">

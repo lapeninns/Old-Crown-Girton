@@ -1,0 +1,102 @@
+{
+  "primary": {
+    "light": {
+      "bg": "#87453B",
+      "fg": "#ffffff",
+      "ratio": 7.13,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    },
+    "dark": {
+      "bg": "#A16207",
+      "fg": "#ffffff",
+      "ratio": 4.92,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    }
+  },
+  "secondary": {
+    "light": {
+      "bg": "#006666",
+      "fg": "#ffffff",
+      "ratio": 6.79,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    },
+    "dark": {
+      "bg": "#4338CA",
+      "fg": "#ffffff",
+      "ratio": 7.9,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    }
+  },
+  "accent": {
+    "light": {
+      "bg": "#DC143C",
+      "fg": "#ffffff",
+      "ratio": 4.99,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    },
+    "dark": {
+      "bg": "#A61E3A",
+      "fg": "#ffffff",
+      "ratio": 7.32,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    }
+  },
+  "outline": {
+    "light": {
+      "error": "background token not resolvable",
+      "bg": "transparent",
+      "fg": "var(--color-primary)"
+    },
+    "dark": {
+      "error": "background token not resolvable",
+      "bg": "transparent",
+      "fg": "var(--color-primary)"
+    }
+  },
+  "ghost": {
+    "light": {
+      "error": "background token not resolvable",
+      "bg": "transparent",
+      "fg": "var(--color-primary)"
+    },
+    "dark": {
+      "error": "background token not resolvable",
+      "bg": "transparent",
+      "fg": "var(--color-primary)"
+    }
+  },
+  "link": {
+    "light": {
+      "error": "background token not resolvable",
+      "bg": "transparent",
+      "fg": "var(--color-primary)"
+    },
+    "dark": {
+      "error": "background token not resolvable",
+      "bg": "transparent",
+      "fg": "var(--color-primary)"
+    }
+  },
+  "destructive": {
+    "light": {
+      "bg": "#C41E3A",
+      "fg": "#ffffff",
+      "ratio": 5.84,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    },
+    "dark": {
+      "bg": "#A61E3A",
+      "fg": "#ffffff",
+      "ratio": 7.32,
+      "pass_NormalText": true,
+      "pass_LargeText": true
+    }
+  }
+}

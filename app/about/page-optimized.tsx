@@ -52,7 +52,7 @@ export default async function AboutPage() {
               The Story of The Old Crown: Historic Thatched Pub Heritage
             </h1>
             <p className="text-xl text-neutral-200 max-w-3xl mx-auto leading-relaxed">
-              Discover how Girton's largest thatched pub evolved from a traditional village inn 
+              Discover how Girton&apos;s largest thatched pub evolved from a traditional village inn 
               into Cambridge's unique destination for authentic Nepalese cuisine and British classics.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default async function AboutPage() {
                   create an atmosphere that's both timeless and uniquely memorable.
                 </p>
                 <p className="text-lg text-neutral-700 mb-6">
-                  Located just 2 miles from <strong>Cambridge city centre</strong> on Girton's historic High Street, 
+                  Located just 2 miles from <strong>Cambridge city centre</strong> on Girton&apos;s historic High Street, 
                   we've evolved from a simple village inn into something truly special - a place where 
                   authentic <strong>Nepalese cuisine</strong> meets beloved British pub traditions 
                   under our famous thatched roof.
@@ -126,7 +126,7 @@ export default async function AboutPage() {
                     <p className="text-gray-700">
                       The Old Crown was built to replace an earlier inn, featuring the distinctive 
                       <strong>thatched roof design</strong> that would become our signature. From day one, 
-                      it served as Girton's central gathering place for villagers and travelers alike.
+                      it served as Girton&apos;s central gathering place for villagers and travelers alike.
                     </p>
                   </div>
                 </div>
@@ -284,7 +284,7 @@ export default async function AboutPage() {
                     <span className="mr-3">🏠</span> Community First
                   </h3>
                   <p className="text-gray-700">
-                    We're more than a restaurant - we're Girton's living room. Whether you're a regular 
+                    We&apos;re more than a restaurant - we&apos;re Girton&apos;s living room. Whether you&apos;re a regular 
                     or first-time visitor, you'll find a warm welcome and sense of belonging.
                   </p>
                 </div>

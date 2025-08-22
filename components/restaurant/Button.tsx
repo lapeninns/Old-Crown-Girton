@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'outline';
+type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost' | 'link' | 'destructive';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface ButtonProps {
@@ -12,6 +12,9 @@ interface ButtonProps {
   size?: ButtonSize;
   onClick?: () => void;
   href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  ariaLabel?: string;
+  loading?: boolean;
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
@@ -23,6 +26,9 @@ const variantStyles = {
   secondary: 'bg-secondary hover:bg-secondary-700 text-white shadow-lg',
   accent: 'bg-crimson hover:bg-crimson-700 text-white shadow-lg',
   outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
+  ghost: 'bg-transparent hover:bg-primary/10 text-primary',
+  link: 'bg-transparent underline text-primary hover:text-accent',
+  destructive: 'bg-crimson-600 hover:bg-crimson-700 text-white shadow-sm',
 };
 
 const sizeStyles = {
@@ -40,6 +46,9 @@ export default function Button({
   className = '',
   disabled = false,
   fullWidth = false,
+  type = 'button',
+  ariaLabel,
+  loading = false,
 }: ButtonProps) {
   const baseStyles = 'touch-target font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-opacity-50';
   const widthStyle = fullWidth ? 'w-full' : '';
@@ -53,13 +62,45 @@ export default function Button({
       whileTap={!disabled ? { scale: 0.98 } : {}}
       className="block"
     >
-      {children}
+      {loading ? (
+        <span className="flex items-center gap-2">
+          {/* spinner: respect user preference for reduced motion using tailwind's motion-reduce utilities */}
+          <svg
+            aria-hidden="true"
+            role="img"
+            focusable="false"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            className="animate-spin motion-reduce:animate-none"
+          >
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.25"></circle>
+            <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="3" fill="none"></path>
+          </svg>
+          <span className="sr-only">Loading</span>
+        </span>
+      ) : (
+        children
+      )}
     </motion.span>
   );
 
-  if (href && !disabled) {
+  if (href) {
+    // If disabled, render a non-interactive element that communicates disabled state
+    if (disabled) {
+      return (
+        <a
+          aria-disabled="true"
+          tabIndex={-1}
+          className={`${combinedStyles} pointer-events-none`}
+        >
+          <ButtonContent />
+        </a>
+      );
+    }
+
     return (
-      <a href={href} className={combinedStyles}>
+      <a href={href} className={combinedStyles} aria-label={ariaLabel}>
         <ButtonContent />
       </a>
     );
@@ -67,8 +108,11 @@ export default function Button({
 
   return (
     <button
+      type={type}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || loading}
+      aria-label={ariaLabel}
+      aria-busy={loading ? 'true' : undefined}
       className={combinedStyles}
     >
       <ButtonContent />

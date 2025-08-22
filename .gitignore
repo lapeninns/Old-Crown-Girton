@@ -39,3 +39,14 @@ next-env.d.ts
 public/robots.txt
 public/sitemap.xml
 public/sitemap-0.xml
+
+# Ignore Playwright and test artifacts
+playwright-report/
+test-results/
+playwright-tests/
+
+# Ignore generated media and recordings from tests
+playwright-report/data/
+
+# Backup files
+*.bak

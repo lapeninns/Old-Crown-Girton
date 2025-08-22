@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Design System — Button Examples</title>
+  <link rel="stylesheet" href="../css/button.css" />
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; padding: 32px; background: var(--color-background); color: var(--color-text); }
+    .demo-row { display:flex; gap:16px; align-items:center; margin-bottom:16px; }
+    h1 { font-size: 20px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Button examples</h1>
+
+  <section aria-labelledby="primary-buttons">
+    <h2 id="primary-buttons">Primary</h2>
+    <div class="demo-row">
+      <button class="ds-button ds-button--primary ds-button--md">Primary</button>
+      <button class="ds-button ds-button--primary ds-button--md" disabled>Primary disabled</button>
+      <a class="ds-button ds-button--primary ds-button--md" href="#">Primary link</a>
+    </div>
+  </section>
+
+  <section aria-labelledby="secondary-buttons">
+    <h2 id="secondary-buttons">Secondary & Accent</h2>
+    <div class="demo-row">
+      <button class="ds-button ds-button--secondary ds-button--md">Secondary</button>
+      <button class="ds-button ds-button--accent ds-button--md">Accent</button>
+      <button class="ds-button ds-button--outline ds-button--md">Outline</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="other-buttons">
+    <h2 id="other-buttons">Ghost, Link & Destructive</h2>
+    <div class="demo-row">
+      <button class="ds-button ds-button--ghost ds-button--md">Ghost</button>
+      <button class="ds-button ds-button--link ds-button--md">Link</button>
+      <button class="ds-button ds-button--destructive ds-button--md">Delete</button>
+    </div>
+  <p style="font-size:13px;color:#666;max-width:720px;">Note: <strong>ghost</strong>, <strong>link</strong>, and <strong>outline</strong> variants are contextual — their perceptible contrast depends on the background. See the examples below showing these variants on light and dark backgrounds.</p>
+  </section>
+
+  <section aria-labelledby="sizes">
+    <h2 id="sizes">Sizes</h2>
+    <div class="demo-row">
+      <button class="ds-button ds-button--primary ds-button--sm">Small</button>
+      <button class="ds-button ds-button--primary ds-button--md">Medium</button>
+      <button class="ds-button ds-button--primary ds-button--lg">Large</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="icon-only">
+    <h2 id="icon-only">Icon-only</h2>
+    <div class="demo-row">
+      <button class="ds-button ds-button--primary ds-button--icon" aria-label="Search">
+        🔍
+      </button>
+    </div>
+  </section>
+
+  <section aria-labelledby="contextual-examples">
+    <h2 id="contextual-examples">Contextual variants (light vs dark surface)</h2>
+    <div style="display:flex;gap:24px;align-items:flex-start;">
+      <div style="padding:16px;background:#ffffff;border:1px solid #eee;border-radius:8px;">
+        <div style="margin-bottom:8px;font-weight:600;">On light surface</div>
+        <div class="demo-row">
+          <button class="ds-button ds-button--outline ds-button--md">Outline</button>
+          <button class="ds-button ds-button--ghost ds-button--md">Ghost</button>
+          <button class="ds-button ds-button--link ds-button--md">Link</button>
+        </div>
+      </div>
+      <div style="padding:16px;background:#111827;color:#fff;border-radius:8px;">
+        <div style="margin-bottom:8px;font-weight:600;">On dark surface</div>
+        <div class="demo-row">
+          <button class="ds-button ds-button--outline ds-button--md">Outline</button>
+          <button class="ds-button ds-button--ghost ds-button--md">Ghost</button>
+          <button class="ds-button ds-button--link ds-button--md">Link</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
