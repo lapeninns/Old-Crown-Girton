@@ -64,7 +64,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             {/* Header */}
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
-                <h2 id="booking-modal-title" className="text-2xl font-display font-bold text-crown-slate">
+                <h2 id="booking-modal-title" className="text-2xl font-display font-bold text-stout-700">
                   Book a Table
                 </h2>
                 <button
@@ -95,7 +95,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crown-gold focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
                     placeholder="Your name"
                   />
                 </div>
@@ -111,7 +111,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crown-gold focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
                     placeholder="01223 123456"
                   />
                 </div>
@@ -127,7 +127,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crown-gold focus:border-transparent transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
                   placeholder="your@email.com"
                 />
               </div>
@@ -145,7 +145,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     value={formData.date}
                     onChange={handleChange}
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crown-gold focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
                   />
                 </div>
                 
@@ -159,7 +159,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     required
                     value={formData.time}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crown-gold focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-colors"
                   >
                     <option value="">Select time</option>
                     <option value="12:00">12:00 PM</option>
@@ -187,7 +187,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     required
                     value={formData.guests}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crown-gold focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-colors"
                   >
                     {[1,2,3,4,5,6,7,8,9,10].map(num => (
                       <option key={num} value={num}>{num} {num === 1 ? 'guest' : 'guests'}</option>
@@ -207,23 +207,24 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   rows={3}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crown-gold focus:border-transparent transition-colors resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors resize-none"
                   placeholder="Dietary requirements, celebrations, etc."
                 />
               </div>
 
               {/* Call Option */}
-              <div className="bg-crown-cream p-4 rounded-lg">
+              <div className="bg-brand-50 p-4 rounded-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl">📞</span>
-                  <span className="font-medium text-crown-slate">Prefer to call?</span>
+                  <span className="font-medium text-stout-700">Prefer to call?</span>
                 </div>
                 <p className="text-sm text-gray-600 mb-2">
                   Call us directly for immediate booking confirmation
                 </p>
                 <a
                   href="tel:01223276027"
-                  className="text-crown-gold font-semibold hover:underline"
+                  className="text-accent font-semibold hover:underline"
+                  aria-label="Open booking dialog"
                 >
                   01223 276027
                 </a>

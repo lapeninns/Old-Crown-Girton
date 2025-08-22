@@ -20,10 +20,10 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-display font-bold text-crown-gold-dark">
+              <span className="text-2xl font-display font-bold text-accent">
                 Old Crown
               </span>
-              <span className="ml-2 text-sm text-crown-slate hidden sm:block">
+              <span className="ml-2 text-sm text-stout-700 hidden sm:block">
                 Girton
               </span>
             </Link>
@@ -38,7 +38,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="touch-target text-crown-slate hover:text-crown-gold px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="touch-target text-stout-700 hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -50,7 +50,8 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-3">
             <a
               href="tel:01223276027"
-              className="touch-target bg-crown-gold text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-crown-gold-dark transition-colors duration-200"
+              className="touch-target bg-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-accent-700 transition-colors duration-200"
+              aria-label={`Call ${callLabel}`}
             >
               📞 {callLabel}
             </a>
@@ -60,7 +61,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="touch-target inline-flex items-center justify-center p-2 rounded-md text-crown-slate hover:text-crown-gold hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              className="touch-target inline-flex items-center justify-center p-2 rounded-md text-stout-700 hover:text-accent hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? (
@@ -94,7 +95,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="touch-target text-crown-slate hover:text-crown-gold block px-3 py-2 rounded-md text-base font-medium"
+                  className="touch-target text-stout-700 hover:text-accent block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
@@ -104,7 +105,7 @@ export default function Navbar() {
                 <div className="px-3">
                   <a
                     href="tel:01223276027"
-                    className="touch-target block bg-crown-gold text-white px-4 py-3 rounded-lg font-medium hover:bg-crown-gold-dark transition-colors duration-200 text-center"
+                    className="touch-target block bg-accent text-white px-4 py-3 rounded-lg font-medium hover:bg-accent-700 transition-colors duration-200 text-center"
                   >
                     📞 {callLabel}: 01223 276027
                   </a>

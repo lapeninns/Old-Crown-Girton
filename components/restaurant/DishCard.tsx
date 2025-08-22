@@ -59,14 +59,14 @@ export default function DishCard({
 
         {/* Price */}
         <div className="absolute top-3 right-3">
-          <span className="bg-crown-gold text-white text-lg font-bold px-3 py-1 rounded-full">
+          <span className="bg-accent text-white text-lg font-bold px-3 py-1 rounded-full">
             {price}
           </span>
         </div>
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-display font-bold text-crown-slate mb-2">
+        <h3 className="text-xl font-display font-bold text-stout-700 mb-2">
           {title}
         </h3>
         <p className="text-gray-600 mb-4 line-clamp-2">
@@ -74,7 +74,7 @@ export default function DishCard({
         </p>
         <a
           href="tel:01223276027"
-          className="block w-full text-center bg-crown-gold hover:bg-crown-gold-dark text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+          className="block w-full text-center bg-accent hover:bg-accent-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
         >
           📞 Call to Order
         </a>

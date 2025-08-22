@@ -15,8 +15,8 @@ export default function AboutSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-crown-slate mb-6">
-              Welcome to <span className="text-crown-gold">Old Crown</span>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-6">
+              Welcome to <span className="text-accent">Old Crown</span>
             </h2>
             
             <div className="prose prose-lg text-gray-600 space-y-4">
@@ -31,9 +31,9 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="mt-8 p-6 bg-crown-cream rounded-lg"
+              className="mt-8 p-6 bg-brand-50 rounded-lg"
             >
-              <h3 className="text-xl font-display font-bold text-crown-slate mb-4">Why Guests Visit</h3>
+              <h3 className="text-xl font-display font-bold text-stout-700 mb-4">Why Guests Visit</h3>
               <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
                 <li>Distinctive thatched setting & village feel</li>
                 <li>Authentic Nepalese flavour + pub classics</li>
@@ -67,7 +67,7 @@ export default function AboutSection() {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
-              className="absolute -top-4 -right-4 bg-crown-gold text-white p-4 rounded-full shadow-lg"
+              className="absolute -top-4 -right-4 bg-accent text-white p-4 rounded-full shadow-lg"
             >
               <span className="text-2xl">🍽️</span>
             </motion.div>
@@ -75,7 +75,7 @@ export default function AboutSection() {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-              className="absolute -bottom-4 -left-4 bg-crown-red text-white p-4 rounded-full shadow-lg"
+              className="absolute -bottom-4 -left-4 bg-crimson-600 text-white p-4 rounded-full shadow-lg"
             >
               <span className="text-2xl">🌶️</span>
             </motion.div>

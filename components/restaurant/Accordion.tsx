@@ -18,11 +18,11 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
         onClick={() => setIsOpen(!isOpen)}
         className="touch-target w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 flex justify-between items-center"
       >
-        <span className="text-lg font-semibold text-crown-slate">{title}</span>
+        <span className="text-lg font-semibold text-stout-700">{title}</span>
         <motion.svg
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="w-5 h-5 text-crown-gold"
+          className="w-5 h-5 text-accent"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

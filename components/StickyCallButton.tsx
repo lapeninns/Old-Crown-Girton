@@ -151,7 +151,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 								href={href}
 								aria-label="Get directions"
 								data-testid="directions-sticky"
-								className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-crown-blue text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-crown-blue/40 hover:brightness-95 active:scale-95 transition"
+								className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-brand-700 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/40 hover:brightness-95 active:scale-95 transition"
 								onClick={(e) => {
 									// Attempt native maps on iOS immediately
 									if (isiOS) {
@@ -183,9 +183,9 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 							exit={{ opacity: 0, y: 6 }}
 							className="absolute right-20 bottom-1 hidden sm:block"
 						>
-							<div className="bg-crown-dark text-white text-xs font-medium px-3 py-2 rounded-lg shadow-lg max-w-[140px] leading-snug">
+							<div className="bg-stout-800 text-white text-xs font-medium px-3 py-2 rounded-lg shadow-lg max-w-[140px] leading-snug">
 								Tap to call us
-								<div className="absolute -right-2 top-3 w-3 h-3 rotate-45 bg-crown-dark" />
+								<div className="absolute -right-2 top-3 w-3 h-3 rotate-45 bg-stout-800" />
 							</div>
 						</motion.div>
 					)}
@@ -194,7 +194,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 								<motion.a
 									href={formatTelHref(restaurantPhone)}
 									aria-label={btnLabelCall}
-									className={`group relative flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-crown-gold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-crown-gold/40 hover:brightness-105 active:scale-95 transition`}
+									className={`group relative flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-accent text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 hover:brightness-105 active:scale-95 transition`}
 									data-analytics-event="fab_call_click"
 									onClick={() => track("call_click", { phone: restaurantPhone })}
 								>
@@ -208,7 +208,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 						📞
 					</motion.span>
 					<span className="sr-only">{btnLabelCall}</span>
-					<span className="absolute inset-0 rounded-full animate-pulse-slow bg-crown-gold/30 pointer-events-none mix-blend-overlay" aria-hidden />
+					<span className="absolute inset-0 rounded-full animate-pulse-slow bg-accent/30 pointer-events-none mix-blend-overlay" aria-hidden />
 				</motion.a>
 
 								{/* Book action: redirect to TOGO booking in a new tab for predictable behavior */}
@@ -219,7 +219,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 									rel="noopener noreferrer"
 									aria-label="Book a table (opens in new tab)"
 									data-testid="booking-sticky"
-									className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-crown-slate text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-crown-slate/40 hover:brightness-95 active:scale-95 transition"
+									className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-brand-700 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/40 hover:brightness-95 active:scale-95 transition"
 									onClick={() => track('book_click', { href: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640' })}
 								>
 									<span aria-hidden className="text-lg">📅</span>

@@ -14,7 +14,7 @@ const Slide: React.FC<{ slide: SlideType; active?: boolean }> = ({ slide }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div>
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-snug md:leading-tight">
-            <span className="block text-crown-gold">{slide.eyebrow}</span>
+            <span className="block text-accent">{slide.eyebrow}</span>
             <span className="block text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl">{slide.headline}</span>
           </h1>
 
@@ -30,12 +30,12 @@ const Slide: React.FC<{ slide: SlideType; active?: boolean }> = ({ slide }) => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             {slide.ctas?.bookUrl && (
-              <a target="_blank" rel="noopener noreferrer" href={slide.ctas.bookUrl} className="bg-primary hover:bg-crown-gold-dark text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto">
+              <a target="_blank" rel="noopener noreferrer" href={slide.ctas.bookUrl} className="bg-primary hover:bg-accent-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto">
                 Book Online
               </a>
             )}
             {slide.ctas?.callTel && (
-              <a href={slide.ctas.callTel} className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto">
+              <a href={slide.ctas.callTel} className="bg-crimson-600 hover:bg-crimson-800 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto">
                 📞 Call for Takeaway
               </a>
             )}

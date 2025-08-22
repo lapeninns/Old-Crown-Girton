@@ -127,7 +127,7 @@ export default async function Page() {
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-display font-bold text-crown-slate mb-6">
+              <h1 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-6">
                 The Old Crown Girton: Historic Thatched Pub & Authentic Nepalese Restaurant
               </h1>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -146,9 +146,9 @@ export default async function Page() {
                 { icon: '👨‍👩‍👧‍👦', text: 'Family Friendly', desc: 'Kids welcome until 9pm' },
                 { icon: '🐕', text: 'Dog Friendly', desc: 'Well-behaved dogs welcome' }
               ].map((feature, index) => (
-                <div key={index} className="text-center p-4 rounded-lg bg-crown-cream/30">
+                <div key={index} className="text-center p-4 rounded-lg bg-brand-50/30">
                   <div className="text-3xl mb-2">{feature.icon}</div>
-                  <h3 className="font-semibold text-crown-slate text-sm">{feature.text}</h3>
+                  <h3 className="font-semibold text-stout-700 text-sm">{feature.text}</h3>
                   <p className="text-xs text-gray-600 mt-1">{feature.desc}</p>
                 </div>
               ))}
@@ -157,15 +157,15 @@ export default async function Page() {
         </section>
 
         {/* Cuisine Section */}
-        <section className="py-16 bg-crown-cream/20">
+        <section className="py-16 bg-brand-50/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-stout-700 text-center mb-12">
               Authentic Nepalese Cuisine Meets British Pub Tradition
             </h2>
             
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-2xl font-bold text-crown-slate mb-6">Our Signature Nepalese Dishes</h3>
+                <h3 className="text-2xl font-bold text-stout-700 mb-6">Our Signature Nepalese Dishes</h3>
                 <p className="text-gray-700 mb-6">
                   Experience the rich, aromatic flavours of the Himalayas with our authentic Nepalese menu. 
                   From traditional <strong>momos</strong> (Nepalese dumplings) to hearty <strong>dal bhat</strong> 
@@ -173,26 +173,26 @@ export default async function Page() {
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Chicken Momo</strong> - Traditional dumplings with signature tomato chutney</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Dal Bhat</strong> - Nepal's national dish with lentils, rice & vegetables</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Lamb Curry</strong> - Slow-cooked in aromatic Himalayan spices</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Vegetable Thali</strong> - Complete vegetarian feast for sharing</span>
                   </li>
                 </ul>
               </div>
               
               <div>
-                <h3 className="text-2xl font-bold text-crown-slate mb-6">Beloved British Pub Classics</h3>
+                <h3 className="text-2xl font-bold text-stout-700 mb-6">Beloved British Pub Classics</h3>
                 <p className="text-gray-700 mb-6">
                   Alongside our Nepalese specialities, we serve all your favourite <strong>pub classics</strong> 
                   made with quality local ingredients. Perfect for those seeking familiar comforts 
@@ -200,19 +200,19 @@ export default async function Page() {
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Fish & Chips</strong> - Fresh cod in golden beer batter</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Sunday Roast</strong> - Traditional roast with all the trimmings</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Grilled Salmon</strong> - Pan-seared with seasonal vegetables</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-crown-gold mr-2">•</span>
+                    <span className="text-accent mr-2">•</span>
                     <span><strong>Steak & Ale Pie</strong> - Homemade with local ales</span>
                   </li>
                 </ul>
@@ -226,14 +226,14 @@ export default async function Page() {
         {/* Perfect for Every Occasion */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-crown-slate text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-stout-700 text-center mb-12">
               Perfect for Every Occasion in Girton & Cambridge
             </h2>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center p-6 rounded-lg bg-crown-cream/30">
+              <div className="text-center p-6 rounded-lg bg-brand-50/30">
                 <div className="text-4xl mb-4">👨‍👩‍👧‍👦</div>
-                <h3 className="text-xl font-bold text-crown-slate mb-4">Family-Friendly Dining</h3>
+                <h3 className="text-xl font-bold text-stout-700 mb-4">Family-Friendly Dining</h3>
                 <p className="text-gray-700 mb-4">
                   Bring the whole family to our welcoming pub. We offer a dedicated children's menu, 
                   high chairs, and a spacious beer garden where kids can play safely while you relax.
@@ -246,9 +246,9 @@ export default async function Page() {
                 </ul>
               </div>
 
-              <div className="text-center p-6 rounded-lg bg-crown-cream/30">
+              <div className="text-center p-6 rounded-lg bg-brand-50/30">
                 <div className="text-4xl mb-4">🐕</div>
-                <h3 className="text-xl font-bold text-crown-slate mb-4">Dog-Friendly Welcome</h3>
+                <h3 className="text-xl font-bold text-stout-700 mb-4">Dog-Friendly Welcome</h3>
                 <p className="text-gray-700 mb-4">
                   Your four-legged family members are more than welcome! Our dog-friendly policy 
                   extends throughout the pub and garden, with water bowls and treats available.
@@ -261,9 +261,9 @@ export default async function Page() {
                 </ul>
               </div>
 
-              <div className="text-center p-6 rounded-lg bg-crown-cream/30">
+              <div className="text-center p-6 rounded-lg bg-brand-50/30">
                 <div className="text-4xl mb-4">📺</div>
-                <h3 className="text-xl font-bold text-crown-slate mb-4">Live Sports & Community Events</h3>
+                <h3 className="text-xl font-bold text-stout-700 mb-4">Live Sports & Community Events</h3>
                 <p className="text-gray-700 mb-4">
                   Join fellow sports fans for live football, rugby and more on our large screens. 
                   Plus regular quiz nights, curry specials and community gatherings.
@@ -282,43 +282,43 @@ export default async function Page() {
         <AboutSection />
         
         {/* Featured Snippet/PAA Answers */}
-        <section className="py-16 bg-crown-cream/20">
+        <section className="py-16 bg-brand-50/20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-display font-bold text-crown-slate text-center mb-12">
+            <h2 className="text-3xl font-display font-bold text-stout-700 text-center mb-12">
               Frequently Asked Questions
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-bold text-crown-slate mb-2">Is The Old Crown dog friendly?</h3>
+                  <h3 className="font-bold text-stout-700 mb-2">Is The Old Crown dog friendly?</h3>
                   <p className="text-gray-700">Yes! Well-behaved dogs are welcome throughout the pub and garden. We provide water bowls and dog treats.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-bold text-crown-slate mb-2">Do you need to book for Sunday roast?</h3>
-                  <p className="text-gray-700">Booking is recommended for Sunday roast, especially for larger groups. Call 01223 276027 or <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="text-crown-gold underline">{labelBookOnline.toLowerCase()}</a>.</p>
+                  <h3 className="font-bold text-stout-700 mb-2">Do you need to book for Sunday roast?</h3>
+                  <p className="text-gray-700">Booking is recommended for Sunday roast, especially for larger groups. Call 01223 276027 or <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="text-accent underline">{labelBookOnline.toLowerCase()}</a>.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-bold text-crown-slate mb-2">Does The Old Crown have parking?</h3>
+                  <h3 className="font-bold text-stout-700 mb-2">Does The Old Crown have parking?</h3>
                   <p className="text-gray-700">Yes, we offer free parking behind the building with easy access from High Street, Girton.</p>
                 </div>
               </div>
               
               <div className="space-y-6">
                 <div className="p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-bold text-crown-slate mb-2">What's special about your Nepalese food?</h3>
+                  <h3 className="font-bold text-stout-700 mb-2">What's special about your Nepalese food?</h3>
                   <p className="text-gray-700">Our authentic Nepalese dishes use traditional recipes and fresh spices. Try our famous momos or dal bhat - Nepal's national dish.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-bold text-crown-slate mb-2">Are children welcome at The Old Crown?</h3>
+                  <h3 className="font-bold text-stout-700 mb-2">Are children welcome at The Old Crown?</h3>
                   <p className="text-gray-700">Absolutely! Children are welcome until 9pm. We have a kids menu, high chairs, and a safe garden play area.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-bold text-crown-slate mb-2">How far is The Old Crown from Cambridge?</h3>
+                  <h3 className="font-bold text-stout-700 mb-2">How far is The Old Crown from Cambridge?</h3>
                   <p className="text-gray-700">We're just 2 miles from Cambridge city centre in Girton village, easily accessible by car, bus (Citi 6), or bike.</p>
                 </div>
               </div>
@@ -331,9 +331,9 @@ export default async function Page() {
         <LocationSection />
         
         {/* Final CTA Section */}
-        <section className="py-16 bg-crown-gold/10">
+  <section className="py-16 bg-accent/10">
           <div className="max-w-4xl mx-auto text-center px-4">
-            <h2 className="font-display font-bold text-crown-slate mb-4 text-3xl md:text-4xl">
+            <h2 className="font-display font-bold text-stout-700 mb-4 text-3xl md:text-4xl">
               Ready to Experience Girton's Historic Thatched Pub?
             </h2>
             <p className="text-gray-600 mb-8 text-lg">
@@ -341,13 +341,13 @@ export default async function Page() {
               Perfect for families, couples, groups, and your four-legged friends too!
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-crown-gold hover:bg-crown-gold-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
+              <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg">
                 {labelBookOnline}
               </a>
-              <Link href="/menu" className="bg-crown-slate hover:bg-black text-white font-bold py-4 px-8 rounded-lg text-lg">
+              <Link href="/menu" className="bg-stout-700 hover:bg-black text-white font-bold py-4 px-8 rounded-lg text-lg">
                 {labelViewMenu}
               </Link>
-              <Link href="/events" className="bg-crown-red hover:bg-crown-red-dark text-white font-bold py-4 px-8 rounded-lg text-lg">
+              <Link href="/events" className="bg-crimson-600 hover:bg-crimson-800 text-white font-bold py-4 px-8 rounded-lg text-lg">
                 What's On This Week
               </Link>
             </div>

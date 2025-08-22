@@ -45,9 +45,9 @@ function AccordionItem({ title, children, isOpen, onToggle }: { title: string; c
 
   return (
     <div className="bg-white rounded-lg overflow-hidden">
-      <button onClick={onToggle} className="w-full text-left px-6 py-4 flex justify-between items-center text-crown-slate font-semibold">
+      <button onClick={onToggle} className="w-full text-left px-6 py-4 flex justify-between items-center text-stout-700 font-semibold">
         <span>{title}</span>
-        <svg className={`w-5 h-5 text-crown-slate transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <svg className={`w-5 h-5 text-stout-700 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
           <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>

@@ -47,21 +47,22 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
 
   return (
     <>
-      <section className="py-3 bg-crown-cream/30 sticky top-0 z-30">
+  <section className="py-3 bg-neutral/30 sticky top-0 z-30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="overflow-x-auto -mx-4 px-4">
-            <nav className="flex gap-3 whitespace-nowrap items-center">
+            <nav className="flex gap-3 whitespace-nowrap items-center" aria-label="Menu categories">
               {/* Sticky All button */}
               <div className="flex-shrink-0 sticky left-0 z-40 pr-2 bg-transparent">
                 <button
                   key="all"
+                  type="button"
                   onClick={() => {
                     // clear selection to show all
                     history.replaceState(null, '', window.location.pathname + window.location.search);
                     setPrevious(selected);
                     setSelected(null);
                   }}
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${selected === null ? 'bg-crown-gold text-white' : 'bg-white text-crown-slate hover:bg-crown-gold hover:text-white'}`}
+                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${selected === null ? 'bg-accent text-white' : 'bg-white text-brand-700 hover:bg-accent hover:text-white'}`}
                   aria-pressed={selected === null}
                 >
                   All
@@ -70,33 +71,39 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
               {(sections || []).map((section) => {
                 const id = normalizeId(section?.id || section?.name);
                 const isActive = selected === id;
+                // Determine whether the controlled section is currently present in the DOM.
+                // If `selected` is null we render all sections (so controls are valid).
+                // If `selected` is a specific id then only that section is rendered —
+                // in that case we should only set `aria-controls` for the active button.
+                const controlsPresent = selected === null || isActive;
                 return (
                   <button
-                      key={section.id || section.name}
-                      onClick={() => {
-                        const newId = selected === id ? null : id;
-                        // update hash to enable deep-linking and back/forward
-                        if (typeof window !== 'undefined') {
-                          if (newId) {
-                            window.location.hash = `#${newId}`;
-                          } else {
-                            // clear hash without adding history entry
-                            history.replaceState(null, '', window.location.pathname + window.location.search);
-                            setPrevious(selected);
-                            setSelected(null);
-                            return;
-                          }
+                    key={section.id || section.name}
+                    type="button"
+                    onClick={() => {
+                      const newId = selected === id ? null : id;
+                      // update hash to enable deep-linking and back/forward
+                      if (typeof window !== 'undefined') {
+                        if (newId) {
+                          window.location.hash = `#${newId}`;
+                        } else {
+                          // clear hash without adding history entry
+                          history.replaceState(null, '', window.location.pathname + window.location.search);
+                          setPrevious(selected);
+                          setSelected(null);
+                          return;
                         }
-                        // animate crossfade by keeping previous state
-                        setPrevious(selected);
-                        setSelected(newId);
-                      }}
-                      className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-crown-gold text-white' : 'bg-white text-crown-slate hover:bg-crown-gold hover:text-white'}`}
-                      aria-pressed={isActive}
-                      aria-controls={id}
-                    >
-                      {section.name || ''}
-                    </button>
+                      }
+                      // animate crossfade by keeping previous state
+                      setPrevious(selected);
+                      setSelected(newId);
+                    }}
+                    className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-accent text-white' : 'bg-white text-brand-700 hover:bg-accent hover:text-white'}`}
+                    aria-pressed={isActive}
+                    {...(controlsPresent ? { 'aria-controls': id } : {})}
+                  >
+                    {section.name || ''}
+                  </button>
                 );
               })}
             </nav>
