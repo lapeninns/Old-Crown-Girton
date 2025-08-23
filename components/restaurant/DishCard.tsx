@@ -28,7 +28,7 @@ export default function DishCard({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
       viewport={{ once: true }}
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      className="bg-neutral-50 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       <div className="relative h-48 w-full">
         <Image
@@ -43,14 +43,14 @@ export default function DishCard({
         {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
           {isVegetarian && (
-            <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+            <span className="bg-indiagreen-500 text-neutral-50 text-xs px-2 py-1 rounded-full font-medium">
               Vegetarian
             </span>
           )}
           {spiceLevel && (
-            <span className={`text-white text-xs px-2 py-1 rounded-full font-medium ${
-              spiceLevel === 'mild' ? 'bg-green-400' :
-              spiceLevel === 'medium' ? 'bg-yellow-500' : 'bg-red-500'
+            <span className={`text-neutral-50 text-xs px-2 py-1 rounded-full font-medium ${
+              spiceLevel === 'mild' ? 'bg-cardamom-500' :
+              spiceLevel === 'medium' ? 'bg-marigold-500' : 'bg-crimson-500'
             }`}>
               {spiceLevel === 'mild' ? '🌶️' : spiceLevel === 'medium' ? '🌶️🌶️' : '🌶️🌶️🌶️'}
             </span>
@@ -59,22 +59,22 @@ export default function DishCard({
 
         {/* Price */}
         <div className="absolute top-3 right-3">
-          <span className="bg-accent text-white text-lg font-bold px-3 py-1 rounded-full">
+          <span className="bg-accent-500 text-neutral-900 text-lg font-bold px-3 py-1 rounded-full">
             {price}
           </span>
         </div>
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-display font-bold text-stout-700 mb-2">
+        <h3 className="text-xl font-display font-bold text-brand-800 mb-2">
           {title}
         </h3>
-        <p className="text-gray-600 mb-4 line-clamp-2">
+        <p className="text-brand-600 mb-4 line-clamp-2">
           {description}
         </p>
         <a
           href="tel:01223276027"
-          className="block w-full text-center bg-accent hover:bg-accent-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+          className="block w-full text-center bg-accent-500 hover:bg-accent-600 text-neutral-900 font-medium py-2 px-4 rounded-lg transition-colors duration-200"
         >
           📞 Call to Order
         </a>

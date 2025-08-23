@@ -34,7 +34,7 @@ export default function MenuNav({ sections }: Props) {
   const keyRightSections = sections.slice(-2); // Last 2 sections
 
   return (
-    <section className="py-3 bg-neutral-100/30 sticky top-0 z-30">
+    <section className="py-3 bg-neutral-100 sticky top-0 z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Desktop Layout - Logo in center with sections on sides */}
         <div className="hidden md:flex items-center justify-center relative">

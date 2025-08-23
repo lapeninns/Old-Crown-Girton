@@ -16,7 +16,7 @@ export default function Navbar() {
   const filteredLinks = navLinks.filter(link => link.href !== '/' && link.href !== '/contact');
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-neutral-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo - Left */}
@@ -30,7 +30,7 @@ export default function Navbar() {
                 className="h-8 w-8"
                 priority
               />
-              <span className="text-xl font-semibold text-gray-800">OLD CROWN</span>
+              <span className="text-xl font-semibold text-brand-800">OLD CROWN</span>
             </Link>
           </div>
 
@@ -42,7 +42,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                className="text-brand-600 hover:text-brand-800 transition-colors duration-300"
               >
                 {link.label}
               </Link>
@@ -53,7 +53,7 @@ export default function Navbar() {
           <div className="hidden md:flex">
             <Link
               href="/contact"
-              className="px-5 py-2 text-center text-white bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors duration-300"
+              className="px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800 transition-colors duration-300"
             >
               Contact
             </Link>
@@ -63,7 +63,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-800 focus:outline-none p-2"
+              className="text-brand-700 focus:outline-none p-2"
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? (
@@ -88,7 +88,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-white border-b border-gray-200"
+            className="md:hidden bg-neutral-50 border-b border-neutral-200"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {loading && <div className="px-3 py-2 text-xs text-gray-600">Loading...</div>}
@@ -98,7 +98,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-gray-600 hover:text-gray-900 py-2 px-3"
+                    className="text-brand-600 hover:text-brand-800 py-2 px-3"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.label}
@@ -106,7 +106,7 @@ export default function Navbar() {
                 ))}
                 <Link
                   href="/contact"
-                  className="w-full px-5 py-2 text-center text-white bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors duration-300"
+                  className="w-full px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800 transition-colors duration-300"
                   onClick={() => setIsOpen(false)}
                 >
                   Contact
