@@ -60,7 +60,7 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md"
       >
-        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 relative overflow-hidden">
+        <div className="bg-neutral-50 rounded-2xl shadow-2xl border border-neutral-200 p-6 relative overflow-hidden">
           {/* Background pattern */}
           <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-brand-50/10" />
           
@@ -80,14 +80,14 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
                 <h3 className="text-lg font-semibold text-stout-700 mb-1">
                   Install Old Crown App
                 </h3>
-                <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                <p className="text-sm text-brand-600 mb-4 leading-relaxed">
                   Get the full restaurant experience! Fast access to our menu, table booking, and offline browsing.
                 </p>
                 
                 {/* Features */}
                 <div className="space-y-1 mb-4">
-                  <div className="flex items-center text-xs text-gray-500">
-                    <svg className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="flex items-center text-xs text-neutral-500">
+                    <svg className="w-3 h-3 text-cardamom-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                     Works offline • Fast loading • Native experience
@@ -107,7 +107,7 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
                   
                   <button
                     onClick={handleDismiss}
-                    className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                    className="px-4 py-2 text-sm text-neutral-500 hover:text-brand-600 transition-colors"
                   >
                     Not now
                   </button>
@@ -117,7 +117,7 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
               {/* Close button */}
               <button
                 onClick={handleDismiss}
-                className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                className="flex-shrink-0 p-1 text-neutral-400 hover:text-brand-600 transition-colors"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -185,7 +185,7 @@ export const OfflineNotification = () => {
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -100 }}
-          className="fixed top-0 left-0 right-0 z-50 bg-yellow-500 text-white px-4 py-3 text-center text-sm font-medium"
+          className="fixed top-0 left-0 right-0 z-50 bg-accent-500 text-white px-4 py-3 text-center text-sm font-medium"
         >
           <div className="flex items-center justify-center space-x-2">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -224,13 +224,13 @@ export const UpdateNotification = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
-      className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg max-w-sm z-50"
+      className="fixed bottom-4 right-4 bg-secondary-600 text-white p-4 rounded-lg shadow-lg max-w-sm z-50"
     >
       <p className="text-sm mb-3">App update available! Update now for the latest features.</p>
       <div className="flex space-x-2">
         <button
           onClick={handleUpdate}
-          className="bg-white text-blue-600 px-3 py-1 rounded text-sm font-medium"
+          className="bg-neutral-50 text-secondary-600 px-3 py-1 rounded text-sm font-medium"
         >
           Update
         </button>

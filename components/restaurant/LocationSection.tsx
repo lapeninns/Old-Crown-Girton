@@ -35,7 +35,7 @@ export default function LocationSection() {
           <h2 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-4">
             Find <span className="text-accent">Us</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-600 max-w-2xl mx-auto">
             Located in the heart of Girton village, we&apos;re easily accessible 
             and just a short drive from Cambridge city center.
           </p>
@@ -51,12 +51,12 @@ export default function LocationSection() {
             className="space-y-8"
           >
             {/* Address */}
-            <div className="bg-white p-6 rounded-xl shadow-lg">
+            <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
               <h3 className="text-xl font-display font-bold text-stout-700 mb-4 flex items-center gap-2">
                 <span className="text-accent">📍</span>
                 Address
               </h3>
-              <p className="text-gray-600">
+              <p className="text-brand-600">
                 Old Crown<br />
                 {contact?.address.street || 'High Street'}<br />
                 {contact?.address.area}, {contact?.address.city}<br />
@@ -65,12 +65,12 @@ export default function LocationSection() {
             </div>
 
             {/* Contact Details */}
-            <div className="bg-white p-6 rounded-xl shadow-lg">
+            <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
               <h3 className="text-xl font-display font-bold text-stout-700 mb-4 flex items-center gap-2">
                 <span className="text-accent">📞</span>
                 Contact
               </h3>
-              <div className="space-y-2 text-gray-600">
+              <div className="space-y-2 text-brand-600">
                 <p>
                   <strong>Phone:</strong> 
                   <a href="tel:01223276027" className="text-accent hover:underline ml-2">
@@ -87,9 +87,9 @@ export default function LocationSection() {
             </div>
 
             {/* Opening Hours */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-neutral-50 rounded-xl shadow-lg overflow-hidden">
               <div className="p-6 pb-2">
-                <h3 className="text-xl font-display font-bold text-stout-700 mb-4 flex items-center gap-2">
+                <h3 className="text-xl font-display font-bold text-brand-800 mb-4 flex items-center gap-2">
                   <span className="text-accent">⏰</span>
                   Opening Hours
                 </h3>
@@ -100,8 +100,8 @@ export default function LocationSection() {
                   <div className="space-y-2">
                     {restaurantHours.map((item) => (
                       <div key={item.day} className="flex justify-between items-center">
-                        <span className="font-medium text-stout-700">{item.day}</span>
-                        <span className="text-gray-600">{item.hours}</span>
+                        <span className="font-medium text-brand-800">{item.day}</span>
+                        <span className="text-brand-600">{item.hours}</span>
                       </div>
                     ))}
                   </div>
@@ -111,8 +111,8 @@ export default function LocationSection() {
                   <div className="space-y-2">
                     {barHours.map((item) => (
                       <div key={item.day} className="flex justify-between items-center">
-                        <span className="font-medium text-stout-700">{item.day}</span>
-                        <span className="text-gray-600">{item.hours}</span>
+                        <span className="font-medium text-brand-800">{item.day}</span>
+                        <span className="text-brand-600">{item.hours}</span>
                       </div>
                     ))}
                   </div>
@@ -127,7 +127,7 @@ export default function LocationSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="h-[600px] bg-white rounded-xl shadow-lg overflow-hidden"
+            className="h-[600px] bg-neutral-50 rounded-xl shadow-lg overflow-hidden"
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2444.7892358932124!2d0.09036631577853944!3d52.23847767975736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d870a1c0e1e9b7%3A0x1f4c4f8c4f8c4f8c!2sGirton%2C%20Cambridge!5e0!3m2!1sen!2suk!4v1635789123456!5m2!1sen!2suk"

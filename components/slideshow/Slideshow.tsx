@@ -14,7 +14,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
     return () => clearInterval(id);
   }, [autoplay, interval, slideCount]);
 
-  if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-gray-200 text-gray-600">No slides available.</div>;
+  if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
 
   return (
     <div className="relative w-full h-full" role="region" aria-label="Slideshow">
@@ -41,7 +41,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
       {/* Dots */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
         {slides.map((s, i) => (
-          <button key={s.id} onClick={() => setIndex(i)} aria-label={`Go to slide ${i + 1}`} className={`w-3 h-3 rounded-full ${i === index ? 'bg-white' : 'bg-white/40'}`} />
+          <button key={s.id} onClick={() => setIndex(i)} aria-label={`Go to slide ${i + 1}`} className={`w-3 h-3 rounded-full ${i === index ? 'bg-neutral-50' : 'bg-neutral-50/40'}`} />
         ))}
       </div>
     </div>

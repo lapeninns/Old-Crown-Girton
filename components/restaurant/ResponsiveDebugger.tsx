@@ -39,7 +39,7 @@ export default function ResponsiveDebugger() {
         position: 'fixed',
         top: 0,
         right: 0,
-        background: 'rgba(0, 0, 0, 0.8)',
+        background: 'var(--overlay-60)',
         color: 'white',
         padding: '8px 12px',
         fontSize: '12px',

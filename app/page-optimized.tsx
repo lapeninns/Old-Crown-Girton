@@ -133,7 +133,7 @@ export default async function Page() {
               <h1 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-6">
                 The Old Crown Girton: Historic Thatched Pub & Authentic Nepalese Restaurant
               </h1>
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl text-brand-600 max-w-4xl mx-auto leading-relaxed">
                 Welcome to Girton&apos;s unique dining destination, where the largest thatched pub in the country serves 
                 exceptional <strong>Nepalese cuisine</strong> alongside beloved <strong>British pub classics</strong>. 
                 Just minutes from <strong>Cambridge</strong> and <strong>Girton College</strong>, we&apos;re your 
@@ -152,7 +152,7 @@ export default async function Page() {
                 <div key={index} className="text-center p-4 rounded-lg bg-brand-50/30">
                   <div className="text-3xl mb-2">{feature.icon}</div>
                   <h3 className="font-semibold text-stout-700 text-sm">{feature.text}</h3>
-                  <p className="text-xs text-gray-600 mt-1">{feature.desc}</p>
+                  <p className="text-xs text-brand-600 mt-1">{feature.desc}</p>
                 </div>
               ))}
             </div>
@@ -169,12 +169,12 @@ export default async function Page() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h3 className="text-2xl font-bold text-stout-700 mb-6">Our Signature Nepalese Dishes</h3>
-                <p className="text-gray-700 mb-6">
+                <p className="text-brand-600 mb-6">
                   Experience the rich, aromatic flavours of the Himalayas with our authentic Nepalese menu. 
                   From traditional <strong>momos</strong> (Nepalese dumplings) to hearty <strong>dal bhat</strong> 
                   (Nepal's national dish), every recipe uses time-honoured techniques and fresh spices.
                 </p>
-                <ul className="space-y-3 text-gray-700">
+                <ul className="space-y-3 text-brand-600">
                   <li className="flex items-start">
                     <span className="text-accent mr-2">•</span>
                     <span><strong>Chicken Momo</strong> - Traditional dumplings with signature tomato chutney</span>
@@ -196,12 +196,12 @@ export default async function Page() {
               
               <div>
                 <h3 className="text-2xl font-bold text-stout-700 mb-6">Beloved British Pub Classics</h3>
-                <p className="text-gray-700 mb-6">
+                <p className="text-brand-600 mb-6">
                   Alongside our Nepalese specialities, we serve all your favourite <strong>pub classics</strong> 
                   made with quality local ingredients. Perfect for those seeking familiar comforts 
                   in our welcoming village setting.
                 </p>
-                <ul className="space-y-3 text-gray-700">
+                <ul className="space-y-3 text-brand-600">
                   <li className="flex items-start">
                     <span className="text-accent mr-2">•</span>
                     <span><strong>Fish & Chips</strong> - Fresh cod in golden beer batter</span>
@@ -237,11 +237,11 @@ export default async function Page() {
               <div className="text-center p-6 rounded-lg bg-brand-50/30">
                 <div className="text-4xl mb-4">👨‍👩‍👧‍👦</div>
                 <h3 className="text-xl font-bold text-stout-700 mb-4">Family-Friendly Dining</h3>
-                <p className="text-gray-700 mb-4">
+                <p className="text-brand-600 mb-4">
                   Bring the whole family to our welcoming pub. We offer a dedicated children's menu, 
                   high chairs, and a spacious beer garden where kids can play safely while you relax.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-sm text-brand-600 space-y-1">
                   <li>• Children welcome until 9pm</li>
                   <li>• Kids menu with mild spice options</li>
                   <li>• Large garden with safe play area</li>
@@ -252,11 +252,11 @@ export default async function Page() {
               <div className="text-center p-6 rounded-lg bg-brand-50/30">
                 <div className="text-4xl mb-4">🐕</div>
                 <h3 className="text-xl font-bold text-stout-700 mb-4">Dog-Friendly Welcome</h3>
-                <p className="text-gray-700 mb-4">
+                <p className="text-brand-600 mb-4">
                   Your four-legged family members are more than welcome! Our dog-friendly policy 
                   extends throughout the pub and garden, with water bowls and treats available.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-sm text-brand-600 space-y-1">
                   <li>• Dogs welcome in all areas</li>
                   <li>• Water bowls provided</li>
                   <li>• Plenty of garden space</li>
@@ -267,11 +267,11 @@ export default async function Page() {
               <div className="text-center p-6 rounded-lg bg-brand-50/30">
                 <div className="text-4xl mb-4">📺</div>
                 <h3 className="text-xl font-bold text-stout-700 mb-4">Live Sports & Community Events</h3>
-                <p className="text-gray-700 mb-4">
+                <p className="text-brand-600 mb-4">
                   Join fellow sports fans for live football, rugby and more on our large screens. 
                   Plus regular quiz nights, curry specials and community gatherings.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-sm text-brand-600 space-y-1">
                   <li>• Large screen sports viewing</li>
                   <li>• Thursday pub quiz nights</li>
                   <li>• Tuesday curry night specials</li>
@@ -295,34 +295,34 @@ export default async function Page() {
               <div className="space-y-6">
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-bold text-stout-700 mb-2">Is The Old Crown dog friendly?</h3>
-                  <p className="text-gray-700">Yes! Well-behaved dogs are welcome throughout the pub and garden. We provide water bowls and dog treats.</p>
+                  <p className="text-brand-600">Yes! Well-behaved dogs are welcome throughout the pub and garden. We provide water bowls and dog treats.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-bold text-stout-700 mb-2">Do you need to book for Sunday roast?</h3>
-                  <p className="text-gray-700">Booking is recommended for Sunday roast, especially for larger groups. Call 01223 276027 or <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="text-accent underline">{labelBookOnline.toLowerCase()}</a>.</p>
+                  <p className="text-brand-600">Booking is recommended for Sunday roast, especially for larger groups. Call 01223 276027 or <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="text-accent underline">{labelBookOnline.toLowerCase()}</a>.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-bold text-stout-700 mb-2">Does The Old Crown have parking?</h3>
-                  <p className="text-gray-700">Yes, we offer free parking behind the building with easy access from High Street, Girton.</p>
+                  <p className="text-brand-600">Yes, we offer free parking behind the building with easy access from High Street, Girton.</p>
                 </div>
               </div>
               
               <div className="space-y-6">
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-bold text-stout-700 mb-2">What's special about your Nepalese food?</h3>
-                  <p className="text-gray-700">Our authentic Nepalese dishes use traditional recipes and fresh spices. Try our famous momos or dal bhat - Nepal's national dish.</p>
+                  <p className="text-brand-600">Our authentic Nepalese dishes use traditional recipes and fresh spices. Try our famous momos or dal bhat - Nepal's national dish.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-bold text-stout-700 mb-2">Are children welcome at The Old Crown?</h3>
-                  <p className="text-gray-700">Absolutely! Children are welcome until 9pm. We have a kids menu, high chairs, and a safe garden play area.</p>
+                  <p className="text-brand-600">Absolutely! Children are welcome until 9pm. We have a kids menu, high chairs, and a safe garden play area.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-bold text-stout-700 mb-2">How far is The Old Crown from Cambridge?</h3>
-                  <p className="text-gray-700">We're just 2 miles from Cambridge city centre in Girton village, easily accessible by car, bus (Citi 6), or bike.</p>
+                  <p className="text-brand-600">We're just 2 miles from Cambridge city centre in Girton village, easily accessible by car, bus (Citi 6), or bike.</p>
                 </div>
               </div>
             </div>
@@ -339,7 +339,7 @@ export default async function Page() {
             <h2 className="font-display font-bold text-stout-700 mb-4 text-3xl md:text-4xl">
               Ready to Experience Girton's Historic Thatched Pub?
             </h2>
-            <p className="text-gray-600 mb-8 text-lg">
+            <p className="text-brand-600 mb-8 text-lg">
               Book your table for authentic Nepalese cuisine and British pub classics in our unique village setting. 
               Perfect for families, couples, groups, and your four-legged friends too!
             </p>
@@ -355,7 +355,7 @@ export default async function Page() {
               </Link>
             </div>
             
-            <div className="mt-8 text-sm text-gray-600">
+            <div className="mt-8 text-sm text-brand-600">
               <p><strong>Address:</strong> 89 High Street, Girton, Cambridge CB3 0QQ</p>
               <p><strong>Kitchen:</strong> Daily 12:00-22:00 (22:30 Fri/Sat, 21:30 Sun) | <strong>Bar:</strong> Until 23:00 (midnight Fri/Sat)</p>
             </div>

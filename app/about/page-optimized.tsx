@@ -77,7 +77,7 @@ export default async function AboutPage() {
                   authentic <strong>Nepalese cuisine</strong> meets beloved British pub traditions 
                   under our famous thatched roof.
                 </p>
-                <p className="text-lg text-gray-700">
+                <p className="text-lg text-brand-600">
                   Today, The Old Crown represents the perfect blend of heritage and innovation, 
                   serving our local community of Girton residents, <strong>Cambridge University</strong> students and staff, 
                   and visitors from across the region who seek authentic flavors in a historic setting.
@@ -122,7 +122,7 @@ export default async function AboutPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-brand-700 mb-2">The Foundation Years</h3>
-                    <p className="text-gray-700">
+                    <p className="text-brand-600">
                       The Old Crown was built to replace an earlier inn, featuring the distinctive 
                       <strong>thatched roof design</strong> that would become our signature. From day one, 
                       it served as Girton&apos;s central gathering place for villagers and travelers alike.
@@ -136,7 +136,7 @@ export default async function AboutPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-brand-700 mb-2">The Traditional Pub Era</h3>
-                    <p className="text-gray-700">
+                    <p className="text-brand-600">
                       For decades, The Old Crown operated as a classic English village pub, 
                       serving traditional ales and hearty pub grub to generations of Girton families. 
                       Our reputation for generous portions and warm hospitality grew throughout Cambridge.
@@ -150,7 +150,7 @@ export default async function AboutPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-brand-700 mb-2">Culinary Evolution</h3>
-                    <p className="text-gray-700">
+                    <p className="text-brand-600">
                       Under various managements, The Old Crown experimented with different culinary directions, 
                       including a period as an upscale gastropub. Each era added to our rich tapestry 
                       while maintaining our essential village pub character.
@@ -164,7 +164,7 @@ export default async function AboutPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-brand-700 mb-2">The Nepalese-British Fusion</h3>
-                    <p className="text-gray-700">
+                    <p className="text-brand-600">
                       Under current management, we've discovered our unique identity: combining 
                       <strong>authentic Nepalese cuisine</strong> with traditional British pub classics. 
                       This fusion represents Cambridge's multicultural community while honoring our heritage.
@@ -187,7 +187,7 @@ export default async function AboutPage() {
               <div className="text-center p-6 bg-neutral-50 rounded-lg">
                 <div className="text-4xl mb-4">🏘️</div>
                 <h3 className="text-xl font-bold text-brand-700 mb-4">Girton Village Heritage</h3>
-                <p className="text-gray-700">
+                <p className="text-brand-600">
                   <strong>Girton</strong> has roots stretching back to Roman times, evolving into a charming 
                   village that perfectly balances historic character with modern convenience. 
                   Our pub has been a constant through this evolution.
@@ -197,7 +197,7 @@ export default async function AboutPage() {
               <div className="text-center p-6 bg-neutral-50 rounded-lg">
                 <div className="text-4xl mb-4">🎓</div>
                 <h3 className="text-xl font-bold text-brand-700 mb-4">Cambridge University Connection</h3>
-                <p className="text-gray-700">
+                <p className="text-brand-600">
                   Just steps from <strong>Girton College</strong> (Cambridge's first women's college), 
                   we've welcomed generations of students, faculty, and visitors who appreciate 
                   both our historic atmosphere and international cuisine.
@@ -207,7 +207,7 @@ export default async function AboutPage() {
               <div className="text-center p-6 bg-neutral-50 rounded-lg">
                 <div className="text-4xl mb-4">🤝</div>
                 <h3 className="text-xl font-bold text-brand-700 mb-4">Community Hub</h3>
-                <p className="text-gray-700">
+                <p className="text-brand-600">
                   From <strong>Girton Feast Week</strong> celebrations to weekly quiz nights, 
                   we're proud to host the moments that bring our community together. 
                   Every event adds to our rich social history.
@@ -237,7 +237,7 @@ export default async function AboutPage() {
                   Our <strong>momos</strong> (traditional dumplings) and <strong>dal bhat</strong> 
                   (Nepal's national dish) offer authentic tastes of the Himalayas right here in Girton.
                 </p>
-                <p className="text-lg text-gray-700">
+                <p className="text-lg text-brand-600">
                   By maintaining our British pub classics alongside these Nepalese specialties, 
                   we ensure every guest finds something to love - whether you're a local seeking 
                   Sunday roast or an adventurous foodie discovering new flavors.
@@ -247,7 +247,7 @@ export default async function AboutPage() {
               <div className="space-y-6">
                 <div className="p-6 bg-accent-50 rounded-lg">
                   <h4 className="font-bold text-brand-700 mb-3">🍛 What Makes Nepalese Food Special?</h4>
-                  <ul className="space-y-2 text-gray-700">
+                  <ul className="space-y-2 text-brand-600">
                     <li>• Fresh spices and aromatic herbs from the Himalayas</li>
                     <li>• Lighter, more refined than typical Indian curries</li>
                     <li>• Unique cooking techniques passed down generations</li>
@@ -257,7 +257,7 @@ export default async function AboutPage() {
                 
                 <div className="p-6 bg-accent-50 rounded-lg">
                   <h4 className="font-bold text-brand-700 mb-3">🏆 Recognition & Reviews</h4>
-                  <ul className="space-y-2 text-gray-700">
+                  <ul className="space-y-2 text-brand-600">
                     <li>• Rated #1 restaurant in Girton on TripAdvisor</li>
                     <li>• 4.8/5 average rating across all platforms</li>
                     <li>• "Best Nepalese food in Cambridge" - customer reviews</li>
@@ -282,7 +282,7 @@ export default async function AboutPage() {
                   <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">🏠</span> Community First
                   </h3>
-                  <p className="text-gray-700">
+                  <p className="text-brand-600">
                     We&apos;re more than a restaurant - we&apos;re Girton&apos;s living room. Whether you&apos;re a regular 
                     or first-time visitor, you'll find a warm welcome and sense of belonging.
                   </p>
@@ -292,7 +292,7 @@ export default async function AboutPage() {
                   <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">🌿</span> Authentic Quality
                   </h3>
-                  <p className="text-gray-700">
+                  <p className="text-brand-600">
                     From our traditional Nepalese spice blends to locally-sourced British ingredients, 
                     authenticity and quality guide every dish we serve.
                   </p>
@@ -304,7 +304,7 @@ export default async function AboutPage() {
                   <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">👨‍👩‍👧‍👦</span> Family Friendly
                   </h3>
-                  <p className="text-gray-700">
+                  <p className="text-brand-600">
                     Families and furry friends are at the heart of what we do. Our welcoming environment 
                     ensures everyone feels comfortable and valued.
                   </p>
@@ -314,7 +314,7 @@ export default async function AboutPage() {
                   <h3 className="font-bold text-brand-700 mb-2 flex items-center">
                     <span className="mr-3">🌍</span> Cultural Bridge
                   </h3>
-                  <p className="text-gray-700">
+                  <p className="text-brand-600">
                     We celebrate Cambridge's international community by bringing together the best 
                     of British and Nepalese traditions under one historic roof.
                   </p>
@@ -335,34 +335,34 @@ export default async function AboutPage() {
               <div className="space-y-6">
                 <div className="p-6 bg-neutral-100 rounded-lg">
                   <h3 className="font-bold text-brand-700 mb-2">Is The Old Crown really the largest thatched pub?</h3>
-                  <p className="text-gray-700">Yes! Our thatched roof covers the largest area of any pub in the country, making us a unique architectural landmark in Girton and beyond.</p>
+                  <p className="text-brand-600">Yes! Our thatched roof covers the largest area of any pub in the country, making us a unique architectural landmark in Girton and beyond.</p>
                 </div>
                 
                 <div className="p-6 bg-neutral-100 rounded-lg">
                   <h3 className="font-bold text-brand-700 mb-2">How long have you been serving Nepalese food?</h3>
-                  <p className="text-gray-700">We introduced our Nepalese menu in recent years as part of our evolution. It quickly became our signature offering due to its authenticity and popularity.</p>
+                  <p className="text-brand-600">We introduced our Nepalese menu in recent years as part of our evolution. It quickly became our signature offering due to its authenticity and popularity.</p>
                 </div>
                 
                 <div className="p-6 bg-neutral-100 rounded-lg">
                   <h3 className="font-bold text-brand-700 mb-2">Do you still serve traditional pub food?</h3>
-                  <p className="text-gray-700">Absolutely! Alongside our Nepalese specialties, we maintain a full menu of British pub classics including fish & chips, Sunday roast, and hearty mains.</p>
+                  <p className="text-brand-600">Absolutely! Alongside our Nepalese specialties, we maintain a full menu of British pub classics including fish & chips, Sunday roast, and hearty mains.</p>
                 </div>
               </div>
               
               <div className="space-y-6">
                 <div className="p-6 bg-neutral-100 rounded-lg">
                   <h3 className="font-bold text-brand-700 mb-2">What makes your location special?</h3>
-                  <p className="text-gray-700">We're perfectly positioned in Girton village - close enough to Cambridge for easy access, but far enough to maintain peaceful village charm and free parking.</p>
+                  <p className="text-brand-600">We're perfectly positioned in Girton village - close enough to Cambridge for easy access, but far enough to maintain peaceful village charm and free parking.</p>
                 </div>
                 
                 <div className="p-6 bg-neutral-100 rounded-lg">
                   <h3 className="font-bold text-brand-700 mb-2">Do you host private events?</h3>
-                  <p className="text-gray-700">Yes! Our historic setting and flexible spaces make us perfect for celebrations, business gatherings, and community events. Contact us to discuss your requirements.</p>
+                  <p className="text-brand-600">Yes! Our historic setting and flexible spaces make us perfect for celebrations, business gatherings, and community events. Contact us to discuss your requirements.</p>
                 </div>
                 
                 <div className="p-6 bg-neutral-100 rounded-lg">
                   <h3 className="font-bold text-brand-700 mb-2">Are you accessible for visitors with mobility needs?</h3>
-                  <p className="text-gray-700">We're wheelchair accessible with accessible parking and facilities. Our ground floor dining areas ensure everyone can enjoy our historic pub atmosphere.</p>
+                  <p className="text-brand-600">We're wheelchair accessible with accessible parking and facilities. Our ground floor dining areas ensure everyone can enjoy our historic pub atmosphere.</p>
                 </div>
               </div>
             </div>

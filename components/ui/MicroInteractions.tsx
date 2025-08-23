@@ -33,10 +33,10 @@ const AnimatedButton = memo<AnimatedButtonProps>(({
   const baseClasses = 'relative font-medium rounded-full transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden';
   
   const variants = {
-    primary: 'bg-accent hover:bg-accent-700 text-white focus:ring-accent/50 disabled:bg-gray-400',
-    secondary: 'bg-stout-700 hover:bg-stout-800 text-white focus:ring-stout-700/50 disabled:bg-gray-400',
-    ghost: 'bg-transparent hover:bg-gray-100 text-stout-700 focus:ring-gray-200 disabled:text-gray-400',
-    outline: 'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent/50 disabled:border-gray-300 disabled:text-gray-400'
+    primary: 'bg-accent hover:bg-accent-700 text-white focus:ring-accent/50 disabled:bg-neutral-400',
+    secondary: 'bg-stout-700 hover:bg-stout-800 text-white focus:ring-stout-700/50 disabled:bg-neutral-400',
+    ghost: 'bg-transparent hover:bg-neutral-100 text-stout-700 focus:ring-gray-200 disabled:text-neutral-400',
+    outline: 'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent/50 disabled:border-neutral-300 disabled:text-neutral-400'
   };
 
   const sizes = {
@@ -176,7 +176,7 @@ const AnimatedInput = memo<AnimatedInputProps>(({
         className={`absolute left-3 transition-all duration-200 pointer-events-none ${
           isFocused || hasValue
   ? 'text-sm text-accent -top-2 bg-white px-2'
-            : 'text-gray-500 top-3'
+            : 'text-neutral-500 top-3'
         }`}
         animate={{
           scale: isFocused || hasValue ? 0.9 : 1,
@@ -197,7 +197,7 @@ const AnimatedInput = memo<AnimatedInputProps>(({
         className={`
           w-full px-3 py-3 border rounded-lg transition-all duration-200
           focus:ring-2 focus:ring-accent/50 focus:border-accent
-          ${error ? 'border-red-500' : 'border-gray-300'}
+          ${error ? 'border-crimson-500' : 'border-neutral-300'}
         `}
         whileFocus={{ scale: 1.01 }}
         transition={{ duration: 0.2 }}
@@ -209,7 +209,7 @@ const AnimatedInput = memo<AnimatedInputProps>(({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="text-sm text-red-500 mt-1"
+            className="text-sm text-error-500 mt-1"
           >
             {error}
           </motion.p>
@@ -256,10 +256,10 @@ interface ToastProps {
 
 const Toast = memo<ToastProps>(({ message, type, isVisible, onClose }) => {
   const variants = {
-    success: 'bg-green-500 text-white',
-    error: 'bg-red-500 text-white',
-    warning: 'bg-yellow-500 text-black',
-    info: 'bg-blue-500 text-white'
+    success: 'bg-cardamom-500 text-white',
+    error: 'bg-crimson-500 text-white',
+    warning: 'bg-accent-500 text-black',
+    info: 'bg-secondary-500 text-white'
   };
 
   useEffect(() => {

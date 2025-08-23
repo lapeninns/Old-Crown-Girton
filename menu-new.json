@@ -19,11 +19,20 @@
         "price": "\u00a34.25",
         "gluten_free": true,
         "image": "/dishes/onion-bhaji.jpg"
+    ,"labels": ["GF"]
       },
+        {
+          "name": "Mixed Platter-1",
+          "price": "£13.00",
+          "description": "A selection of starters including onion bhaji, samosas, chilli mogo, and chicken pakora.",
+          "image": "/dishes/curry-selection.jpg"
+    ,"labels": ["spice-1", "GF"]
+        },
       {
         "name": "Samosas (Veg/Meat)",
         "price": "\u00a34.50",
         "image": "/dishes/veg-samosas.jpg"
+    ,"labels": ["veg"]
       },
       {
         "name": "Chilli Mogo",
@@ -127,12 +136,14 @@
         "price": "\u00a311.00",
         "description": "Onion bhaji, mogo, samosas and paneer",
         "image": "/dishes/curry-selection.jpg"
+    ,"labels": ["veg", "dry"]
       },
       {
         "name": "Small Mixed Grill",
         "price": "\u00a312.00",
         "description": "Chicken wings, chicken tikka, sheekh kebab, chicken pakora",
         "image": "/dishes/curry-selection.jpg"
+    ,"labels": ["spice-2"]
       },
       {
         "name": "Regular Mixed Grill",
@@ -155,25 +166,60 @@
     ],
     "old_crown_speciality_dishes": [
       {
-        "name": "Bhutuwa (chicken/lamb)",
-        "price": "\u00a312.00/13.00",
-        "description": "Traditional Nepalese speciality cooked with dried crushed chilli and crushed garlic",
+        "name": "Bhutuwa Chicken",
+        "price": "£12.00",
+        "description": "Traditional Nepalese speciality chicken cooked with dried crushed chilli and crushed garlic",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/dishes/curry-selection.jpg",
+        "labels": ["spice-2", "GF", "dry"]
       },
       {
-        "name": "Lasun Kukhura Khursani (LKK/LLK)",
-        "price": "\u00a312.00/13.00",
-        "description": "Tender pieces of chicken rooked with garlic, crushed chilli, spring onions, fresh cream in the chef's apecial Nepekne sauce",
+        "name": "Bhutuwa Lamb",
+        "price": "£13.00",
+        "description": "Traditional Nepalese speciality lamb cooked with dried crushed chilli and crushed garlic",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/dishes/curry-selection.jpg",
+        "labels": ["spice-2", "GF", "dry"]
       },
       {
-        "name": "Kathmandu Tikka (Served in Grill)",
-        "price": "\u00a313.00",
-        "description": "Succulent chicken bwantcubes marinated in cheese and cream witha hint of crushed black peppers.",
+        "name": "Lasun Kukhura Khursani (LKK, Chicken)",
+        "price": "£12.00",
+        "description": "Succulent chicken cubes marinated in cheese and cream with a hint of crushed black peppers.",
         "gluten_free": true,
+        "image": "/dishes/chicken-tikka.jpg",
+        "labels": ["spice-3", "GF"]
+      },
+      {
+        "name": "Lasun Khasi Khursani (LLK, Lamb)",
+        "price": "£13.00",
+        "description": "Succulent lamb cubes marinated in cheese and cream with a hint of crushed black peppers.",
+        "gluten_free": true,
+        "image": "/dishes/chicken-tikka.jpg",
+        "labels": ["spice-3", "GF"]
+      },
+      {
+        "name": "Veggie Biryani",
+        "price": "£13.00",
+        "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
+        "image": "/dishes/biryani.jpg"
+      },
+      {
+        "name": "Chicken Biryani",
+        "price": "£14.00",
+        "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
         "image": "/dishes/chicken-tikka.jpg"
+      },
+      {
+        "name": "Lamb Biryani",
+        "price": "£15.00",
+        "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
+        "image": "/dishes/lamb-curry.jpg"
+      },
+      {
+        "name": "King Prawn Biryani",
+        "price": "£16.00",
+        "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
+        "image": "/dishes/biryani.jpg"
       },
       {
         "name": "Paneer Saslick",
@@ -254,42 +300,34 @@
     ],
     "home_made_authentic_dishes": {
       "curry_types": [
-        "Curry",
-        "Korma/Masala",
-        "Balti/Karahi/Bhuna/Saag/Dhansak/Jalfrezi/Madras/Vindaloo/Phaal"
-      ],
-      "prices": {
-        "veg": {
-          "curry": "\u00a310.00",
-          "other_curries": "\u00a311.00",
-          "gluten_free": true
+          "gluten_free": true,
+          "image": "/dishes/curry-selection.jpg",
+          "labels": ["spice-2", "GF", "dry"]
         },
-        "chicken": {
-          "curry": "\u00a311.00",
-          "other_curries": "\u00a312.00",
-          "gluten_free": true
+        {
+          "name": "Bhutuwa Lamb",
+          "price": "£13.00",
+          "description": "Traditional Nepalese speciality lamb cooked with dried crushed chilli and crushed garlic",
+          "gluten_free": true,
+          "image": "/dishes/curry-selection.jpg",
+          "labels": ["spice-2", "GF", "dry"]
         },
-        "lamb": {
-          "curry": "\u00a312.00",
-          "other_curries": "\u00a313.00",
-          "gluten_free": true
+        {
+          "name": "Lasun Kukhura Khursani (LKK, Chicken)",
+          "price": "£12.00",
+          "description": "Succulent chicken cubes marinated in cheese and cream with a hint of crushed black peppers.",
+          "gluten_free": true,
+          "image": "/dishes/chicken-tikka.jpg",
+          "labels": ["spice-3", "GF"]
         },
-        "king_prawn": {
-          "curry": "\u00a313.00",
-          "other_curries": "\u00a314.00",
-          "gluten_free": true
-        }
-      }
-    },
-    "dum_biryani": [
-      {
-        "name": "Veggie Biryani",
-        "price": "\u00a313.00",
-        "description": "A well semarned one pot dish, made by layering fragrant barmati rice",
-        "image": "/dishes/biryani.jpg"
-      },
-      {
-        "name": "Chicken Biryani",
+        {
+          "name": "Lasun Khasi Khursani (LLK, Lamb)",
+          "price": "£13.00",
+          "description": "Succulent lamb cubes marinated in cheese and cream with a hint of crushed black peppers.",
+          "gluten_free": true,
+          "image": "/dishes/chicken-tikka.jpg",
+          "labels": ["spice-3", "GF"]
+        },
         "price": "\u00a314.00",
         "description": "A well semarned one pot dish, made by layering fragrant barmati rice",
         "image": "/dishes/chicken-tikka.jpg"
@@ -491,30 +529,7 @@
       }
     ],
     "burgers": [
-      {
-        "name": "Veg/Vegan",
-        "price": "\u00a39.00",
-        "description": "servd with chips",
-        "image": "/dishes/curry-selection.jpg"
-      },
-      {
-        "name": "Chicken",
-        "price": "\u00a310.00",
-        "description": "servd with chips",
-        "image": "/dishes/chicken-tikka.jpg"
-      },
-      {
-        "name": "Beef",
-        "price": "\u00a311.00",
-        "description": "servd with chips",
-        "image": "/dishes/curry-selection.jpg"
-      }
-    ],
-    "salads": [
-      {
-        "name": "Avocado Mozzarella Salad",
-        "price": "\u00a37.00"
-      },
+  // This section has been removed as per the update
       {
         "name": "Chicken Seasoning Salad",
         "price": "\u00a37.50"

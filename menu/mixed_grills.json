@@ -1,0 +1,7 @@
+[
+  {"name": "Galley's Veg Grill", "price": "£11.00", "description": "Onion bhaji, mogo, samosas and paneer"},
+  {"name": "Small Mixed Grill", "price": "£12.00", "description": "Chicken wings, chicken tikka, sheekh kebab, chicken pakora"},
+  {"name": "Regular Mixed Grill", "price": "£15.00", "description": "Same as our small mixed grill plus lamb chops"},
+  {"name": "Large Mixed Grill", "price": "£18.00", "description": "Same as our regular mixed grill plus Kathmandu Tikka and fish pakora"},
+  {"name": "Xtra Large Special Mixed Grill", "price": "£22.00", "description": "Same as our large mixed grill plus king prawn"}
+]

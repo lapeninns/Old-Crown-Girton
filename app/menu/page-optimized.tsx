@@ -92,7 +92,7 @@ export default async function MenuPage() {
             <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
               Our Menu: Authentic Nepalese & Traditional British Cuisine
             </h1>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl text-neutral-200 max-w-3xl mx-auto leading-relaxed mb-8">
               Discover the unique flavors of Nepal alongside your favorite pub classics at Girton&apos;s 
               historic thatched pub. Every dish made fresh with authentic recipes and quality ingredients.
             </p>
@@ -138,7 +138,7 @@ export default async function MenuPage() {
               <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-700 mb-4">
                 Authentic Nepalese Specialties
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-brand-600 max-w-3xl mx-auto">
                 Experience the rich, aromatic flavors of the Himalayas. Our <strong>authentic Nepalese menu</strong> 
                 features traditional recipes passed down through generations, using fresh spices and time-honored cooking techniques.
               </p>
@@ -156,13 +156,13 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-brand-700">Chicken Momo</h4>
                     <span className="text-lg font-bold text-foreground-strong">£8.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Traditional <strong>Nepalese dumplings</strong> filled with seasoned chicken and fresh herbs, 
                     steamed to perfection and served with our signature spicy tomato chutney. A must-try authentic dish!
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded">Medium Spice</span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Gluten, Soy</span>
+                    <span className="px-2 py-1 bg-marigold-100 text-marigold-800 rounded">Medium Spice</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Gluten, Soy</span>
                   </div>
                 </div>
 
@@ -171,13 +171,13 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-brand-700">Dal Bhat</h4>
                     <span className="text-lg font-bold text-foreground-strong">£12.50</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     <strong>Nepal's national dish</strong> - a complete meal featuring aromatic lentil soup, fluffy basmati rice, 
                     seasonal vegetables, pickles, and papad. Nutritious, satisfying, and authentically prepared.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-green-100 text-green-800 rounded">Vegetarian</span>
-                    <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded">Mild Spice</span>
+                    <span className="px-2 py-1 bg-cardamom-100 text-cardamom-800 rounded">Vegetarian</span>
+                    <span className="px-2 py-1 bg-accent-100 text-accent-800 rounded">Mild Spice</span>
                   </div>
                 </div>
 
@@ -186,14 +186,14 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-brand-700">Vegetable Thali</h4>
                     <span className="text-lg font-bold text-accent">£13.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     A complete <strong>vegetarian feast</strong> with multiple seasonal curries, dal, rice, 
                     fresh bread, pickles, and yogurt. Perfect for sharing and exploring diverse Nepalese flavors.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-green-100 text-green-800 rounded">Vegetarian</span>
-                    <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded">Medium Spice</span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Gluten, Dairy</span>
+                    <span className="px-2 py-1 bg-cardamom-100 text-cardamom-800 rounded">Vegetarian</span>
+                    <span className="px-2 py-1 bg-marigold-100 text-marigold-800 rounded">Medium Spice</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Gluten, Dairy</span>
                   </div>
                 </div>
               </div>
@@ -209,13 +209,13 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Lamb Curry (Khasi Ko Masu)</h4>
                     <span className="text-lg font-bold text-foreground-strong">£16.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Tender lamb slow-cooked in aromatic <strong>Himalayan spices</strong> with fresh herbs, 
                     onions, and tomatoes. Rich, hearty, and bursting with authentic flavors.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-red-100 text-red-800 rounded">Hot Spice</span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Dairy</span>
+                    <span className="px-2 py-1 bg-crimson-100 text-crimson-800 rounded">Hot Spice</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Dairy</span>
                   </div>
                 </div>
 
@@ -224,12 +224,12 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Chicken Curry (Kukhura Ko Masu)</h4>
                     <span className="text-lg font-bold text-foreground-strong">£14.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Free-range chicken cooked in traditional Nepalese style with ginger, garlic, and warm spices. 
                     Comfort food at its finest from the foothills of the Himalayas.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded">Medium Spice</span>
+                    <span className="px-2 py-1 bg-marigold-100 text-marigold-800 rounded">Medium Spice</span>
                   </div>
                 </div>
 
@@ -238,20 +238,20 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Vegetable Momo</h4>
                     <span className="text-lg font-bold text-foreground-strong">£7.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     <strong>Vegetarian dumplings</strong> filled with fresh seasonal vegetables and herbs, 
                     steamed and served with tangy tomato chutney. Light yet satisfying.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-green-100 text-green-800 rounded">Vegetarian</span>
-                    <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded">Mild Spice</span>
+                    <span className="px-2 py-1 bg-cardamom-100 text-cardamom-800 rounded">Vegetarian</span>
+                    <span className="px-2 py-1 bg-accent-100 text-accent-800 rounded">Mild Spice</span>
                   </div>
                 </div>
 
                 {/* Call-out box */}
                 <div className="p-6 bg-accent/10 rounded-lg border-l-4 border-accent">
                   <h4 className="font-bold text-stout-700 mb-2">🌶️ Spice Guide</h4>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-brand-600">
                     <strong>Mild:</strong> Gentle warmth, family-friendly • 
                     <strong>Medium:</strong> Balanced heat with flavor • 
                     <strong>Hot:</strong> For spice lovers! We can adjust heat levels on request.
@@ -269,7 +269,7 @@ export default async function MenuPage() {
               <h2 className="text-3xl md:text-4xl font-display font-bold text-stout-700 mb-4">
                 Traditional British Pub Classics
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-brand-600 max-w-3xl mx-auto">
                 Alongside our Nepalese specialties, we serve all your favorite <strong>pub classics</strong> 
                 made with quality local ingredients and traditional recipes. Comfort food at its best!
               </p>
@@ -286,12 +286,12 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Beer Battered Fish & Chips</h4>
                     <span className="text-lg font-bold text-foreground-strong">£14.50</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Fresh cod in our signature golden beer batter, served with hand-cut chips, mushy peas, 
                     and tartar sauce. A classic done properly!
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Gluten, Fish</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Gluten, Fish</span>
                   </div>
                 </div>
 
@@ -300,12 +300,12 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Grilled Salmon</h4>
                     <span className="text-lg font-bold text-foreground-strong">£18.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Pan-seared salmon fillet with seasonal vegetables, new potatoes, and herb butter. 
                     Fresh, healthy, and expertly prepared.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Fish, Dairy</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Fish, Dairy</span>
                   </div>
                 </div>
 
@@ -314,12 +314,12 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Steak & Ale Pie</h4>
                     <span className="text-lg font-bold text-foreground-strong">£15.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Tender chunks of beef slow-cooked in local ale with vegetables, encased in golden pastry. 
                     Served with mashed potatoes and seasonal greens.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Gluten</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Gluten</span>
                   </div>
                 </div>
               </div>
@@ -334,12 +334,12 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">8oz Ribeye Steak</h4>
                     <span className="text-lg font-bold text-foreground-strong">£22.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Prime British beef cooked to your liking, served with hand-cut chips, 
                     grilled tomato, and your choice of peppercorn or mushroom sauce.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Dairy</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Dairy</span>
                   </div>
                 </div>
 
@@ -348,12 +348,12 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Homemade Burger</h4>
                     <span className="text-lg font-bold text-foreground-strong">£13.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     100% British beef patty with lettuce, tomato, red onion, and chips. 
                     Add cheese, bacon, or our signature chutney for extra flavor.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Gluten</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Gluten</span>
                   </div>
                 </div>
 
@@ -362,13 +362,13 @@ export default async function MenuPage() {
                     <h4 className="text-xl font-bold text-stout-700">Vegetarian Wellington</h4>
                     <span className="text-lg font-bold text-foreground-strong">£14.95</span>
                   </div>
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-brand-600 mb-3">
                     Roasted vegetables, nuts, and herbs wrapped in golden puff pastry. 
                     Served with roasted vegetables and vegetarian gravy.
                   </p>
                   <div className="flex gap-2 text-sm">
-                    <span className="px-2 py-1 bg-green-100 text-green-800 rounded">Vegetarian</span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Contains: Gluten, Nuts</span>
+                    <span className="px-2 py-1 bg-cardamom-100 text-cardamom-800 rounded">Vegetarian</span>
+                    <span className="px-2 py-1 bg-secondary-100 text-secondary-800 rounded">Contains: Gluten, Nuts</span>
                   </div>
                 </div>
               </div>
@@ -385,13 +385,13 @@ export default async function MenuPage() {
             <div className="bg-accent/10 p-8 rounded-lg">
               <div className="text-6xl mb-4">🍖</div>
               <h3 className="text-2xl font-bold text-stout-700 mb-4">Traditional Sunday Roast</h3>
-              <p className="text-lg text-gray-700 mb-6">
+              <p className="text-lg text-brand-600 mb-6">
                 Every Sunday, we serve traditional <strong>Sunday roast</strong> with your choice of beef, lamb, 
                 pork, or chicken. All served with Yorkshire pudding, roast potatoes, seasonal vegetables, 
                 and our homemade gravy.
               </p>
               <div className="text-2xl font-bold text-foreground-strong mb-4">£16.95 - £19.95</div>
-              <p className="text-sm text-gray-600 mb-6">
+              <p className="text-sm text-brand-600 mb-6">
                 <strong>Served:</strong> Sundays 12:00 - 21:00 (or until sold out)<br/>
                 <strong>Booking recommended</strong> especially for larger groups
               </p>
@@ -413,34 +413,34 @@ export default async function MenuPage() {
               <div className="space-y-6">
                 <div className="p-6 bg-white rounded-lg">
                   <h3 className="font-bold text-stout-700 mb-2">Are there vegetarian options on the Nepalese menu?</h3>
-                  <p className="text-gray-700">Yes! We offer dal bhat, vegetable momo, vegetable thali, and several vegetarian curries. All clearly marked on our menu.</p>
+                  <p className="text-brand-600">Yes! We offer dal bhat, vegetable momo, vegetable thali, and several vegetarian curries. All clearly marked on our menu.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg">
                   <h3 className="font-bold text-stout-700 mb-2">Can you adjust spice levels?</h3>
-                  <p className="text-gray-700">Absolutely! Our chefs can adjust spice levels for most Nepalese dishes. Just let your server know your preference when ordering.</p>
+                  <p className="text-brand-600">Absolutely! Our chefs can adjust spice levels for most Nepalese dishes. Just let your server know your preference when ordering.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg">
                   <h3 className="font-bold text-stout-700 mb-2">Do you have a children's menu?</h3>
-                  <p className="text-gray-700">Yes, we offer mild Nepalese dishes and traditional pub favorites sized for children, including fish & chips, chicken nuggets, and pasta.</p>
+                  <p className="text-brand-600">Yes, we offer mild Nepalese dishes and traditional pub favorites sized for children, including fish & chips, chicken nuggets, and pasta.</p>
                 </div>
               </div>
               
               <div className="space-y-6">
                 <div className="p-6 bg-white rounded-lg">
                   <h3 className="font-bold text-stout-700 mb-2">What about gluten-free options?</h3>
-                  <p className="text-gray-700">Many of our Nepalese curries are naturally gluten-free. We also offer gluten-free alternatives for fish & chips and other pub classics.</p>
+                  <p className="text-brand-600">Many of our Nepalese curries are naturally gluten-free. We also offer gluten-free alternatives for fish & chips and other pub classics.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg">
                   <h3 className="font-bold text-stout-700 mb-2">Is takeaway available for all menu items?</h3>
-                  <p className="text-gray-700">Yes! All our dishes are available for takeaway. Call 01223 276027 to place your order. Collection typically ready in 20-30 minutes.</p>
+                  <p className="text-brand-600">Yes! All our dishes are available for takeaway. Call 01223 276027 to place your order. Collection typically ready in 20-30 minutes.</p>
                 </div>
                 
                 <div className="p-6 bg-white rounded-lg">
                   <h3 className="font-bold text-stout-700 mb-2">How authentic is your Nepalese food?</h3>
-                  <p className="text-gray-700">Our Nepalese dishes use traditional recipes and cooking methods, with spices imported directly from Nepal for authentic flavors.</p>
+                  <p className="text-brand-600">Our Nepalese dishes use traditional recipes and cooking methods, with spices imported directly from Nepal for authentic flavors.</p>
                 </div>
               </div>
             </div>
@@ -453,7 +453,7 @@ export default async function MenuPage() {
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
               Ready to Try Our Unique Menu?
             </h2>
-            <p className="text-xl text-gray-200 mb-8">
+            <p className="text-xl text-neutral-200 mb-8">
               Book a table or order takeaway to experience the best of Nepal and Britain at Girton's historic thatched pub.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
@@ -463,12 +463,12 @@ export default async function MenuPage() {
               <a href="tel:01223276027" className="bg-crimson-600 hover:bg-crimson-800 text-white font-bold py-4 px-8 rounded-lg text-lg">
                 {labelOrderTakeaway}
               </a>
-              <Link href="/about" className="bg-white hover:bg-gray-100 text-stout-700 font-bold py-4 px-8 rounded-lg text-lg">
+              <Link href="/about" className="bg-white hover:bg-neutral-100 text-stout-700 font-bold py-4 px-8 rounded-lg text-lg">
                 Learn Our Story
               </Link>
             </div>
             
-            <div className="mt-8 text-sm text-gray-300">
+            <div className="mt-8 text-sm text-neutral-300">
               <p><strong>Address:</strong> 89 High Street, Girton, Cambridge CB3 0QQ</p>
               <p><strong>Kitchen Hours:</strong> Daily 12:00-22:00 (22:30 Fri/Sat, 21:30 Sun)</p>
             </div>

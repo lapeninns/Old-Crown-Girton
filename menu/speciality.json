@@ -1,0 +1,21 @@
+[
+  {"name": "Bhutuwa Chicken", "price": "£12.00", "description": "Chicken Bhutuwa (GF, Dry, Medium Spice)", "gluten_free": true, "labels": ["GF", "dry", "spice-2"]},
+  {"name": "Bhutuwa Lamb", "price": "£13.00", "description": "Lamb Bhutuwa (GF, Dry, Medium Spice)", "gluten_free": true, "labels": ["GF", "dry", "spice-2"]},
+  {"name": "Lasun Kukhura Khursani (LKK, Chicken)", "price": "£12.00", "description": "Chicken LKK (GF, Hot)", "gluten_free": true, "labels": ["GF", "spice-3"]},
+  {"name": "Lasun Khasi Khursani (LLK, Lamb)", "price": "£13.00", "description": "Lamb LLK (GF, Hot)", "gluten_free": true, "labels": ["GF", "spice-3"]},
+  {"name": "Veggie Biryani", "price": "£13.00", "description": "Vegetable Dum Biryani", "labels": []},
+  {"name": "Chicken Biryani", "price": "£14.00", "description": "Chicken Dum Biryani", "labels": []},
+  {"name": "Lamb Biryani", "price": "£15.00", "description": "Lamb Dum Biryani", "labels": []},
+  {"name": "King Prawn Biryani", "price": "£16.00", "description": "King Prawn Dum Biryani", "labels": []},
+  {"name": "Paneer Saslick", "price": "£13.00", "description": "Soft cheese cooked in tandoor oven served in sizzler with onion and peppers", "gluten_free": true},
+  {"name": "Chicken Rum Rum", "price": "£13.00", "description": "Chicken cooked with Himalayan herbs, Nepalese black peppers", "gluten_free": true},
+  {"name": "Khasi Ko Masu (Goat Curry)", "price": "£13.50", "description": "Slow cooked goat in Nepalese spices", "gluten_free": true},
+  {"name": "Rack of Lamb", "price": "£14.00", "description": "Lamb chops marinated overnight, cooked in tandoor", "gluten_free": true},
+  {"name": "Special Butter Chicken", "price": "£14.00", "description": "Creamy butter chicken with a hint of chilli", "gluten_free": true},
+  {"name": "Himali Lamb", "price": "£14.00", "description": "Green curry with Himalayan salt, yoghurt, mint", "gluten_free": true},
+  {"name": "Pokhareli Fish Curry", "price": "£14.00", "description": "Fish curry with mustard, coconut milk", "gluten_free": true},
+  {"name": "Rara King Prawn", "price": "£15.00", "description": "King prawn in coconut-based medium sauce"},
+  {"name": "Salmon Tikka", "price": "£16.00", "description": "Chargrilled salmon with cumin seeds", "gluten_free": true},
+  {"name": "Tandoori King Prawn", "price": "£18.00", "description": "King prawn marinated in Nepalese spices, cooked in tandoor", "gluten_free": true},
+  {"name": "Lamb Shank", "price": "£20.00", "description": "Slow-cooked lamb shank, Nepalese style", "gluten_free": true}
+]

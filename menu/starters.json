@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Onion Bhaji",
+    "price": "£4.25",
+    "gluten_free": true,
+    "labels": ["GF"]
+  },
+  {
+    "name": "Mixed Platter-1",
+    "price": "£13.00",
+    "description": "A selection of starters including onion bhaji, samosas, chilli mogo, and chicken pakora.",
+    "labels": ["spice-1", "GF"]
+  },
+  {
+    "name": "Samosas (Veg/Meat)",
+    "price": "£4.50",
+    "labels": ["veg"]
+  }
+  // ...add all other starters from your menu here...
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Tadka Daal (Lentil)",
+    "price": "£6.00"
+  },
+  {
+    "name": "Gurkha Aalo",
+    "price": "£6.00",
+    "description": "Dry potato cooked in Nepalese special herbs"
+  }
+  // ...add all other sides from your menu here...
+]

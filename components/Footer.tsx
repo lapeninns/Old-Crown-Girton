@@ -42,8 +42,8 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex-grow flex flex-wrap justify-center -mb-10 md:mt-0 mt-10 text-center">
-            {loading && <div className="text-xs text-gray-600">Loading footer…</div>}
-            {error && <div className="text-xs text-red-500">Footer failed</div>}
+            {loading && <div className="text-xs text-brand-600">Loading footer…</div>}
+            {error && <div className="text-xs text-error-500">Footer failed</div>}
             {data && data.sections.map((section) => (
               <div key={section.title} className="lg:w-1/3 md:w-1/2 w-full px-4">
                 <div className="footer-title font-semibold text-base-content tracking-widest text-sm md:text-left mb-3">

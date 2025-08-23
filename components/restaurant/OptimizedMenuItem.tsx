@@ -16,8 +16,8 @@ const Badge = memo<{
 }) => {
   const baseClasses = 'badge-touch inline-flex items-center text-xs font-medium rounded-full transition-colors';
   const variantClasses = variant === 'dietary' 
-    ? 'bg-green-100 text-green-800 border border-green-200'
-    : 'bg-gray-100 text-gray-800';
+    ? 'bg-cardamom-100 text-cardamom-800 border border-cardamom-200'
+    : 'bg-neutral-100 text-brand-800';
   
   return (
     <span className={`${baseClasses} ${variantClasses} ${className}`}>
@@ -122,7 +122,7 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-white rounded-xl border border-gray-100 hover:border-accent-500/30 hover:shadow-lg transition-all duration-300 overflow-hidden group"
+      className="bg-neutral-50 rounded-xl border border-neutral-200 hover:border-accent-500/30 hover:shadow-lg transition-all duration-300 overflow-hidden group"
     >
       {/* Image Section */}
       {image && (
@@ -144,7 +144,7 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
               <Badge label="SIGNATURE" className="bg-crimson-600 text-white font-bold" />
             )}
             {isSpicy && (
-              <Badge label="🌶️ SPICY" className="bg-red-100 text-red-800" />
+              <Badge label="🌶️ SPICY" className="bg-crimson-100 text-crimson-800" />
             )}
           </div>
 
@@ -156,7 +156,7 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
           >
             <Heart 
               className={`w-5 h-5 transition-colors ${
-                isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600 hover:text-red-500'
+                isFavorite ? 'fill-crimson-500 text-crimson-500' : 'text-brand-600 hover:text-crimson-500'
               }`} 
             />
           </button>
@@ -177,7 +177,7 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
 
         {/* Description */}
         {description && (
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          <p className="text-brand-600 text-sm mb-4 line-clamp-2">
             {description}
           </p>
         )}
@@ -192,17 +192,17 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
         {/* Allergen information */}
         {allergens.length > 0 && (
           <div className="mb-4">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-neutral-500">
               <strong>Allergens:</strong> {allergens.join(', ')}
             </p>
           </div>
         )}
 
         {/* Action buttons */}
-        <div className="flex gap-2 pt-4 border-t border-gray-100">
+        <div className="flex gap-2 pt-4 border-t border-neutral-200">
           <button
             onClick={handleViewDetails}
-            className="touch-target flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+            className="touch-target flex-1 bg-neutral-100 hover:bg-neutral-200 text-brand-800 px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
           >
             <Info className="w-4 h-4" />
             Details

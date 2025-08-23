@@ -1,0 +1,7 @@
+[
+  {"name": "Popcorn Chicken", "price": "£5.75", "description": "Choose either chips or rice"},
+  {"name": "Nuggets", "price": "£6.00", "description": "Choose either chips or rice"},
+  {"name": "Scampi", "price": "£6.00", "description": "Choose either chips or rice"},
+  {"name": "Chicken Pakora", "price": "£6.00", "description": "Choose either chips or rice"},
+  {"name": "CTM/Korma", "price": "£7.50", "description": "Choose either chips or rice"}
+]

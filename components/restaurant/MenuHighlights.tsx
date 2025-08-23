@@ -63,7 +63,7 @@ export default function MenuHighlights() {
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
             Our <span className="text-accent">Signature</span> Dishes
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-600 max-w-2xl mx-auto">
             From authentic Nepalese specialties to beloved pub classics, 
             every dish is prepared with fresh ingredients and traditional techniques.
           </p>

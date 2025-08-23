@@ -44,7 +44,7 @@ function AccordionItem({ title, children, isOpen, onToggle }: { title: string; c
   }, [isOpen]);
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden">
+    <div className="bg-neutral-50 rounded-lg overflow-hidden">
       <button onClick={onToggle} className="w-full text-left px-6 py-4 flex justify-between items-center text-stout-700 font-semibold">
         <span>{title}</span>
         <svg className={`w-5 h-5 text-stout-700 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -54,7 +54,7 @@ function AccordionItem({ title, children, isOpen, onToggle }: { title: string; c
       <div
         ref={contentRef}
         style={{ height, transition: 'height 220ms ease' }}
-        className="px-6 overflow-hidden text-gray-700"
+        className="px-6 overflow-hidden text-brand-600"
       >
         <div className="py-4">
           {children}

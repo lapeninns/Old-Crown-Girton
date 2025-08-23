@@ -36,8 +36,8 @@ export default function Navbar() {
 
           {/* Desktop Navigation - Center-Right */}
           <div className="hidden md:flex items-center space-x-8">
-            {loading && <span className="text-xs text-gray-600 animate-pulse">Loading...</span>}
-            {error && <span className="text-xs text-red-500">Nav failed</span>}
+            {loading && <span className="text-xs text-brand-600 animate-pulse">Loading...</span>}
+            {error && <span className="text-xs text-error-500">Nav failed</span>}
             {filteredLinks.map((link: NavDataParsed['links'][number]) => (
               <Link
                 key={link.href}
@@ -91,8 +91,8 @@ export default function Navbar() {
             className="md:hidden bg-neutral-50 border-b border-neutral-200"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {loading && <div className="px-3 py-2 text-xs text-gray-600">Loading...</div>}
-              {error && <div className="px-3 py-2 text-xs text-red-500">Nav failed</div>}
+              {loading && <div className="px-3 py-2 text-xs text-brand-600">Loading...</div>}
+              {error && <div className="px-3 py-2 text-xs text-error-500">Nav failed</div>}
               <div className="flex flex-col space-y-4">
                 {filteredLinks.map((link: NavDataParsed['links'][number]) => (
                   <Link

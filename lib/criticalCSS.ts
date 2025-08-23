@@ -60,10 +60,10 @@ export const criticalCSS = `
 
 /* Hero section critical styles */
 .hero-gradient { 
-  background: linear-gradient(135deg, var(--color-surface-base) 0%, rgba(244, 196, 48, 0.1) 100%);
+  background: linear-gradient(135deg, var(--color-surface-base) 0%, var(--color-accent-500/10) 100%);
 }
 .himalayan-gradient {
-  background: linear-gradient(135deg, var(--color-surface-base) 0%, rgba(244, 196, 48, 0.1) 100%);
+  background: linear-gradient(135deg, var(--color-surface-base) 0%, var(--color-accent-500/10) 100%);
 }
 
 /* Button essentials */

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Gulab Jamun",
+    "price": "£4.50"
+  },
+  {
+    "name": "Nepalese Rice Pudding (Kheer)",
+    "price": "£4.50"
+  }
+  // ...add all other desserts from your menu here...
+]

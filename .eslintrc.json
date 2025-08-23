@@ -7,6 +7,21 @@
   },
   "rules": {
     // Your specific rules.
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "Literal[value=/\\b(bg|text|border|fill|stroke|from|via|to)-(white|black|slate|gray|zinc|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\\d{2,3}\\b/]",
+        "message": "Use Himalayan Spice design tokens instead of default Tailwind colors. Example: use 'text-brand-600' instead of 'text-gray-600'."
+      },
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}/]",
+        "message": "Use CSS custom properties or semantic color tokens instead of hex colors."
+      },
+      {
+        "selector": "Literal[value=/rgba?\\(/]",
+        "message": "Use CSS custom properties or semantic color tokens instead of RGB/RGBA colors."
+      }
+    ]
   }
 }
