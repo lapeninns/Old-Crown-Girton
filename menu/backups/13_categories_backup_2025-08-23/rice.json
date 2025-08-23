@@ -1,0 +1,7 @@
+[
+  {"name": "Boiled Rice", "price": { "amount": 4.00, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+  {"name": "Pilau Rice", "price": { "amount": 4.50, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+  {"name": "Mushroom Rice", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+  {"name": "Egg Fried Rice", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+  {"name": "Special Rice", "price": { "amount": 5.50, "currency": "GBP" }, "labels": ["veg", "spice-1"]}
+]

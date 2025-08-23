@@ -21,6 +21,7 @@
     { "name": "Battered King Prawn", "price": { "amount": 8.50, "currency": "GBP" }, "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" },
     { "name": "Mixed Platter-1", "price": { "amount": 13.00, "currency": "GBP" }, "description": "A selection of starters including onion bhaji, samosas, chilli mogo, and chicken pakora.", "labels": ["spice-2", "GF"], "image": "/dishes/curry-selection.jpg" }
   ] },
+
   { "category": "Mixed Grills", "items": [
     { "name": "Veg Grill", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Onion bhaji, mogo, samosas and paneer", "labels": ["veg", "dry"], "image": "/dishes/curry-selection.jpg" },
     { "name": "Small Mixed Grill", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Chicken wings, chicken tikka, sheekh kebab, chicken pakora", "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" },
@@ -28,17 +29,8 @@
     { "name": "Large Mixed Grill", "price": { "amount": 18.00, "currency": "GBP" }, "description": "Same as our regular mixed grill plus Kathmandu Tikka and fish pakora", "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" },
     { "name": "Xtra Large Special Mixed Grill", "price": { "amount": 22.00, "currency": "GBP" }, "description": "Same as our large mixed grill plus king prawn", "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" }
   ] },
-  { "category": "Sides", "items": [
-    { "name": "Tadka Daal (Lentil)", "price": { "amount": 6.00, "currency": "GBP" }, "labels": ["veg", "spice-1"] },
-    { "name": "Gurkha Aalo", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Dry potato cooked in Nepalese special herbs", "labels": ["veg", "spice-1"] },
-    { "name": "Saag Aalo", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Spinach and potato", "labels": ["veg", "spice-1"] },
-    { "name": "Chana Masala", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Chickpeas", "labels": ["veg", "spice-1"] },
-    { "name": "Saag Bhaji", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Spinach", "labels": ["veg", "spice-1"] },
-    { "name": "Mushroom Bhaji", "price": { "amount": 6.00, "currency": "GBP" }, "labels": ["veg", "spice-1"] },
-    { "name": "Saag Paneer", "price": { "amount": 6.50, "currency": "GBP" }, "description": "Fresh spinach and cottage cheese", "labels": ["veg", "spice-1"] },
-    { "name": "Matar Paneer", "price": { "amount": 6.50, "currency": "GBP" }, "description": "Green peas and cottage cheese", "labels": ["veg", "spice-1"] }
-  ] },
-  { "category": "Speciality", "items": [
+
+  { "category": "Speciality Dishes", "items": [
     {"name": "Bhutuwa Chicken", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Traditional Nepalese speciality chicken cooked with dried crushed chilli and crushed garlic", "gluten_free": true, "labels": ["GF", "dry", "spice-2"], "image": "/dishes/curry-selection.jpg"},
     {"name": "Bhutuwa Lamb", "price": { "amount": 13.00, "currency": "GBP" }, "description": "Traditional Nepalese speciality lamb cooked with dried crushed chilli and crushed garlic", "gluten_free": true, "labels": ["GF", "dry", "spice-2"], "image": "/dishes/curry-selection.jpg"},
     {"name": "Lasun Kukhura Khursani (LKK, Chicken)", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Succulent chicken cubes marinated in cheese and cream with a hint of crushed black peppers.", "gluten_free": true, "labels": ["GF", "spice-3"], "image": "/dishes/chicken-tikka.jpg"},
@@ -61,13 +53,28 @@
     {"name": "Kathmandu Tikka Masala", "price": { "amount": 14.50, "currency": "GBP" }, "description": "Kathmandu tikka cooked in rich creamy tomato-based sauce with traditional spices", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/chicken-tikka.jpg"},
     {"name": "Special Veggie Tarkari", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Nepalese style vegetarian semi dry curry cooled with aromatic spices and herbs full of flavours", "labels": ["veg", "spice-1", "GF"], "image": "/dishes/curry-selection.jpg"}
   ] },
-  { "category": "Rice", "items": [
-    {"name": "Boiled Rice", "price": { "amount": 4.00, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
-    {"name": "Pilau Rice", "price": { "amount": 4.50, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
-    {"name": "Mushroom Rice", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
-    {"name": "Egg Fried Rice", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
-    {"name": "Special Rice", "price": { "amount": 5.50, "currency": "GBP" }, "labels": ["veg", "spice-1"]}
+
+  { "category": "Authentic Dishes", "items": [
+    { "name": "Veg Curry", "price": { "amount": 10.00, "currency": "GBP" }, "description": "Traditional home-made vegetarian curry with authentic spices", "gluten_free": true, "labels": ["veg", "GF"], "image": "/dishes/curry-selection.jpg" },
+    { "name": "Chicken Curry", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Traditional home-made chicken curry with authentic spices", "gluten_free": true, "labels": ["GF"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Lamb Curry", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Traditional home-made lamb curry with authentic spices", "gluten_free": true, "labels": ["GF"], "image": "/dishes/lamb-curry.jpg" },
+    { "name": "King Prawn Curry", "price": { "amount": 15.00, "currency": "GBP" }, "description": "Traditional home-made king prawn curry with authentic spices", "gluten_free": true, "labels": ["GF"], "image": "/dishes/curry-selection.jpg" },
+    { "name": "Korma Chicken", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Mild and creamy chicken korma with aromatic spices", "gluten_free": true, "labels": ["GF", "spice-1"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Korma Lamb", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Mild and creamy lamb korma with aromatic spices", "gluten_free": true, "labels": ["GF", "spice-1"], "image": "/dishes/lamb-curry.jpg" },
+    { "name": "Masala Chicken", "price": { "amount": 13.00, "currency": "GBP" }, "description": "Rich and flavorful chicken masala with traditional spices", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Masala Lamb", "price": { "amount": 14.00, "currency": "GBP" }, "description": "Rich and flavorful lamb masala with traditional spices", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/lamb-curry.jpg" },
+    { "name": "Balti Chicken", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Traditional balti-style chicken curry cooked with peppers and onions", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Balti Lamb", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Traditional balti-style lamb curry cooked with peppers and onions", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/lamb-curry.jpg" },
+    { "name": "Jalfrezi Chicken", "price": { "amount": 13.00, "currency": "GBP" }, "description": "Stir-fried chicken with peppers, onions and aromatic spices", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Jalfrezi Lamb", "price": { "amount": 14.00, "currency": "GBP" }, "description": "Stir-fried lamb with peppers, onions and aromatic spices", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/lamb-curry.jpg" },
+    { "name": "Haara Bhuna Chicken", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Dry-style chicken curry with fresh green herbs and spices", "gluten_free": true, "labels": ["GF", "dry", "spice-2"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Haara Bhuna Lamb", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Dry-style lamb curry with fresh green herbs and spices", "gluten_free": true, "labels": ["GF", "dry", "spice-2"], "image": "/dishes/lamb-curry.jpg" },
+    { "name": "Madras Chicken", "price": { "amount": 13.00, "currency": "GBP" }, "description": "Hot and spicy South Indian style chicken curry", "gluten_free": true, "labels": ["GF", "spice-3"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Madras Lamb", "price": { "amount": 14.00, "currency": "GBP" }, "description": "Hot and spicy South Indian style lamb curry", "gluten_free": true, "labels": ["GF", "spice-3"], "image": "/dishes/lamb-curry.jpg" },
+    { "name": "Vindaloo Chicken", "price": { "amount": 13.00, "currency": "GBP" }, "description": "Very hot and tangy Portuguese-inspired chicken curry", "gluten_free": true, "labels": ["GF", "spice-4"], "image": "/dishes/chicken-tikka.jpg" },
+    { "name": "Vindaloo Lamb", "price": { "amount": 14.00, "currency": "GBP" }, "description": "Very hot and tangy Portuguese-inspired lamb curry", "gluten_free": true, "labels": ["GF", "spice-4"], "image": "/dishes/lamb-curry.jpg" }
   ] },
+
   { "category": "Naans", "items": [
     {"name": "Roti", "price": { "amount": 3.50, "currency": "GBP" }, "labels": ["veg"]},
     {"name": "Plain", "price": { "amount": 3.75, "currency": "GBP" }, "labels": ["veg"]},
@@ -78,6 +85,7 @@
     {"name": "Keema", "price": { "amount": 4.75, "currency": "GBP" }},
     {"name": "Signature", "price": { "amount": 5.25, "currency": "GBP" }, "labels": ["veg"]}
   ] },
+
   { "category": "Fries", "items": [
     {"name": "Chips", "price": { "amount": 3.25, "currency": "GBP" }, "labels": ["veg"]},
     {"name": "Peri-Peri Chips", "price": { "amount": 3.75, "currency": "GBP" }, "labels": ["veg", "spice-2"]},
@@ -86,33 +94,54 @@
     {"name": "Cheesy Chips", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg"]},
     {"name": "Loaded Chips", "price": { "amount": 6.75, "currency": "GBP" }, "labels": ["veg"]}
   ] },
-  { "category": "Wraps", "items": [
-    {"name": "Cheesy Chips Wrap", "price": { "amount": 7.00, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["veg"]},
-    {"name": "Sweet Chilli Wrap (Crispy)", "price": { "amount": 7.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["veg", "spice-2"]},
-    {"name": "Chicken Tikka Wrap", "price": { "amount": 8.50, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["spice-2"]},
-    {"name": "Kebab Wrap", "price": { "amount": 8.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["spice-2"]},
-    {"name": "Special Wrap (Mix)", "price": { "amount": 9.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["spice-2"]}
+
+  { "category": "Pub Grub", "items": [
+    { "name": "Veg/Vegan Burger", "price": { "amount": 9.00, "currency": "GBP" }, "description": "Served with chips", "labels": ["veg"] },
+    { "name": "Chicken Burger", "price": { "amount": 10.00, "currency": "GBP" }, "description": "Served with chips" },
+    { "name": "Beef Burger", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Served with chips" },
+    { "name": "Cheesy Chips Wrap", "price": { "amount": 7.00, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["veg"] },
+    { "name": "Sweet Chilli Wrap (Crispy)", "price": { "amount": 7.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["veg", "spice-2"] }
   ] },
-  { "category": "Pub Classics", "items": [
+
+  { "category": "Rice", "items": [
+    {"name": "Boiled Rice", "price": { "amount": 4.00, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+    {"name": "Pilau Rice", "price": { "amount": 4.50, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+    {"name": "Mushroom Rice", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+    {"name": "Egg Fried Rice", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-1"]},
+    {"name": "Special Rice", "price": { "amount": 5.50, "currency": "GBP" }, "labels": ["veg", "spice-1"]}
+  ] },
+
+  { "category": "Pub Classic", "items": [
     {"name": "Chicken Strips with Chips", "price": { "amount": 9.00, "currency": "GBP" }, "labels": ["spice-1"]},
     {"name": "Peri-Peri Chicken with Chips", "price": { "amount": 9.00, "currency": "GBP" }, "labels": ["spice-2"]},
     {"name": "Fish & Chips", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Medium battered cod fish served with tartar sauce", "labels": ["spice-1"], "image": "/dishes/fish-chips.jpg"},
-    {"name": "Lamb Chops with Chips", "price": { "amount": 14.00, "currency": "GBP" }, "description": "Grilled lamb chops served with seasoned chips", "gluten_free": true, "labels": ["spice-2"], "image": "/dishes/lamb-curry.jpg"},
-    {"name": "Veg/Vegan Burger", "price": { "amount": 9.00, "currency": "GBP" }, "description": "Served with chips", "labels": ["veg"]},
-    {"name": "Chicken Burger", "price": { "amount": 10.00, "currency": "GBP" }, "description": "Served with chips"},
-    {"name": "Beef Burger", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Served with chips"}
+    {"name": "Lamb Chops with Chips", "price": { "amount": 14.00, "currency": "GBP" }, "description": "Grilled lamb chops served with seasoned chips", "gluten_free": true, "labels": ["spice-2"], "image": "/dishes/lamb-curry.jpg"}
   ] },
-  { "category": "Kids Menu", "items": [
+
+  { "category": "Salads", "items": [
+    {"name": "Avocado Mozzarella Salad", "price": { "amount": 7.00, "currency": "GBP" }, "labels": ["veg"]},
+    {"name": "Chicken Seasoning Salad", "price": { "amount": 7.50, "currency": "GBP" }}
+  ] },
+
+  { "category": "Sides", "items": [
+    { "name": "Tadka Daal (Lentil)", "price": { "amount": 6.00, "currency": "GBP" }, "labels": ["veg", "spice-1"] },
+    { "name": "Gurkha Aalo", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Dry potato cooked in Nepalese special herbs", "labels": ["veg", "spice-1"] },
+    { "name": "Saag Aalo", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Spinach and potato", "labels": ["veg", "spice-1"] },
+    { "name": "Chana Masala", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Chickpeas", "labels": ["veg", "spice-1"] },
+    { "name": "Saag Bhaji", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Spinach", "labels": ["veg", "spice-1"] },
+    { "name": "Mushroom Bhaji", "price": { "amount": 6.00, "currency": "GBP" }, "labels": ["veg", "spice-1"] },
+    { "name": "Saag Paneer", "price": { "amount": 6.50, "currency": "GBP" }, "description": "Fresh spinach and cottage cheese", "labels": ["veg", "spice-1"] },
+    { "name": "Matar Paneer", "price": { "amount": 6.50, "currency": "GBP" }, "description": "Green peas and cottage cheese", "labels": ["veg", "spice-1"] }
+  ] },
+
+  { "category": "Kids", "items": [
     {"name": "Popcorn Chicken", "price": { "amount": 5.75, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
     {"name": "Nuggets", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
     {"name": "Scampi", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
     {"name": "Chicken Pakora", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
     {"name": "CTM/Korma", "price": { "amount": 7.50, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]}
   ] },
-  { "category": "Salads", "items": [
-    {"name": "Avocado Mozzarella Salad", "price": { "amount": 7.00, "currency": "GBP" }, "labels": ["veg"]},
-    {"name": "Chicken Seasoning Salad", "price": { "amount": 7.50, "currency": "GBP" }}
-  ] },
+
   { "category": "Desserts", "items": [
     { "name": "Gulab Jamun", "price": { "amount": 4.50, "currency": "GBP" }, "labels": ["veg"] },
     { "name": "Nepalese Rice Pudding (Kheer)", "price": { "amount": 4.50, "currency": "GBP" }, "labels": ["veg"] },

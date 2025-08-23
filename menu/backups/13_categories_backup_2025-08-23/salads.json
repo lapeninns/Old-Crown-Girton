@@ -1,0 +1,4 @@
+[
+  {"name": "Avocado Mozzarella Salad", "price": { "amount": 7.00, "currency": "GBP" }, "labels": ["veg"]},
+  {"name": "Chicken Seasoning Salad", "price": { "amount": 7.50, "currency": "GBP" }}
+]

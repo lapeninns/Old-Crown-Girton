@@ -1,0 +1,8 @@
+[
+  {"name": "Chips", "price": { "amount": 3.25, "currency": "GBP" }, "labels": ["veg"]},
+  {"name": "Peri-Peri Chips", "price": { "amount": 3.75, "currency": "GBP" }, "labels": ["veg", "spice-2"]},
+  {"name": "Sweet Potato Chips", "price": { "amount": 4.25, "currency": "GBP" }, "labels": ["veg"]},
+  {"name": "Chilli Chips", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-2"]},
+  {"name": "Cheesy Chips", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg"]},
+  {"name": "Loaded Chips", "price": { "amount": 6.75, "currency": "GBP" }, "labels": ["veg"]}
+]

@@ -1,0 +1,7 @@
+[
+  { "name": "Veg/Vegan Burger", "price": { "amount": 9.00, "currency": "GBP" }, "description": "Served with chips", "labels": ["veg"] },
+  { "name": "Chicken Burger", "price": { "amount": 10.00, "currency": "GBP" }, "description": "Served with chips" },
+  { "name": "Beef Burger", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Served with chips" },
+  { "name": "Cheesy Chips Wrap", "price": { "amount": 7.00, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["veg"] },
+  { "name": "Sweet Chilli Wrap (Crispy)", "price": { "amount": 7.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["veg", "spice-2"] }
+]
