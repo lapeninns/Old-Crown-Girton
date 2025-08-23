@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 
 export default function TakeawayBanner() {
   return (
-  <section className="bg-gradient-to-r from-crimson to-crimson-700 py-12">
+  <section className="bg-gradient-to-r from-brand-600 to-brand-800 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center text-white"
+          className="text-center text-neutral-50"
         >
           <div className="flex items-center justify-center mb-4">
             <motion.div
@@ -35,7 +35,7 @@ export default function TakeawayBanner() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="tel:01223276027"
-              className="bg-white text-crimson hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+              className="bg-accent-500 text-neutral-900 hover:bg-accent-400 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 shadow-lg"
             >
               📞 Call to Order: 01223 276027
             </a>
@@ -46,19 +46,19 @@ export default function TakeawayBanner() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
-            className="mt-8 flex flex-wrap justify-center gap-6 text-sm"
+            className="mt-8 flex flex-wrap justify-center gap-6 text-base font-medium"
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 bg-brand-700/30 backdrop-blur-sm px-4 py-2 rounded-lg border border-accent-300/40">
               <span className="text-2xl">⏰</span>
-              <span>Ready in 20-30 mins</span>
+              <span className="text-neutral-50 font-semibold">Ready in 20-30 mins</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 bg-brand-700/30 backdrop-blur-sm px-4 py-2 rounded-lg border border-accent-300/40">
               <span className="text-2xl">🚗</span>
-              <span>Free collection</span>
+              <span className="text-neutral-50 font-semibold">Free collection</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">�</span>
-              <span>Call for current menu & prices</span>
+            <div className="flex items-center gap-2 bg-brand-700/30 backdrop-blur-sm px-4 py-2 rounded-lg border border-accent-300/40">
+              <span className="text-2xl">📞</span>
+              <span className="text-neutral-50 font-semibold">Call for current menu & prices</span>
             </div>
           </motion.div>
         </motion.div>

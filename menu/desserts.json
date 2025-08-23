@@ -1,0 +1,7 @@
+[
+  { "name": "Gulab Jamun", "price": { "amount": 4.50, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Nepalese Rice Pudding (Kheer)", "price": { "amount": 4.50, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Chocolate Fondant", "price": { "amount": 4.50, "currency": "GBP" }, "description": "Chocolate sponge with chocolate liquid in the middle", "labels": ["veg"] },
+  { "name": "Punky Ice Cream", "price": { "amount": 5.00, "currency": "GBP" }, "description": "Kiddies ice cream", "labels": ["veg"] },
+  { "name": "Vanilla and Honey Toffee Ice Cream", "price": { "amount": 6.50, "currency": "GBP" }, "labels": ["veg"] }
+]

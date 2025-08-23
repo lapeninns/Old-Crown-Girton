@@ -19,7 +19,7 @@ export default async function MenuContainer() {
   if (!data) {
     return (
       <div className="max-w-2xl mx-auto p-6">
-        <div className="p-6 bg-yellow-50 border border-yellow-200 rounded">
+        <div className="p-6 bg-accent-50 border border-accent-200 rounded">
           Failed to load menu at this time. Please try again later.
         </div>
       </div>

@@ -36,14 +36,14 @@ const ButtonPopover = () => {
               <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-base-content ring-opacity-5">
                 <div className="relative grid gap-4 bg-base-100 p-4 lg:grid-cols-2">
                   <div className="text-sm flex items-center gap-3 p-2 cursor-pointer hover:bg-base-200 rounded-lg duration-200">
-                    <span className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg bg-orange-500/20">
+                    <span className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg bg-marigold-500/20">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6 stroke-orange-600"
+                        className="w-6 h-6 text-marigold-600"
                       >
                         <path
                           strokeLinecap="round"
@@ -65,14 +65,14 @@ const ButtonPopover = () => {
                     </div>
                   </div>
                   <div className="text-sm flex items-center gap-3 p-2 cursor-pointer hover:bg-base-200 rounded-lg duration-200">
-                    <span className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg bg-yellow-500/20">
+                    <span className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg bg-accent-500/20">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6 stroke-yellow-600"
+                        className="w-6 h-6 text-accent-600"
                       >
                         <path
                           strokeLinecap="round"
@@ -89,14 +89,14 @@ const ButtonPopover = () => {
                     </div>
                   </div>
                   <div className="text-sm flex items-center gap-3 p-2 cursor-pointer hover:bg-base-200 rounded-lg duration-200">
-                    <span className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg bg-green-500/20">
+                    <span className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg bg-cardamom-500/20">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6 stroke-green-600"
+                        className="w-6 h-6 text-cardamom-600"
                       >
                         <path
                           strokeLinecap="round"

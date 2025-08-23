@@ -22,7 +22,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return this.props.fallback ?? (
-        <div className="p-6 bg-red-50 text-red-700 rounded">
+        <div className="p-6 bg-crimson-50 text-crimson-700 rounded">
           Something went wrong loading this section.
         </div>
       );

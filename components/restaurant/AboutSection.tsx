@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function AboutSection() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -19,7 +19,7 @@ export default function AboutSection() {
               Welcome to <span className="text-accent">Old Crown</span>
             </h2>
             
-            <div className="prose prose-lg text-gray-600 space-y-4">
+            <div className="prose prose-lg text-brand-600 space-y-4">
               <p>Girton’s historic thatched pub just outside Cambridge – blending community heritage with a warmly spiced Nepalese kitchen and familiar British pub comfort.</p>
               <p>Garden space for long summer evenings, cosy interior for winter gatherings, and a welcoming spot for locals, families, students, professionals & visitors.</p>
               <p>Our dual identity means you can explore aromatic Himalayan-inspired dishes while friends opt for classic favourites – shared tables, shared experiences.</p>
@@ -34,7 +34,7 @@ export default function AboutSection() {
               className="mt-8 p-6 bg-brand-50 rounded-lg"
             >
               <h3 className="text-xl font-display font-bold text-stout-700 mb-4">Why Guests Visit</h3>
-              <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+              <ul className="list-disc pl-5 text-sm text-brand-600 space-y-1">
                 <li>Distinctive thatched setting & village feel</li>
                 <li>Authentic Nepalese flavour + pub classics</li>
                 <li>Inclusive for mixed groups & families</li>
@@ -67,7 +67,7 @@ export default function AboutSection() {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
-              className="absolute -top-4 -right-4 bg-accent text-white p-4 rounded-full shadow-lg"
+              className="absolute -top-4 -right-4 bg-accent-500 text-neutral-900 p-4 rounded-full shadow-lg"
             >
               <span className="text-2xl">🍽️</span>
             </motion.div>

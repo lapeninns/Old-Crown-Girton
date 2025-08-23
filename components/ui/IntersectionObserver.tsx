@@ -158,8 +158,8 @@ const ProgressiveImage = memo<ProgressiveImageProps>(({
         }
       }}
       fallback={
-        <div className={`bg-gray-200 animate-pulse ${className}`}>
-          <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer" />
+        <div className={`bg-neutral-200 animate-pulse ${className}`}>
+          <div className="w-full h-full bg-gradient-to-r from-neutral-300 via-neutral-200 to-neutral-300 animate-shimmer" />
         </div>
       }
     >
@@ -182,8 +182,8 @@ const ProgressiveImage = memo<ProgressiveImageProps>(({
         
         {/* Loading overlay */}
         {!isLoaded && (
-          <div className="absolute inset-0 bg-gray-100 animate-pulse">
-            <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer" />
+          <div className="absolute inset-0 bg-neutral-100 animate-pulse">
+            <div className="w-full h-full bg-gradient-to-r from-neutral-300 via-neutral-200 to-neutral-300 animate-shimmer" />
           </div>
         )}
       </div>

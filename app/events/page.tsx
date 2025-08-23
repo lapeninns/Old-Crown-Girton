@@ -51,7 +51,7 @@ export default function EventsPage() {
             <h1 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
               What&apos;s On & <span className="text-accent-500">Community Events</span>
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-brand-600 max-w-2xl mx-auto mb-8">
               Recurring favourites plus seasonal highlights reflecting Girton village life &amp; Cambridge academic rhythm. Call to reserve or enquire about group space.
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function EventsPage() {
                   <span className="text-4xl">{event.icon}</span>
                   <div className="flex-1">
                     <h3 className="text-xl font-display font-bold text-brand-700 mb-2" itemProp="name">{event.title}</h3>
-                    <p className="text-gray-600 mb-2" itemProp="description">{event.description}</p>
+                    <p className="text-brand-600 mb-2" itemProp="description">{event.description}</p>
                     <meta itemProp="startDate" content={event.startDate} />
                     {(event as any).endDate && <meta itemProp="endDate" content={(event as any).endDate} />}
                     <p className="text-sm font-medium text-accent-500" itemProp="eventSchedule">{event.frequency}</p>
@@ -81,13 +81,13 @@ export default function EventsPage() {
               <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">
                 Private Hire & Functions
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-brand-600 mb-6">
                 Birthdays, society evenings, project celebrations, milestone family gatherings or informal professional socials — enquire about space and tailored food options.
               </p>
               
               <div className="bg-neutral-100 rounded-lg p-6 mb-6">
                 <h3 className="font-bold text-brand-700 mb-3">Sample Use Cases:</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-brand-600">
                   <div>• Birthday / anniversary</div>
                   <div>• Society socials</div>
                   <div>• Project / team wrap-up</div>
@@ -109,7 +109,7 @@ export default function EventsPage() {
           {/* Contact for Updates */}
           <div className="bg-accent-50 border-2 border-accent-500 rounded-xl p-6 text-center">
             <h3 className="text-xl font-display font-bold text-brand-700 mb-3">Stay Updated</h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-brand-600 mb-4">
               Follow for fixture announcements, seasonal dates & last‑minute quiz availability.
             </p>
             <div className="flex justify-center space-x-4">

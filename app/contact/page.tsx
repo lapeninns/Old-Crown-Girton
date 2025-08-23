@@ -27,7 +27,7 @@ export default function ContactPage() {
                     <p className="text-neutral-600">Call us for reservations and enquiries</p>
                   </div>
                 </div>
-                <a href="tel:01223276027" style={{ backgroundColor: 'var(--color-accent-950)' }} className="inline-block bg-accent-950 hover:bg-accent-950 text-neutral-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60" aria-label="Call Himalayan Spice" type="button">📞 01223 276027</a>
+                <a href="tel:01223276027" className="inline-block bg-accent-600 hover:bg-accent-700 text-neutral-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/60" aria-label="Call Himalayan Spice" type="button">📞 01223 276027</a>
               </div>
 
               {/* Address */}
@@ -193,7 +193,7 @@ export default function ContactPage() {
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2444.7892358932124!2d0.09036631577853944!3d52.23847767975736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d870a1c0e1e9b7%3A0x1f4c4f8c4f8c4f8c!2sGirton%2C%20Cambridge!5e0!3m2!1sen!2suk!4v1635789123456!5m2!1sen!2suk"
                   width="100%"
                   height="100%"
-                  style={{ border: 0 }}
+                  className="h-[400px] w-full rounded-xl shadow-lg"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

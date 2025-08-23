@@ -23,7 +23,7 @@ const Skeleton = memo<SkeletonProps>(({
   children,
   ...props 
 }) => {
-  const baseClasses = 'bg-gray-200 dark:bg-gray-700';
+  const baseClasses = 'bg-neutral-200 dark:bg-neutral-700';
   
   const variantClasses = {
     default: 'rounded',
@@ -34,7 +34,7 @@ const Skeleton = memo<SkeletonProps>(({
 
   const animationClasses = {
     pulse: 'animate-pulse',
-    wave: 'animate-shimmer bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%]',
+    wave: 'animate-shimmer bg-gradient-to-r from-neutral-300 via-neutral-200 to-neutral-300 bg-[length:200%_100%]',
     none: ''
   };
 
@@ -57,7 +57,7 @@ Skeleton.displayName = 'Skeleton';
 
 // Menu item skeleton with advanced shimmer
 const MenuItemSkeleton = memo(() => (
-  <div className="bg-white rounded-lg border border-gray-100 p-6 space-y-4 relative overflow-hidden">
+  <div className="bg-neutral-50 rounded-lg border border-neutral-200 p-6 space-y-4 relative overflow-hidden">
     <div className="flex justify-between items-start">
       <div className="space-y-2 flex-1">
         <Skeleton className="h-6 w-3/4" />
@@ -81,9 +81,9 @@ MenuItemSkeleton.displayName = 'MenuItemSkeleton';
 
 // Advanced menu loading skeleton with realistic layout
 const AdvancedMenuSkeleton = memo(() => (
-  <div className="min-h-screen bg-gray-50/50">
+  <div className="min-h-screen bg-neutral-100/50">
     {/* Header skeleton */}
-    <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
+    <div className="bg-neutral-50 border-b border-neutral-200 sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="flex justify-between items-center">
           <Skeleton className="h-8 w-48" />
@@ -134,7 +134,7 @@ AdvancedMenuSkeleton.displayName = 'AdvancedMenuSkeleton';
 
 // Hero section skeleton with gradient shimmer
 const HeroSkeleton = memo(() => (
-  <div className="relative h-screen bg-gradient-to-r from-gray-100 to-gray-200 overflow-hidden">
+  <div className="relative h-screen bg-gradient-to-r from-neutral-200 to-neutral-300 overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer bg-[length:200%_100%]" />
     
     <div className="relative h-full flex items-center justify-center">
@@ -164,7 +164,7 @@ HeroSkeleton.displayName = 'HeroSkeleton';
 
 // Card skeleton for testimonials and highlights
 const CardSkeleton = memo(() => (
-  <div className="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100 relative overflow-hidden">
+  <div className="bg-neutral-50 rounded-xl p-6 space-y-4 shadow-sm border border-neutral-200 relative overflow-hidden">
     <div className="flex items-start space-x-4">
       <Skeleton variant="circular" className="w-12 h-12 flex-shrink-0" />
       <div className="space-y-2 flex-1">
@@ -194,7 +194,7 @@ CardSkeleton.displayName = 'CardSkeleton';
 
 // Grid skeleton for testimonials/highlights sections
 const GridSkeleton = memo(({ title = "Section", count = 4 }: { title?: string; count?: number }) => (
-  <div className="py-16 bg-gray-50/30">
+  <div className="py-16 bg-neutral-100/30">
     <div className="max-w-7xl mx-auto px-4">
       <div className="text-center mb-12">
         <Skeleton className="h-10 w-64 mx-auto mb-4" />

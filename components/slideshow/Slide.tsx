@@ -19,11 +19,11 @@ const Slide: React.FC<{ slide: SlideType; active?: boolean }> = ({ slide }) => {
             <span className="block text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl">{slide.headline}</span>
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">{slide.copy}</p>
+          <p className="text-sm sm:text-base md:text-lg text-neutral-200 mb-8 max-w-2xl mx-auto leading-relaxed">{slide.copy}</p>
 
           <div className="flex flex-wrap justify-center gap-3 text-sm md:text-base text-white/85 mb-10 max-w-3xl mx-auto">
             {(slide.badges || []).map((b) => (
-              <span key={b} className="px-3 py-1 bg-white/10 rounded-full backdrop-blur border border-white/15">
+              <span key={b} className="px-3 py-1 bg-neutral-50/10 rounded-full backdrop-blur border border-white/15">
                 {b}
               </span>
             ))}
@@ -46,7 +46,7 @@ const Slide: React.FC<{ slide: SlideType; active?: boolean }> = ({ slide }) => {
 
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/70 rounded-full mt-2" />
+          <div className="w-1 h-3 bg-neutral-50/70 rounded-full mt-2" />
         </div>
       </div>
     </section>

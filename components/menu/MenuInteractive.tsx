@@ -62,7 +62,7 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
                     setPrevious(selected);
                     setSelected(null);
                   }}
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${selected === null ? 'bg-accent text-white' : 'bg-white text-brand-700 hover:bg-accent hover:text-white'}`}
+                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${selected === null ? 'bg-accent text-white' : 'bg-neutral-50 text-brand-700 hover:bg-accent hover:text-white'}`}
                   aria-pressed={selected === null}
                 >
                   All
@@ -102,7 +102,7 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
                       setPrevious(selected);
                       setSelected(newId);
                     }}
-                    className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-accent text-white' : 'bg-white text-brand-700 hover:bg-accent hover:text-white'}`}
+                    className={`inline-block px-3 py-2 rounded-md text-sm font-medium ${isActive ? 'bg-accent text-white' : 'bg-neutral-50 text-brand-700 hover:bg-accent hover:text-white'}`}
                     aria-pressed={isActive}
                     aria-controls={controlsId}
                   >

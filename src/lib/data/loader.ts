@@ -24,6 +24,45 @@ function dataPath(env: string, file: string) {
 }
 
 export async function getMenuData(env: AppEnv = resolveEnv()): Promise<Menu> {
+  // Try modular menu files first
+  const modularMenuDir = path.join(process.cwd(), "menu");
+  try {
+    const categories = [
+      { id: "starters", name: "Starters" },
+      { id: "fries", name: "Fries" },
+      { id: "sides", name: "Sides" },
+      { id: "speciality", name: "Speciality" },
+      { id: "mixed_grills", name: "Mixed Grills" },
+      { id: "rice", name: "Rice" },
+      { id: "naans", name: "Naans" },
+      { id: "desserts", name: "Desserts" },
+      { id: "burgers", name: "Burgers" },
+      { id: "kids_menu", name: "Kids Menu" },
+      { id: "pub_classics", name: "Pub Classics" },
+      { id: "salads", name: "Salads" },
+      { id: "wraps", name: "Wraps" }
+    ];
+    const sections = [];
+    for (const cat of categories) {
+      const filePath = path.join(modularMenuDir, `${cat.id}.json`);
+      try {
+        const raw = await fs.readFile(filePath, "utf8");
+        const items = JSON.parse(raw);
+        sections.push({ id: cat.id, name: cat.name, items });
+      } catch (e) {
+        // If file missing, skip
+      }
+    }
+    if (sections.length > 0) {
+      return {
+        updatedAt: new Date().toISOString(),
+        sections
+      };
+    }
+  } catch (e) {
+    // Ignore modular errors, fallback below
+  }
+  // Fallback to old monolithic menu.json
   return readJson<Menu>(dataPath(env, "menu.json"), MenuSchema, "menu");
 }
 

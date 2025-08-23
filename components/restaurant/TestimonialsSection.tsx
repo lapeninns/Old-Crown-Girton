@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-neutral-100">
       <div className="max-w-7xl mx-auto">
         {/* Hidden injector to refresh schema (no additional props needed) */}
         <SchemaInjector type="restaurant" page="testimonials" />
@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-stout-700 mb-4">
             What Our Customers Say
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-600 max-w-2xl mx-auto">
             Don&apos;t just take our word for it - hear from our valued customers about their dining experience
           </p>
         </motion.div>
@@ -81,7 +81,7 @@ export default function TestimonialsSection() {
                   <svg
                     key={i}
                     className={`w-5 h-5 ${
-                      i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'
+                      i < testimonial.rating ? 'text-accent-500' : 'text-neutral-300'
                     }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -92,7 +92,7 @@ export default function TestimonialsSection() {
               </div>
 
               {/* Testimonial Text */}
-              <blockquote className="text-gray-700 mb-4 leading-relaxed">
+              <blockquote className="text-brand-600 mb-4 leading-relaxed">
                 &ldquo;{testimonial.text}&rdquo;
               </blockquote>
 
@@ -100,12 +100,12 @@ export default function TestimonialsSection() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-semibold text-stout-700">{testimonial.author}</p>
-                  <p className="text-sm text-gray-500">{testimonial.location}</p>
+                  <p className="text-sm text-neutral-500">{testimonial.location}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-gray-500">{testimonial.platform}</p>
+                  <p className="text-sm text-neutral-500">{testimonial.platform}</p>
                   {testimonial.verified && (
-                    <div className="flex items-center text-green-600 text-sm">
+                    <div className="flex items-center text-cardamom-600 text-sm">
                       <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path
                           fillRule="evenodd"
@@ -130,7 +130,7 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <p className="text-lg text-gray-600 mb-6">
+          <p className="text-lg text-brand-600 mb-6">
             Ready to create your own memorable dining experience?
           </p>
           <motion.a

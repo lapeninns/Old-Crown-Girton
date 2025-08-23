@@ -37,32 +37,32 @@ export default function OfflinePage() {
         </h1>
 
         {/* Description */}
-        <p className="text-gray-600 mb-8 leading-relaxed">
+        <p className="text-brand-600 mb-8 leading-relaxed">
           It looks like you&apos;ve lost your internet connection. Don&apos;t worry - the Old Crown Restaurant app works offline for pages you&apos;ve already visited.
         </p>
 
         {/* Features available offline */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-8">
+        <div className="bg-neutral-50 rounded-xl p-6 shadow-sm border border-neutral-200 mb-8">
           <h2 className="text-lg font-semibold text-stout-700 mb-4">
             Available Offline:
           </h2>
           
           <div className="space-y-3 text-left">
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Previously viewed menu items</span>
+              <div className="w-2 h-2 bg-cardamom-500 rounded-full"></div>
+              <span className="text-sm text-brand-600">Previously viewed menu items</span>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Restaurant information</span>
+              <div className="w-2 h-2 bg-cardamom-500 rounded-full"></div>
+              <span className="text-sm text-brand-600">Restaurant information</span>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Contact details</span>
+              <div className="w-2 h-2 bg-cardamom-500 rounded-full"></div>
+              <span className="text-sm text-brand-600">Contact details</span>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Form submissions (will sync when online)</span>
+              <div className="w-2 h-2 bg-accent-500 rounded-full"></div>
+              <span className="text-sm text-brand-600">Form submissions (will sync when online)</span>
             </div>
           </div>
         </div>
@@ -71,9 +71,9 @@ export default function OfflinePage() {
         <OfflineActions />
 
         {/* Tips */}
-        <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
-          <h3 className="text-sm font-semibold text-blue-800 mb-2">Tips:</h3>
-          <ul className="text-xs text-blue-700 space-y-1 text-left">
+        <div className="mt-8 p-4 bg-secondary-50 rounded-lg border border-secondary-200">
+          <h3 className="text-sm font-semibold text-secondary-800 mb-2">Tips:</h3>
+          <ul className="text-xs text-secondary-700 space-y-1 text-left">
             <li>• Check your internet connection</li>
             <li>• Try connecting to Wi-Fi</li>
             <li>• Visit our menu page when online for offline access</li>
@@ -83,8 +83,8 @@ export default function OfflinePage() {
 
         {/* Connection status indicator */}
         <div className="mt-6">
-          <div id="connection-status" className="text-sm text-gray-500">
-            <span className="inline-block w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+          <div id="connection-status" className="text-sm text-neutral-500">
+            <span className="inline-block w-2 h-2 bg-crimson-500 rounded-full mr-2"></span>
             Offline
           </div>
         </div>
@@ -104,10 +104,10 @@ export default function OfflinePage() {
             function updateConnectionStatus() {
               const statusEl = document.getElementById('connection-status');
               if (navigator.onLine) {
-                statusEl.innerHTML = '<span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-2"></span>Online - Reloading...';
+                statusEl.innerHTML = '<span class="inline-block w-2 h-2 bg-cardamom-500 rounded-full mr-2"></span>Online - Reloading...';
                 setTimeout(() => window.location.reload(), 1000);
               } else {
-                statusEl.innerHTML = '<span class="inline-block w-2 h-2 bg-red-500 rounded-full mr-2"></span>Offline';
+                statusEl.innerHTML = '<span class="inline-block w-2 h-2 bg-crimson-500 rounded-full mr-2"></span>Offline';
               }
             }
 

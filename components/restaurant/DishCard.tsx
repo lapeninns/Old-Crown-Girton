@@ -43,14 +43,14 @@ export default function DishCard({
         {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
           {isVegetarian && (
-            <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+            <span className="bg-cardamom-500 text-white text-xs px-2 py-1 rounded-full font-medium">
               Vegetarian
             </span>
           )}
           {spiceLevel && (
             <span className={`text-white text-xs px-2 py-1 rounded-full font-medium ${
-              spiceLevel === 'mild' ? 'bg-green-400' :
-              spiceLevel === 'medium' ? 'bg-yellow-500' : 'bg-red-500'
+              spiceLevel === 'mild' ? 'bg-cardamom-400' :
+              spiceLevel === 'medium' ? 'bg-accent-500' : 'bg-crimson-500'
             }`}>
               {spiceLevel === 'mild' ? '🌶️' : spiceLevel === 'medium' ? '🌶️🌶️' : '🌶️🌶️🌶️'}
             </span>
@@ -69,7 +69,7 @@ export default function DishCard({
         <h3 className="text-xl font-display font-bold text-stout-700 mb-2">
           {title}
         </h3>
-        <p className="text-gray-600 mb-4 line-clamp-2">
+        <p className="text-neutral-600 mb-4 line-clamp-2">
           {description}
         </p>
         <a

@@ -145,7 +145,7 @@
       "items": [
         {
           "id": "galleys-veg-grill",
-          "name": "Galley's Veg Grill",
+          "name": "Veg Grill",
           "description": "Onion bhaji, mogo, samosas and paneer",
           "price": { "amount": 11.0, "currency": "GBP" },
           "available": true,
@@ -362,6 +362,33 @@
           "available": true,
           "dietary": { "glutenFree": true },
           "tags": ["chef-special"]
+        },
+        {
+          "id": "kathmandu-tikka",
+          "name": "Kathmandu Tikka",
+          "description": "Traditional Kathmandu-style marinated chicken cooked in tandoor with aromatic spices",
+          "price": { "amount": 13.5, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": ["tandoor", "nepalese"]
+        },
+        {
+          "id": "kathmandu-tikka-masala",
+          "name": "Kathmandu Tikka Masala",
+          "description": "Kathmandu tikka cooked in rich creamy tomato-based sauce with traditional spices",
+          "price": { "amount": 14.5, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": ["tandoor", "nepalese"]
+        },
+        {
+          "id": "special-veggie-tarkari",
+          "name": "Special Veggie Tarkari",
+          "description": "Nepalese style vegetarian semi dry curry cooked with aromatic spices and herbs full of flavours",
+          "price": { "amount": 11.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "vegetarian": true, "glutenFree": true },
+          "tags": ["nepalese", "vegetarian"]
         }
       ]
     },
@@ -513,15 +540,6 @@
       "id": "sides",
       "name": "Sides",
       "items": [
-        {
-          "id": "special-veggie-tarkari",
-          "name": "Special Veggie Tarkari",
-          "description": "Nepalese style vegetarian semi dry curry cooked with aromatic spices and herbs full of flavours",
-          "price": { "amount": 11.0, "currency": "GBP" },
-          "available": true,
-          "dietary": { "vegetarian": true, "glutenFree": true },
-          "tags": ["nepalese", "side"]
-        },
         {
           "id": "tadka-daal",
           "name": "Tadka Daal (Lentil)",
@@ -785,9 +803,40 @@
     },
     
     {
-      "id": "burgers",
-      "name": "Burgers",
+      "id": "pub-classics",
+      "name": "Pub Classics",
       "items": [
+        {
+          "id": "chicken-strips-chips",
+          "name": "Chicken Strips with Chips",
+          "price": { "amount": 9.0, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "peri-peri-chicken-chips",
+          "name": "Peri-Peri Chicken with Chips",
+          "price": { "amount": 9.0, "currency": "GBP" },
+          "available": true,
+          "tags": ["spicy"]
+        },
+        {
+          "id": "fish-chips",
+          "name": "Fish & Chips",
+          "description": "Medium battered cod fish served with tartar sauce",
+          "price": { "amount": 12.0, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "lamb-chops-chips",
+          "name": "Lamb Chops with Chips",
+          "description": "Grilled lamb chops served with seasoned chips",
+          "price": { "amount": 14.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": []
+        },
         {
           "id": "veg-vegan-burger",
           "name": "Veg/Vegan Burger",
@@ -911,6 +960,13 @@
           "id": "punky-ice-cream",
           "name": "Punky Ice Cream",
           "description": "Kiddies ice cream",
+          "price": { "amount": 5.0, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "vanilla-ice-cream",
+          "name": "Vanilla Ice Cream",
           "price": { "amount": 5.0, "currency": "GBP" },
           "available": true,
           "tags": []

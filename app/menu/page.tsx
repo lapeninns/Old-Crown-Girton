@@ -93,7 +93,7 @@ export default async function MenuPage() {
 						<h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
 							Ready to Try Our Unique Menu?
 						</h2>
-						<p className="text-xl text-gray-200 mb-8">
+						<p className="text-xl text-neutral-200 mb-8">
 							Book a table or order takeaway to experience the best of Nepal and Britain at Girton's historic thatched pub.
 						</p>
 						<div className="flex flex-wrap gap-4 justify-center">
@@ -103,12 +103,12 @@ export default async function MenuPage() {
 							<a href="tel:01223276027" className="bg-crimson-600 hover:bg-crimson-800 text-white font-bold py-4 px-8 rounded-lg text-lg">
 								{labelOrderTakeaway}
 							</a>
-							<Link href="/about" className="bg-white hover:bg-gray-100 text-stout-700 font-bold py-4 px-8 rounded-lg text-lg">
+							<Link href="/about" className="bg-white hover:bg-neutral-100 text-stout-700 font-bold py-4 px-8 rounded-lg text-lg">
 								Learn Our Story
 							</Link>
 						</div>
             
-						<div className="mt-8 text-sm text-gray-300">
+						<div className="mt-8 text-sm text-neutral-300">
 							<p><strong>Address:</strong> 89 High Street, Girton, Cambridge CB3 0QQ</p>
 							<p><strong>Kitchen Hours:</strong> Daily 12:00-22:00 (22:30 Fri/Sat, 21:30 Sun)</p>
 						</div>
