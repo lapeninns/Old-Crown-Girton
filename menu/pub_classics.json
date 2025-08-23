@@ -1,5 +1,5 @@
 [
-  {"name": "Chicken Strips with Chips", "price": "£9.00"},
-  {"name": "Peri-Peri Chicken with Chips", "price": "£9.00"},
-  {"name": "Fish & Chips", "price": "£12.00", "description": "Medium battered cod fish served with tartar sauce"}
+  {"name": "Chicken Strips with Chips", "price": { "amount": 9.00, "currency": "GBP" }, "labels": ["spice-1"]},
+  {"name": "Peri-Peri Chicken with Chips", "price": { "amount": 9.00, "currency": "GBP" }, "labels": ["spice-2"]},
+  {"name": "Fish & Chips", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Medium battered cod fish served with tartar sauce", "labels": ["spice-1"]}
 ]
