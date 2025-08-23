@@ -145,7 +145,7 @@
       "items": [
         {
           "id": "galleys-veg-grill",
-          "name": "Galley's Veg Grill",
+          "name": "Veg Grill",
           "description": "Onion bhaji, mogo, samosas and paneer",
           "price": { "amount": 11.0, "currency": "GBP" },
           "available": true,
@@ -362,6 +362,33 @@
           "available": true,
           "dietary": { "glutenFree": true },
           "tags": ["chef-special"]
+        },
+        {
+          "id": "kathmandu-tikka",
+          "name": "Kathmandu Tikka",
+          "description": "Succulent chicken breast cubes marinated in cheese and cream with a hint of crushed black peppers",
+          "price": { "amount": 13.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": ["tandoor"]
+        },
+        {
+          "id": "kathmandu-tikka-masala",
+          "name": "Kathmandu Tikka Masala",
+          "description": "Kathmandu tikka cooked in our signature creamy masala sauce",
+          "price": { "amount": 14.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "glutenFree": true },
+          "tags": ["tandoor"]
+        },
+        {
+          "id": "special-veggie-tarkari",
+          "name": "Special Veggie Tarkari",
+          "description": "Nepalese style vegetarian semi dry curry cooked with aromatic spices and herbs full of flavours",
+          "price": { "amount": 11.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "vegetarian": true, "glutenFree": true },
+          "tags": ["nepalese"]
         }
       ]
     },
@@ -513,15 +540,7 @@
       "id": "sides",
       "name": "Sides",
       "items": [
-        {
-          "id": "special-veggie-tarkari",
-          "name": "Special Veggie Tarkari",
-          "description": "Nepalese style vegetarian semi dry curry cooked with aromatic spices and herbs full of flavours",
-          "price": { "amount": 11.0, "currency": "GBP" },
-          "available": true,
-          "dietary": { "vegetarian": true, "glutenFree": true },
-          "tags": ["nepalese", "side"]
-        },
+
         {
           "id": "tadka-daal",
           "name": "Tadka Daal (Lentil)",
@@ -690,54 +709,6 @@
       ]
     },
     {
-      "id": "fries",
-      "name": "Fries",
-      "items": [
-        {
-          "id": "chips",
-          "name": "Chips",
-          "price": { "amount": 3.25, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        },
-        {
-          "id": "peri-peri-chips",
-          "name": "Peri-Peri Chips",
-          "price": { "amount": 3.75, "currency": "GBP" },
-          "available": true,
-          "tags": ["spicy"]
-        },
-        {
-          "id": "sweet-potato-chips",
-          "name": "Sweet Potato Chips",
-          "price": { "amount": 4.25, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        },
-        {
-          "id": "chilli-chips",
-          "name": "Chilli Chips",
-          "price": { "amount": 4.75, "currency": "GBP" },
-          "available": true,
-          "tags": ["spicy"]
-        },
-        {
-          "id": "cheesy-chips",
-          "name": "Cheesy Chips",
-          "price": { "amount": 4.75, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        },
-        {
-          "id": "loaded-chips",
-          "name": "Loaded Chips",
-          "price": { "amount": 6.75, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        }
-      ]
-    },
-    {
       "id": "wraps",
       "name": "Wraps",
       "items": [
@@ -783,38 +754,7 @@
         }
       ]
     },
-    
-    {
-      "id": "burgers",
-      "name": "Burgers",
-      "items": [
-        {
-          "id": "veg-vegan-burger",
-          "name": "Veg/Vegan Burger",
-          "description": "Served with chips",
-          "price": { "amount": 9.0, "currency": "GBP" },
-          "available": true,
-          "dietary": { "vegetarian": true },
-          "tags": []
-        },
-        {
-          "id": "chicken-burger",
-          "name": "Chicken Burger",
-          "description": "Served with chips",
-          "price": { "amount": 10.0, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        },
-        {
-          "id": "beef-burger",
-          "name": "Beef Burger",
-          "description": "Served with chips",
-          "price": { "amount": 11.0, "currency": "GBP" },
-          "available": true,
-          "tags": []
-        }
-      ]
-    },
+
     {
       "id": "salads",
       "name": "Salads",
@@ -882,6 +822,79 @@
       ]
     },
     {
+      "id": "pub-classics",
+      "name": "Pub Classics",
+      "items": [
+        {
+          "id": "chips",
+          "name": "Chips",
+          "price": { "amount": 3.25, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "peri-peri-chips",
+          "name": "Peri-Peri Chips",
+          "price": { "amount": 3.75, "currency": "GBP" },
+          "available": true,
+          "tags": ["spicy"]
+        },
+        {
+          "id": "sweet-potato-chips",
+          "name": "Sweet Potato Chips",
+          "price": { "amount": 4.25, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "chilli-chips",
+          "name": "Chilli Chips",
+          "price": { "amount": 4.75, "currency": "GBP" },
+          "available": true,
+          "tags": ["spicy"]
+        },
+        {
+          "id": "cheesy-chips",
+          "name": "Cheesy Chips",
+          "price": { "amount": 4.75, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "loaded-chips",
+          "name": "Loaded Chips",
+          "price": { "amount": 6.75, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "veg-vegan-burger",
+          "name": "Veg/Vegan Burger",
+          "description": "Served with chips",
+          "price": { "amount": 9.0, "currency": "GBP" },
+          "available": true,
+          "dietary": { "vegetarian": true },
+          "tags": []
+        },
+        {
+          "id": "chicken-burger",
+          "name": "Chicken Burger",
+          "description": "Served with chips",
+          "price": { "amount": 10.0, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "beef-burger",
+          "name": "Beef Burger",
+          "description": "Served with chips",
+          "price": { "amount": 11.0, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        }
+      ]
+    },
+    {
       "id": "desserts",
       "name": "Desserts",
       "items": [
@@ -893,11 +906,11 @@
           "tags": []
         },
         {
-          "id": "nepalese-rice-pudding-kheer",
-          "name": "Nepalese Rice Pudding (Kheer)",
+          "id": "rice-pudding",
+          "name": "Rice Pudding",
           "price": { "amount": 4.5, "currency": "GBP" },
           "available": true,
-          "tags": ["nepalese"]
+          "tags": []
         },
         {
           "id": "chocolate-fondant",
@@ -916,9 +929,16 @@
           "tags": []
         },
         {
-          "id": "vanilla-honey-toffee-ice-cream",
-          "name": "Vanilla and Honey Toffee Ice Cream",
-          "price": { "amount": 6.5, "currency": "GBP" },
+          "id": "vanilla-ice-cream",
+          "name": "Vanilla Ice Cream",
+          "price": { "amount": 5.0, "currency": "GBP" },
+          "available": true,
+          "tags": []
+        },
+        {
+          "id": "honey-toffee-ice-cream",
+          "name": "Honey Toffee Ice Cream",
+          "price": { "amount": 5.5, "currency": "GBP" },
           "available": true,
           "tags": []
         }

@@ -6,6 +6,5 @@
   { "name": "Saag Bhaji", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Spinach", "labels": ["veg", "spice-1"] },
   { "name": "Mushroom Bhaji", "price": { "amount": 6.00, "currency": "GBP" }, "labels": ["veg", "spice-1"] },
   { "name": "Saag Paneer", "price": { "amount": 6.50, "currency": "GBP" }, "description": "Fresh spinach and cottage cheese", "labels": ["veg", "spice-1"] },
-  { "name": "Matar Paneer", "price": { "amount": 6.50, "currency": "GBP" }, "description": "Green peas and cottage cheese", "labels": ["veg", "spice-1"] },
-  { "name": "Special Veggie Tarkari", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Nepalese style vegetarian semi dry curry cooled with aromatic spices and herbs full of flavours", "labels": ["veg", "spice-1", "GF"] }
+  { "name": "Matar Paneer", "price": { "amount": 6.50, "currency": "GBP" }, "description": "Green peas and cottage cheese", "labels": ["veg", "spice-1"] }
 ]

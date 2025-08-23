@@ -17,5 +17,7 @@
   {"name": "Rara King Prawn", "price": { "amount": 15.00, "currency": "GBP" }, "description": "King prawn in coconut-based medium sauce", "image": "/dishes/curry-selection.jpg"},
   {"name": "Salmon Tikka", "price": { "amount": 16.00, "currency": "GBP" }, "description": "Chargrilled salmon with cumin seeds", "gluten_free": true, "image": "/dishes/chicken-tikka.jpg"},
   {"name": "Tandoori King Prawn", "price": { "amount": 18.00, "currency": "GBP" }, "description": "King prawn marinated in Nepalese spices, cooked in tandoor", "gluten_free": true, "image": "/dishes/tandoori-platter.jpg"},
-  {"name": "Lamb Shank", "price": { "amount": 20.00, "currency": "GBP" }, "description": "Slow-cooked lamb shank, Nepalese style", "gluten_free": true, "image": "/dishes/lamb-curry.jpg"}
+  {"name": "Kathmandu Tikka", "price": { "amount": 13.50, "currency": "GBP" }, "description": "Traditional Kathmandu-style marinated chicken cooked in tandoor with aromatic spices", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/chicken-tikka.jpg"},
+  {"name": "Kathmandu Tikka Masala", "price": { "amount": 14.50, "currency": "GBP" }, "description": "Kathmandu tikka cooked in rich creamy tomato-based sauce with traditional spices", "gluten_free": true, "labels": ["GF", "spice-2"], "image": "/dishes/chicken-tikka.jpg"},
+  {"name": "Special Veggie Tarkari", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Nepalese style vegetarian semi dry curry cooled with aromatic spices and herbs full of flavours", "labels": ["veg", "spice-1", "GF"], "image": "/dishes/curry-selection.jpg"}
 ]
