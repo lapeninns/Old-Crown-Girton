@@ -1,0 +1,7 @@
+[
+  { "name": "Cheesy Chips Wrap", "price": { "amount": 7.00, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce", "labels": ["veg"] },
+  { "name": "Chicken Tikka Wrap", "price": { "amount": 8.50, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce" },
+  { "name": "Kebab Wrap", "price": { "amount": 8.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce" },
+  { "name": "Special Wrap (Mix)", "price": { "amount": 9.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce" },
+  { "name": "Sweet Chilli Wrap (Crispy)", "price": { "amount": 7.75, "currency": "GBP" }, "description": "Served with chips, salad, mayo, sweet chilli sauce" }
+]

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import bookingData from "@/data/restaurant.json"; // contains phone
+import bookingData from "@/config/restaurant.json"; // contains phone
 import { useParsedData } from "@/hooks/useParsedData";
 import { MarketingDataSchema, MarketingDataParsed } from "@/lib/schemas";
 import config from "@/config";
@@ -28,7 +28,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	const [hideForModal, setHideForModal] = useState(false);
 	const [crispOffset, setCrispOffset] = useState(false);
 		// Responsive flag removed: not currently used (kept minimal to avoid UI changes)
-	const restaurantPhone = phone || bookingData?.restaurant?.contact?.phone || "01223 276027";
+	const restaurantPhone = phone || bookingData?.phone || "01223 276027";
 	const pathname = usePathname();
 
 	// Marketing copy (button labels) externalized

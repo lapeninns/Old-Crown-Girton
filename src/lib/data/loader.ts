@@ -19,51 +19,70 @@ async function readJson<T>(p: string, schema: any, name: string): Promise<T> {
   return schema.parse(parsed) as T;
 }
 
-function dataPath(env: string, file: string) {
-  return path.join(process.cwd(), "data", env, file);
+function configPath(file: string) {
+  return path.join(process.cwd(), "config", file);
 }
 
 export async function getMenuData(env: AppEnv = resolveEnv()): Promise<Menu> {
-  // Try modular menu files first
+  // Load from modular menu files in /menu directory
   const modularMenuDir = path.join(process.cwd(), "menu");
-  try {
-    const categories = [
-      { id: "starters", name: "Starters" },
-      { id: "fries", name: "Fries" },
-      { id: "sides", name: "Sides" },
-      { id: "speciality", name: "Speciality" },
-      { id: "mixed_grills", name: "Mixed Grills" },
-      { id: "rice", name: "Rice" },
-      { id: "naans", name: "Naans" },
-      { id: "desserts", name: "Desserts" },
-      { id: "burgers", name: "Burgers" },
-      { id: "kids_menu", name: "Kids Menu" },
-      { id: "pub_classics", name: "Pub Classics" },
-      { id: "salads", name: "Salads" },
-      { id: "wraps", name: "Wraps" }
-    ];
-    const sections = [];
-    for (const cat of categories) {
-      const filePath = path.join(modularMenuDir, `${cat.id}.json`);
-      try {
-        const raw = await fs.readFile(filePath, "utf8");
-        const items = JSON.parse(raw);
-        sections.push({ id: cat.id, name: cat.name, items });
-      } catch (e) {
-        // If file missing, skip
-      }
+  
+  const categories = [
+    { id: "starters", name: "Starters" },
+    { id: "mixed_grills", name: "Mixed Grills" },
+    { id: "speciality", name: "Speciality Dishes" },
+    { id: "authentic_dishes", name: "Authentic Dishes" },
+    { id: "naans", name: "Naans" },
+    { id: "fries", name: "Fries" },
+    { id: "pub_grub", name: "Pub Grub" },
+    { id: "rice", name: "Rice" },
+    { id: "pub_classics", name: "Pub Classic" },
+    { id: "salads", name: "Salads" },
+    { id: "sides", name: "Sides" },
+    { id: "kids_menu", name: "Kids" },
+    { id: "desserts", name: "Desserts" }
+  ];
+  
+  const sections = [];
+  for (const cat of categories) {
+    const filePath = path.join(modularMenuDir, `${cat.id}.json`);
+    try {
+      const raw = await fs.readFile(filePath, "utf8");
+      const items = JSON.parse(raw);
+      
+      // Transform items to match expected schema structure
+      const transformedItems = items.map((item: any, index: number) => ({
+        id: item.id || `${cat.id}-${index + 1}`,
+        name: item.name,
+        description: item.description || "",
+        price: item.price,
+        available: item.available !== false,
+        dietary: {
+          vegetarian: item.labels?.includes("veg") || false,
+          glutenFree: item.labels?.includes("GF") || false
+        },
+        tags: item.labels?.filter((label: string) => !['veg', 'GF'].includes(label)) || []
+      }));
+      
+      sections.push({ 
+        id: cat.id, 
+        name: cat.name, 
+        items: transformedItems 
+      });
+    } catch (e) {
+      console.warn(`Warning: Could not load menu category file ${cat.id}.json:`, e);
+      // Continue with other categories
     }
-    if (sections.length > 0) {
-      return {
-        updatedAt: new Date().toISOString(),
-        sections
-      };
-    }
-  } catch (e) {
-    // Ignore modular errors, fallback below
   }
-  // Fallback to old monolithic menu.json
-  return readJson<Menu>(dataPath(env, "menu.json"), MenuSchema, "menu");
+  
+  if (sections.length === 0) {
+    throw new Error('No menu data could be loaded from /menu directory');
+  }
+  
+  return {
+    updatedAt: new Date().toISOString(),
+    sections
+  };
 }
 
 /**
@@ -90,7 +109,7 @@ export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
 
 export async function getRestaurantInfo(env: AppEnv = resolveEnv()): Promise<Restaurant> {
   return readJson<Restaurant>(
-    dataPath(env, "restaurant.json"),
+    configPath("restaurant.json"),
     RestaurantSchema,
     "restaurant"
   );
@@ -98,14 +117,14 @@ export async function getRestaurantInfo(env: AppEnv = resolveEnv()): Promise<Res
 
 export async function getMarketingContent(env: AppEnv = resolveEnv()): Promise<Marketing> {
   return readJson<Marketing>(
-    dataPath(env, "marketing.json"),
+    configPath("marketing.json"),
     MarketingSchema,
     "marketing"
   );
 }
 
 export async function getConfigData(env: AppEnv = resolveEnv()): Promise<AppConfig> {
-  return readJson<AppConfig>(dataPath(env, "config.json"), ConfigSchema, "config");
+  return readJson<AppConfig>(configPath("config.json"), ConfigSchema, "config");
 }
 
 // --- REST fetchers (client/server) -------------------------------------------------

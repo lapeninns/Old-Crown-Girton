@@ -1,7 +1,7 @@
 [
-  {"name": "Popcorn Chicken", "price": { "amount": 5.75, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
-  {"name": "Nuggets", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
-  {"name": "Scampi", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
-  {"name": "Chicken Pakora", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]},
-  {"name": "CTM/Korma", "price": { "amount": 7.50, "currency": "GBP" }, "description": "Choose either chips or rice", "labels": ["spice-1"]}
+  { "name": "Nuggets", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice" },
+  { "name": "Scampi", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice" },
+  { "name": "Chicken Pakora", "price": { "amount": 6.00, "currency": "GBP" }, "description": "Choose either chips or rice" },
+  { "name": "Popcorn Chicken", "price": { "amount": 5.75, "currency": "GBP" }, "description": "Choose either chips or rice" },
+  { "name": "CTM/Korma", "price": { "amount": 7.50, "currency": "GBP" }, "description": "Choose either chips or rice" }
 ]

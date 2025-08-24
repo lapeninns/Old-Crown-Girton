@@ -1,0 +1,14 @@
+[
+  { "name": "Veg Curry", "price": { "amount": 10.00, "currency": "GBP" }, "labels": ["veg","GF"] },
+  { "name": "Chicken Curry", "price": { "amount": 11.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "Lamb Curry", "price": { "amount": 12.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "King Prawn Curry", "price": { "amount": 13.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "Veg Korma/Masala", "price": { "amount": 11.00, "currency": "GBP" }, "labels": ["veg","GF"] },
+  { "name": "Chicken Korma/Masala", "price": { "amount": 12.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "Lamb Korma/Masala", "price": { "amount": 13.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "King Prawn Korma/Masala", "price": { "amount": 14.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "Veg Balti/Karahi/Bhuna/Saag/Dhansak/Jalfrezi/Madras/Vindaloo/Phaal", "price": { "amount": 11.00, "currency": "GBP" }, "labels": ["veg","GF"] },
+  { "name": "Chicken Balti/Karahi/Bhuna/Saag/Dhansak/Jalfrezi/Madras/Vindaloo/Phaal", "price": { "amount": 12.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "Lamb Balti/Karahi/Bhuna/Saag/Dhansak/Jalfrezi/Madras/Vindaloo/Phaal", "price": { "amount": 13.00, "currency": "GBP" }, "labels": ["GF"] },
+  { "name": "King Prawn Balti/Karahi/Bhuna/Saag/Dhansak/Jalfrezi/Madras/Vindaloo/Phaal", "price": { "amount": 14.00, "currency": "GBP" }, "labels": ["GF"] }
+]

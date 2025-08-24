@@ -6,9 +6,9 @@
   },
   "api": {
     "baseUrl": "http://localhost:3000",
-  "menuEndpoint": "http://localhost:3000/api/menu",
-  "marketingEndpoint": "http://localhost:3000/api/marketing",
-  "restaurantEndpoint": "http://localhost:3000/api/restaurant"
+    "menuEndpoint": "http://localhost:3000/api/menu",
+    "marketingEndpoint": "http://localhost:3000/api/marketing",
+    "restaurantEndpoint": "http://localhost:3000/api/restaurant"
   },
   "cms": { "enabled": false },
   "metadata": {

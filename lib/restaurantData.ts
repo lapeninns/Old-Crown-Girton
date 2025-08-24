@@ -2,8 +2,8 @@
 // This file provides utilities to work with the unified restaurant template data
 
 
-// Import the unified restaurant template statically (works in Next.js)
-import restaurantTemplate from '../data/templates/restaurant-template.json';
+// Import the restaurant data statically (works in Next.js)
+import restaurantTemplate from '../config/restaurant.json';
 // Import the validated menu data
 
 
@@ -192,18 +192,92 @@ export interface MenuItem {
 
 // Utility functions
 
-// Utility functions for accessing restaurant data
-export const getRestaurantIdentity = () => restaurantTemplate.restaurant.identity;
-export const getContactInfo = () => restaurantTemplate.restaurant.contact;
-export const getHours = () => restaurantTemplate.restaurant.hours;
-export const getMenu = () => restaurantTemplate.menu;
-export const getMenuCategories = (): MenuCategory[] => restaurantTemplate.menu.categories;
-export const getTestimonials = () => restaurantTemplate.testimonials;
-export const getEvents = () => restaurantTemplate.events;
-export const getGallery = () => restaurantTemplate.gallery;
-export const getSEO = () => restaurantTemplate.seo;
-export const getSocialMedia = () => restaurantTemplate.restaurant.social;
-export const getDeliveryInfo = () => restaurantTemplate.delivery;
-export const getFeatures = () => restaurantTemplate.features;
+// Utility functions for accessing restaurant data with fallbacks for simplified structure
+export const getRestaurantIdentity = () => ({
+  name: (restaurantTemplate as any)?.name || "Old Crown Girton",
+  tagline: "Historic Thatched Pub & Nepalese Restaurant",
+  description: "Authentic Nepalese cuisine and traditional British pub classics",
+  established: "1850",
+  type: "restaurant",
+  cuisine_types: ["Nepalese", "British", "Pub Food"]
+});
+
+export const getContactInfo = () => ({
+  phone: {
+    primary: (restaurantTemplate as any)?.phone || "+44 1223 276027",
+    display: "01223 276027",
+    whatsapp: (restaurantTemplate as any)?.phone || "+44 1223 276027"
+  },
+  email: {
+    primary: (restaurantTemplate as any)?.email || "info@oldcrowngirton.co.uk",
+    bookings: (restaurantTemplate as any)?.email || "info@oldcrowngirton.co.uk",
+    events: (restaurantTemplate as any)?.email || "info@oldcrowngirton.co.uk"
+  },
+  address: {
+    street: (restaurantTemplate as any)?.address?.street || "89 High Street",
+    area: "Girton",
+    city: (restaurantTemplate as any)?.address?.city || "Girton",
+    postcode: (restaurantTemplate as any)?.address?.zip || "CB3 0QQ",
+    country: "GB",
+    coordinates: { lat: 52.2385, lng: 0.0926 },
+    google_maps_url: "https://maps.google.com/?q=52.2385,0.0926"
+  }
+});
+
+export const getHours = () => ({
+  kitchen: (restaurantTemplate as any)?.hours || {
+    "monday": "12:00-22:00",
+    "tuesday": "12:00-22:00",
+    "wednesday": "12:00-22:00", 
+    "thursday": "12:00-22:00",
+    "friday": "12:00-22:30",
+    "saturday": "12:00-22:30",
+    "sunday": "12:00-21:30"
+  },
+  bar: {
+    "monday": "12:00-23:00",
+    "tuesday": "12:00-23:00",
+    "wednesday": "12:00-23:00",
+    "thursday": "12:00-23:00",
+    "friday": "12:00-00:00",
+    "saturday": "12:00-00:00",
+    "sunday": "12:00-22:30"
+  },
+  display: {
+    kitchen: {
+      "weekdays": "Mon-Thu: 12:00-22:00",
+      "saturday": "Fri-Sat: 12:00-22:30",
+      "sunday": "Sun: 12:00-21:30"
+    },
+    bar: {
+      "mon_thu": "Mon-Thu: 12:00-23:00",
+      "fri_sat": "Fri-Sat: 12:00-00:00",
+      "sunday": "Sun: 12:00-22:30"
+    }
+  }
+});
+
+export const getMenu = () => ({
+  metadata: {
+    last_updated: new Date().toISOString(),
+    version: "1.0.0",
+    currency: "GBP",
+    currency_symbol: "£",
+    allergen_info: "Please inform us of any allergies before ordering.",
+    disclaimer: "Cross-contamination is possible despite care.",
+    notes: ["All dishes are prepared fresh to order"],
+    dietary_legend: { "veg": "Vegetarian", "GF": "Gluten Free" }
+  },
+  categories: [] as MenuCategory[]
+});
+
+export const getMenuCategories = (): MenuCategory[] => [];
+export const getTestimonials = (): any[] => [];
+export const getEvents = (): any[] => [];
+export const getGallery = (): any => ({ hero: { main: { src: "", alt: "", caption: "" }, secondary: [] }, categories: { dishes: [], restaurant: [], events: [] } });
+export const getSEO = (): any => ({ title: "Old Crown Girton", description: "Historic thatched pub and Nepalese restaurant", keywords: [], og: { title: "", description: "", image: "", url: "" }, schema: {} });
+export const getSocialMedia = (): any => ({ facebook: { url: "", handle: "" }, instagram: { url: "", handle: "" }, twitter: { url: "", handle: "" }, website: "https://oldcrowngirton.co.uk" });
+export const getDeliveryInfo = (): any => ({ available: true, radius_miles: 5, minimum_order: { amount: 15, display: "£15.00" }, delivery_fee: { amount: 2.50, display: "£2.50" }, free_delivery_threshold: { amount: 25, display: "£25.00" }, estimated_time: "30-45 minutes", partners: [], coverage_areas: [] });
+export const getFeatures = (): any => ({ services: {}, dining: {}, accessibility: {}, amenities: {}, payment_methods: ["Cash", "Card"] });
 
 

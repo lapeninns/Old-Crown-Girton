@@ -1,10 +1,10 @@
 [
-  {"name": "Roti", "price": { "amount": 3.50, "currency": "GBP" }, "labels": ["veg"]},
-  {"name": "Plain", "price": { "amount": 3.75, "currency": "GBP" }, "labels": ["veg"]},
-  {"name": "Garlic", "price": { "amount": 4.25, "currency": "GBP" }, "labels": ["veg"]},
-  {"name": "Garlic Chilli", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg", "spice-2"]},
-  {"name": "Peshwari", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg"]},
-  {"name": "Cheese", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg"]},
-  {"name": "Keema", "price": { "amount": 4.75, "currency": "GBP" }},
-  {"name": "Signature", "price": { "amount": 5.25, "currency": "GBP" }, "labels": ["veg"]}
+  { "name": "Plain", "price": { "amount": 3.75, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Garlic", "price": { "amount": 4.25, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Garlic Chilli", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Peshwari", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Cheese", "price": { "amount": 4.75, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Keema", "price": { "amount": 4.75, "currency": "GBP" } },
+  { "name": "Roti", "price": { "amount": 3.50, "currency": "GBP" }, "labels": ["veg"] },
+  { "name": "Signature", "price": { "amount": 5.25, "currency": "GBP" }, "labels": ["veg"] }
 ]
