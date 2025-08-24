@@ -1,6 +1,8 @@
 [
-  {"name": "Chicken Strips with Chips", "price": { "amount": 9.00, "currency": "GBP" }, "labels": ["spice-1"]},
-  {"name": "Peri-Peri Chicken with Chips", "price": { "amount": 9.00, "currency": "GBP" }, "labels": ["spice-2"]},
-  {"name": "Fish & Chips", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Medium battered cod fish served with tartar sauce", "labels": ["spice-1"], "image": "/dishes/fish-chips.jpg"},
-  {"name": "Lamb Chops with Chips", "price": { "amount": 14.00, "currency": "GBP" }, "description": "Grilled lamb chops served with seasoned chips", "gluten_free": true, "labels": ["spice-2"], "image": "/dishes/lamb-curry.jpg"}
+  { "name": "Fish & Chips", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Medium battered cod fish served with tartar sauce" },
+  { "name": "Veg/Vegan Burger & Chips", "price": { "amount": 9.00, "currency": "GBP" } },
+  { "name": "Chicken Burger & Chips", "price": { "amount": 10.00, "currency": "GBP" } },
+  { "name": "Beef Burger & Chips", "price": { "amount": 11.00, "currency": "GBP" } },
+  { "name": "Chicken Strips with Chips", "price": { "amount": 9.00, "currency": "GBP" } },
+  { "name": "Peri-Peri Chicken with Chips", "price": { "amount": 9.00, "currency": "GBP" } }
 ]

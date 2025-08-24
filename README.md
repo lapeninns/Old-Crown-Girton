@@ -1,13 +1,37 @@
 ## Data layer and environment setup
 
-This app now loads restaurant data from JSON files under `data/{env}` with runtime validation via Zod.
+This app now loads restaurant data from structured directories with runtime validation via Zod.
 
-- Environments: `dev`, `staging`, `prod`. The active env resolves from `NEXT_PUBLIC_APP_ENV` or `NODE_ENV` (prod => `prod`, else => `dev`).
-- Files per env: `menu.json`, `restaurant.json`, `marketing.json`, `config.json`.
+- Menu data: Individual category files in `/menu/` directory (e.g., `starters.json`, `speciality.json`, etc.)
+- Configuration data: Centralized files in `/config/` directory (`restaurant.json`, `marketing.json`, `config.json`)
 - Public surface: utilities in `src/lib/data` provide typed loaders: `getMenuData`, `getRestaurantInfo`, `getMarketingContent`, `getConfigData`.
 - Component `src/components/menu/Menu.tsx` is prop-driven and renders a validated `Menu` model.
 
 Validation errors are caught with friendly fallbacks in pages/components using `ErrorBoundary`.
+
+### Menu Architecture
+
+Menu data is stored in modular category files in the `/menu/` directory:
+- `starters.json` - Appetizers and starters
+- `mixed_grills.json` - Mixed grill combinations
+- `speciality.json` - Speciality dishes including Nepalese cuisine
+- `authentic_dishes.json` - Traditional curry variations
+- `naans.json` - Bread options
+- `fries.json` - Chip and fries variations
+- `pub_grub.json` - Wrap options
+- `rice.json` - Rice dishes
+- `pub_classics.json` - Traditional pub food
+- `salads.json` - Salad options
+- `sides.json` - Side dishes
+- `kids_menu.json` - Children's menu
+- `desserts.json` - Dessert options
+
+### Configuration Files
+
+Configuration data is stored in the `/config/` directory:
+- `config.json` - App configuration and feature flags
+- `restaurant.json` - Restaurant information (contact, hours, etc.)
+- `marketing.json` - Marketing content and messaging
 
 ### REST + SWR hooks
 

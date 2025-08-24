@@ -1,7 +1,7 @@
 [
-  { "name": "Veg Grill", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Onion bhaji, mogo, samosas and paneer", "labels": ["veg", "dry"], "image": "/dishes/curry-selection.jpg" },
-  { "name": "Small Mixed Grill", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Chicken wings, chicken tikka, sheekh kebab, chicken pakora", "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" },
-  { "name": "Regular Mixed Grill", "price": { "amount": 15.00, "currency": "GBP" }, "description": "Same as our small mixed grill plus lamb chops", "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" },
-  { "name": "Large Mixed Grill", "price": { "amount": 18.00, "currency": "GBP" }, "description": "Same as our regular mixed grill plus Kathmandu Tikka and fish pakora", "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" },
-  { "name": "Xtra Large Special Mixed Grill", "price": { "amount": 22.00, "currency": "GBP" }, "description": "Same as our large mixed grill plus king prawn", "labels": ["spice-2"], "image": "/dishes/curry-selection.jpg" }
+  { "name": "Veg Grill", "price": { "amount": 11.00, "currency": "GBP" }, "description": "Onion bhaji, mogo, samosa and paneer" },
+  { "name": "Small Mixed Grill", "price": { "amount": 12.00, "currency": "GBP" }, "description": "Chicken wings, chicken tikka, sheekh kebab, chicken pakora" },
+  { "name": "Regular Mixed Grill", "price": { "amount": 15.00, "currency": "GBP" }, "description": "Small grill plus lamb chops" },
+  { "name": "Large Mixed Grill", "price": { "amount": 18.00, "currency": "GBP" }, "description": "Regular grill plus Kathmandu Tikka and fish pakora" },
+  { "name": "Xtra Large Special Mixed Grill", "price": { "amount": 22.00, "currency": "GBP" }, "description": "Large grill plus king prawn" }
 ]

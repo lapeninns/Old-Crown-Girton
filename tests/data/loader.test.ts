@@ -4,9 +4,10 @@ import { resolveEnv } from '@/src/lib/data/env';
 import { MenuSchema } from '@/src/lib/data/schemas';
 
 describe('data loader', () => {
-  test('loads dev menu.json', async () => {
+  test('loads menu from /menu directory', async () => {
     const data = await getMenuData('dev');
     expect(Array.isArray(data.sections)).toBe(true);
+    expect(data.sections.length).toBeGreaterThan(0);
   });
 
   test('env resolution returns dev in test', () => {
@@ -14,12 +15,12 @@ describe('data loader', () => {
     expect(env === 'dev' || env === 'prod' || env === 'staging').toBe(true);
   });
 
-  test('loads config.json', async () => {
+  test('loads config.json from /config directory', async () => {
     const cfg = await getConfigData('dev');
     expect(cfg.env).toBe('dev');
   });
 
-  test('loads marketing and restaurant', async () => {
+  test('loads marketing and restaurant from /config directory', async () => {
     const m = await getMarketingContent('dev');
     expect(m.hero.title.length).toBeGreaterThan(0);
     const r = await getRestaurantInfo('dev');

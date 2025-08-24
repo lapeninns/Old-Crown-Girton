@@ -1,7 +1,0 @@
-{
-  "name": "Old Crown Girton (Staging)",
-  "phone": "+44 1223 276027",
-  "email": "staging@oldcrowngirton.co.uk",
-  "address": { "street": "89 High Street", "city": "Girton", "state": "Cambridgeshire", "zip": "CB3 0QQ" },
-  "hours": { "Mon-Thu": "12:00-23:00", "Fri-Sat": "12:00-00:00", "Sun": "12:00-22:30" }
-}
