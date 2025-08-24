@@ -1,0 +1,34 @@
+{
+  "env": "staging",
+  "featureFlags": {
+    "cms": true,
+    "posSync": false,
+    "debug": false,
+    "analytics": true,
+    "environmentBanner": true
+  },
+  "api": {
+    "baseUrl": "https://staging.oldcrown.co.uk",
+    "menuEndpoint": "https://staging.oldcrown.co.uk/api/menu",
+    "marketingEndpoint": "https://staging.oldcrown.co.uk/api/marketing",
+    "restaurantEndpoint": "https://staging.oldcrown.co.uk/api/restaurant",
+    "contentEndpoint": "https://staging.oldcrown.co.uk/api/content"
+  },
+  "cms": { 
+    "enabled": true,
+    "source": "api",
+    "fallback": "filesystem"
+  },
+  "metadata": {
+    "appName": "Old Crown [STAGING]",
+    "domainName": "staging.oldcrown.co.uk",
+    "environment": "staging"
+  },
+  "performance": {
+    "caching": {
+      "content": 300,
+      "menu": 600,
+      "static": 7200
+    }
+  }
+}

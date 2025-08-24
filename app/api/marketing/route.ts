@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getMarketingContent } from '@/src/lib/data/loader';
+import { getMarketingContent } from '@/src/lib/data/server-loader';
 
 export const revalidate = 300; // 5 minutes
 

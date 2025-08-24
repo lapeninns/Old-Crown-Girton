@@ -1,6 +1,5 @@
 import themes from "daisyui/src/theming/themes";
 import { ConfigProps } from "./types/config";
-import { getConfigData } from "@/src/lib/data/loader";
 import { resolveEnv } from "@/src/lib/data/env";
 
 // Build-time synchronous snapshot of config.json mapped to legacy ConfigProps

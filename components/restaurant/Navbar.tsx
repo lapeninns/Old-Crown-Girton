@@ -5,15 +5,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParsedData } from '@/hooks/useParsedData';
+import { useContent } from '@/hooks/useContent';
 import { NavDataSchema, NavDataParsed } from '@/lib/schemas';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { data, loading, error } = useParsedData<NavDataParsed>('nav.json', NavDataSchema);
-  const navLinks = data?.links || [];
+  const { data: content } = useContent();
+  
+  const navLinks = data?.links || content?.global?.navigation?.header?.links || [];
+  const uiLabels = content?.global?.ui?.labels;
+  const ariaLabels = content?.global?.accessibility?.ariaLabels;
+  const contactLabel = content?.global?.ui?.buttons?.contact || 'Contact';
   
   // Filter out Home and Contact links since logo functions as home and we have Contact CTA button
-  const filteredLinks = navLinks.filter(link => link.href !== '/' && link.href !== '/contact');
+  const filteredLinks = navLinks.filter((link: any) => link.href !== '/' && link.href !== '/contact');
 
   return (
     <nav className="bg-neutral-50 shadow-md">
@@ -24,7 +30,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="/logos/OldCrownLogo.png"
-                alt="Old Crown Girton Logo"
+                alt={content?.global?.accessibility?.altTexts?.logo || "Old Crown Girton Logo"}
                 width={32}
                 height={32}
                 className="h-8 w-8"
@@ -36,9 +42,9 @@ export default function Navbar() {
 
           {/* Desktop Navigation - Center-Right */}
           <div className="hidden md:flex items-center space-x-8">
-            {loading && <span className="text-xs text-brand-600 animate-pulse">Loading...</span>}
-            {error && <span className="text-xs text-error-500">Nav failed</span>}
-            {filteredLinks.map((link: NavDataParsed['links'][number]) => (
+            {loading && <span className="text-xs text-brand-600 animate-pulse">{uiLabels?.loading || 'Loading...'}</span>}
+            {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
+            {filteredLinks.map((link: any) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -55,7 +61,7 @@ export default function Navbar() {
               href="/contact"
               className="px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800 transition-colors duration-300"
             >
-              Contact
+              {contactLabel}
             </Link>
           </div>
 
@@ -65,7 +71,7 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="text-brand-700 focus:outline-none p-2"
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{ariaLabels?.openMenu || 'Open main menu'}</span>
               {!isOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
@@ -91,10 +97,10 @@ export default function Navbar() {
             className="md:hidden bg-neutral-50 border-b border-neutral-200"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {loading && <div className="px-3 py-2 text-xs text-brand-600">Loading...</div>}
-              {error && <div className="px-3 py-2 text-xs text-error-500">Nav failed</div>}
+              {loading && <div className="px-3 py-2 text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</div>}
+              {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
               <div className="flex flex-col space-y-4">
-                {filteredLinks.map((link: NavDataParsed['links'][number]) => (
+                {filteredLinks.map((link: any) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -109,7 +115,7 @@ export default function Navbar() {
                   className="w-full px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800 transition-colors duration-300"
                   onClick={() => setIsOpen(false)}
                 >
-                  Contact
+                  {contactLabel}
                 </Link>
               </div>
             </div>

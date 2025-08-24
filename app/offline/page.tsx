@@ -1,6 +1,7 @@
 // Offline page for PWA
 import { Metadata } from 'next';
 import OfflineActions from './OfflineActions';
+import { getContentSmart } from '@/src/lib/data/server-loader';
 
 export const metadata: Metadata = {
   title: 'Offline - Old Crown Restaurant',
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
   robots: 'noindex',
 };
 
-export default function OfflinePage() {
+export default async function OfflinePage() {
+  const content = await getContentSmart();
+  const offlineContent = content.pages.offline;
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-50 to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
@@ -33,37 +36,27 @@ export default function OfflinePage() {
 
         {/* Title */}
         <h1 className="text-3xl font-bold text-stout-700 mb-4 font-display">
-          You&apos;re Offline
+          {offlineContent.title}
         </h1>
 
         {/* Description */}
         <p className="text-brand-600 mb-8 leading-relaxed">
-          It looks like you&apos;ve lost your internet connection. Don&apos;t worry - the Old Crown Restaurant app works offline for pages you&apos;ve already visited.
+          {offlineContent.description}
         </p>
 
         {/* Features available offline */}
         <div className="bg-neutral-50 rounded-xl p-6 shadow-sm border border-neutral-200 mb-8">
           <h2 className="text-lg font-semibold text-stout-700 mb-4">
-            Available Offline:
+            {offlineContent.features.title}
           </h2>
           
           <div className="space-y-3 text-left">
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-cardamom-500 rounded-full"></div>
-              <span className="text-sm text-brand-600">Previously viewed menu items</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-cardamom-500 rounded-full"></div>
-              <span className="text-sm text-brand-600">Restaurant information</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-cardamom-500 rounded-full"></div>
-              <span className="text-sm text-brand-600">Contact details</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-accent-500 rounded-full"></div>
-              <span className="text-sm text-brand-600">Form submissions (will sync when online)</span>
-            </div>
+            {offlineContent.features.items.map((item: string, index: number) => (
+              <div key={index} className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-cardamom-500 rounded-full"></div>
+                <span className="text-sm text-brand-600">{item}</span>
+              </div>
+            ))}
           </div>
         </div>
 

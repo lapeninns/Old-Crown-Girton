@@ -1,0 +1,34 @@
+{
+  "env": "dev",
+  "featureFlags": {
+    "cms": true,
+    "posSync": false,
+    "debug": true,
+    "analytics": false,
+    "environmentBanner": true
+  },
+  "api": {
+    "baseUrl": "http://localhost:3000",
+    "menuEndpoint": "http://localhost:3000/api/menu",
+    "marketingEndpoint": "http://localhost:3000/api/marketing",
+    "restaurantEndpoint": "http://localhost:3000/api/restaurant",
+    "contentEndpoint": "http://localhost:3000/api/content"
+  },
+  "cms": { 
+    "enabled": true,
+    "source": "filesystem",
+    "fallback": "default"
+  },
+  "metadata": {
+    "appName": "Old Crown [DEV]",
+    "domainName": "localhost",
+    "environment": "development"
+  },
+  "performance": {
+    "caching": {
+      "content": 60,
+      "menu": 300,
+      "static": 3600
+    }
+  }
+}

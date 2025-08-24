@@ -1,0 +1,196 @@
+name: Content Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_env:
+        description: 'Source environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - dev
+          - staging
+      target_env:
+        description: 'Target environment'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+          - staging
+          - prod
+      validate_only:
+        description: 'Only validate, do not deploy'
+        required: false
+        default: false
+        type: boolean
+
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/prod/**'
+
+jobs:
+  content-promotion:
+    runs-on: ubuntu-latest
+    name: Content Promotion
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Validate source content
+      run: |
+        echo "Validating source environment: ${{ github.event.inputs.source_env }}"
+        npm run validate-content -- --env=${{ github.event.inputs.source_env }}
+
+    - name: Prepare content for promotion
+      run: |
+        echo "Preparing content promotion from ${{ github.event.inputs.source_env }} to ${{ github.event.inputs.target_env }}"
+        
+        # Create backup of target environment
+        cp -r data/${{ github.event.inputs.target_env }} data/${{ github.event.inputs.target_env }}.backup
+        
+        # Copy content from source to target
+        cp data/${{ github.event.inputs.source_env }}/content.json data/${{ github.event.inputs.target_env }}/content.json.new
+        
+        # Update environment-specific values
+        if [ "${{ github.event.inputs.target_env }}" = "prod" ]; then
+          # Remove debug markers for production
+          sed -i 's/\[DEV\]//g; s/\[STAGING\]//g' data/${{ github.event.inputs.target_env }}/content.json.new
+          
+          # Update contact information for production
+          sed -i 's/dev@oldcrown.co.uk/info@oldcrown.co.uk/g' data/${{ github.event.inputs.target_env }}/content.json.new
+          sed -i 's/staging@oldcrown.co.uk/info@oldcrown.co.uk/g' data/${{ github.event.inputs.target_env }}/content.json.new
+          sed -i 's/"environment": "development"/"environment": "production"/g' data/${{ github.event.inputs.target_env }}/content.json.new
+          sed -i 's/"environment": "staging"/"environment": "production"/g' data/${{ github.event.inputs.target_env }}/content.json.new
+        fi
+
+    - name: Validate promoted content
+      run: |
+        echo "Validating promoted content..."
+        # Temporarily replace target content for validation
+        mv data/${{ github.event.inputs.target_env }}/content.json data/${{ github.event.inputs.target_env }}/content.json.original
+        mv data/${{ github.event.inputs.target_env }}/content.json.new data/${{ github.event.inputs.target_env }}/content.json
+        
+        # Validate
+        npm run validate-content -- --env=${{ github.event.inputs.target_env }}
+        npm run test:content
+        
+        # Restore original if validation only
+        if [ "${{ github.event.inputs.validate_only }}" = "true" ]; then
+          mv data/${{ github.event.inputs.target_env }}/content.json data/${{ github.event.inputs.target_env }}/content.json.validated
+          mv data/${{ github.event.inputs.target_env }}/content.json.original data/${{ github.event.inputs.target_env }}/content.json
+          echo "Validation completed. Content not deployed (validate_only=true)."
+          exit 0
+        fi
+
+    - name: Deploy content
+      if: github.event.inputs.validate_only != 'true'
+      run: |
+        echo "Deploying content to ${{ github.event.inputs.target_env }} environment"
+        
+        # Content is already in place from validation step
+        rm -f data/${{ github.event.inputs.target_env }}/content.json.original
+        
+        # Update deployment metadata
+        echo "{
+          \"deployedAt\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",
+          \"sourceEnv\": \"${{ github.event.inputs.source_env }}\",
+          \"targetEnv\": \"${{ github.event.inputs.target_env }}\",
+          \"deployedBy\": \"${{ github.actor }}\",
+          \"commit\": \"${{ github.sha }}\"
+        }" > data/${{ github.event.inputs.target_env }}/deployment.json
+
+    - name: Commit changes
+      if: github.event.inputs.validate_only != 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/${{ github.event.inputs.target_env }}/
+        git commit -m "Content deployment: ${{ github.event.inputs.source_env }} → ${{ github.event.inputs.target_env }}" || exit 0
+        git push
+
+    - name: Create deployment summary
+      run: |
+        echo "## 🚀 Content Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Source Environment:** ${{ github.event.inputs.source_env }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Target Environment:** ${{ github.event.inputs.target_env }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Deployed By:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Timestamp:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+        echo "**Validate Only:** ${{ github.event.inputs.validate_only }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ github.event.inputs.validate_only }}" = "true" ]; then
+          echo "✅ **Status:** Validation completed successfully" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "✅ **Status:** Deployment completed successfully" >> $GITHUB_STEP_SUMMARY
+        fi
+
+  production-deployment:
+    runs-on: ubuntu-latest
+    name: Production Content Deployment
+    if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'data/prod/')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Final production validation
+      run: |
+        echo "Final validation for production deployment..."
+        npm run validate-content -- --env=prod
+        npm run test:content
+        npm run test:accessibility
+
+    - name: Build production application
+      run: |
+        echo "Building production application with new content..."
+        npm run build
+
+    - name: Cache invalidation preparation
+      run: |
+        echo "Preparing cache invalidation..."
+        
+        # Calculate content hash for cache busting
+        content_hash=$(find config/ data/prod/ -name "*.json" -exec cat {} \; | sha256sum | cut -d' ' -f1)
+        echo "CONTENT_HASH=$content_hash" >> $GITHUB_ENV
+        
+        echo "Content hash: $content_hash"
+
+    - name: Notify deployment
+      run: |
+        echo "## 🎉 Production Content Deployed" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Content Hash:** ${{ env.CONTENT_HASH }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Deployed At:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ Production content has been validated and deployed successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Next Steps:**" >> $GITHUB_STEP_SUMMARY
+        echo "- Monitor application performance" >> $GITHUB_STEP_SUMMARY
+        echo "- Verify content display on live site" >> $GITHUB_STEP_SUMMARY
+        echo "- Invalidate CDN cache if applicable" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,34 @@
+{
+  "env": "prod",
+  "featureFlags": {
+    "cms": true,
+    "posSync": true,
+    "debug": false,
+    "analytics": true,
+    "environmentBanner": false
+  },
+  "api": {
+    "baseUrl": "https://oldcrown.co.uk",
+    "menuEndpoint": "https://oldcrown.co.uk/api/menu",
+    "marketingEndpoint": "https://oldcrown.co.uk/api/marketing",
+    "restaurantEndpoint": "https://oldcrown.co.uk/api/restaurant",
+    "contentEndpoint": "https://oldcrown.co.uk/api/content"
+  },
+  "cms": { 
+    "enabled": true,
+    "source": "api",
+    "fallback": "filesystem"
+  },
+  "metadata": {
+    "appName": "Old Crown",
+    "domainName": "oldcrown.co.uk",
+    "environment": "production"
+  },
+  "performance": {
+    "caching": {
+      "content": 3600,
+      "menu": 7200,
+      "static": 86400
+    }
+  }
+}

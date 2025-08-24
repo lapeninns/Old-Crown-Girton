@@ -2,7 +2,7 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import Link from "next/link";
 import { Metadata } from 'next';
-import { getMarketingSmart, getMenuSmart } from '@/src/lib/data/loader';
+import { getMarketingSmart, getMenuSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import MenuHero from '@/components/menu/MenuHero';
 import MenuInteractive from '@/components/menu/MenuInteractive';
 import MenuInfoCollapse from '@/components/menu/MenuInfoCollapse';
@@ -23,9 +23,12 @@ export const metadata: Metadata = {
 
 export default async function MenuPage() {
 	const m = await getMarketingSmart();
+	const content = await getContentSmart();
+	const menuContent = content.pages.menu;
+	
 	const labels = m.buttons || {};
-	const labelBookOnline = labels.bookOnline || 'Book Online';
-	const labelOrderTakeaway = labels.orderTakeaway || 'Order Takeaway';
+	const labelBookOnline = labels.bookOnline || menuContent.hero.cta.book || content.global.ui.buttons.bookOnline || 'Book Online';
+	const labelOrderTakeaway = labels.orderTakeaway || menuContent.hero.cta.order || 'Order Takeaway';
 	// Load menu data from data layer (reads data/dev/menu.json in dev)
 	const menu = await getMenuSmart();
 
@@ -34,8 +37,8 @@ export default async function MenuPage() {
 		'@context': 'https://schema.org',
 		'@type': 'Menu',
 		'@id': 'https://oldcrowngirton.co.uk/menu#menu',
-		name: 'The Old Crown Menu',
-		description: 'Authentic Nepalese cuisine and traditional British pub classics',
+		name: menuContent.hero.title,
+		description: menuContent.sections.description,
 		inLanguage: 'en-GB',
 		menuSection: (menu?.sections || []).map((section: any) => ({
 			'@type': 'MenuSection',
@@ -75,14 +78,10 @@ export default async function MenuPage() {
 						</h2>
 
 						<MenuInfoCollapse
-							items={[
-								{ title: 'Are there vegetarian options on the Nepalese menu?', content: <>Yes! We offer dal bhat, vegetable momo, vegetable thali, and several vegetarian curries. All clearly marked on our menu.</> },
-								{ title: 'Can you adjust spice levels?', content: <>Absolutely! Our chefs can adjust spice levels for most Nepalese dishes. Just let your server know your preference when ordering.</> },
-								{ title: "Do you have a children's menu?", content: <>Yes, we offer mild Nepalese dishes and traditional pub favorites sized for children, including fish & chips, chicken nuggets, and pasta.</> },
-								{ title: 'What about gluten-free options?', content: <>Many of our Nepalese curries are naturally gluten-free. We also offer gluten-free alternatives for fish & chips and other pub classics.</> },
-								{ title: 'Is takeaway available for all menu items?', content: <>Yes! All our dishes are available for takeaway. Call 01223 276027 to place your order. Collection typically ready in 20-30 minutes.</> },
-								{ title: 'How authentic is your Nepalese food?', content: <>Our Nepalese dishes use traditional recipes and cooking methods, with spices imported directly from Nepal for authentic flavors.</> },
-							]}
+							items={content.components.faq.items.map((item: any) => ({
+								title: item.question,
+								content: <>{item.answer}</>
+							}))}
 						/>
 					</div>
 				</section>
@@ -109,8 +108,7 @@ export default async function MenuPage() {
 						</div>
             
 						<div className="mt-8 text-sm text-neutral-300">
-							<p><strong>Address:</strong> 89 High Street, Girton, Cambridge CB3 0QQ</p>
-							<p><strong>Kitchen Hours:</strong> Daily 12:00-22:00 (22:30 Fri/Sat, 21:30 Sun)</p>
+							<p className="text-neutral-300">{menuContent.sections.allergenNotice}</p>
 						</div>
 					</div>
 				</section>

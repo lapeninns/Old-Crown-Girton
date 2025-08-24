@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useContent } from "@/hooks/useContent";
 import type { JSX } from "react";
 
 // <FAQ> component is a lsit of <Item> component
@@ -8,15 +9,16 @@ import type { JSX } from "react";
 
 interface FAQItemProps {
   question: string;
-  answer: JSX.Element;
+  answer: JSX.Element | string;
 }
 
-const faqList: FAQItemProps[] = [
-  { question: 'Do I need to book in advance?', answer: <p>Walk-ins welcome; book for Thu–Sat evenings or groups of 6+.</p> },
-  { question: 'Do you offer takeaway?', answer: <p>Yes. Call to order selected Nepalese favourites & pub classics.</p> },
-  { question: 'Can you cater for allergies?', answer: <p>Inform staff before ordering; we identify common allergens & advise alternatives.</p> },
-  { question: 'Is the pub dog friendly?', answer: <p>Dogs welcome in bar area & garden if well-behaved.</p> },
-  { question: 'Do you host private events?', answer: <p>Yes. Enquire for area reservations or tailored menus for milestones & meet-ups.</p> },
+// Fallback FAQ data if content management is not available
+const fallbackFaqList: FAQItemProps[] = [
+  { question: 'Do I need to book in advance?', answer: 'Walk-ins welcome; book for Thu–Sat evenings or groups of 6+.' },
+  { question: 'Do you offer takeaway?', answer: 'Yes. Call to order selected Nepalese favourites & pub classics.' },
+  { question: 'Can you cater for allergies?', answer: 'Inform staff before ordering; we identify common allergens & advise alternatives.' },
+  { question: 'Is the pub dog friendly?', answer: 'Dogs welcome in bar area & garden if well-behaved.' },
+  { question: 'Do you host private events?', answer: 'Yes. Enquire for area reservations or tailored menus for milestones & meet-ups.' },
 ];
 
 const FaqItem = ({ item }: { item: FAQItemProps }) => {
@@ -73,21 +75,38 @@ const FaqItem = ({ item }: { item: FAQItemProps }) => {
             : { maxHeight: 0, opacity: 0 }
         }
       >
-        <div className="pb-5 leading-relaxed">{item?.answer}</div>
+        <div className="pb-5 leading-relaxed">
+          {typeof item?.answer === 'string' ? <p>{item.answer}</p> : item?.answer}
+        </div>
       </div>
     </li>
   );
 };
 
 const FAQ = () => {
+  const { data: content } = useContent();
+  
+  // Get FAQ content from content management or fallback to hardcoded data
+  const faqContent = content?.components?.faq;
+  const rawFaqList = faqContent?.items || fallbackFaqList;
+  
+  // Ensure all FAQ items have required properties
+  const faqList: FAQItemProps[] = rawFaqList.map((item: any) => ({
+    question: item.question || '',
+    answer: item.answer || ''
+  }));
+  
+  const title = faqContent?.title || 'Frequently Asked Questions';
+  const subtitle = faqContent?.subtitle || 'FAQ';
+  
   // Schema now injected globally via SchemaInjector (faq type) where needed.
   return (
     <section className="bg-base-200" id="faq">
       <div className="py-24 px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-12">
         <div className="flex flex-col text-left basis-1/2">
-          <p className="inline-block font-semibold text-primary mb-4">FAQ</p>
+          <p className="inline-block font-semibold text-primary mb-4">{subtitle}</p>
           <p className="sm:text-4xl text-3xl font-extrabold text-base-content">
-            Frequently Asked Questions
+            {title}
           </p>
         </div>
 

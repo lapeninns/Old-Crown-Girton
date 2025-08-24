@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Menu as MenuType } from '@/src/lib/data/schemas';
-import { getMenuSmart } from '@/src/lib/data/loader';
+import { getMenuSmart } from '@/src/lib/data/server-loader';
 import ErrorBoundary from '@/src/components/common/ErrorBoundary';
 import Menu from '@/src/components/menu/Menu';
 

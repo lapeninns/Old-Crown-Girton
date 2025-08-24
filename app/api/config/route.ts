@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getConfigData } from '@/src/lib/data/loader';
+import { getConfigData } from '@/src/lib/data/server-loader';
 import { resolveEnv } from '@/src/lib/data/env';
 
 export const revalidate = 120; // 2 minutes

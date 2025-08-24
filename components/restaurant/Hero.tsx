@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { getContactInfo, getHours } from '@/lib/restaurantData';
 import { useParsedData } from '@/hooks/useParsedData';
+import { useContent } from '@/hooks/useContent';
 import { MarketingDataSchema } from '@/lib/schemas';
 
 export default function Hero() {
@@ -13,15 +14,36 @@ export default function Hero() {
   const barWeek = hours?.display?.bar?.mon_thu;
   const hoursSnippet = kitchenWeek && barWeek ? `Kitchen ${kitchenWeek} | Bar ${barWeek}` : 'Open – see full hours';
   const { data: marketing } = useParsedData('marketing.json', MarketingDataSchema);
-  const labelBookOnline = marketing?.buttons?.bookOnline || 'Book Online';
+  const { data: content } = useContent();
+  
+  // Get content from content management system with fallbacks
+  const heroContent = content?.pages?.home?.hero;
+  const labelBookOnline = marketing?.buttons?.bookOnline || content?.global?.ui?.buttons?.bookOnline || 'Book Online';
   const labelCallForTakeaway = marketing?.buttons?.callForTakeaway || 'Call for Takeaway';
+  
+  // Hero content with fallbacks
+  const heroTitle = heroContent?.title || 'Girton\'s Historic Thatched Pub with Himalayan Flavour';
+  const heroDescription = heroContent?.description || 'A welcoming village hub just outside Cambridge – authentic Nepalese dishes alongside trusted British pub comfort in a distinctive thatched setting.';
+  const primaryCTA = heroContent?.cta?.primary || labelBookOnline;
+  const secondaryCTA = heroContent?.cta?.secondary || 'View Menu';
+  const altText = content?.global?.accessibility?.altTexts?.heroBanner || 'Old Crown Girton Building';
+  
+  // Feature tags from content or fallback
+  const features = content?.pages?.home?.sections?.features?.items || [
+    { title: 'Authentic Nepalese + Pub Classics' },
+    { title: 'Family & Dog Friendly' },
+    { title: 'Near Girton College' },
+    { title: 'Garden • Live Sports' },
+    { title: 'Community Events' }
+  ];
+  
   return (
   <section className="relative h-[60vh] sm:h-[65vh] md:h-screen flex items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/OldCrownGirtonBuilding.png"
-          alt="Old Crown Girton Building"
+          alt={altText}
           fill
           className="object-cover"
           priority
@@ -44,19 +66,13 @@ export default function Hero() {
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-neutral-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-            A welcoming village hub just outside Cambridge – authentic Nepalese dishes alongside trusted British pub comfort in a distinctive thatched setting.
+            {heroDescription}
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 text-sm md:text-base text-neutral-100 mb-10 max-w-3xl mx-auto">
-            {[
-              'Authentic Nepalese + Pub Classics',
-              'Family & Dog Friendly',
-              'Near Girton College',
-              'Garden • Live Sports',
-              'Community Events'
-            ].map((item) => (
-              <span key={item} className="px-3 py-1 bg-neutral-50/15 rounded-full backdrop-blur border border-accent-400/25">
-                {item}
+            {features.map((feature: any, index: number) => (
+              <span key={index} className="px-3 py-1 bg-neutral-50/15 rounded-full backdrop-blur border border-accent-400/25">
+                {feature.title}
               </span>
             ))}
           </div>
@@ -71,7 +87,7 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="bg-brand-600 hover:bg-accent-500 text-neutral-50 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
             >
-              {labelBookOnline}
+              {primaryCTA}
             </motion.a>
             <motion.a
               href={`tel:${contact?.phone.primary || '01223276027'}`}

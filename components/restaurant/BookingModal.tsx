@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useContent } from '@/hooks/useContent';
 import Button from './Button';
 
 interface BookingModalProps {
@@ -10,6 +11,14 @@ interface BookingModalProps {
 }
 
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
+  const { data: content } = useContent();
+  
+  // Get form labels and messages from content management
+  const formLabels = content?.forms?.labels;
+  const formMessages = content?.forms?.messages;
+  const uiLabels = content?.global?.ui?.labels;
+  const buttons = content?.global?.ui?.buttons;
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,7 +33,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     e.preventDefault();
     // For now, this will just show an alert
     // In production, integrate with booking system
-    alert('Thank you! We will call you within 1 hour to confirm your booking.');
+    const successMessage = formMessages?.success || 'Thank you! We will call you within 1 hour to confirm your booking.';
+    alert(successMessage);
     onClose();
   };
 
@@ -65,7 +75,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             <div className="p-6 border-b border-neutral-200">
               <div className="flex justify-between items-center">
                 <h2 id="booking-modal-title" className="text-2xl font-display font-bold text-brand-800">
-                  Book a Table
+                  {buttons?.bookOnline || 'Book a Table'}
                 </h2>
                 <button
                   onClick={onClose}
@@ -86,7 +96,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-brand-700 mb-1">
-                    Full Name *
+                    {formLabels?.name || 'Full Name'} *
                   </label>
                   <input
                     type="text"
@@ -96,13 +106,13 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
-                    placeholder="Your name"
+                    placeholder={formLabels?.name || 'Your name'}
                   />
                 </div>
                 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-brand-700 mb-1">
-                    Phone Number *
+                    {formLabels?.phone || 'Phone Number'} *
                   </label>
                   <input
                     type="tel"
@@ -119,7 +129,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-brand-700 mb-1">
-                  Email Address
+                  {formLabels?.email || 'Email Address'}
                 </label>
                 <input
                   type="email"
@@ -128,14 +138,14 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
-                  placeholder="your@email.com"
+                  placeholder={formLabels?.email || 'your@email.com'}
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label htmlFor="date" className="block text-sm font-medium text-brand-700 mb-1">
-                    Date *
+                    {formLabels?.date || 'Date'} *
                   </label>
                   <input
                     type="date"
@@ -151,7 +161,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 
                 <div>
                   <label htmlFor="time" className="block text-sm font-medium text-brand-700 mb-1">
-                    Time *
+                    {formLabels?.time || 'Time'} *
                   </label>
                   <select
                     id="time"
@@ -161,7 +171,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-colors"
                   >
-                    <option value="">Select time</option>
+                    <option value="">{uiLabels?.selectTime || 'Select time'}</option>
                     <option value="12:00">12:00 PM</option>
                     <option value="12:30">12:30 PM</option>
                     <option value="13:00">1:00 PM</option>
@@ -179,7 +189,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 
                 <div>
                   <label htmlFor="guests" className="block text-sm font-medium text-brand-700 mb-1">
-                    Guests *
+                    {formLabels?.partySize || 'Guests'} *
                   </label>
                   <select
                     id="guests"
@@ -190,16 +200,16 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-colors"
                   >
                     {[1,2,3,4,5,6,7,8,9,10].map(num => (
-                      <option key={num} value={num}>{num} {num === 1 ? 'guest' : 'guests'}</option>
+                      <option key={num} value={num}>{num} {num === 1 ? (uiLabels?.guest || 'guest') : (uiLabels?.guests || 'guests')}</option>
                     ))}
-                    <option value="10+">10+ guests</option>
+                    <option value="10+">{uiLabels?.guestsPlus || '10+ guests'}</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-brand-700 mb-1">
-                  Special Requests
+                  {formLabels?.specialRequests || 'Special Requests'}
                 </label>
                 <textarea
                   id="message"
@@ -208,7 +218,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   value={formData.message}
                   onChange={handleChange}
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors resize-none"
-                  placeholder="Dietary requirements, celebrations, etc."
+                  placeholder={uiLabels?.specialRequestsPlaceholder || 'Dietary requirements, celebrations, etc.'}
                 />
               </div>
 
@@ -216,10 +226,10 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <div className="bg-brand-50 p-4 rounded-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl">📞</span>
-                  <span className="font-medium text-brand-800">Prefer to call?</span>
+                  <span className="font-medium text-brand-800">{uiLabels?.preferToCall || 'Prefer to call?'}</span>
                 </div>
                 <p className="text-sm text-brand-600 mb-2">
-                  Call us directly for immediate booking confirmation
+                  {uiLabels?.callDirectly || 'Call us directly for immediate booking confirmation'}
                 </p>
                 <a
                   href="tel:01223276027"
@@ -238,10 +248,10 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   fullWidth
                   onClick={() => {}}
                 >
-                  Request Booking
+                  {buttons?.submit || 'Request Booking'}
                 </Button>
                 <p className="text-xs text-neutral-500 mt-2 text-center">
-                  * Required fields. We&apos;ll call you within 1 hour to confirm availability.
+                  * {uiLabels?.requiredFields || 'Required fields'}. {uiLabels?.confirmationMessage || "We'll call you within 1 hour to confirm availability."}.
                 </p>
               </div>
             </form>

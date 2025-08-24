@@ -1,17 +1,19 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
+import { getContentSmart } from '@/src/lib/data/server-loader';
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const content = await getContentSmart();
+  const contactContent = content.pages.contact;
   return (
     <RestaurantLayout>
       <div className="min-h-screen bg-neutral-50 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
-              Contact <span className="text-neutral-50 font-semibold">Us</span>
+              {contactContent.hero.title}
             </h1>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Get in touch with Himalayan Spice, Girton. We&apos;re here to help with reservations, 
-              enquiries, and any questions you may have.
+              {contactContent.hero.subtitle}
             </p>
           </div>
 
@@ -23,11 +25,11 @@ export default function ContactPage() {
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-4xl">📞</span>
                   <div>
-                    <h2 className="text-xl font-display font-bold text-brand-700">Phone</h2>
-                    <p className="text-neutral-600">Call us for reservations and enquiries</p>
+                    <h2 className="text-xl font-display font-bold text-brand-700">{contactContent.contactInfo.phone.title}</h2>
+                    <p className="text-neutral-600">{contactContent.contactInfo.phone.description}</p>
                   </div>
                 </div>
-                <a href="tel:01223276027" className="inline-block bg-accent-600 hover:bg-accent-700 text-neutral-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/60" aria-label="Call Himalayan Spice" type="button">📞 01223 276027</a>
+                <a href={`tel:${contactContent.contactInfo.phone.number.replace(/\s/g, '')}`} className="inline-block bg-accent-600 hover:bg-accent-700 text-neutral-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/60" aria-label="Call Himalayan Spice" type="button">📞 {contactContent.contactInfo.phone.number}</a>
               </div>
 
               {/* Address */}
@@ -35,17 +37,16 @@ export default function ContactPage() {
                 <div className="flex items-start gap-4 mb-4">
                   <span className="text-4xl">📍</span>
                   <div>
-                    <h2 className="text-xl font-display font-bold text-brand-700 mb-2">Address</h2>
+                    <h2 className="text-xl font-display font-bold text-brand-700 mb-2">{contactContent.contactInfo.location.title}</h2>
                     <div className="text-neutral-600">
-                      <p>Himalayan Spice</p>
-                      <p>High Street</p>
-                      <p>Girton, Cambridge</p>
-                      <p>CB3 0QQ</p>
+                      {contactContent.contactInfo.location.address.split(', ').map((line: string, index: number) => (
+                        <p key={index}>{line}</p>
+                      ))}
                     </div>
                   </div>
                 </div>
                 <p className="text-sm text-neutral-500">
-                  Located in the heart of Girton village, just 3 miles from Cambridge city center
+                  {contactContent.contactInfo.location.description}
                 </p>
               </div>
 
@@ -74,43 +75,31 @@ export default function ContactPage() {
               <div className="bg-neutral-100 p-6 rounded-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="text-4xl">⏰</span>
-                  <h2 className="text-xl font-display font-bold text-brand-700">Opening Hours</h2>
+                  <h2 className="text-xl font-display font-bold text-brand-700">{contactContent.hours.title}</h2>
                 </div>
                 
                 <div className="space-y-4">
                   <div>
-                    <h3 className="font-bold text-brand-700 mb-2">Restaurant</h3>
+                    <h3 className="font-bold text-brand-700 mb-2">{contactContent.hours.restaurant.title}</h3>
                     <div className="space-y-1 text-neutral-600">
-                      <div className="flex justify-between">
-                        <span>Monday - Thursday</span>
-                        <span>12:00 - 22:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Friday - Saturday</span>
-                        <span>12:00 - 22:30</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Sunday</span>
-                        <span>12:00 - 21:30</span>
-                      </div>
+                      {contactContent.hours.restaurant.schedule.map((schedule: any, index: number) => (
+                        <div key={index} className="flex justify-between">
+                          <span>{schedule.days}</span>
+                          <span>{schedule.hours}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   
                   <div className="border-t border-neutral-300 pt-4">
-                    <h3 className="font-bold text-brand-700 mb-2">Bar</h3>
+                    <h3 className="font-bold text-brand-700 mb-2">{contactContent.hours.bar.title}</h3>
                     <div className="space-y-1 text-neutral-600">
-                      <div className="flex justify-between">
-                        <span>Monday - Thursday</span>
-                        <span>12:00 - 23:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Friday - Saturday</span>
-                        <span>12:00 - 00:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Sunday</span>
-                        <span>12:00 - 22:30</span>
-                      </div>
+                      {contactContent.hours.bar.schedule.map((schedule: any, index: number) => (
+                        <div key={index} className="flex justify-between">
+                          <span>{schedule.days}</span>
+                          <span>{schedule.hours}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -119,33 +108,15 @@ export default function ContactPage() {
               {/* Features */}
               <div className="bg-neutral-50 border-2 border-neutral-200 p-6 rounded-xl">
                 <h2 className="text-xl font-display font-bold text-stout-700 mb-4">
-                  What We Offer
+                  {contactContent.features.title}
                 </h2>
                 <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span>🌿</span>
-                    <span className="text-foreground">Outdoor terrace</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>🅿️</span>
-                      <span className="text-foreground">Free parking</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>🐕</span>
-                      <span className="text-foreground">Dog-friendly</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>♿</span>
-                    <span className="text-foreground">Accessible</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>📶</span>
-                      <span className="text-foreground">Free WiFi</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>🎉</span>
-                      <span className="text-foreground">Private dining</span>
-                  </div>
+                  {contactContent.features.items.map((feature: any, index: number) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <span>{feature.icon}</span>
+                      <span className="text-foreground">{feature.text}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 

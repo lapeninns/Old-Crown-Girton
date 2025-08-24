@@ -1,10 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useContent } from '@/hooks/useContent';
 import DishCard from './DishCard';
 import Link from 'next/link';
 
-const featuredDishes = [
+// Fallback featured dishes if content management is not available
+const fallbackFeaturedDishes = [
   {
     title: 'Crispy Hot Wings',
     description: 'Spiced grilled chicken wings with our signature marinade',
@@ -50,6 +52,17 @@ const featuredDishes = [
 ];
 
 export default function MenuHighlights() {
+  const { data: content } = useContent();
+  
+  // Get menu highlights content from content management or fallback
+  const menuHighlightsContent = content?.components?.menuHighlights;
+  const title = menuHighlightsContent?.title || 'Our Signature Dishes';
+  const subtitle = menuHighlightsContent?.subtitle || 'A taste of what we offer';
+  const ctaLabel = content?.global?.ui?.buttons?.viewMenu || 'View Full Menu';
+  
+  // Use content management dishes if available, otherwise fallback
+  const featuredDishes = fallbackFeaturedDishes; // For now using fallback until dish content is defined
+  
   return (
     <section className="py-16 bg-brand-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,8 +77,7 @@ export default function MenuHighlights() {
             Our <span className="text-accent">Signature</span> Dishes
           </h2>
           <p className="text-lg text-brand-600 max-w-2xl mx-auto">
-            From authentic Nepalese specialties to beloved pub classics, 
-            every dish is prepared with fresh ingredients and traditional techniques.
+            {subtitle}
           </p>
         </motion.div>
 
@@ -90,7 +102,7 @@ export default function MenuHighlights() {
             href="/menu"
             className="inline-block bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
           >
-            View Full Menu
+            {ctaLabel}
           </Link>
         </motion.div>
       </div>

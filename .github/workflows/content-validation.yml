@@ -1,0 +1,202 @@
+name: Content Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'config/**'
+      - 'data/**'
+      - 'src/lib/data/**'
+      - 'hooks/**'
+      - 'app/api/content/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'config/**'
+      - 'data/**'
+      - 'src/lib/data/**'
+      - 'hooks/**'
+      - 'app/api/content/**'
+
+jobs:
+  validate-content:
+    runs-on: ubuntu-latest
+    name: Validate Content Structure
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Validate content schema
+      run: |
+        echo "Validating content structure..."
+        npm run validate-content
+        npm run validate-content -- --env=dev
+        npm run validate-content -- --env=staging
+        npm run validate-content -- --env=prod
+
+    - name: Run content audit
+      run: |
+        echo "Running content audit..."
+        npm run audit-content
+
+    - name: Test content loading
+      run: |
+        echo "Testing content loading functionality..."
+        npm run test:content
+
+    - name: Test content API routes
+      run: |
+        echo "Testing content API integration..."
+        npm test -- tests/api/routes.test.ts
+
+    - name: Check content accessibility
+      run: |
+        echo "Validating content accessibility..."
+        npm run test:accessibility
+
+    - name: Validate content format
+      run: |
+        echo "Checking content JSON formatting..."
+        npm run format-content -- --check
+
+    - name: Content size check
+      run: |
+        echo "Checking content file sizes..."
+        find config/ data/ -name "*.json" -exec sh -c 'size=$(stat -f%z "$1" 2>/dev/null || stat -c%s "$1" 2>/dev/null); if [ $size -gt 1048576 ]; then echo "WARNING: $1 is larger than 1MB ($size bytes)"; fi' _ {} \;
+
+    - name: Comment validation results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          let comment = '## 🔍 Content Validation Results\n\n';
+          comment += '✅ All content validation checks passed!\n\n';
+          comment += '**Validated:**\n';
+          comment += '- Content schema structure\n';
+          comment += '- Environment-specific configurations\n';
+          comment += '- Content loading functionality\n';
+          comment += '- API route integration\n';
+          comment += '- Accessibility compliance\n';
+          comment += '- JSON formatting\n';
+          comment += '- File size constraints\n\n';
+          comment += '**Environments tested:** dev, staging, prod\n';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+  content-security-scan:
+    runs-on: ubuntu-latest
+    name: Content Security Scan
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Scan for sensitive data
+      run: |
+        echo "Scanning content files for sensitive information..."
+        
+        # Check for potential secrets or sensitive data
+        if grep -r -i "password\|secret\|key\|token" config/ data/ --include="*.json"; then
+          echo "❌ Potential sensitive data found in content files!"
+          exit 1
+        fi
+        
+        # Check for development-specific data in production configs
+        if grep -r "\[DEV\]\|\[STAGING\]" data/prod/ --include="*.json"; then
+          echo "❌ Development markers found in production content!"
+          exit 1
+        fi
+        
+        # Check for localhost URLs in production
+        if grep -r "localhost\|127.0.0.1" data/prod/ --include="*.json"; then
+          echo "❌ Local URLs found in production content!"
+          exit 1
+        fi
+        
+        echo "✅ Content security scan passed!"
+
+    - name: Validate contact information
+      run: |
+        echo "Validating contact information format..."
+        
+        # Check email format in production
+        if ! grep -E '"email": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"' data/prod/content.json; then
+          echo "❌ Invalid email format in production content!"
+          exit 1
+        fi
+        
+        # Check phone format
+        if ! grep -E '"phone": "\+44 [0-9 ]+"' data/prod/content.json; then
+          echo "❌ Invalid phone format in production content!"
+          exit 1
+        fi
+        
+        echo "✅ Contact information validation passed!"
+
+  deployment-readiness:
+    runs-on: ubuntu-latest
+    name: Deployment Readiness Check
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      run: npm run build
+
+    - name: Test content in build
+      run: |
+        echo "Testing content loading in production build..."
+        # Start the built application and test content endpoints
+        npm start &
+        sleep 10
+        
+        # Test content API endpoints
+        curl -f http://localhost:3000/api/content || exit 1
+        curl -f http://localhost:3000/api/config || exit 1
+        
+        echo "✅ Content API endpoints working in production build!"
+
+    - name: Performance check
+      run: |
+        echo "Checking content loading performance..."
+        
+        # Check content file sizes
+        content_size=$(find config/ data/ -name "*.json" -exec cat {} \; | wc -c)
+        if [ $content_size -gt 5242880 ]; then  # 5MB limit
+          echo "❌ Total content size exceeds 5MB limit!"
+          exit 1
+        fi
+        
+        echo "✅ Content performance check passed!"

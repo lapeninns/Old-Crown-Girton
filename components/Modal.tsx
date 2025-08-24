@@ -2,17 +2,24 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { useContent } from "@/hooks/useContent";
 
 import React from "react";
 
 interface ModalProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  title?: string;
+  children?: React.ReactNode;
 }
 
 // A simple modal component which can be shown/hidden with a boolean and a function
 // Because of the setIsModalOpen function, you can't use it in a server component.
-const Modal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
+const Modal = ({ isModalOpen, setIsModalOpen, title, children }: ModalProps) => {
+  const { data: content } = useContent();
+  const modalTitle = title || "Modal";
+  const closeLabel = content?.global?.ui?.buttons?.close || 'Close';
+  const ariaLabels = content?.global?.accessibility?.ariaLabels;
   return (
     <Transition appear show={isModalOpen} as={Fragment}>
       <Dialog
@@ -46,11 +53,12 @@ const Modal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
               <Dialog.Panel className="relative w-full max-w-3xl h-full overflow-visible transform text-left align-middle shadow-xl transition-all rounded-xl bg-base-100 p-6 md:p-8">
                 <div className="flex justify-between items-center mb-4">
                   <Dialog.Title as="h2" className="font-semibold">
-                    I&apos;m a modal
+                    {modalTitle}
                   </Dialog.Title>
                   <button
                     className="btn btn-square btn-ghost btn-sm"
                     onClick={() => setIsModalOpen(false)}
+                    aria-label={ariaLabels?.closeModal || closeLabel}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +71,7 @@ const Modal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
                   </button>
                 </div>
 
-                <section>And here is my content</section>
+                <section>{children || "Modal content goes here"}</section>
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -1,38 +1,17 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
+import { getContentSmart } from '@/src/lib/data/server-loader';
 
-export default function EventsPage() {
-  const events = [
-    {
-      title: "Weekly Pub Quiz",
-      description: "Community teams, students & locals — general knowledge + themed rounds.",
-      frequency: "Thursday 8:00 PM",
-      startDate: "2025-08-14T20:00:00+01:00",
-      icon: "🧠"
-    },
-    {
-      title: "Curry & Community Night",
-      description: "Celebrate our Nepalese kitchen: featured dish & mild family option.",
-      frequency: "Wednesday Evening",
-      startDate: "2025-08-13T18:00:00+01:00",
-      icon: "🌶️"
-    },
-    {
-      title: "Live Sports Highlights",
-      description: "Key football & rugby fixtures on screen – garden when weather allows.",
-      frequency: "Major fixtures schedule",
-      startDate: "2025-08-16T15:00:00+01:00",
-      icon: "⚽"
-    },
-    {
-      title: "Seasonal Garden Social",
-      description: "Long summer evenings with relaxed sharing plates. (Seasonal)",
-      frequency: "Summer Series",
-      startDate: "2025-06-01T18:00:00+01:00",
-      endDate: "2025-08-31T22:00:00+01:00",
-      icon: "🌿"
-    }
-  ];
+export default async function EventsPage() {
+  const content = await getContentSmart();
+  const eventsContent = content.pages.events;
+  
+  // Add schema dates for events (using placeholder dates)
+  const events = eventsContent.regularEvents.map((event, index) => ({
+    ...event,
+    startDate: `2025-08-${14 + index}T20:00:00+01:00`, // Placeholder dates for schema
+    endDate: index === 3 ? "2025-08-31T22:00:00+01:00" : undefined // Only for seasonal event
+  }));
 
   return (
     <RestaurantLayout>
@@ -49,10 +28,10 @@ export default function EventsPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
-              What&apos;s On & <span className="text-accent-500">Community Events</span>
+              {eventsContent.hero.title}
             </h1>
             <p className="text-lg text-brand-600 max-w-2xl mx-auto mb-8">
-              Recurring favourites plus seasonal highlights reflecting Girton village life &amp; Cambridge academic rhythm. Call to reserve or enquire about group space.
+              {eventsContent.hero.subtitle}
             </p>
           </div>
 
@@ -79,10 +58,10 @@ export default function EventsPage() {
             <div className="text-center">
               <span className="text-6xl mb-4 block">🎉</span>
               <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">
-                Private Hire & Functions
+                {eventsContent.contact.title}
               </h2>
               <p className="text-brand-600 mb-6">
-                Birthdays, society evenings, project celebrations, milestone family gatherings or informal professional socials — enquire about space and tailored food options.
+                {eventsContent.contact.description}
               </p>
               
               <div className="bg-neutral-100 rounded-lg p-6 mb-6">
@@ -98,10 +77,10 @@ export default function EventsPage() {
               </div>
               
               <a
-                href="tel:01223276027"
+                href={`tel:${eventsContent.contact.phone.replace(/\s/g, '')}`}
                 className="inline-block bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
               >
-                📞 Enquire / Book: 01223 276027
+                📞 Enquire / Book: {eventsContent.contact.phone}
               </a>
             </div>
           </div>

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getMarketingSmart } from '@/src/lib/data/loader';
+import { getMarketingSmart } from '@/src/lib/data/server-loader';
 import Link from "next/link";
 import { Metadata } from 'next';
 

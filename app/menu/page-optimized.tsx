@@ -2,7 +2,7 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import Link from "next/link";
 import { Metadata } from 'next';
-import { getMarketingSmart } from '@/src/lib/data/loader';
+import { getMarketingSmart } from '@/src/lib/data/server-loader';
 
 export const metadata: Metadata = {
   title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',

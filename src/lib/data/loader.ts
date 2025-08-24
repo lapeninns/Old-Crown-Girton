@@ -1,16 +1,23 @@
-import fs from "node:fs/promises";
-import path from "node:path";
+// Ensure this module only runs on the server
+import 'server-only';
+
+// Server-side only imports - prevent bundling for client
+import fs from "fs/promises";
+import path from "path";
 import {
   MenuSchema,
   MarketingSchema,
   RestaurantSchema,
   ConfigSchema,
+  ContentSchema,
   type Menu,
   type Marketing,
   type Restaurant,
   type AppConfig,
+  type Content,
 } from "./schemas";
 import { resolveEnv, type AppEnv } from "./env";
+import { globalCache, createCacheKey, PerformanceCacheManager } from "./cache";
 import type { ZodTypeAny } from "zod";
 
 async function readJson<T>(p: string, schema: any, name: string): Promise<T> {
@@ -24,6 +31,17 @@ function configPath(file: string) {
 }
 
 export async function getMenuData(env: AppEnv = resolveEnv()): Promise<Menu> {
+  const cacheKey = createCacheKey('menu', env);
+  
+  return globalCache.get(cacheKey, async () => {
+    return loadMenuFromFileSystem();
+  }, {
+    ttl: getMenuCacheTTL(env),
+    enableCompression: true
+  });
+}
+
+async function loadMenuFromFileSystem(): Promise<Menu> {
   // Load from modular menu files in /menu directory
   const modularMenuDir = path.join(process.cwd(), "menu");
   
@@ -90,13 +108,18 @@ export async function getMenuData(env: AppEnv = resolveEnv()): Promise<Menu> {
  * load menu from the API; otherwise load from filesystem. Falls back to filesystem on errors.
  */
 export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
+  // In development, skip API calls and use filesystem directly for performance
+  if (env === 'dev') {
+    return getMenuData(env);
+  }
+  
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
     const endpoint = cfg.api?.menuEndpoint;
     if (cmsOn && endpoint) {
       try {
-        return await fetchMenuFromApi(endpoint, env);
+        return await fetchMenuFromApiServer(endpoint, env);
       } catch {
         // fall through to fs
       }
@@ -124,12 +147,66 @@ export async function getMarketingContent(env: AppEnv = resolveEnv()): Promise<M
 }
 
 export async function getConfigData(env: AppEnv = resolveEnv()): Promise<AppConfig> {
-  return readJson<AppConfig>(configPath("config.json"), ConfigSchema, "config");
+  const cacheKey = createCacheKey('config', env);
+  
+  return globalCache.get(cacheKey, async () => {
+    // Try environment-specific config first
+    const envConfigPath = path.join(process.cwd(), "data", env, "config.json");
+    const fallbackPath = configPath("config.json");
+    
+    try {
+      return await readJson<AppConfig>(envConfigPath, ConfigSchema, "config");
+    } catch {
+      return readJson<AppConfig>(fallbackPath, ConfigSchema, "config");
+    }
+  }, {
+    ttl: getConfigCacheTTL(env)
+  });
 }
 
-// --- REST fetchers (client/server) -------------------------------------------------
+export async function getContentData(env: AppEnv = resolveEnv()): Promise<Content> {
+  const cacheKey = createCacheKey('content', env);
+  
+  return globalCache.get(cacheKey, async () => {
+    return readJson<Content>(
+      configPath("content.json"),
+      ContentSchema,
+      "content"
+    );
+  }, {
+    ttl: getContentCacheTTL(env),
+    enableCompression: env === 'prod'
+  });
+}
 
-async function fetchJsonValidated<T>(url: string, schema: ZodTypeAny, init?: any): Promise<T> {
+// Performance-optimized content loader with environment-specific caching
+export async function getContentDataOptimized(env: AppEnv = resolveEnv()): Promise<Content> {
+  const cacheKey = createCacheKey('content-optimized', env);
+  
+  return globalCache.get(cacheKey, async () => {
+    // Use environment-specific content if available
+    const envSpecificPath = path.join(process.cwd(), "data", env, "content.json");
+    const fallbackPath = configPath("content.json");
+    
+    try {
+      // Try environment-specific content first
+      const content = await readJson<Content>(envSpecificPath, ContentSchema, "content");
+      return content;
+    } catch (error) {
+      // Fallback to main content.json
+      console.warn(`Environment-specific content not found for ${env}, falling back to main content.json`);
+      return readJson<Content>(fallbackPath, ContentSchema, "content");
+    }
+  }, {
+    ttl: getContentCacheTTL(env),
+    enableCompression: env === 'prod'
+  });
+}
+
+// --- Server-side fetch functions (for smart loaders) ---
+
+// Internal server-side fetch function with validation
+async function fetchJsonValidatedServer<T>(url: string, schema: ZodTypeAny, init?: any): Promise<T> {
   const res = await fetch(url, { ...init, headers: { 'accept': 'application/json', ...(init?.headers || {}) } });
   if (!res.ok) {
     throw new Error(`Fetch failed ${res.status} ${res.statusText} for ${url}`);
@@ -139,11 +216,9 @@ async function fetchJsonValidated<T>(url: string, schema: ZodTypeAny, init?: any
 }
 
 /**
- * Fetch menu from a REST endpoint. If no endpoint is provided:
- * - on server, it tries config.api.menuEndpoint
- * - on client, it uses a relative '/api/menu'
+ * Server-side menu fetcher for smart loader
  */
-export async function fetchMenuFromApi(endpoint?: string, env: AppEnv = resolveEnv()): Promise<Menu> {
+async function fetchMenuFromApiServer(endpoint?: string, env: AppEnv = resolveEnv()): Promise<Menu> {
   let url = endpoint;
   if (!url) {
     if (typeof window === 'undefined') {
@@ -151,27 +226,31 @@ export async function fetchMenuFromApi(endpoint?: string, env: AppEnv = resolveE
         const cfg = await getConfigData(env);
         url = cfg.api.menuEndpoint || `${cfg.api.baseUrl ?? ''}/api/menu`;
       } catch {
-  // If config lookup fails, fall back to local API path
-  url = '/api/menu';
+        // If config lookup fails, fall back to local API path
+        url = '/api/menu';
       }
     } else {
       url = '/api/menu';
     }
   }
-  return fetchJsonValidated<Menu>(url!, MenuSchema, { cache: 'no-store' });
+  return fetchJsonValidatedServer<Menu>(url!, MenuSchema, { cache: 'no-store' });
 }
 
-// Placeholder for future endpoints
-export async function fetchMarketingFromApi(url: string): Promise<Marketing> {
-  return fetchJsonValidated<Marketing>(url, MarketingSchema, { cache: 'no-store' });
+// Server-side fetch functions for smart loaders
+async function fetchMarketingFromApiServer(url: string): Promise<Marketing> {
+  return fetchJsonValidatedServer<Marketing>(url, MarketingSchema, { cache: 'no-store' });
 }
 
-export async function fetchRestaurantFromApi(url: string): Promise<Restaurant> {
-  return fetchJsonValidated<Restaurant>(url, RestaurantSchema, { cache: 'no-store' });
+async function fetchRestaurantFromApiServer(url: string): Promise<Restaurant> {
+  return fetchJsonValidatedServer<Restaurant>(url, RestaurantSchema, { cache: 'no-store' });
 }
 
-export async function fetchConfigFromApi(url: string): Promise<AppConfig> {
-  return fetchJsonValidated<AppConfig>(url, ConfigSchema, { cache: 'no-store' });
+async function fetchConfigFromApiServer(url: string): Promise<AppConfig> {
+  return fetchJsonValidatedServer<AppConfig>(url, ConfigSchema, { cache: 'no-store' });
+}
+
+async function fetchContentFromApiServer(url: string): Promise<Content> {
+  return fetchJsonValidatedServer<Content>(url, ContentSchema, { cache: 'no-store' });
 }
 
 // --- Smart loaders for marketing and restaurant ----------------------------------
@@ -180,6 +259,11 @@ export async function fetchConfigFromApi(url: string): Promise<AppConfig> {
  * Smart marketing loader: prefers API when CMS is enabled and endpoint configured; falls back to fs.
  */
 export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Marketing> {
+  // In development, skip API calls and use filesystem directly for performance
+  if (env === 'dev') {
+    return getMarketingContent(env);
+  }
+  
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -187,7 +271,7 @@ export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Mar
     if (cmsOn) {
       try {
         const url = endpoint ?? '/api/marketing';
-        return await fetchMarketingFromApi(url);
+        return await fetchMarketingFromApiServer(url);
       } catch {
         // fall back
       }
@@ -199,23 +283,195 @@ export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Mar
 }
 
 /**
+ * Smart content loader: prefers API when CMS is enabled and endpoint configured; falls back to fs.
+ * Enhanced with performance caching and intelligent fallback strategies.
+ */
+export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Content> {
+  const cacheKey = createCacheKey('content-smart', env);
+  
+  return globalCache.get(cacheKey, async () => {
+    // In development, skip API calls and use filesystem directly for performance
+    if (env === 'dev') {
+      return getContentDataOptimized(env);
+    }
+    
+    try {
+      const cfg = await getConfigData(env);
+      const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
+      const endpoint = cfg.api?.contentEndpoint || cfg.api?.baseUrl ? `${cfg.api.baseUrl}/api/content` : undefined;
+      
+      if (cmsOn && endpoint) {
+        try {
+          // Try API first with shorter cache for real-time updates (only in staging/prod)
+          const apiContent = await fetchContentFromApiServer(endpoint);
+          
+          // Preload fallback in background for better resilience
+          globalCache.preload(
+            createCacheKey('content-fallback', env),
+            () => getContentDataOptimized(env),
+            { priority: 'low' }
+          );
+          
+          return apiContent;
+        } catch (apiError) {
+          console.warn('API content loading failed, falling back to filesystem:', apiError);
+          // fall through to fs
+        }
+      }
+    } catch (configError) {
+      console.warn('Config loading failed, using filesystem content:', configError);
+      // ignore config errors; fallback to fs
+    }
+    
+    return getContentDataOptimized(env);
+  }, {
+    ttl: getContentCacheTTL(env),
+    enableCompression: env === 'prod'
+  });
+}
+
+/**
  * Smart restaurant loader: prefers API when CMS is enabled and endpoint configured; falls back to fs.
  */
 export async function getRestaurantSmart(env: AppEnv = resolveEnv()): Promise<Restaurant> {
-  try {
-    const cfg = await getConfigData(env);
-    const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
-    const endpoint = cfg.api?.restaurantEndpoint || cfg.api?.baseUrl ? `${cfg.api.baseUrl}/api/restaurant` : undefined;
-    if (cmsOn) {
-      try {
-        const url = endpoint ?? '/api/restaurant';
-        return await fetchRestaurantFromApi(url);
-      } catch {
-        // fall back
+  const cacheKey = createCacheKey('restaurant-smart', env);
+  
+  return globalCache.get(cacheKey, async () => {
+    try {
+      const cfg = await getConfigData(env);
+      const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
+      const endpoint = cfg.api?.restaurantEndpoint || cfg.api?.baseUrl ? `${cfg.api.baseUrl}/api/restaurant` : undefined;
+      if (cmsOn) {
+        try {
+          const url = endpoint ?? '/api/restaurant';
+          return await fetchRestaurantFromApiServer(url);
+        } catch {
+          // fall back
+        }
       }
+    } catch {
+      // ignore and fall back
     }
-  } catch {
-    // ignore and fall back
+    return getRestaurantInfo(env);
+  }, {
+    ttl: getRestaurantCacheTTL(env)
+  });
+}
+
+// --- Performance Helper Functions ---
+
+/**
+ * Get environment-specific cache TTL for content
+ */
+function getContentCacheTTL(env: AppEnv): number {
+  const ttls = {
+    dev: 60 * 1000,        // 1 minute for development
+    staging: 5 * 60 * 1000, // 5 minutes for staging
+    prod: 60 * 60 * 1000   // 1 hour for production
+  };
+  return ttls[env] || ttls.dev;
+}
+
+/**
+ * Get environment-specific cache TTL for menu
+ */
+function getMenuCacheTTL(env: AppEnv): number {
+  const ttls = {
+    dev: 30 * 1000,         // 30 seconds for development
+    staging: 10 * 60 * 1000, // 10 minutes for staging
+    prod: 2 * 60 * 60 * 1000 // 2 hours for production
+  };
+  return ttls[env] || ttls.dev;
+}
+
+/**
+ * Get environment-specific cache TTL for config
+ */
+function getConfigCacheTTL(env: AppEnv): number {
+  const ttls = {
+    dev: 30 * 1000,         // 30 seconds for development
+    staging: 5 * 60 * 1000,  // 5 minutes for staging
+    prod: 30 * 60 * 1000    // 30 minutes for production
+  };
+  return ttls[env] || ttls.dev;
+}
+
+/**
+ * Get environment-specific cache TTL for restaurant info
+ */
+function getRestaurantCacheTTL(env: AppEnv): number {
+  const ttls = {
+    dev: 2 * 60 * 1000,      // 2 minutes for development
+    staging: 15 * 60 * 1000, // 15 minutes for staging
+    prod: 4 * 60 * 60 * 1000 // 4 hours for production
+  };
+  return ttls[env] || ttls.dev;
+}
+
+/**
+ * Preload critical content for better performance
+ */
+export async function preloadCriticalContent(env: AppEnv = resolveEnv()): Promise<void> {
+  const preloadPromises = [
+    globalCache.preload(
+      createCacheKey('content', env),
+      () => getContentDataOptimized(env),
+      { priority: 'high' }
+    ),
+    globalCache.preload(
+      createCacheKey('config', env),
+      () => getConfigData(env),
+      { priority: 'high' }
+    ),
+    globalCache.preload(
+      createCacheKey('menu', env),
+      () => getMenuData(env),
+      { priority: 'normal' }
+    )
+  ];
+  
+  await Promise.allSettled(preloadPromises);
+}
+
+/**
+ * Get cache performance statistics
+ */
+// --- Client-safe re-exports ---
+// Re-export client-safe functions from client-loader
+export {
+  fetchContentFromApi,
+  fetchMenuFromApi, 
+  fetchMarketingFromApi,
+  fetchRestaurantFromApi,
+  fetchConfigFromApi,
+  getContentFromApi,
+  getMenuFromApi
+} from './client-loader';
+
+// Cache utilities (client-safe)
+export function getCacheStats() {
+  if (typeof window !== 'undefined') {
+    // Client-side: use client loader
+    const { getCacheStats: clientGetCacheStats } = require('./client-loader');
+    return clientGetCacheStats();
   }
-  return getRestaurantInfo(env);
+  return globalCache.getStats();
+}
+
+export function optimizeCache() {
+  if (typeof window !== 'undefined') {
+    // Client-side: use client loader
+    const { optimizeCache: clientOptimizeCache } = require('./client-loader');
+    return clientOptimizeCache();
+  }
+  return globalCache.optimize();
+}
+
+export function invalidateCache(pattern?: string | RegExp): number {
+  if (typeof window !== 'undefined') {
+    // Client-side: use client loader
+    const { invalidateCache: clientInvalidateCache } = require('./client-loader');
+    return clientInvalidateCache(pattern);
+  }
+  return globalCache.invalidate(pattern);
 }

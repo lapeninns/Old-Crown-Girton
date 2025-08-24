@@ -6,10 +6,14 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Provider } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 import config from "@/config";
+import { useContent } from "@/hooks/useContent";
 
 // This a login/singup page for Supabase Auth.
 // Successfull login redirects to /api/auth/callback where the Code Exchange is processed (see app/api/auth/callback/route.js).
 export default function Login() {
+  const { data: content, loading } = useContent();
+  const signinContent = content?.pages?.signin;
+  
   const supabase = createClientComponentClient();
   const [email, setEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,7 +49,7 @@ export default function Login() {
           },
         });
 
-        toast.success("Check your emails!");
+        toast.success(signinContent?.form?.messages?.checkEmail || "Check your emails!");
 
         setIsDisabled(true);
       }
@@ -55,6 +59,14 @@ export default function Login() {
       setIsLoading(false);
     }
   };
+
+  if (loading || !content) {
+    return (
+      <div className="p-8 md:p-24 text-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="p-8 md:p-24" data-theme={config.colors.theme}>
@@ -72,11 +84,11 @@ export default function Login() {
               clipRule="evenodd"
             />
           </svg>
-          Home
+          {content.global.ui.buttons.home || 'Home'}
         </Link>
       </div>
       <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center mb-12">
-        Sign-in to {config.appName}{" "}
+        {signinContent?.title?.replace('{appName}', config.appName) || `Sign-in to ${config.appName}`}{" "}
       </h1>
 
       <div className="space-y-8 max-w-xl mx-auto">
@@ -113,11 +125,11 @@ export default function Login() {
               />
             </svg>
           )}
-          Sign-up with Google
+          {signinContent?.form?.buttons?.google || 'Sign-up with Google'}
         </button>
 
         <div className="divider text-xs text-base-content/50 font-medium">
-          OR
+          {signinContent?.form?.buttons?.divider || 'OR'}
         </div>
 
         <form
@@ -129,7 +141,7 @@ export default function Login() {
             type="email"
             value={email}
             autoComplete="email"
-            placeholder="tom@cruise.com"
+            placeholder={signinContent?.form?.email?.placeholder || 'tom@cruise.com'}
             className="input input-bordered w-full placeholder:opacity-60"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -142,7 +154,7 @@ export default function Login() {
             {isLoading && (
               <span className="loading loading-spinner loading-xs"></span>
             )}
-            Send Magic Link
+            {signinContent?.form?.buttons?.magicLink || 'Send Magic Link'}
           </button>
         </form>
       </div>

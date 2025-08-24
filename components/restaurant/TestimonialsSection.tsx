@@ -5,12 +5,19 @@ import { getTestimonials } from '@/lib/restaurantData';
 import { useEffect } from 'react';
 import { SchemaInjector } from '@/components/seo/RestaurantSchema';
 import { useParsedData } from '@/hooks/useParsedData';
+import { useContent } from '@/hooks/useContent';
 import { MarketingDataSchema } from '@/lib/schemas';
 
 export default function TestimonialsSection() {
   const testimonials = getTestimonials();
   const { data: marketing } = useParsedData('marketing.json', MarketingDataSchema);
-  const labelBookTableOnline = marketing?.buttons?.bookTableOnline || 'Book Your Table Online';
+  const { data: content } = useContent();
+  
+  const testimonialContent = content?.components?.testimonials;
+  const labelBookTableOnline = marketing?.buttons?.bookTableOnline || content?.global?.ui?.buttons?.bookOnline || 'Book Your Table Online';
+  
+  // Use content management testimonials if available, otherwise fall back to restaurant data
+  const displayTestimonials = testimonialContent?.items || testimonials;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -35,10 +42,10 @@ export default function TestimonialsSection() {
   useEffect(() => {
     // This will remove & re-add updated restaurant schema with reviews if needed
     // (SchemaInjector ensures uniqueness per type)
-  }, [testimonials]);
+  }, [displayTestimonials]);
 
   // If there are no testimonials, render nothing (after hook declarations)
-  if (!testimonials || testimonials.length === 0) {
+  if (!displayTestimonials || displayTestimonials.length === 0) {
     return null;
   }
 
@@ -55,10 +62,10 @@ export default function TestimonialsSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-display font-bold text-stout-700 mb-4">
-            What Our Customers Say
+            {testimonialContent?.title || 'What Our Customers Say'}
           </h2>
           <p className="text-lg text-brand-600 max-w-2xl mx-auto">
-            Don&apos;t just take our word for it - hear from our valued customers about their dining experience
+            {testimonialContent?.subtitle || "Don't just take our word for it - hear from our valued customers about their dining experience"}
           </p>
         </motion.div>
 
@@ -69,9 +76,9 @@ export default function TestimonialsSection() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {testimonials.slice(0, 6).map((testimonial: any) => (
+          {displayTestimonials.slice(0, 6).map((testimonial: any, index: number) => (
             <motion.div
-              key={testimonial.id}
+              key={testimonial.id || index}
               variants={cardVariants}
               className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
             >
@@ -81,7 +88,7 @@ export default function TestimonialsSection() {
                   <svg
                     key={i}
                     className={`w-5 h-5 ${
-                      i < testimonial.rating ? 'text-accent-500' : 'text-neutral-300'
+                      i < (testimonial.rating || 5) ? 'text-accent-500' : 'text-neutral-300'
                     }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -99,12 +106,12 @@ export default function TestimonialsSection() {
               {/* Author Info */}
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-stout-700">{testimonial.author}</p>
+                  <p className="font-semibold text-stout-700">{testimonial.name || testimonial.author}</p>
                   <p className="text-sm text-neutral-500">{testimonial.location}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-neutral-500">{testimonial.platform}</p>
-                  {testimonial.verified && (
+                  <p className="text-sm text-neutral-500">{testimonial.platform || 'Google'}</p>
+                  {(testimonial.verified !== false) && (
                     <div className="flex items-center text-cardamom-600 text-sm">
                       <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path

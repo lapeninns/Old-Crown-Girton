@@ -1,0 +1,512 @@
+{
+  "global": {
+    "site": {
+      "name": "The Old Crown Girton",
+      "title": "Historic Thatched Pub & Nepalese Restaurant",
+      "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223 276027",
+      "keywords": ["pub Girton", "Nepalese restaurant Cambridge", "family friendly pub Cambridge", "dog friendly pub Girton", "Sunday roast Cambridge", "historic thatched pub", "Girton College pub", "takeaway Cambridge"],
+      "branding": {
+        "tagline": "A unique blend of authentic Nepalese cuisine and traditional British pub culture",
+        "slogan": "Where heritage meets hospitality"
+      }
+    },
+    "navigation": {
+      "header": {
+        "links": [
+          { "href": "/", "label": "Home" },
+          { "href": "/menu", "label": "Menu" },
+          { "href": "/about", "label": "About" },
+          { "href": "/events", "label": "Events" },
+          { "href": "/contact", "label": "Contact" }
+        ]
+      },
+      "footer": {
+        "sections": [
+          {
+            "title": "Quick Links",
+            "links": [
+              { "href": "/menu", "label": "Menu" },
+              { "href": "/about", "label": "About" },
+              { "href": "/events", "label": "Events" },
+              { "href": "/contact", "label": "Contact" }
+            ]
+          },
+          {
+            "title": "Legal",
+            "links": [
+              { "href": "/tos", "label": "Terms of Service" },
+              { "href": "/privacy-policy", "label": "Privacy Policy" }
+            ]
+          }
+        ],
+        "copyright": "© 2025 The Old Crown Girton. All rights reserved.",
+        "socialMedia": {
+          "facebook": { "url": "https://facebook.com", "label": "Follow us on Facebook" },
+          "instagram": { "url": "https://instagram.com", "label": "Follow us on Instagram" }
+        }
+      },
+      "breadcrumbs": {
+        "home": "Home",
+        "separator": "/"
+      }
+    },
+    "ui": {
+      "buttons": {
+        "bookOnline": "Book Online",
+        "viewMenu": "View Menu",
+        "orderTakeaway": "Order Takeaway",
+        "callNow": "Call Now",
+        "getDirections": "Get Directions",
+        "loadMore": "Load More",
+        "showMore": "Show More",
+        "showLess": "Show Less",
+        "close": "Close",
+        "back": "Back",
+        "home": "Home",
+        "tryAgain": "Try Again",
+        "goBack": "Go Back",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete",
+        "confirm": "Confirm"
+      },
+      "labels": {
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "warning": "Warning",
+        "info": "Information",
+        "required": "Required",
+        "optional": "Optional",
+        "search": "Search",
+        "filter": "Filter",
+        "sort": "Sort",
+        "menu": "Menu",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu"
+      },
+      "messages": {
+        "loading": "Please wait while we load the content...",
+        "error": "Something went wrong. Please try again.",
+        "noResults": "No results found.",
+        "offline": "You are currently offline.",
+        "connectionError": "Connection error. Please check your internet connection.",
+        "tryAgainLater": "Please try again later."
+      },
+      "placeholders": {
+        "search": "Search...",
+        "email": "Enter your email address",
+        "name": "Enter your name",
+        "phone": "Enter your phone number",
+        "message": "Enter your message"
+      }
+    },
+    "accessibility": {
+      "ariaLabels": {
+        "mainNavigation": "Main navigation",
+        "mainContent": "Main content",
+        "skipToContent": "Skip to main content",
+        "openModal": "Open modal",
+        "closeModal": "Close modal",
+        "openDialog": "Open dialog",
+        "closeDialog": "Close dialog",
+        "previousPage": "Previous page",
+        "nextPage": "Next page",
+        "currentPage": "Current page",
+        "menuButton": "Menu button",
+        "socialMedia": "Social media links",
+        "contactInfo": "Contact information"
+      },
+      "altTexts": {
+        "logo": "The Old Crown Girton logo",
+        "heroBanner": "Historic thatched pub exterior",
+        "defaultImage": "Restaurant image"
+      },
+      "descriptions": {
+        "siteDescription": "Historic thatched pub and Nepalese restaurant website"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "hero": {
+        "title": "The Old Crown Girton: Historic Thatched Pub & Authentic Nepalese Restaurant",
+        "subtitle": "Welcome to Girton's unique dining destination, where the largest thatched pub in the country serves exceptional Nepalese cuisine alongside beloved British pub classics.",
+        "description": "Just minutes from Cambridge and Girton College, we're your family-friendly, dog-welcoming village hub for memorable meals and community gathering.",
+        "cta": {
+          "primary": "Book Online",
+          "secondary": "View Menu"
+        }
+      },
+      "sections": {
+        "features": {
+          "title": "What Makes Us Special",
+          "items": [
+            {
+              "icon": "🏛️",
+              "title": "Historic Thatched Building",
+              "description": "Largest in the country"
+            },
+            {
+              "icon": "🍛",
+              "title": "Authentic Nepalese Food",
+              "description": "Traditional recipes"
+            },
+            {
+              "icon": "👨‍👩‍👧‍👦",
+              "title": "Family Friendly",
+              "description": "Kids welcome until 9pm"
+            },
+            {
+              "icon": "🐕",
+              "title": "Dog Friendly",
+              "description": "Well-behaved dogs welcome"
+            }
+          ]
+        },
+        "quickLinks": [
+          {
+            "title": "Community & Events",
+            "description": "Quiz nights, seasonal gatherings & live sports – see what's coming up.",
+            "link": "/events",
+            "linkText": "View Events →"
+          },
+          {
+            "title": "Heritage & Story",
+            "description": "Discover how our thatched village pub evolved into a Nepalese + British hub.",
+            "link": "/about",
+            "linkText": "Explore Heritage →"
+          },
+          {
+            "title": "Our Menu",
+            "description": "Authentic Nepalese dishes alongside classic pub favorites.",
+            "link": "/menu",
+            "linkText": "View Menu →"
+          }
+        ]
+      }
+    },
+    "about": {
+      "hero": {
+        "title": "About Himalayan Spice",
+        "subtitle": "A unique blend of authentic Nepalese cuisine and traditional British pub culture"
+      },
+      "story": {
+        "title": "Our Story",
+        "introduction": "Located in the picturesque village of Girton, just minutes from Cambridge, Old Crown offers a truly unique dining experience. We proudly serve authentic Nepalese cuisine alongside traditional pub classics, creating a warm and welcoming atmosphere for locals and visitors alike.",
+        "timeline": [
+          {
+            "period": "Historic Beginnings",
+            "title": "The Village Heart",
+            "description": "For centuries, The Old Crown has been at the heart of Girton village life. Our historic thatched building - recognized as the largest thatched pub in the country - has witnessed countless community gatherings and celebrations."
+          },
+          {
+            "period": "Culinary Evolution",
+            "title": "Culinary Evolution",
+            "description": "Under various managements, The Old Crown experimented with different culinary directions, including a period as an upscale gastropub. Each era added to our rich tapestry while maintaining our essential village pub character."
+          },
+          {
+            "period": "Today",
+            "title": "The Nepalese-British Fusion",
+            "description": "Under current management, we've discovered our unique identity: combining authentic Nepalese cuisine with traditional British pub classics. This fusion represents Cambridge's multicultural community while honoring our heritage."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ready to Book?",
+        "description": "Experience the perfect blend of Nepalese hospitality and British pub tradition.",
+        "button": "Book Online",
+        "contact": {
+          "address": "89 High St, Girton, Cambridge CB3 0QQ",
+          "hours": "See footer for full hours"
+        }
+      }
+    },
+    "contact": {
+      "hero": {
+        "title": "Contact Us",
+        "subtitle": "Get in touch for bookings, enquiries, or just to say hello"
+      },
+      "contactInfo": {
+        "title": "Get in Touch",
+        "phone": {
+          "title": "Phone",
+          "number": "01223 276027",
+          "description": "Call us for bookings and enquiries"
+        },
+        "location": {
+          "title": "Location",
+          "address": "89 High Street, Girton, Cambridge, CB3 0QQ",
+          "description": "Just 3 miles from Cambridge city centre"
+        }
+      },
+      "hours": {
+        "title": "Opening Hours",
+        "restaurant": {
+          "title": "Restaurant",
+          "schedule": [
+            { "days": "Monday - Thursday", "hours": "12:00 - 22:00" },
+            { "days": "Friday - Saturday", "hours": "12:00 - 22:30" },
+            { "days": "Sunday", "hours": "12:00 - 21:30" }
+          ]
+        },
+        "bar": {
+          "title": "Bar",
+          "schedule": [
+            { "days": "Monday - Thursday", "hours": "12:00 - 23:00" },
+            { "days": "Friday - Saturday", "hours": "12:00 - 00:00" },
+            { "days": "Sunday", "hours": "12:00 - 22:30" }
+          ]
+        }
+      },
+      "features": {
+        "title": "What We Offer",
+        "items": [
+          { "icon": "🌿", "text": "Outdoor terrace" },
+          { "icon": "🅿️", "text": "Free parking" },
+          { "icon": "🐕", "text": "Dog-friendly" },
+          { "icon": "♿", "text": "Accessible" },
+          { "icon": "📶", "text": "Free WiFi" },
+          { "icon": "🎉", "text": "Private dining" }
+        ]
+      }
+    },
+    "events": {
+      "hero": {
+        "title": "What's On & Community Events",
+        "subtitle": "Recurring favourites plus seasonal highlights reflecting Girton village life & Cambridge academic rhythm. Call to reserve or enquire about group space."
+      },
+      "regularEvents": [
+        {
+          "title": "Weekly Pub Quiz",
+          "description": "Community teams, students & locals — general knowledge + themed rounds.",
+          "frequency": "Thursday 8:00 PM",
+          "icon": "🧠"
+        },
+        {
+          "title": "Curry & Community Night",
+          "description": "Celebrate our Nepalese kitchen: featured dish & mild family option.",
+          "frequency": "Wednesday Evening",
+          "icon": "🌶️"
+        },
+        {
+          "title": "Live Sports Highlights",
+          "description": "Key football & rugby fixtures on screen – garden when weather allows.",
+          "frequency": "Major fixtures schedule",
+          "icon": "⚽"
+        },
+        {
+          "title": "Seasonal Garden Social",
+          "description": "Long summer evenings with relaxed sharing plates. (Seasonal)",
+          "frequency": "Summer Series",
+          "icon": "🌿"
+        }
+      ],
+      "contact": {
+        "title": "Book Your Event",
+        "description": "Planning a private event? Get in touch to discuss your requirements.",
+        "phone": "01223 276027",
+        "email": "events@oldcrowngirton.co.uk"
+      }
+    },
+    "menu": {
+      "hero": {
+        "title": "Our Menu: Authentic Nepalese & Traditional British Cuisine",
+        "subtitle": "Discover the unique flavors of Nepal alongside your favorite pub classics at Girton's historic thatched pub. Every dish made fresh with authentic recipes and quality ingredients.",
+        "cta": {
+          "book": "Book Online",
+          "order": "Order Takeaway: 01223 276027"
+        }
+      },
+      "sections": {
+        "description": "Experience the perfect fusion of authentic Nepalese flavors and beloved British pub classics.",
+        "allergenNotice": "Please inform us of any allergies or dietary requirements when ordering."
+      }
+    },
+    "signin": {
+      "title": "Sign-in to {appName}",
+      "subtitle": "Access your account",
+      "form": {
+        "email": {
+          "label": "Email",
+          "placeholder": "tom@cruise.com"
+        },
+        "buttons": {
+          "google": "Sign-up with Google",
+          "magicLink": "Send Magic Link",
+          "divider": "OR"
+        },
+        "messages": {
+          "checkEmail": "Check your emails!",
+          "loading": "Signing in..."
+        }
+      }
+    },
+    "dashboard": {
+      "title": "Private Page",
+      "subtitle": "Welcome to your dashboard"
+    },
+    "offline": {
+      "title": "You're Offline",
+      "subtitle": "Don't worry, some content is still available",
+      "description": "It looks like you've lost your internet connection. Some features may not work as expected, but you can still browse previously loaded content.",
+      "features": {
+        "title": "Available Offline:",
+        "items": [
+          "Previously viewed menu items",
+          "Restaurant information",
+          "Contact details",
+          "Form submissions (will sync when online)"
+        ]
+      },
+      "actions": {
+        "goBack": "Go Back",
+        "tryAgain": "Try Again"
+      }
+    },
+    "notFound": {
+      "title": "This page doesn't exist 😅",
+      "subtitle": "The page you're looking for could not be found.",
+      "buttons": {
+        "home": "Home",
+        "support": "Contact Support"
+      }
+    }
+  },
+  "components": {
+    "testimonials": {
+      "title": "What Our Customers Say",
+      "subtitle": "Don't just take our word for it",
+      "items": [
+        {
+          "name": "Sarah Johnson",
+          "text": "Absolutely wonderful! The Nepalese dishes are authentic and delicious, and the traditional pub atmosphere is so welcoming. Perfect for families.",
+          "rating": 5,
+          "location": "Cambridge"
+        },
+        {
+          "name": "Mike Thompson",
+          "text": "Great food and fantastic service. The best of both worlds - proper pub classics and amazing curry. Highly recommended!",
+          "rating": 5,
+          "location": "Girton"
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Common questions about our restaurant",
+      "items": [
+        {
+          "question": "Do you accept bookings?",
+          "answer": "Yes, we accept bookings online or by phone. We recommend booking in advance, especially for weekends and special events."
+        },
+        {
+          "question": "Are you family-friendly?",
+          "answer": "Absolutely! We welcome families with children until 9pm. We have a children's menu and high chairs available."
+        },
+        {
+          "question": "Do you offer takeaway?",
+          "answer": "Yes, we offer takeaway for both our Nepalese and British menu items. Call us on 01223 276027 to place your order."
+        },
+        {
+          "question": "Is parking available?",
+          "answer": "Yes, we have free parking available for our customers."
+        }
+      ]
+    },
+    "menuHighlights": {
+      "title": "Menu Highlights",
+      "subtitle": "A taste of what we offer",
+      "featuredItem": {
+        "name": "Mixed Platter",
+        "description": "Chef's selection of our finest Nepalese and British dishes",
+        "badge": "Chef's Special",
+        "price": "£18.95"
+      }
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "phone": "Please enter a valid phone number",
+      "minLength": "Must be at least {min} characters",
+      "maxLength": "Must be no more than {max} characters"
+    },
+    "messages": {
+      "success": "Thank you! We'll get back to you soon.",
+      "error": "Sorry, something went wrong. Please try again.",
+      "submitting": "Submitting..."
+    },
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "subject": "Subject",
+      "partySize": "Party Size",
+      "date": "Date",
+      "time": "Time",
+      "specialRequests": "Special Requests"
+    }
+  },
+  "api": {
+    "messages": {
+      "success": "Request completed successfully",
+      "error": "An error occurred while processing your request",
+      "notFound": "The requested resource was not found",
+      "unauthorized": "You are not authorized to access this resource",
+      "forbidden": "Access to this resource is forbidden",
+      "serverError": "Internal server error",
+      "badRequest": "Invalid request"
+    },
+    "errors": {
+      "menu": {
+        "loadFailed": "Failed to load menu",
+        "notFound": "Menu not found"
+      },
+      "restaurant": {
+        "loadFailed": "Failed to load restaurant information",
+        "notFound": "Restaurant information not found"
+      },
+      "marketing": {
+        "loadFailed": "Failed to load marketing content",
+        "notFound": "Marketing content not found"
+      },
+      "config": {
+        "loadFailed": "Failed to load configuration",
+        "notFound": "Configuration not found"
+      },
+      "validation": {
+        "emailRequired": "Email is required",
+        "invalidEmail": "Invalid email format",
+        "phoneRequired": "Phone number is required",
+        "nameRequired": "Name is required"
+      },
+      "auth": {
+        "unauthorized": "You must be logged in to access this resource",
+        "forbidden": "You don't have permission to access this resource",
+        "sessionExpired": "Your session has expired"
+      },
+      "payment": {
+        "stripeError": "Payment processing error",
+        "invalidAmount": "Invalid payment amount",
+        "paymentFailed": "Payment failed"
+      }
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Terms of Service",
+      "effectiveDate": "10 August 2025",
+      "contact": "legal@oldcrowngirton.co.uk"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "effectiveDate": "10 August 2025",
+      "contact": "privacy@oldcrowngirton.co.uk"
+    }
+  }
+}

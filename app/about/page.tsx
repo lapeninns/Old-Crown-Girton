@@ -1,13 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getMarketingSmart } from '@/src/lib/data/loader';
+import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 import { getContactInfo, getHours } from "@/lib/restaurantData";
 
 export default async function AboutPage() {
   const m = await getMarketingSmart();
+  const content = await getContentSmart();
+  
   const labels = m.buttons || {};
-  const labelBookOnline = labels.bookOnline || 'Book Online';
+  const labelBookOnline = labels.bookOnline || content.global.ui.buttons.bookOnline || 'Book Online';
+  
+  // About page content
+  const aboutContent = content.pages.about;
   const contact = getContactInfo();
   const hours = getHours();
   const postcode = contact?.address.postcode || "CB3 0QQ";
@@ -28,10 +33,10 @@ export default async function AboutPage() {
         <div className="relative bg-brand-700 text-neutral-50 py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              About <span className="text-neutral-50 font-semibold">Himalayan Spice</span>
+              {aboutContent.hero.title}
             </h1>
               <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
-              Historic thatched village pub near Cambridge blending community heritage &amp; authentic Nepalese flavour
+              {aboutContent.hero.subtitle}
             </p>
           </div>
           </div>
@@ -39,49 +44,20 @@ export default async function AboutPage() {
           {/* Main Content */}
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="prose prose-lg max-w-none">
-              <p className="text-neutral-600 mb-6">Located on Girton High Street just minutes from Cambridge, The Himalayan Spice blends the charm of a historic thatched English pub with a warmly spiced Nepalese kitchen. After previous periods of change, today we focus on a clear, consistent dual identity: heritage setting + Himalayan flavour.</p>
-            <p className="text-neutral-600 mb-6">We welcome Girton locals, families, Girton College students & staff, professionals from the wider "Silicon Fen" and visitors seeking an authentic village pub experience with something unexpectedly delicious.</p>
-            <p className="text-neutral-600 mb-6">Our kitchen balances aromatic Nepalese spice profiles with familiar British comfort options and calmer choices for younger or milder palates.</p>
-
-            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4 mt-8">Heritage Timeline</h2>
-            <ul className="list-disc pl-6 text-neutral-600 space-y-2 mb-8">
-              <li><span className="font-semibold">1930s:</span> Present thatched structure established (continuing village inn legacy).</li>
-              <li><span className="font-semibold">Transitions:</span> Various management changes created fragmented online identity.</li>
-              <li><span className="font-semibold">Current Chapter:</span> Unified “Pub + Nepalese” positioning serving Girton & wider Cambridge audiences.</li>
-            </ul>
-
-            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">What Makes Us Different</h2>
-            <ul className="list-disc pl-6 text-neutral-600 space-y-2 mb-8">
-              <li>Distinctive thatched landmark building</li>
-              <li>Authentic Nepalese dishes alongside pub favourites</li>
-              <li>Inclusive space: locals, families, students, professionals & visitors</li>
-              <li>Close Girton College & north Cambridge access</li>
-              <li>Garden & flexible areas for informal gatherings</li>
-            </ul>
-
-            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Community Involvement</h2>
-            <p className="text-neutral-600 mb-6">We aim to support village life, collaborate on local initiatives and provide a neutral meeting place. <span className="italic">[placeholder: add specific partnership / sponsorship once confirmed]</span></p>
-
-            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">For Different Audiences</h2>
-            <ul className="list-disc pl-6 text-neutral-600 space-y-2 mb-8">
-              <li><strong>Locals:</strong> Reliable, familiar, welcoming.</li>
-              <li><strong>Families:</strong> Garden space & mild dish options.</li>
-              <li><strong>Students & Staff:</strong> Walkable social venue near college.</li>
-              <li><strong>Professionals:</strong> Relaxed out‑of‑city meet point.</li>
-              <li><strong>Visitors:</strong> Memorable thatched setting + unexpected cuisine.</li>
-            </ul>
-
-            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Kitchen Ethos</h2>
-            <p className="text-neutral-600 mb-6">Balanced spice, aromatic depth, respectful technique. British staples remain for guests seeking traditional comfort. <span className="italic">[placeholder: add sourcing or supplier note]</span></p>
-
-            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Private Hire & Groups</h2>
-            <p className="text-neutral-600 mb-6">Enquire about gatherings, society evenings or seasonal celebrations. <span className="italic">[placeholder: capacity / room details]</span></p>
-
-            <h2 className="text-2xl font-display font-bold text-brand-700 mb-4">Visit Us</h2>
-            <p className="text-neutral-600 mb-6">Plan a meal, relaxed pint, quiz night or post‑lecture catch‑up. We look forward to welcoming you.</p>
+              <p className="text-neutral-600 mb-6">{aboutContent.story.introduction}</p>
+              
+              <h2 className="text-2xl font-display font-bold text-brand-700 mb-4 mt-8">{aboutContent.story.title}</h2>
+              {aboutContent.story.timeline.map((period, index) => (
+                <div key={index} className="mb-6">
+                  <h3 className="text-lg font-semibold text-brand-700 mb-2">
+                    <span className="font-semibold">{period.period}:</span> {period.title}
+                  </h3>
+                  <p className="text-neutral-600">{period.description}</p>
+                </div>
+              ))}
 
             <div className="bg-accent-50 rounded-xl p-8 text-center">
-              <h2 className="text-xl font-display font-bold text-brand-700 mb-4">Ready to Book?</h2>
+              <h2 className="text-xl font-display font-bold text-brand-700 mb-4">{aboutContent.cta.title}</h2>
               <a
                 href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
                 target="_blank"
@@ -89,12 +65,12 @@ export default async function AboutPage() {
                 className="inline-block bg-accent-950 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 hover:bg-accent-950 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60"
                 aria-label={labelBookOnline}
               >
-                {labelBookOnline}
+                {aboutContent.cta.button}
               </a>
+              <p className="text-neutral-600 mt-4 mb-2">{aboutContent.cta.description}</p>
               <div className="mt-4 text-sm text-neutral-600">
-                <p><span className="font-semibold">Address:</span> 89 High St, Girton, Cambridge {postcode}</p>
-                <p><span className="font-semibold">Opening Hours:</span> <span className="italic">{quickHours || 'See footer for full hours'}</span></p>
-                {/* TODO: Replace remaining placeholders elsewhere on page (partnership, sourcing note, capacity) once details confirmed */}
+                <p><span className="font-semibold">Address:</span> {aboutContent.cta.contact.address}</p>
+                <p><span className="font-semibold">Opening Hours:</span> <span className="italic">{quickHours || aboutContent.cta.contact.hours}</span></p>
               </div>
             </div>
           </div>

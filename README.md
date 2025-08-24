@@ -4,10 +4,25 @@ This app now loads restaurant data from structured directories with runtime vali
 
 - Menu data: Individual category files in `/menu/` directory (e.g., `starters.json`, `speciality.json`, etc.)
 - Configuration data: Centralized files in `/config/` directory (`restaurant.json`, `marketing.json`, `config.json`)
-- Public surface: utilities in `src/lib/data` provide typed loaders: `getMenuData`, `getRestaurantInfo`, `getMarketingContent`, `getConfigData`.
+- **Content Management**: Centralized content system in `/config/content.json` for all website text, labels, and UI content
+- Public surface: utilities in `src/lib/data` provide typed loaders: `getMenuData`, `getRestaurantInfo`, `getMarketingContent`, `getConfigData`, `getContentData`.
 - Component `src/components/menu/Menu.tsx` is prop-driven and renders a validated `Menu` model.
 
 Validation errors are caught with friendly fallbacks in pages/components using `ErrorBoundary`.
+
+### Content Management System (CMS)
+
+The application features a comprehensive Content Management System that separates all hardcoded content from code logic:
+
+- **Centralized Content**: All website text, labels, buttons, and UI content in `/config/content.json`
+- **Dynamic Updates**: Update content without code deployment
+- **Type Safety**: Runtime validation with Zod schemas
+- **Accessibility**: Built-in ARIA labels, alt texts, and semantic content
+- **Fallback Mechanisms**: Graceful degradation when content fails to load
+- **API Integration**: Content served via `/api/content` with caching
+- **React Hooks**: `useContent()`, `usePageContent()`, `useComponentContent()` for easy integration
+
+**📖 For detailed CMS documentation, see [README-CONTENT-MANAGEMENT.md](./README-CONTENT-MANAGEMENT.md)**
 
 ### Menu Architecture
 
@@ -35,11 +50,14 @@ Configuration data is stored in the `/config/` directory:
 
 ### REST + SWR hooks
 
-- API routes: `/api/menu`, `/api/marketing`, `/api/restaurant` serve validated JSON from the env data loader.
+- API routes: `/api/menu`, `/api/marketing`, `/api/restaurant`, `/api/content` serve validated JSON from the env data loader.
 - Client hooks:
 	- `useMenu()` -> fetches `/api/menu`
 	- `useMarketing(endpoint?)` -> defaults `/api/marketing`
 	- `useRestaurant(endpoint?)` -> defaults `/api/restaurant`
+	- `useContent()` -> fetches `/api/content` (CMS content)
+	- `usePageContent(pageName)` -> fetches page-specific content
+	- `useComponentContent(componentName)` -> fetches component-specific content
 	- All responses validated via Zod to ensure type-safety at runtime.
 
 # External JSON Content Loader

@@ -1,0 +1,136 @@
+{
+  "global": {
+    "site": {
+      "name": "Old Crown [DEV]",
+      "title": "Old Crown - Development Environment",
+      "description": "Authentic Nepalese cuisine and pub classics - Development",
+      "keywords": ["nepalese", "restaurant", "pub", "oldcrown", "dev"],
+      "version": "dev-1.0.0",
+      "buildTime": "2024-DEV",
+      "environment": "development"
+    },
+    "contact": {
+      "phone": "+44 1234 567890",
+      "email": "dev@oldcrown.co.uk",
+      "address": {
+        "street": "123 Dev Street",
+        "city": "Test City",
+        "postcode": "DEV 123",
+        "country": "UK"
+      }
+    },
+    "ui": {
+      "buttons": {
+        "cta": "Book Now [DEV]",
+        "menu": "View Menu [DEV]",
+        "contact": "Contact Us [DEV]",
+        "close": "Close",
+        "submit": "Submit [DEV]",
+        "cancel": "Cancel",
+        "next": "Next",
+        "previous": "Previous",
+        "loading": "Loading...",
+        "retry": "Retry [DEV]"
+      },
+      "navigation": {
+        "home": "Home [DEV]",
+        "menu": "Menu [DEV]",
+        "about": "About [DEV]",
+        "contact": "Contact [DEV]",
+        "events": "Events [DEV]",
+        "bookings": "Book Table [DEV]"
+      },
+      "labels": {
+        "required": "Required field [DEV]",
+        "optional": "Optional [DEV]",
+        "error": "Error [DEV]",
+        "success": "Success [DEV]",
+        "warning": "Warning [DEV]",
+        "info": "Info [DEV]"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "hero": {
+        "title": "Welcome to Old Crown [DEV]",
+        "subtitle": "Development Environment - Authentic Nepalese Cuisine & Pub Classics",
+        "description": "Experience the rich flavors of Nepal combined with traditional British pub food in our cozy restaurant. [DEV MODE]",
+        "cta": "Book Your Table [DEV]"
+      },
+      "sections": {
+        "features": {
+          "title": "Why Choose Old Crown? [DEV]",
+          "items": [
+            {
+              "title": "Authentic Nepalese Cuisine [DEV]",
+              "description": "Traditional recipes passed down through generations [DEV]"
+            },
+            {
+              "title": "British Pub Classics [DEV]",
+              "description": "All your favorite pub dishes made fresh daily [DEV]"
+            },
+            {
+              "title": "Cozy Atmosphere [DEV]",
+              "description": "Perfect for family dinners or drinks with friends [DEV]"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "components": {
+    "testimonials": {
+      "title": "What Our Customers Say [DEV]",
+      "items": [
+        {
+          "name": "Dev User",
+          "text": "Amazing food and great service! [DEV TESTIMONIAL]",
+          "rating": 5
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions [DEV]",
+      "items": [
+        {
+          "question": "Do you take reservations? [DEV]",
+          "answer": "Yes, we accept reservations through our booking system. [DEV]"
+        }
+      ]
+    }
+  },
+  "forms": {
+    "labels": {
+      "name": "Name [DEV]",
+      "email": "Email [DEV]",
+      "phone": "Phone [DEV]",
+      "message": "Message [DEV]",
+      "date": "Date [DEV]",
+      "time": "Time [DEV]",
+      "guests": "Number of Guests [DEV]"
+    },
+    "validation": {
+      "required": "This field is required [DEV]",
+      "email": "Please enter a valid email address [DEV]",
+      "phone": "Please enter a valid phone number [DEV]",
+      "minLength": "Must be at least {min} characters [DEV]",
+      "maxLength": "Must be no more than {max} characters [DEV]"
+    }
+  },
+  "api": {
+    "errors": {
+      "general": "Something went wrong. Please try again. [DEV ERROR]",
+      "network": "Network error. Please check your connection. [DEV]",
+      "validation": "Please check your input and try again. [DEV]",
+      "notFound": "The requested resource was not found. [DEV]",
+      "serverError": "Server error. Please try again later. [DEV]"
+    }
+  },
+  "debug": {
+    "enabled": true,
+    "showEnv": true,
+    "showVersion": true,
+    "logLevel": "debug"
+  }
+}

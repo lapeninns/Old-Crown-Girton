@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getMarketingSmart } from '@/src/lib/data/loader';
+import { getMarketingSmart } from '@/src/lib/data/server-loader';
 import Hero from "@/components/restaurant/Hero";
 import dynamic from 'next/dynamic';
 // Dynamic non-LCP sections

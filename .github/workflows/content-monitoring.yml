@@ -1,0 +1,247 @@
+name: Content Health Monitoring
+
+on:
+  schedule:
+    # Run content health checks daily at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to monitor'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - dev
+          - staging
+          - prod
+
+jobs:
+  content-health-check:
+    runs-on: ubuntu-latest
+    name: Content Health Check
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Environment health check
+      run: |
+        echo "Performing content health check..."
+        
+        environments=("dev" "staging" "prod")
+        if [ "${{ github.event.inputs.environment }}" != "all" ] && [ "${{ github.event.inputs.environment }}" != "" ]; then
+          environments=("${{ github.event.inputs.environment }}")
+        fi
+        
+        for env in "${environments[@]}"; do
+          echo "Checking $env environment..."
+          
+          if [ ! -f "data/$env/content.json" ]; then
+            echo "❌ Missing content.json for $env environment"
+            exit 1
+          fi
+          
+          if [ ! -f "data/$env/config.json" ]; then
+            echo "❌ Missing config.json for $env environment"
+            exit 1
+          fi
+          
+          # Validate content structure
+          npm run validate-content -- --env=$env
+          
+          # Check file sizes
+          content_size=$(stat -f%z "data/$env/content.json" 2>/dev/null || stat -c%s "data/$env/content.json" 2>/dev/null)
+          if [ $content_size -gt 2097152 ]; then  # 2MB limit per environment
+            echo "⚠️ Content file for $env is large: ${content_size} bytes"
+          fi
+          
+          echo "✅ $env environment health check passed"
+        done
+
+    - name: Content consistency check
+      run: |
+        echo "Checking content consistency across environments..."
+        
+        # Check that all environments have the same content structure
+        dev_keys=$(jq -r 'paths(scalars) as $p | $p | join(".")' data/dev/content.json | sort)
+        staging_keys=$(jq -r 'paths(scalars) as $p | $p | join(".")' data/staging/content.json | sort)
+        prod_keys=$(jq -r 'paths(scalars) as $p | $p | join(".")' data/prod/content.json | sort)
+        
+        if ! diff <(echo "$dev_keys") <(echo "$staging_keys") > /dev/null; then
+          echo "⚠️ Content structure differs between dev and staging"
+        fi
+        
+        if ! diff <(echo "$staging_keys") <(echo "$prod_keys") > /dev/null; then
+          echo "⚠️ Content structure differs between staging and prod"
+        fi
+        
+        echo "✅ Content consistency check completed"
+
+    - name: Link validation
+      run: |
+        echo "Validating links and contact information..."
+        
+        # Check email formats
+        for env in dev staging prod; do
+          email=$(jq -r '.global.contact.email' data/$env/content.json)
+          if ! echo "$email" | grep -E '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'; then
+            echo "❌ Invalid email format in $env: $email"
+            exit 1
+          fi
+        done
+        
+        # Check phone formats
+        for env in dev staging prod; do
+          phone=$(jq -r '.global.contact.phone' data/$env/content.json)
+          if ! echo "$phone" | grep -E '^\+44 [0-9 ]+$'; then
+            echo "❌ Invalid phone format in $env: $phone"
+            exit 1
+          fi
+        done
+        
+        echo "✅ Link validation completed"
+
+    - name: Content quality metrics
+      run: |
+        echo "Calculating content quality metrics..."
+        
+        for env in dev staging prod; do
+          echo "=== $env Environment ==="
+          
+          # Count content items
+          pages=$(jq '.pages | keys | length' data/$env/content.json)
+          components=$(jq '.components | keys | length' data/$env/content.json)
+          forms=$(jq '.forms | keys | length' data/$env/content.json)
+          
+          echo "Pages: $pages"
+          echo "Components: $components" 
+          echo "Forms: $forms"
+          
+          # Check for empty values
+          empty_values=$(jq -r '[.. | select(type == "string" and . == "")] | length' data/$env/content.json)
+          if [ $empty_values -gt 0 ]; then
+            echo "⚠️ Found $empty_values empty string values"
+          fi
+          
+          # Check for missing translations or placeholder text
+          placeholders=$(jq -r '[.. | select(type == "string" and (contains("TODO") or contains("PLACEHOLDER") or contains("TBD")))] | length' data/$env/content.json)
+          if [ $placeholders -gt 0 ]; then
+            echo "⚠️ Found $placeholders placeholder values"
+          fi
+          
+          echo ""
+        done
+
+    - name: Performance metrics
+      run: |
+        echo "Calculating performance metrics..."
+        
+        total_content_size=0
+        for env in dev staging prod; do
+          size=$(stat -f%z "data/$env/content.json" 2>/dev/null || stat -c%s "data/$env/content.json" 2>/dev/null)
+          total_content_size=$((total_content_size + size))
+          echo "$env content size: ${size} bytes"
+        done
+        
+        echo "Total content size: ${total_content_size} bytes"
+        
+        # Check gzip compression potential
+        gzip_size=$(cat data/*/content.json | gzip | wc -c)
+        compression_ratio=$(echo "scale=2; $gzip_size * 100 / $total_content_size" | bc)
+        echo "Gzipped size: ${gzip_size} bytes (${compression_ratio}% of original)"
+
+    - name: Generate health report
+      run: |
+        echo "# 🏥 Content Health Report" > health-report.md
+        echo "" >> health-report.md
+        echo "**Generated:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> health-report.md
+        echo "**Commit:** ${{ github.sha }}" >> health-report.md
+        echo "" >> health-report.md
+        
+        echo "## ✅ Health Check Results" >> health-report.md
+        echo "" >> health-report.md
+        echo "- Content validation: PASSED" >> health-report.md
+        echo "- File integrity: PASSED" >> health-report.md
+        echo "- Contact information: PASSED" >> health-report.md
+        echo "- Structure consistency: CHECKED" >> health-report.md
+        echo "" >> health-report.md
+        
+        echo "## 📊 Metrics" >> health-report.md
+        echo "" >> health-report.md
+        
+        for env in dev staging prod; do
+          size=$(stat -f%z "data/$env/content.json" 2>/dev/null || stat -c%s "data/$env/content.json" 2>/dev/null)
+          pages=$(jq '.pages | keys | length' data/$env/content.json)
+          components=$(jq '.components | keys | length' data/$env/content.json)
+          
+          echo "### $env Environment" >> health-report.md
+          echo "- File size: ${size} bytes" >> health-report.md
+          echo "- Pages: ${pages}" >> health-report.md
+          echo "- Components: ${components}" >> health-report.md
+          echo "" >> health-report.md
+        done
+        
+        echo "## 🔧 Recommendations" >> health-report.md
+        echo "" >> health-report.md
+        echo "- Monitor content file sizes regularly" >> health-report.md
+        echo "- Review placeholder content in development" >> health-report.md
+        echo "- Consider content compression for production" >> health-report.md
+        echo "- Validate content changes before deployment" >> health-report.md
+
+    - name: Upload health report
+      uses: actions/upload-artifact@v4
+      with:
+        name: content-health-report-${{ github.run_number }}
+        path: health-report.md
+        retention-days: 30
+
+    - name: Create issue on failure
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: '🚨 Content Health Check Failed',
+            body: `Content health check failed on ${new Date().toISOString()}
+            
+            **Workflow:** ${context.workflow}
+            **Run ID:** ${context.runId}
+            **Commit:** ${context.sha}
+            
+            Please check the workflow logs for details and fix any content issues.
+            
+            /cc @${context.actor}`,
+            labels: ['bug', 'content', 'automated']
+          });
+
+    - name: Summary
+      run: |
+        echo "## 📋 Content Health Check Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Overall Status:** HEALTHY" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Environments Checked:**" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ github.event.inputs.environment }}" == "all" ] || [ "${{ github.event.inputs.environment }}" == "" ]; then
+          echo "- Development ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- Staging ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- Production ✅" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- ${{ github.event.inputs.environment }} ✅" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Next scheduled check:** Tomorrow at 6:00 AM UTC" >> $GITHUB_STEP_SUMMARY

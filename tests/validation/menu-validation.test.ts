@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { MenuSchema } from '@/src/lib/data/schemas';
-import { getMenuData } from '@/src/lib/data/loader';
+import { getMenuData } from '@/src/lib/data/server-loader';
 
 describe('Menu Data Validation', () => {
   describe('Menu Directory Structure', () => {
