@@ -56,7 +56,7 @@ export const MarketingSchema = z.object({
 });
 
 export const ConfigSchema = z.object({
-  env: z.enum(["dev", "staging", "prod"]),
+  env: z.enum(["app"]),
   featureFlags: z.record(z.string(), z.boolean()).default({}),
   api: z
     .object({

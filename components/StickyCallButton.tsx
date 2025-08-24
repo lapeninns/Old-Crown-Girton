@@ -27,6 +27,8 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	const [hideForFooter, setHideForFooter] = useState(false);
 	const [hideForModal, setHideForModal] = useState(false);
 	const [crispOffset, setCrispOffset] = useState(false);
+	// Button rotation state: 0 = directions, 1 = call, 2 = booking
+	const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
 		// Responsive flag removed: not currently used (kept minimal to avoid UI changes)
 	const restaurantPhone = phone || bookingData?.phone || "01223 276027";
 	const pathname = usePathname();
@@ -49,6 +51,14 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 			}, 6000);
 			return () => clearTimeout(t);
 		}
+	}, []);
+
+	// Button rotation: automatically cycle through buttons every 3 seconds
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentButtonIndex((prevIndex) => (prevIndex + 1) % 3);
+		}, 3000);
+		return () => clearInterval(interval);
 	}, []);
 
 		// viewport tracking removed — not used in current behavior
@@ -122,67 +132,69 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 				aria-live="polite"
 				aria-hidden={hidden}
 			>
-				{/* Stack actions vertically at bottom-right; keep pointer-events only on inner wrapper */}
+				{/* Show only the currently active button in rotation */}
 				<div className={`relative pointer-events-auto flex flex-col items-end gap-3`}>
-				{/** Directions button: open Apple Maps on iOS, Google Maps otherwise */}
-				{
-					(() => {
-						const lat = '52.2425913';
-						const lng = '0.0814946';
-						// Google Maps directions URL (origin omitted = current location in most clients)
-						const googleHref = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
-						// Apple Maps directions URL (https fallback)
-						const appleHref = `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`;
-						// iOS native maps scheme (attempt to open native app)
-						const appleNative = `maps://?daddr=${lat},${lng}&dirflg=d`;
-						const isiOS = typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent);
-						const href = isiOS ? appleHref : googleHref; // DOM-facing href (https) so tests can read it
-
-						return (
-							<a
-								href={href}
-								aria-label="Get directions"
-								data-testid="directions-sticky"
-								className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-brand-700 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/40 hover:brightness-95 active:scale-95 transition"
-								onClick={(e) => {
-									// Attempt native maps on iOS immediately
-									if (isiOS) {
-										e.preventDefault();
-										try {
-											window.location.href = appleNative;
-											// Fallback to https appleHref after a short delay in case native scheme isn't handled
-											window.setTimeout(() => window.open(appleHref, '_blank', 'noopener'), 1200);
-										} catch (err) {
-											window.open(appleHref, '_blank', 'noopener');
-										}
-									} else {
-										// non-iOS: let the anchor navigate (opens Google Maps URL)
-									}
-									track('directions_click', { href });
-								}}
+					<AnimatePresence mode="wait">
+						{currentButtonIndex === 0 && (
+							<motion.div
+								key="directions"
+								initial={{ opacity: 0, scale: 0.8 }}
+								animate={{ opacity: 1, scale: 1 }}
+								exit={{ opacity: 0, scale: 0.8 }}
+								transition={{ duration: 0.2 }}
 							>
-								<span aria-hidden className="text-lg">🧭</span>
-								<span className="sr-only">Directions</span>
-							</a>
-						);
-					})()
-				}
-				<AnimatePresence>
-					{showNudge && (
-						<motion.div
-							initial={{ opacity: 0, y: 6 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: 6 }}
-							className="absolute right-20 bottom-1 hidden sm:block"
-						>
-							<div className="bg-stout-800 text-white text-xs font-medium px-3 py-2 rounded-lg shadow-lg max-w-[140px] leading-snug">
-								Tap to call us
-								<div className="absolute -right-2 top-3 w-3 h-3 rotate-45 bg-stout-800" />
-							</div>
-						</motion.div>
-					)}
-				</AnimatePresence>
+								{/** Directions button: open Apple Maps on iOS, Google Maps otherwise */}
+								{(() => {
+									const lat = '52.2425913';
+									const lng = '0.0814946';
+									// Google Maps directions URL (origin omitted = current location in most clients)
+									const googleHref = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
+									// Apple Maps directions URL (https fallback)
+									const appleHref = `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`;
+									// iOS native maps scheme (attempt to open native app)
+									const appleNative = `maps://?daddr=${lat},${lng}&dirflg=d`;
+									const isiOS = typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent);
+									const href = isiOS ? appleHref : googleHref; // DOM-facing href (https) so tests can read it
 
+									return (
+										<a
+											href={href}
+											aria-label="Get directions"
+											data-testid="directions-sticky"
+											className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-brand-700 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/40 hover:brightness-95 active:scale-95 transition"
+											onClick={(e) => {
+												// Attempt native maps on iOS immediately
+												if (isiOS) {
+													e.preventDefault();
+													try {
+														window.location.href = appleNative;
+														// Fallback to https appleHref after a short delay in case native scheme isn't handled
+														window.setTimeout(() => window.open(appleHref, '_blank', 'noopener'), 1200);
+													} catch (err) {
+														window.open(appleHref, '_blank', 'noopener');
+													}
+												} else {
+													// non-iOS: let the anchor navigate (opens Google Maps URL)
+												}
+												track('directions_click', { href });
+											}}
+										>
+											<span aria-hidden className="text-lg">🧭</span>
+											<span className="sr-only">Directions</span>
+										</a>
+									);
+								})()}
+							</motion.div>
+						)}
+						
+						{currentButtonIndex === 1 && (
+							<motion.div
+								key="call"
+								initial={{ opacity: 0, scale: 0.8 }}
+								animate={{ opacity: 1, scale: 1 }}
+								exit={{ opacity: 0, scale: 0.8 }}
+								transition={{ duration: 0.2 }}
+							>
 								<motion.a
 									href={formatTelHref(restaurantPhone)}
 									aria-label={btnLabelCall}
@@ -190,19 +202,29 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 									data-analytics-event="fab_call_click"
 									onClick={() => track("call_click", { phone: restaurantPhone })}
 								>
-					<motion.span
-						initial={{ scale: 0.4, opacity: 0, rotate: -90 }}
-						animate={{ scale: 1, opacity: 1, rotate: 0 }}
-						transition={{ type: "spring", stiffness: 400, damping: 30 }}
-						className="text-2xl"
-						aria-hidden
-					>
-						📞
-					</motion.span>
-					<span className="sr-only">{btnLabelCall}</span>
-					<span className="absolute inset-0 rounded-full animate-pulse-slow bg-accent/30 pointer-events-none mix-blend-overlay" aria-hidden />
-				</motion.a>
-
+									<motion.span
+										initial={{ scale: 0.4, opacity: 0, rotate: -90 }}
+										animate={{ scale: 1, opacity: 1, rotate: 0 }}
+										transition={{ type: "spring", stiffness: 400, damping: 30 }}
+										className="text-2xl"
+										aria-hidden
+									>
+										📞
+									</motion.span>
+									<span className="sr-only">{btnLabelCall}</span>
+									<span className="absolute inset-0 rounded-full animate-pulse-slow bg-accent/30 pointer-events-none mix-blend-overlay" aria-hidden />
+								</motion.a>
+							</motion.div>
+						)}
+						
+						{currentButtonIndex === 2 && (
+							<motion.div
+								key="booking"
+								initial={{ opacity: 0, scale: 0.8 }}
+								animate={{ opacity: 1, scale: 1 }}
+								exit={{ opacity: 0, scale: 0.8 }}
+								transition={{ duration: 0.2 }}
+							>
 								{/* Book action: redirect to TOGO booking in a new tab for predictable behavior */}
 								{/** Use the canonical TOGO booking URL used elsewhere in the app */}
 								<a
@@ -217,8 +239,28 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 									<span aria-hidden className="text-lg">📅</span>
 									<span className="sr-only">Book</span>
 								</a>
+							</motion.div>
+						)}
+					</AnimatePresence>
+					
+					{/* Nudge tooltip - positioned relative to active button */}
+					<AnimatePresence>
+						{showNudge && (
+							<motion.div
+								initial={{ opacity: 0, y: 6 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: 6 }}
+								className="absolute right-20 bottom-1 hidden sm:block"
+							>
+								<div className="bg-stout-800 text-white text-xs font-medium px-3 py-2 rounded-lg shadow-lg max-w-[140px] leading-snug">
+									Tap to call us
+									<div className="absolute -right-2 top-3 w-3 h-3 rotate-45 bg-stout-800" />
+								</div>
+							</motion.div>
+						)}
+					</AnimatePresence>
+				</div>
 			</div>
-		</div>
 	);
 }
 

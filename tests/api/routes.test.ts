@@ -31,21 +31,21 @@ describe('smart loaders', () => {
   });
   
   test('content API provides navigation data', async () => {
-    const content = await getContentSmart('dev');
+    const content = await getContentSmart('app');
     expect(content.global.navigation.header.links).toBeDefined();
     expect(Array.isArray(content.global.navigation.header.links)).toBe(true);
     expect(content.global.navigation.footer.sections).toBeDefined();
   });
   
   test('content API provides UI elements', async () => {
-    const content = await getContentSmart('dev');
+    const content = await getContentSmart('app');
     expect(content.global.ui.buttons).toBeDefined();
     expect(content.global.ui.labels).toBeDefined();
     expect(content.global.ui.messages).toBeDefined();
   });
   
   test('content API provides page-specific content', async () => {
-    const content = await getContentSmart('dev');
+    const content = await getContentSmart('app');
     expect(content.pages.home.hero).toBeDefined();
     expect(content.pages.about.hero).toBeDefined();
     expect(content.pages.contact.hero).toBeDefined();

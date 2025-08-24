@@ -8,20 +8,19 @@ import { resolveEnv } from "@/src/lib/data/env";
 
 function snapshot(): ConfigProps {
   // Since getConfigData is async fs read, we can't await here synchronously.
-  // Instead, derive from environment with safe defaults. Pages that need richer
+  // Instead, derive from NODE_ENV with safe defaults. Pages that need richer
   // config should use the data loader directly server-side.
-  const env = resolveEnv();
-  const isDev = env !== "prod";
+  const isProd = process.env.NODE_ENV === "production";
   return {
-    appName: env === "prod" ? "Old Crown" : `Old Crown (${env})`,
+    appName: isProd ? "Old Crown" : "Old Crown (dev)",
     appDescription:
       "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics.",
-    domainName: env === "prod" ? "oldcrowngirton.co.uk" : "localhost",
+    domainName: isProd ? "oldcrowngirton.co.uk" : "localhost",
     crisp: { id: "", onlyShowOnRoutes: ["/"] },
     stripe: {
       plans: [
         {
-          priceId: isDev ? "price_dev_stub" : "price_live_stub",
+          priceId: isProd ? "price_live_stub" : "price_dev_stub",
           name: "Starter",
           description: "Legacy pricing placeholder",
           price: 99,

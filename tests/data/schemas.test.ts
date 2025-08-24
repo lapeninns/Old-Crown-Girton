@@ -17,7 +17,7 @@ describe('schemas', () => {
   });
 
   test('ConfigSchema defaults', () => {
-    const parsed = ConfigSchema.parse({ env: 'dev' });
+    const parsed = ConfigSchema.parse({ env: 'app' });
     expect(parsed.featureFlags).toEqual({});
   });
 

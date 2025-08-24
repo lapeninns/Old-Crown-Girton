@@ -108,11 +108,6 @@ async function loadMenuFromFileSystem(): Promise<Menu> {
  * load menu from the API; otherwise load from filesystem. Falls back to filesystem on errors.
  */
 export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
-  // In development, skip API calls and use filesystem directly for performance
-  if (env === 'dev') {
-    return getMenuData(env);
-  }
-  
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -175,31 +170,20 @@ export async function getContentData(env: AppEnv = resolveEnv()): Promise<Conten
     );
   }, {
     ttl: getContentCacheTTL(env),
-    enableCompression: env === 'prod'
+    enableCompression: process.env.NODE_ENV === 'production'
   });
 }
 
-// Performance-optimized content loader with environment-specific caching
+// Performance-optimized content loader
 export async function getContentDataOptimized(env: AppEnv = resolveEnv()): Promise<Content> {
   const cacheKey = createCacheKey('content-optimized', env);
   
   return globalCache.get(cacheKey, async () => {
-    // Use environment-specific content if available
-    const envSpecificPath = path.join(process.cwd(), "data", env, "content.json");
-    const fallbackPath = configPath("content.json");
-    
-    try {
-      // Try environment-specific content first
-      const content = await readJson<Content>(envSpecificPath, ContentSchema, "content");
-      return content;
-    } catch (error) {
-      // Fallback to main content.json
-      console.warn(`Environment-specific content not found for ${env}, falling back to main content.json`);
-      return readJson<Content>(fallbackPath, ContentSchema, "content");
-    }
+    // Use main content.json directly
+    return readJson<Content>(configPath("content.json"), ContentSchema, "content");
   }, {
     ttl: getContentCacheTTL(env),
-    enableCompression: env === 'prod'
+    enableCompression: process.env.NODE_ENV === 'production'
   });
 }
 
@@ -259,11 +243,6 @@ async function fetchContentFromApiServer(url: string): Promise<Content> {
  * Smart marketing loader: prefers API when CMS is enabled and endpoint configured; falls back to fs.
  */
 export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Marketing> {
-  // In development, skip API calls and use filesystem directly for performance
-  if (env === 'dev') {
-    return getMarketingContent(env);
-  }
-  
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -290,11 +269,6 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
   const cacheKey = createCacheKey('content-smart', env);
   
   return globalCache.get(cacheKey, async () => {
-    // In development, skip API calls and use filesystem directly for performance
-    if (env === 'dev') {
-      return getContentDataOptimized(env);
-    }
-    
     try {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -302,7 +276,7 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
       
       if (cmsOn && endpoint) {
         try {
-          // Try API first with shorter cache for real-time updates (only in staging/prod)
+          // Try API first
           const apiContent = await fetchContentFromApiServer(endpoint);
           
           // Preload fallback in background for better resilience
@@ -326,7 +300,7 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
     return getContentDataOptimized(env);
   }, {
     ttl: getContentCacheTTL(env),
-    enableCompression: env === 'prod'
+    enableCompression: process.env.NODE_ENV === 'production'
   });
 }
 
@@ -361,51 +335,31 @@ export async function getRestaurantSmart(env: AppEnv = resolveEnv()): Promise<Re
 // --- Performance Helper Functions ---
 
 /**
- * Get environment-specific cache TTL for content
+ * Get cache TTL for content
  */
 function getContentCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 60 * 1000,        // 1 minute for development
-    staging: 5 * 60 * 1000, // 5 minutes for staging
-    prod: 60 * 60 * 1000   // 1 hour for production
-  };
-  return ttls[env] || ttls.dev;
+  return process.env.NODE_ENV === 'production' ? 60 * 60 * 1000 : 60 * 1000; // 1 hour in prod, 1 minute in dev
 }
 
 /**
- * Get environment-specific cache TTL for menu
+ * Get cache TTL for menu
  */
 function getMenuCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 30 * 1000,         // 30 seconds for development
-    staging: 10 * 60 * 1000, // 10 minutes for staging
-    prod: 2 * 60 * 60 * 1000 // 2 hours for production
-  };
-  return ttls[env] || ttls.dev;
+  return process.env.NODE_ENV === 'production' ? 2 * 60 * 60 * 1000 : 30 * 1000; // 2 hours in prod, 30 seconds in dev
 }
 
 /**
- * Get environment-specific cache TTL for config
+ * Get cache TTL for config
  */
 function getConfigCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 30 * 1000,         // 30 seconds for development
-    staging: 5 * 60 * 1000,  // 5 minutes for staging
-    prod: 30 * 60 * 1000    // 30 minutes for production
-  };
-  return ttls[env] || ttls.dev;
+  return process.env.NODE_ENV === 'production' ? 30 * 60 * 1000 : 30 * 1000; // 30 minutes in prod, 30 seconds in dev
 }
 
 /**
- * Get environment-specific cache TTL for restaurant info
+ * Get cache TTL for restaurant info
  */
 function getRestaurantCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 2 * 60 * 1000,      // 2 minutes for development
-    staging: 15 * 60 * 1000, // 15 minutes for staging
-    prod: 4 * 60 * 60 * 1000 // 4 hours for production
-  };
-  return ttls[env] || ttls.dev;
+  return process.env.NODE_ENV === 'production' ? 4 * 60 * 60 * 1000 : 2 * 60 * 1000; // 4 hours in prod, 2 minutes in dev
 }
 
 /**

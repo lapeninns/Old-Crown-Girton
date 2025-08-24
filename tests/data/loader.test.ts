@@ -5,25 +5,25 @@ import { MenuSchema, ContentSchema } from '@/src/lib/data/schemas';
 
 describe('data loader', () => {
   test('loads menu from /menu directory', async () => {
-    const data = await getMenuData('dev');
+    const data = await getMenuData('app');
     expect(Array.isArray(data.sections)).toBe(true);
     expect(data.sections.length).toBeGreaterThan(0);
   });
 
-  test('env resolution returns dev in test', () => {
+  test('env resolution returns app', () => {
     const env = resolveEnv();
-    expect(env === 'dev' || env === 'prod' || env === 'staging').toBe(true);
+    expect(env).toBe('app');
   });
 
   test('loads config.json from /config directory', async () => {
-    const cfg = await getConfigData('dev');
-    expect(cfg.env).toBe('dev');
+    const cfg = await getConfigData('app');
+    expect(cfg.env).toBe('app');
   });
 
   test('loads marketing and restaurant from /config directory', async () => {
-    const m = await getMarketingContent('dev');
+    const m = await getMarketingContent('app');
     expect(m.hero.title.length).toBeGreaterThan(0);
-    const r = await getRestaurantInfo('dev');
+    const r = await getRestaurantInfo('app');
     expect(r.name.length).toBeGreaterThan(0);
   });
 

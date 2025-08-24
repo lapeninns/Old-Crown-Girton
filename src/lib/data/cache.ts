@@ -371,32 +371,19 @@ export class PerformanceCacheManager {
   }
 
   /**
-   * Environment-specific cache configuration
+   * Apply cache configuration based on NODE_ENV
    */
-  applyEnvironmentConfig(env: AppEnv): void {
-    const envConfigs = {
-      dev: {
-        ttl: 60 * 1000, // 1 minute for fast iteration
-        enableCompression: false, // Skip compression in dev
-        maxSize: 10 * 1024 * 1024 // 10MB
-      },
-      staging: {
-        ttl: 5 * 60 * 1000, // 5 minutes
-        enableCompression: true,
-        maxSize: 25 * 1024 * 1024 // 25MB
-      },
-      prod: {
-        ttl: 60 * 60 * 1000, // 1 hour for production
-        enableCompression: true,
-        maxSize: 100 * 1024 * 1024 // 100MB
-      }
+  applyEnvironmentConfig(): void {
+    const isProd = process.env.NODE_ENV === 'production';
+    
+    const config = {
+      ttl: isProd ? 60 * 60 * 1000 : 60 * 1000, // 1 hour in prod, 1 minute in dev
+      enableCompression: isProd,
+      maxSize: isProd ? 100 * 1024 * 1024 : 10 * 1024 * 1024 // 100MB in prod, 10MB in dev
     };
 
-    const config = envConfigs[env as keyof typeof envConfigs];
-    if (config) {
-      this.config = { ...this.config, ...config };
-      this.cache.ttl = config.ttl;
-    }
+    this.config = { ...this.config, ...config };
+    this.cache.ttl = config.ttl;
   }
 
   // Private helper methods

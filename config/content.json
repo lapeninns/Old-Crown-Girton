@@ -185,7 +185,30 @@
             "link": "/menu",
             "linkText": "View Menu →"
           }
-        ]
+        ],
+        "cta": {
+          "headline": "Ready to Experience Girton's Thatched Nepalese Pub?",
+          "description": "Reserve a table, explore the menu or plan an event – we'd love to host you.",
+          "buttons": [
+            {
+              "text": "View Menu",
+              "href": "/menu",
+              "variant": "accent",
+              "key": "viewMenu"
+            },
+            {
+              "text": "What's On",
+              "href": "/events",
+              "variant": "brand"
+            },
+            {
+              "text": "Book Online",
+              "href": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+              "variant": "crimson",
+              "external": true
+            }
+          ]
+        }
       }
     },
     "about": {

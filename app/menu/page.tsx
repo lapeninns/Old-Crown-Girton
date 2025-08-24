@@ -5,7 +5,11 @@ import { Metadata } from 'next';
 import { getMarketingSmart, getMenuSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import MenuHero from '@/components/menu/MenuHero';
 import MenuInteractive from '@/components/menu/MenuInteractive';
-import MenuInfoCollapse from '@/components/menu/MenuInfoCollapse';
+import dynamic from 'next/dynamic';
+
+// Dynamic imports for Menu page sections
+const MenuInformationSection = dynamic(() => import("@/components/restaurant/sections/MenuInformationSection"));
+const MenuCTASection = dynamic(() => import("@/components/restaurant/sections/MenuCTASection"));
 
 export const metadata: Metadata = {
 	title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
@@ -69,49 +73,33 @@ export default async function MenuPage() {
 				{/* Interactive menu navigation + sections (single-page, no routes) */}
 				<MenuInteractive sections={menu?.sections || []} defaultSelected={(menu as any)?.defaultSection || null} />
 
-				{/* Traditional British Pub Classics removed per request */}
-				{/* Dietary Information & FAQ - collapsed accordion */}
-				<section className="py-16 bg-brand-50/20">
-					<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-						<h2 className="text-3xl font-display font-bold text-stout-700 text-center mb-12">
-							Menu Information & Dietary Requirements
-						</h2>
+				{/* Dietary Information & FAQ - modular component */}
+				<MenuInformationSection faqItems={content.components.faq.items} />
 
-						<MenuInfoCollapse
-							items={content.components.faq.items.map((item: any) => ({
-								title: item.question,
-								content: <>{item.answer}</>
-							}))}
-						/>
-					</div>
-				</section>
-
-				{/* Call to Action */}
-				<section className="py-16 bg-stout-700 text-white">
-					<div className="max-w-4xl mx-auto text-center px-4">
-						<h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-							Ready to Try Our Unique Menu?
-						</h2>
-						<p className="text-xl text-neutral-200 mb-8">
-							Book a table or order takeaway to experience the best of Nepal and Britain at Girton's historic thatched pub.
-						</p>
-						<div className="flex flex-wrap gap-4 justify-center">
-							<a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg">
-								{labelBookOnline}
-							</a>
-							<a href="tel:01223276027" className="bg-crimson-600 hover:bg-crimson-800 text-white font-bold py-4 px-8 rounded-lg text-lg">
-								{labelOrderTakeaway}
-							</a>
-							<Link href="/about" className="bg-white hover:bg-neutral-100 text-stout-700 font-bold py-4 px-8 rounded-lg text-lg">
-								Learn Our Story
-							</Link>
-						</div>
-            
-						<div className="mt-8 text-sm text-neutral-300">
-							<p className="text-neutral-300">{menuContent.sections.allergenNotice}</p>
-						</div>
-					</div>
-				</section>
+				{/* Call to Action - modular component */}
+				<MenuCTASection 
+					buttons={[
+						{
+							text: labelBookOnline,
+							href: "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+							variant: "primary",
+							external: true
+						},
+						{
+							text: labelOrderTakeaway,
+							href: "tel:01223276027",
+							variant: "secondary",
+							external: false
+						},
+						{
+							text: "Learn Our Story",
+							href: "/about",
+							variant: "tertiary",
+							external: false
+						}
+					]}
+					allergenNotice={menuContent.sections.allergenNotice}
+				/>
 			</RestaurantLayout>
 		</>
 	);

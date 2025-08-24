@@ -91,7 +91,7 @@ export const mockRestaurant: Restaurant = {
 };
 
 export const mockConfig: AppConfig = {
-  env: 'dev',
+  env: 'app',
   featureFlags: { cms: false },
   api: {
     baseUrl: 'http://localhost:3000',

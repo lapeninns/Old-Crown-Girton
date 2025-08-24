@@ -89,7 +89,7 @@ export async function getContentFromApi(env: AppEnv = resolveEnv()): Promise<Con
     return fetchContentFromApi();
   }, {
     ttl: getClientCacheTTL(env),
-    enableCompression: env === 'prod'
+    enableCompression: process.env.NODE_ENV === 'production'
   });
 }
 
@@ -111,12 +111,8 @@ export async function getMenuFromApi(env: AppEnv = resolveEnv()): Promise<Menu> 
  * Client-side cache TTL strategy
  */
 function getClientCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 30 * 1000,        // 30 seconds for development
-    staging: 2 * 60 * 1000, // 2 minutes for staging
-    prod: 5 * 60 * 1000    // 5 minutes for production
-  };
-  return ttls[env] || ttls.dev;
+  // Use consistent caching based on NODE_ENV
+  return process.env.NODE_ENV === 'production' ? 5 * 60 * 1000 : 30 * 1000; // 5 minutes in prod, 30 seconds in dev
 }
 
 /**

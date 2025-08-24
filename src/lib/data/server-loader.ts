@@ -43,7 +43,7 @@ export async function getContentData(env: AppEnv = resolveEnv()): Promise<Conten
     );
   }, {
     ttl: getContentCacheTTL(env),
-    enableCompression: env === 'prod'
+    enableCompression: process.env.NODE_ENV === 'production'
   });
 }
 
@@ -51,22 +51,11 @@ export async function getContentDataOptimized(env: AppEnv = resolveEnv()): Promi
   const cacheKey = createCacheKey('content-optimized', env);
   
   return globalCache.get(cacheKey, async () => {
-    // Use environment-specific content if available
-    const envSpecificPath = path.join(process.cwd(), "data", env, "content.json");
-    const fallbackPath = configPath("content.json");
-    
-    try {
-      // Try environment-specific content first
-      const content = await readJson<Content>(envSpecificPath, ContentSchema, "content");
-      return content;
-    } catch (error) {
-      // Fallback to main content.json
-      console.warn(`Environment-specific content not found for ${env}, falling back to main content.json`);
-      return readJson<Content>(fallbackPath, ContentSchema, "content");
-    }
+    // Use main content.json directly
+    return readJson<Content>(configPath("content.json"), ContentSchema, "content");
   }, {
     ttl: getContentCacheTTL(env),
-    enableCompression: env === 'prod'
+    enableCompression: process.env.NODE_ENV === 'production'
   });
 }
 
@@ -74,15 +63,8 @@ export async function getConfigData(env: AppEnv = resolveEnv()): Promise<AppConf
   const cacheKey = createCacheKey('config', env);
   
   return globalCache.get(cacheKey, async () => {
-    // Try environment-specific config first
-    const envConfigPath = path.join(process.cwd(), "data", env, "config.json");
-    const fallbackPath = configPath("config.json");
-    
-    try {
-      return await readJson<AppConfig>(envConfigPath, ConfigSchema, "config");
-    } catch {
-      return readJson<AppConfig>(fallbackPath, ConfigSchema, "config");
-    }
+    // Use main config.json directly
+    return readJson<AppConfig>(configPath("config.json"), ConfigSchema, "config");
   }, {
     ttl: getConfigCacheTTL(env)
   });
@@ -109,11 +91,6 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
   const cacheKey = createCacheKey('content-smart', env);
   
   return globalCache.get(cacheKey, async () => {
-    // In development, skip API calls and use filesystem directly for performance
-    if (env === 'dev') {
-      return getContentDataOptimized(env);
-    }
-    
     try {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -121,7 +98,7 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
       
       if (cmsOn && endpoint) {
         try {
-          // Try API first (only in staging/prod)
+          // Try API first
           const response = await fetch(endpoint, { 
             cache: 'no-store',
             signal: AbortSignal.timeout(3000) // 3 second timeout
@@ -141,7 +118,7 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
     return getContentDataOptimized(env);
   }, {
     ttl: getContentCacheTTL(env),
-    enableCompression: env === 'prod'
+    enableCompression: process.env.NODE_ENV === 'production'
   });
 }
 
@@ -219,11 +196,6 @@ async function loadMenuFromFileSystem(): Promise<Menu> {
 }
 
 export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
-  // In development, skip API calls and use filesystem directly for performance
-  if (env === 'dev') {
-    return getMenuData(env);
-  }
-  
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -249,11 +221,6 @@ export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
 }
 
 export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Marketing> {
-  // In development, skip API calls and use filesystem directly for performance
-  if (env === 'dev') {
-    return getMarketingContent(env);
-  }
-  
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -280,11 +247,6 @@ export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Mar
 }
 
 export async function getRestaurantSmart(env: AppEnv = resolveEnv()): Promise<Restaurant> {
-  // In development, skip API calls and use filesystem directly for performance
-  if (env === 'dev') {
-    return getRestaurantInfo(env);
-  }
-  
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -345,37 +307,21 @@ export function invalidateCache(pattern?: string | RegExp): number {
 }
 
 function getContentCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 60 * 1000,        // 1 minute for development
-    staging: 5 * 60 * 1000, // 5 minutes for staging
-    prod: 60 * 60 * 1000   // 1 hour for production
-  };
-  return ttls[env] || ttls.dev;
+  // Use production-optimized caching for single environment
+  return process.env.NODE_ENV === 'production' ? 60 * 60 * 1000 : 60 * 1000; // 1 hour in prod, 1 minute in dev
 }
 
 function getConfigCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 30 * 1000,         // 30 seconds for development
-    staging: 5 * 60 * 1000,  // 5 minutes for staging
-    prod: 30 * 60 * 1000    // 30 minutes for production
-  };
-  return ttls[env] || ttls.dev;
+  // Use production-optimized caching for single environment
+  return process.env.NODE_ENV === 'production' ? 30 * 60 * 1000 : 30 * 1000; // 30 minutes in prod, 30 seconds in dev
 }
 
 function getMenuCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 30 * 1000,         // 30 seconds for development
-    staging: 10 * 60 * 1000, // 10 minutes for staging
-    prod: 2 * 60 * 60 * 1000 // 2 hours for production
-  };
-  return ttls[env] || ttls.dev;
+  // Use production-optimized caching for single environment
+  return process.env.NODE_ENV === 'production' ? 2 * 60 * 60 * 1000 : 30 * 1000; // 2 hours in prod, 30 seconds in dev
 }
 
 function getRestaurantCacheTTL(env: AppEnv): number {
-  const ttls = {
-    dev: 2 * 60 * 1000,      // 2 minutes for development
-    staging: 15 * 60 * 1000, // 15 minutes for staging
-    prod: 4 * 60 * 60 * 1000 // 4 hours for production
-  };
-  return ttls[env] || ttls.dev;
+  // Use production-optimized caching for single environment
+  return process.env.NODE_ENV === 'production' ? 4 * 60 * 60 * 1000 : 2 * 60 * 1000; // 4 hours in prod, 2 minutes in dev
 }

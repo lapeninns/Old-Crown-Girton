@@ -104,14 +104,10 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * Get environment-specific cache control headers
+ * Get cache control headers based on NODE_ENV
  */
 function getCacheControlHeader(env: string): string {
-  const cacheConfigs = {
-    dev: 'public, max-age=60, s-maxage=60', // 1 minute
-    staging: 'public, max-age=300, s-maxage=300, stale-while-revalidate=60', // 5 minutes
-    prod: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=300' // 1 hour
-  };
-  
-  return cacheConfigs[env as keyof typeof cacheConfigs] || cacheConfigs.dev;
+  return process.env.NODE_ENV === 'production' 
+    ? 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=300' // 1 hour
+    : 'public, max-age=60, s-maxage=60'; // 1 minute
 }

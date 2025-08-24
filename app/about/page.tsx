@@ -3,6 +3,11 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 import { getContactInfo, getHours } from "@/lib/restaurantData";
+import dynamic from 'next/dynamic';
+
+// Dynamic imports for non-LCP sections
+const StoryTimelineSection = dynamic(() => import("@/components/restaurant/sections/StoryTimelineSection"));
+const AboutCTASection = dynamic(() => import("@/components/restaurant/sections/AboutCTASection"));
 
 export default async function AboutPage() {
   const m = await getMarketingSmart();
@@ -35,45 +40,31 @@ export default async function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
               {aboutContent.hero.title}
             </h1>
-              <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
+            <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
               {aboutContent.hero.subtitle}
             </p>
           </div>
-          </div>
+        </div>
 
-          {/* Main Content */}
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="prose prose-lg max-w-none">
-              <p className="text-neutral-600 mb-6">{aboutContent.story.introduction}</p>
-              
-              <h2 className="text-2xl font-display font-bold text-brand-700 mb-4 mt-8">{aboutContent.story.title}</h2>
-              {aboutContent.story.timeline.map((period, index) => (
-                <div key={index} className="mb-6">
-                  <h3 className="text-lg font-semibold text-brand-700 mb-2">
-                    <span className="font-semibold">{period.period}:</span> {period.title}
-                  </h3>
-                  <p className="text-neutral-600">{period.description}</p>
-                </div>
-              ))}
+        {/* Main Content */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <StoryTimelineSection 
+            title={aboutContent.story.title}
+            introduction={aboutContent.story.introduction}
+            timeline={aboutContent.story.timeline}
+          />
 
-            <div className="bg-accent-50 rounded-xl p-8 text-center">
-              <h2 className="text-xl font-display font-bold text-brand-700 mb-4">{aboutContent.cta.title}</h2>
-              <a
-                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-accent-950 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 hover:bg-accent-950 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60"
-                aria-label={labelBookOnline}
-              >
-                {aboutContent.cta.button}
-              </a>
-              <p className="text-neutral-600 mt-4 mb-2">{aboutContent.cta.description}</p>
-              <div className="mt-4 text-sm text-neutral-600">
-                <p><span className="font-semibold">Address:</span> {aboutContent.cta.contact.address}</p>
-                <p><span className="font-semibold">Opening Hours:</span> <span className="italic">{quickHours || aboutContent.cta.contact.hours}</span></p>
-              </div>
-            </div>
-          </div>
+          <AboutCTASection 
+            title={aboutContent.cta.title}
+            description={aboutContent.cta.description}
+            buttonText={aboutContent.cta.button}
+            buttonHref="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+            buttonLabel={labelBookOnline}
+            contact={{
+              address: aboutContent.cta.contact.address,
+              hours: quickHours || aboutContent.cta.contact.hours
+            }}
+          />
         </div>
       </div>
     </RestaurantLayout>
