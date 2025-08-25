@@ -1,0 +1,34 @@
+{
+  "menu": {
+    "loadFailed": "Failed to load menu",
+    "notFound": "Menu not found"
+  },
+  "restaurant": {
+    "loadFailed": "Failed to load restaurant information",
+    "notFound": "Restaurant information not found"
+  },
+  "marketing": {
+    "loadFailed": "Failed to load marketing content",
+    "notFound": "Marketing content not found"
+  },
+  "config": {
+    "loadFailed": "Failed to load configuration",
+    "notFound": "Configuration not found"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "invalidEmail": "Invalid email format",
+    "phoneRequired": "Phone number is required",
+    "nameRequired": "Name is required"
+  },
+  "auth": {
+    "unauthorized": "You must be logged in to access this resource",
+    "forbidden": "You don't have permission to access this resource",
+    "sessionExpired": "Your session has expired"
+  },
+  "payment": {
+    "stripeError": "Payment processing error",
+    "invalidAmount": "Invalid payment amount",
+    "paymentFailed": "Payment failed"
+  }
+}

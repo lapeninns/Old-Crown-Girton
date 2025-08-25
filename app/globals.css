@@ -4,7 +4,23 @@
 
 html,
 body {
-  scroll-behavior: smooth !important;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Improve scroll performance and prevent scroll issues */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent scroll anchoring issues during dynamic content changes */
+body {
+  overflow-anchor: none;
+}
+
+/* Ensure smooth scrolling doesn't interfere with programmatic scroll */
+.scroll-manual {
+  scroll-behavior: auto;
 }
 
 /* Himalayan Spice palette variables - inserted from brand spec */
@@ -274,21 +290,63 @@ progress::-webkit-progress-value {
 }
 section[data-mounted="true"] {
   animation: menu-section-in 260ms ease;
+  /* Prevent layout shifts during animation */
+  transform-origin: top;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Rotate chevron when details is open */
-details[open] summary svg { transform: rotate(180deg); transition: transform 180ms ease; }
-
-/* fade out for previous section during crossfade */
-@keyframes fade-out {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-6px); }
+details[open] summary svg { 
+  transform: rotate(180deg); 
+  transition: transform 180ms ease; 
 }
-.animate-fade-out { animation: fade-out 240ms ease forwards; }
+
+/* Improved fade animations for smoother transitions */
+@keyframes fade-out {
+  from { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  to { 
+    opacity: 0; 
+    transform: translateY(-6px); 
+  }
+}
+.animate-fade-out { 
+  animation: fade-out 240ms ease forwards;
+  /* Prevent scroll jumps during animation */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+}
 
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(6px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
-.animate-fade-in { animation: fade-in 260ms ease forwards; }
+.animate-fade-in { 
+  animation: fade-in 260ms ease forwards;
+  /* Prevent scroll jumps during animation */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+}
+
+/* Scroll optimization classes */
+.scroll-optimized {
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+.sticky-optimized {
+  position: -webkit-sticky;
+  position: sticky;
+  will-change: transform;
+  backface-visibility: hidden;
+}
 

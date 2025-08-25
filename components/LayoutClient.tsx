@@ -14,8 +14,11 @@ import BookingModal from "./restaurant/BookingModal";
 
 const BookingModalPortal = () => {
   const [open, setOpen] = React.useState(false);
+  const [isHydrated, setIsHydrated] = React.useState(false);
 
   React.useEffect(() => {
+    setIsHydrated(true);
+    
     const handler = () => {
     try { console.debug && console.debug('BookingModalPortal: received open-booking-modal'); } catch (e) { /* ignore */ }
       setOpen(true);
@@ -50,6 +53,10 @@ const BookingModalPortal = () => {
   }, [open]);
 
   // Add a mount marker so tests can wait for portal availability
+  if (!isHydrated) {
+    return <div data-booking-portal-mounted="0"></div>;
+  }
+
   return (
     <div data-booking-portal-mounted={open ? "1" : "0"}>
       <BookingModal isOpen={open} onClose={() => setOpen(false)} />

@@ -1,0 +1,13 @@
+{
+  "global": {
+    "site": {
+      "name": "The Old Crown Girton [STAGING]",
+      "description": "[TEST] Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics"
+    }
+  },
+  "ui": {
+    "messages": {
+      "warning": "[STAGING] This is a test environment"
+    }
+  }
+}

@@ -1,113 +1,81 @@
-import { NextResponse, NextRequest } from 'next/server';
-import { getContentSmart, getCacheStats, preloadCriticalContent } from '@/src/lib/data/server-loader';
+import { NextResponse } from 'next/server';
+import { ContentSmartLoader } from '@/src/lib/data/loaders/ContentSmartLoader';
 import { resolveEnv } from '@/src/lib/data/env';
-import { createHash } from 'crypto';
-import { gzipSync } from 'zlib';
+import { 
+  StandardizedApiResponseBuilder, 
+  getEnvironmentCacheConfig,
+  withRequestTiming 
+} from '@/src/lib/data/api/standardizedResponse';
 
-export const revalidate = 300; // 5 minutes
+// Environment-specific revalidation
+const env = resolveEnv();
+const isProd = process.env.NODE_ENV === 'production';
+export const revalidate = isProd ? 2700 : 600; // 45min prod, 10min dev
 
-// Performance monitoring endpoint
-export async function HEAD() {
-  const stats = getCacheStats();
-  
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      'X-Cache-Hits': stats.hits.toString(),
-      'X-Cache-Misses': stats.misses.toString(),
-      'X-Cache-Hit-Rate': (stats.hitRate * 100).toFixed(2),
-      'X-Cache-Size': stats.size.toString(),
-      'Cache-Control': 'no-cache'
-    }
-  });
-}
-
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+export async function GET(request: Request) {
   const env = resolveEnv();
-  const preload = searchParams.get('preload') === 'true';
-  const compress = request.headers.get('accept-encoding')?.includes('gzip') ?? false;
+  const cacheConfig = getEnvironmentCacheConfig('content', env);
+  
+  // Check for conditional requests
+  const ifNoneMatch = request.headers.get('if-none-match');
+  const ifModifiedSince = request.headers.get('if-modified-since');
   
   try {
-    // Preload critical content if requested
-    if (preload) {
-      await preloadCriticalContent(env);
-    }
+    // Use enhanced smart loader with timing
+    const timedLoader = withRequestTiming(
+      () => ContentSmartLoader.loadSmart(env),
+      'content'
+    );
     
-    const content = await getContentSmart(env);
+    const { result, timing } = await timedLoader();
     
-    // Generate ETag for cache validation
-    const contentString = JSON.stringify(content);
-    const etag = createHash('md5').update(contentString).digest('hex');
+    // Create standardized response
+    const apiResponse = StandardizedApiResponseBuilder.fromSmartLoadResult(
+      result,
+      '2.0.0' // Enhanced API version
+    );
     
-    // Check if client has current version
-    const clientEtag = request.headers.get('if-none-match');
-    if (clientEtag === etag) {
-      return new NextResponse(null, {
-        status: 304,
-        headers: {
-          'ETag': etag,
-          'Cache-Control': getCacheControlHeader(env)
-        }
-      });
-    }
+    // Add timing information
+    apiResponse.meta.loadTime = timing;
     
-    // Prepare response with compression if supported
-    let responseBody: string | Buffer = contentString;
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      'ETag': etag,
-      'Cache-Control': getCacheControlHeader(env),
-      'X-Content-Source': 'smart-loader',
-      'X-Environment': env
-    };
-    
-    // Apply gzip compression for large content
-    if (compress && contentString.length > 1024) {
-      responseBody = gzipSync(contentString);
-      headers['Content-Encoding'] = 'gzip';
-      headers['Content-Length'] = responseBody.length.toString();
-      headers['X-Compression-Ratio'] = (responseBody.length / contentString.length).toFixed(3);
-    }
-    
-    // Add performance headers
-    const stats = getCacheStats();
-    headers['X-Cache-Performance'] = JSON.stringify({
-      hitRate: Math.round(stats.hitRate * 100) / 100,
-      averageLoadTime: Math.round(stats.averageLoadTime),
-      cacheSize: stats.size
-    });
-    
-    return new NextResponse(responseBody, {
-      status: 200,
-      headers
-    });
-    
-  } catch (e: any) {
-    console.error('Content API error:', e);
-    
-    return NextResponse.json(
-      { 
-        error: 'Failed to load content',
-        details: process.env.NODE_ENV === 'development' ? e.message : undefined,
-        timestamp: new Date().toISOString()
-      }, 
-      { 
-        status: 500,
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'X-Error-Source': 'content-api'
-        }
+    // Handle conditional requests for better caching
+    if (ifNoneMatch || ifModifiedSince) {
+      const etag = StandardizedApiResponseBuilder['generateETag'](result.data, result.timestamp);
+      const lastModified = new Date(result.timestamp);
+      
+      if (ifNoneMatch === etag || 
+          (ifModifiedSince && new Date(ifModifiedSince) >= lastModified)) {
+        return new NextResponse(null, { 
+          status: 304,
+          headers: {
+            'etag': etag,
+            'last-modified': lastModified.toUTCString(),
+            'cache-control': `public, s-maxage=${Math.floor(cacheConfig.ttl / 1000)}, stale-while-revalidate=${Math.floor(cacheConfig.staleWhileRevalidate! / 1000)}`,
+            'x-request-id': apiResponse.meta.requestId!,
+            'x-cached': 'true'
+          }
+        });
       }
+    }
+    
+    return StandardizedApiResponseBuilder.toNextResponse(apiResponse, cacheConfig);
+    
+  } catch (error: any) {
+    console.error('Enhanced Content API error:', error);
+    
+    const errorResponse = StandardizedApiResponseBuilder.error(
+      'CONTENT_LOAD_FAILED',
+      'Failed to load content data',
+      {
+        originalError: error.message,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
+      env
+    );
+    
+    return StandardizedApiResponseBuilder.toNextResponse(
+      errorResponse,
+      { ttl: 60000, public: false } // 1 minute cache for errors
     );
   }
-}
-
-/**
- * Get cache control headers based on NODE_ENV
- */
-function getCacheControlHeader(env: string): string {
-  return process.env.NODE_ENV === 'production' 
-    ? 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=300' // 1 hour
-    : 'public, max-age=60, s-maxage=60'; // 1 minute
 }

@@ -1,0 +1,18 @@
+{
+  "title": "You're Offline",
+  "subtitle": "Don't worry, some content is still available",
+  "description": "It looks like you've lost your internet connection. Some features may not work as expected, but you can still browse previously loaded content.",
+  "features": {
+    "title": "Available Offline:",
+    "items": [
+      "Previously viewed menu items",
+      "Restaurant information",
+      "Contact details",
+      "Form submissions (will sync when online)"
+    ]
+  },
+  "actions": {
+    "goBack": "Go Back",
+    "tryAgain": "Try Again"
+  }
+}

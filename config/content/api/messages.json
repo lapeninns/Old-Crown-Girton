@@ -1,0 +1,9 @@
+{
+  "success": "Request completed successfully",
+  "error": "An error occurred while processing your request",
+  "notFound": "The requested resource was not found",
+  "unauthorized": "You are not authorized to access this resource",
+  "forbidden": "Access to this resource is forbidden",
+  "serverError": "Internal server error",
+  "badRequest": "Invalid request"
+}

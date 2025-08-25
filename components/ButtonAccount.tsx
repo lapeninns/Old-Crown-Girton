@@ -59,7 +59,7 @@ const ButtonAccount = () => {
             {user?.user_metadata?.avatar_url ? (
               <img
                 src={user?.user_metadata?.avatar_url}
-                alt={"Profile picture"}
+                alt="Profile picture"
                 className="w-6 h-6 rounded-full shrink-0"
                 referrerPolicy="no-referrer"
                 width={24}

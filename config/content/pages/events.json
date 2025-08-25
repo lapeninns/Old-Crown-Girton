@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "title": "What's On & Community Events",
+    "subtitle": "Recurring favourites plus seasonal highlights reflecting Girton village life & Cambridge academic rhythm. Call to reserve or enquire about group space."
+  },
+  "regularEvents": [
+    {
+      "title": "Weekly Pub Quiz",
+      "description": "Community teams, students & locals — general knowledge + themed rounds.",
+      "frequency": "Thursday 8:00 PM",
+      "icon": "🧠"
+    },
+    {
+      "title": "Curry & Community Night",
+      "description": "Celebrate our Nepalese kitchen: featured dish & mild family option.",
+      "frequency": "Wednesday Evening",
+      "icon": "🌶️"
+    },
+    {
+      "title": "Live Sports Highlights",
+      "description": "Key football & rugby fixtures on screen – garden when weather allows.",
+      "frequency": "Major fixtures schedule",
+      "icon": "⚽"
+    },
+    {
+      "title": "Seasonal Garden Social",
+      "description": "Long summer evenings with relaxed sharing plates. (Seasonal)",
+      "frequency": "Summer Series",
+      "icon": "🌿"
+    }
+  ],
+  "contact": {
+    "title": "Book Your Event",
+    "description": "Planning a private event? Get in touch to discuss your requirements.",
+    "phone": "01223 276027",
+    "email": "events@oldcrowngirton.co.uk"
+  }
+}

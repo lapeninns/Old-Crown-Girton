@@ -1,0 +1,61 @@
+{
+  "site": {
+    "name": "The Old Crown Girton",
+    "title": "Historic Thatched Pub & Nepalese Restaurant", 
+    "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223 276027",
+    "keywords": [
+      "pub Girton",
+      "Nepalese restaurant Cambridge", 
+      "family friendly pub Cambridge",
+      "dog friendly pub Girton",
+      "Sunday roast Cambridge",
+      "historic thatched pub",
+      "Girton College pub",
+      "takeaway Cambridge"
+    ],
+    "branding": {
+      "tagline": "A unique blend of authentic Nepalese cuisine and traditional British pub culture",
+      "slogan": "Where heritage meets hospitality"
+    }
+  },
+  "navigation": {
+    "header": {
+      "links": [
+        { "href": "/", "label": "Home" },
+        { "href": "/menu", "label": "Menu" },
+        { "href": "/about", "label": "About" },
+        { "href": "/events", "label": "Events" },
+        { "href": "/contact", "label": "Contact" }
+      ]
+    },
+    "footer": {
+      "sections": [
+        {
+          "title": "Quick Links",
+          "links": [
+            { "href": "/menu", "label": "Menu" },
+            { "href": "/about", "label": "About" },
+            { "href": "/events", "label": "Events" },
+            { "href": "/contact", "label": "Contact" }
+          ]
+        },
+        {
+          "title": "Legal",
+          "links": [
+            { "href": "/tos", "label": "Terms of Service" },
+            { "href": "/privacy-policy", "label": "Privacy Policy" }
+          ]
+        }
+      ],
+      "copyright": "© 2025 The Old Crown Girton. All rights reserved.",
+      "socialMedia": {
+        "facebook": { "url": "https://facebook.com", "label": "Follow us on Facebook" },
+        "instagram": { "url": "https://instagram.com", "label": "Follow us on Instagram" }
+      }
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "separator": "/"
+    }
+  }
+}

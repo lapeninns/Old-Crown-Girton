@@ -1,0 +1,27 @@
+{
+  "ariaLabels": {
+    "mainNavigation": "Main navigation",
+    "mainContent": "Main content",
+    "skipToContent": "Skip to main content",
+    "openModal": "Open modal",
+    "closeModal": "Close modal",
+    "openDialog": "Open dialog",
+    "closeDialog": "Close dialog",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "currentPage": "Current page",
+    "menuButton": "Menu button",
+    "socialMedia": "Social media links",
+    "contactInfo": "Contact information"
+  },
+  "altTexts": {
+    "logo": "The Old Crown Girton logo",
+    "heroBanner": "Historic thatched pub exterior",
+    "defaultImage": "Restaurant image",
+    "profilePicture": "Profile picture",
+    "background": "Background image"
+  },
+  "descriptions": {
+    "siteDescription": "Historic thatched pub and Nepalese restaurant website"
+  }
+}

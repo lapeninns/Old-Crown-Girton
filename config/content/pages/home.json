@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "title": "The Old Crown Girton: Historic Thatched Pub & Authentic Nepalese Restaurant",
+    "subtitle": "Welcome to Girton's unique dining destination, where the largest thatched pub in the country serves exceptional Nepalese cuisine alongside beloved British pub classics.",
+    "description": "Just minutes from Cambridge and Girton College, we're your family-friendly, dog-welcoming village hub for memorable meals and community gathering.",
+    "cta": {
+      "primary": "Book Online",
+      "secondary": "View Menu"
+    }
+  },
+  "sections": {
+    "features": {
+      "title": "What Makes Us Special",
+      "items": [
+        {
+          "icon": "🏛️",
+          "title": "Historic Thatched Building",
+          "description": "Largest in the country"
+        },
+        {
+          "icon": "🍛",
+          "title": "Authentic Nepalese Food",
+          "description": "Traditional recipes"
+        },
+        {
+          "icon": "👨‍👩‍👧‍👦",
+          "title": "Family Friendly",
+          "description": "Kids welcome until 9pm"
+        },
+        {
+          "icon": "🐕",
+          "title": "Dog Friendly",
+          "description": "Well-behaved dogs welcome"
+        }
+      ]
+    },
+    "quickLinks": [
+      {
+        "title": "Community & Events",
+        "description": "Quiz nights, seasonal gatherings & live sports – see what's coming up.",
+        "link": "/events",
+        "linkText": "View Events →"
+      },
+      {
+        "title": "Heritage & Story",
+        "description": "Discover how our thatched village pub evolved into a Nepalese + British hub.",
+        "link": "/about",
+        "linkText": "Explore Heritage →"
+      },
+      {
+        "title": "Our Menu",
+        "description": "Authentic Nepalese dishes alongside classic pub favorites.",
+        "link": "/menu",
+        "linkText": "View Menu →"
+      }
+    ],
+    "cta": {
+      "headline": "Ready to Experience Girton's Thatched Nepalese Pub?",
+      "description": "Reserve a table, explore the menu or plan an event – we'd love to host you.",
+      "buttons": [
+        {
+          "text": "View Menu",
+          "href": "/menu",
+          "variant": "accent",
+          "key": "viewMenu"
+        },
+        {
+          "text": "What's On",
+          "href": "/events",
+          "variant": "brand"
+        },
+        {
+          "text": "Book Online",
+          "href": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+          "variant": "crimson",
+          "external": true
+        }
+      ]
+    }
+  }
+}

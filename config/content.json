@@ -70,7 +70,12 @@
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "getStarted": "Get Started",
+        "refresh": "Refresh",
+        "retry": "Retry",
+        "optimizeCache": "Optimize Cache",
+        "warmCache": "Warm Cache"
       },
       "labels": {
         "loading": "Loading...",
@@ -85,7 +90,11 @@
         "sort": "Sort",
         "menu": "Menu",
         "openMenu": "Open menu",
-        "closeMenu": "Close menu"
+        "closeMenu": "Close menu",
+        "account": "Account",
+        "support": "Support",
+        "contact": "Contact",
+        "talkToSupport": "Talk to support"
       },
       "messages": {
         "loading": "Please wait while we load the content...",
@@ -93,14 +102,22 @@
         "noResults": "No results found.",
         "offline": "You are currently offline.",
         "connectionError": "Connection error. Please check your internet connection.",
-        "tryAgainLater": "Please try again later."
+        "tryAgainLater": "Please try again later.",
+        "fetchFailed": "Failed to fetch performance data",
+        "cacheOptimizationSuccess": "Cache optimization completed successfully",
+        "cacheOptimizationFailed": "Cache optimization failed",
+        "cacheWarmingSuccess": "Cache warming initiated successfully",
+        "cacheWarmingFailed": "Cache warming failed",
+        "confirmationMessage": "We'll call you within 1 hour to confirm availability.",
+        "requiredFields": "Required fields"
       },
       "placeholders": {
         "search": "Search...",
         "email": "Enter your email address",
         "name": "Enter your name",
         "phone": "Enter your phone number",
-        "message": "Enter your message"
+        "message": "Enter your message",
+        "modalContent": "Modal content goes here"
       }
     },
     "accessibility": {
@@ -122,7 +139,9 @@
       "altTexts": {
         "logo": "The Old Crown Girton logo",
         "heroBanner": "Historic thatched pub exterior",
-        "defaultImage": "Restaurant image"
+        "defaultImage": "Restaurant image",
+        "profilePicture": "Profile picture",
+        "background": "Background image"
       },
       "descriptions": {
         "siteDescription": "Historic thatched pub and Nepalese restaurant website"

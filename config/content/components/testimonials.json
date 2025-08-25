@@ -1,0 +1,18 @@
+{
+  "title": "What Our Customers Say",
+  "subtitle": "Don't just take our word for it",
+  "items": [
+    {
+      "name": "Sarah Johnson",
+      "text": "Absolutely wonderful! The Nepalese dishes are authentic and delicious, and the traditional pub atmosphere is so welcoming. Perfect for families.",
+      "rating": 5,
+      "location": "Cambridge"
+    },
+    {
+      "name": "Mike Thompson",
+      "text": "Great food and fantastic service. The best of both worlds - proper pub classics and amazing curry. Highly recommended!",
+      "rating": 5,
+      "location": "Girton"
+    }
+  ]
+}

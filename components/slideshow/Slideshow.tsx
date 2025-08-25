@@ -19,11 +19,12 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   return (
     <div className="relative w-full h-full" role="region" aria-label="Slideshow">
       <div className="slides-wrapper h-full">
-        {slides.map((s, i) => (
-          <div key={s.id} style={{ display: i === index ? 'block' : 'none' }}>
-            <Slide slide={s} active={i === index} />
+        {/* Render only the active slide to avoid loading hidden images */}
+        {slides[index] && (
+          <div key={slides[index].id}>
+            <Slide slide={slides[index]} active={true} />
           </div>
-        ))}
+        )}
       </div>
 
 

@@ -1,0 +1,13 @@
+{
+  "global": {
+    "site": {
+      "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book online or call 01223 276027"
+    }
+  },
+  "performance": {
+    "enableCompression": true,
+    "cacheDuration": 7200000,
+    "enableCDN": true,
+    "preloadCritical": true
+  }
+}

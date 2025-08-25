@@ -1,0 +1,141 @@
+{
+  "version": "1.0.0",
+  "description": "Content module manifest for Restaurant_BP",
+  "lastUpdated": "2025-01-27T00:00:00Z",
+  "modules": {
+    "core": {
+      "priority": 1,
+      "loadStrategy": "always",
+      "cacheDuration": 1800000,
+      "description": "Core content that should always be loaded",
+      "files": [
+        "core/global.json",
+        "core/ui.json", 
+        "core/accessibility.json"
+      ],
+      "dependencies": [],
+      "size": "small"
+    },
+    "pages": {
+      "priority": 2,
+      "loadStrategy": "lazy",
+      "cacheDuration": 600000,
+      "description": "Page-specific content loaded on demand",
+      "files": [
+        "pages/home.json",
+        "pages/about.json",
+        "pages/contact.json",
+        "pages/events.json",
+        "pages/menu.json",
+        "pages/signin.json",
+        "pages/dashboard.json",
+        "pages/offline.json",
+        "pages/notFound.json"
+      ],
+      "dependencies": ["core"],
+      "size": "medium"
+    },
+    "components": {
+      "priority": 3,
+      "loadStrategy": "lazy",
+      "cacheDuration": 300000,
+      "description": "Component-specific content loaded when components are used",
+      "files": [
+        "components/testimonials.json",
+        "components/faq.json",
+        "components/menuHighlights.json"
+      ],
+      "dependencies": ["core"],
+      "size": "small"
+    },
+    "forms": {
+      "priority": 2,
+      "loadStrategy": "conditional",
+      "cacheDuration": 900000,
+      "description": "Form-related content loaded when forms are present",
+      "files": [
+        "core/forms.json"
+      ],
+      "dependencies": ["core"],
+      "condition": "hasFormsOnPage",
+      "size": "small"
+    },
+    "api": {
+      "priority": 4,
+      "loadStrategy": "conditional",
+      "cacheDuration": 600000,
+      "description": "API-related messages and error content",
+      "files": [
+        "api/messages.json",
+        "api/errors.json"
+      ],
+      "dependencies": ["core"],
+      "condition": "isAdminOrApiPage",
+      "size": "small"
+    },
+    "legal": {
+      "priority": 5,
+      "loadStrategy": "lazy",
+      "cacheDuration": 3600000,
+      "description": "Legal content (terms, privacy) loaded on legal pages",
+      "files": [
+        "legal/terms.json",
+        "legal/privacy.json"
+      ],
+      "dependencies": ["core"],
+      "size": "small"
+    }
+  },
+  "composition": {
+    "strategy": "deep-merge",
+    "conflictResolution": "environment-wins",
+    "fallbackStrategy": "base-module",
+    "mergeArrays": "concat",
+    "preserveRootKeys": true
+  },
+  "environments": {
+    "dev": {
+      "inherits": "base",
+      "overrides": [
+        "environments/dev/overrides/"
+      ],
+      "debug": true,
+      "additionalModules": ["dev/debug.json"]
+    },
+    "staging": {
+      "inherits": "base",
+      "overrides": [
+        "environments/staging/overrides/"
+      ],
+      "debug": false
+    },
+    "prod": {
+      "inherits": "base", 
+      "overrides": [
+        "environments/prod/overrides/"
+      ],
+      "debug": false,
+      "excludeModules": ["dev/*"]
+    }
+  },
+  "performance": {
+    "preloadModules": ["core"],
+    "criticalModules": ["core/ui.json", "core/accessibility.json"],
+    "bundleModules": ["core/global.json", "core/ui.json"],
+    "maxConcurrentLoads": 3,
+    "enableCompression": true,
+    "enableCDN": true
+  },
+  "validation": {
+    "enableSchemaValidation": true,
+    "strictMode": false,
+    "logValidationErrors": true
+  },
+  "features": {
+    "lazyLoading": true,
+    "environmentOverrides": true,
+    "conditionalLoading": true,
+    "performanceOptimization": true,
+    "backwardCompatibility": true
+  }
+}

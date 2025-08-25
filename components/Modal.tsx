@@ -71,7 +71,7 @@ const Modal = ({ isModalOpen, setIsModalOpen, title, children }: ModalProps) => 
                   </button>
                 </div>
 
-                <section>{children || "Modal content goes here"}</section>
+                <section>{children || content?.global?.ui?.placeholders?.modalContent || "Modal content goes here"}</section>
               </Dialog.Panel>
             </Transition.Child>
           </div>

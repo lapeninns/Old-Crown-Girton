@@ -82,7 +82,7 @@ export default function AboutCTASection({
               target: '_blank',
               rel: 'noopener noreferrer'
             })}
-            className="inline-block bg-accent-950 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 hover:bg-accent-950 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60"
+            className="inline-block bg-accent-700 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 hover:bg-accent-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/60 shadow-lg"
             aria-label={buttonLabel || buttonText}
           >
             {buttonText}

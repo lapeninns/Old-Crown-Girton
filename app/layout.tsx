@@ -1,7 +1,14 @@
 import React from 'react';
 import { ReactNode } from 'react';
+import { Metadata } from 'next';
 import ClientLayout from '@/components/LayoutClient';
 import './globals.css';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.co.uk'),
+  title: 'The Old Crown Girton | Historic Thatched Pub & Nepalese Restaurant',
+  description: 'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223 276027',
+};
 
 // Minimal inline scripts injected into the server HTML to ensure tests
 // that dispatch `open-booking-modal` before React hydration still
@@ -13,10 +20,6 @@ const FALLBACK_SCRIPT = `(function(){try{function createFallback(){ try{ if(docu
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <title>The Old Crown Girton | Historic Thatched Pub & Nepalese Restaurant</title>
-        <meta name="description" content="Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223 276027" />
-      </head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: QUEUE_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: FALLBACK_SCRIPT }} />

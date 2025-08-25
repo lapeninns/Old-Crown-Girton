@@ -9,7 +9,7 @@ import { useContent } from "@/hooks/useContent";
 const ButtonSupport = () => {
   const { data: content } = useContent();
   const supportLabel = content?.pages?.notFound?.buttons?.support || 'Support';
-  const tooltipContent = content?.global?.ui?.labels?.support || 'Talk to support';
+  const tooltipContent = content?.global?.ui?.labels?.talkToSupport || 'Talk to support';
   
   const handleClick = () => {
     if (config.crisp?.id) {

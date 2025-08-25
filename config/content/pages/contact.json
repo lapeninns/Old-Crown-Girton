@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch for bookings, enquiries, or just to say hello"
+  },
+  "contactInfo": {
+    "title": "Get in Touch",
+    "phone": {
+      "title": "Phone",
+      "number": "01223 276027",
+      "description": "Call us for bookings and enquiries"
+    },
+    "location": {
+      "title": "Location",
+      "address": "89 High Street, Girton, Cambridge, CB3 0QQ",
+      "description": "Just 3 miles from Cambridge city centre"
+    }
+  },
+  "hours": {
+    "title": "Opening Hours",
+    "restaurant": {
+      "title": "Restaurant",
+      "schedule": [
+        { "days": "Monday - Thursday", "hours": "12:00 - 22:00" },
+        { "days": "Friday - Saturday", "hours": "12:00 - 22:30" },
+        { "days": "Sunday", "hours": "12:00 - 21:30" }
+      ]
+    },
+    "bar": {
+      "title": "Bar",
+      "schedule": [
+        { "days": "Monday - Thursday", "hours": "12:00 - 23:00" },
+        { "days": "Friday - Saturday", "hours": "12:00 - 00:00" },
+        { "days": "Sunday", "hours": "12:00 - 22:30" }
+      ]
+    }
+  },
+  "features": {
+    "title": "What We Offer",
+    "items": [
+      { "icon": "🌿", "text": "Outdoor terrace" },
+      { "icon": "🅿️", "text": "Free parking" },
+      { "icon": "🐕", "text": "Dog-friendly" },
+      { "icon": "♿", "text": "Accessible" },
+      { "icon": "📶", "text": "Free WiFi" },
+      { "icon": "🎉", "text": "Private dining" }
+    ]
+  }
+}

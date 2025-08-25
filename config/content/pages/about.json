@@ -1,0 +1,36 @@
+{
+  "hero": {
+    "title": "About Himalayan Spice",
+    "subtitle": "A unique blend of authentic Nepalese cuisine and traditional British pub culture"
+  },
+  "story": {
+    "title": "Our Story",
+    "introduction": "Located in the picturesque village of Girton, just minutes from Cambridge, Old Crown offers a truly unique dining experience. We proudly serve authentic Nepalese cuisine alongside traditional pub classics, creating a warm and welcoming atmosphere for locals and visitors alike.",
+    "timeline": [
+      {
+        "period": "Historic Beginnings",
+        "title": "The Village Heart",
+        "description": "For centuries, The Old Crown has been at the heart of Girton village life. Our historic thatched building - recognized as the largest thatched pub in the country - has witnessed countless community gatherings and celebrations."
+      },
+      {
+        "period": "Culinary Evolution",
+        "title": "Culinary Evolution",
+        "description": "Under various managements, The Old Crown experimented with different culinary directions, including a period as an upscale gastropub. Each era added to our rich tapestry while maintaining our essential village pub character."
+      },
+      {
+        "period": "Today",
+        "title": "The Nepalese-British Fusion",
+        "description": "Under current management, we've discovered our unique identity: combining authentic Nepalese cuisine with traditional British pub classics. This fusion represents Cambridge's multicultural community while honoring our heritage."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to Book?",
+    "description": "Experience the perfect blend of Nepalese hospitality and British pub tradition.",
+    "button": "Book Online",
+    "contact": {
+      "address": "89 High St, Girton, Cambridge CB3 0QQ",
+      "hours": "See footer for full hours"
+    }
+  }
+}

@@ -89,15 +89,12 @@ export default function ContactInfoSection({
             </p>
           </div>
         </div>
-        <motion.a 
-          href={`tel:${phone.number.replace(/\s/g, '')}`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="inline-block bg-accent-600 hover:bg-accent-700 text-neutral-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/60" 
-          aria-label={`Call restaurant at ${phone.number}`}
-        >
-          📞 {phone.number}
-        </motion.a>
+              <p>
+                <strong>Phone:</strong> 
+                <a href={`tel:${phone.number.replace(/\s/g, '')}`} className="inline-block bg-accent-700 text-neutral-50 font-semibold py-1 px-3 rounded ml-2 hover:bg-accent-800">
+                  {phone.number}
+                </a>
+              </p>
       </motion.div>
 
       {/* Address */}
@@ -141,14 +138,14 @@ export default function ContactInfoSection({
             </p>
           </div>
         </div>
-        <motion.a
-          href="mailto:info@oldcrowngirton.co.uk"
-          whileHover={{ scale: 1.05 }}
-          className="text-foreground-strong hover:text-foreground-strong font-semibold transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 rounded"
-          aria-label="Email restaurant at info@oldcrowngirton.co.uk"
-        >
-          info@oldcrowngirton.co.uk
-        </motion.a>
+              <motion.a
+                href={`mailto:${'info@oldcrowngirton.co.uk'}`}
+                whileHover={{ scale: 1.05 }}
+                className="inline-block bg-accent-700 text-neutral-50 font-semibold py-2 px-4 rounded hover:bg-accent-800 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                aria-label="Email restaurant at info@oldcrowngirton.co.uk"
+              >
+                info@oldcrowngirton.co.uk
+              </motion.a>
       </motion.div>
     </motion.div>
   );

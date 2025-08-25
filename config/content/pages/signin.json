@@ -1,0 +1,19 @@
+{
+  "title": "Sign-in to {appName}",
+  "subtitle": "Access your account",
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "tom@cruise.com"
+    },
+    "buttons": {
+      "google": "Sign-up with Google",
+      "magicLink": "Send Magic Link",
+      "divider": "OR"
+    },
+    "messages": {
+      "checkEmail": "Check your emails!",
+      "loading": "Signing in..."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Frequently Asked Questions",
+  "subtitle": "Common questions about our restaurant",
+  "items": [
+    {
+      "question": "Do you accept bookings?",
+      "answer": "Yes, we accept bookings online or by phone. We recommend booking in advance, especially for weekends and special events."
+    },
+    {
+      "question": "Are you family-friendly?",
+      "answer": "Absolutely! We welcome families with children until 9pm. We have a children's menu and high chairs available."
+    },
+    {
+      "question": "Do you offer takeaway?",
+      "answer": "Yes, we offer takeaway for both our Nepalese and British menu items. Call us on 01223 276027 to place your order."
+    },
+    {
+      "question": "Is parking available?",
+      "answer": "Yes, we have free parking available for our customers."
+    }
+  ]
+}
