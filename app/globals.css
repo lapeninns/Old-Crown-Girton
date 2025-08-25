@@ -21,6 +21,10 @@ body {
 /* Ensure smooth scrolling doesn't interfere with programmatic scroll */
 .scroll-manual {
   scroll-behavior: auto;
+  /* Improve scroll performance for complex layouts */
+  contain: layout style;
+  transform: translateZ(0);
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Himalayan Spice palette variables - inserted from brand spec */

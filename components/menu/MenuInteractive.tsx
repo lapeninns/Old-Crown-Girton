@@ -99,7 +99,7 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
 
   return (
     <div className="scroll-manual">
-      <section className="py-3 bg-neutral/30 sticky top-0 z-30 backdrop-blur-sm">
+      <section className="py-3 bg-neutral/30 sticky top-0 z-30 backdrop-blur-sm sticky-optimized">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="overflow-x-auto -mx-4 px-4 scrollbar-hide">
             <nav className="flex gap-3 whitespace-nowrap items-center" aria-label="Menu categories">
@@ -148,15 +148,13 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
       <div className="relative min-h-[400px]" ref={contentRef}>
         {/* Current section with improved transitions */}
         <div 
-          className={`transition-all duration-300 ease-out ${
+          className={`transition-all duration-300 ease-out scroll-optimized ${
             isAnimating ? 'opacity-0 transform translate-y-2' : 'opacity-100 transform translate-y-0'
           }`}
           style={{
-            position: previous && isAnimating ? 'absolute' : 'relative',
-            top: previous && isAnimating ? 0 : 'auto',
-            left: previous && isAnimating ? 0 : 'auto',
-            right: previous && isAnimating ? 0 : 'auto',
-            width: previous && isAnimating ? '100%' : 'auto',
+            // Remove absolute positioning that interferes with scroll
+            position: 'relative',
+            willChange: isAnimating ? 'opacity, transform' : 'auto',
           }}
         >
           <MenuSections sections={sections} selectedId={selected} />

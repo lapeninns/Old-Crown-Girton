@@ -24,16 +24,16 @@ const Slide: React.FC<{ slide: SlideType; active?: boolean }> = ({ slide, active
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-5xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-foreground-strong mb-6 leading-snug md:leading-tight">
-            <span className="block text-foreground-strong">{slide.eyebrow}</span>
-            <span className="block text-foreground text-xl sm:text-2xl md:text-3xl lg:text-4xl">{slide.headline}</span>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-snug md:leading-tight">
+            <span className="block text-white">{slide.eyebrow}</span>
+            <span className="block text-neutral-100 text-xl sm:text-2xl md:text-3xl lg:text-4xl">{slide.headline}</span>
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-foreground-subtle mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">{slide.copy}</p>
+          <p className="text-sm sm:text-base md:text-lg text-neutral-200 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">{slide.copy}</p>
 
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 text-sm md:text-base text-foreground mb-8 sm:mb-10 max-w-3xl mx-auto px-2 sm:px-0">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 text-sm md:text-base text-neutral-100 mb-8 sm:mb-10 max-w-3xl mx-auto px-2 sm:px-0">
             {(slide.badges || []).map((b) => (
-              <span key={b} className="px-2 sm:px-3 py-1 bg-neutral-50/10 rounded-full backdrop-blur border border-white/15 text-center">
+              <span key={b} className="px-2 sm:px-3 py-1 bg-white/20 rounded-full backdrop-blur border border-white/30 text-center text-white">
                 {b}
               </span>
             ))}
