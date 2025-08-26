@@ -61,7 +61,7 @@ const AnimatedButton = memo<AnimatedButtonProps>(({
     >
       {/* Ripple effect */}
       <motion.div
-        className="absolute inset-0 bg-white/20 rounded-full"
+        className="absolute inset-0 bg-surface-base/20 rounded-full"
         initial={{ scale: 0, opacity: 0 }}
         animate={isPressed ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
         transition={{ duration: 0.2 }}
@@ -175,7 +175,7 @@ const AnimatedInput = memo<AnimatedInputProps>(({
       <motion.label
         className={`absolute left-3 transition-all duration-200 pointer-events-none ${
           isFocused || hasValue
-  ? 'text-sm text-accent -top-2 bg-white px-2'
+  ? 'text-sm text-accent -top-2 bg-surface-base px-2'
             : 'text-neutral-500 top-3'
         }`}
         animate={{

@@ -78,7 +78,7 @@ export default function RegularEventsSection({
               scale: 1.02,
               boxShadow: "var(--shadow-medium)"
             }}
-            className="bg-white rounded-xl shadow-lg p-6 transition-all duration-200" 
+            className="bg-surface-base rounded-xl shadow-lg p-6 transition-all duration-200" 
             itemScope 
             itemType="https://schema.org/Event"
           >
