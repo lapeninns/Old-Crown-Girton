@@ -105,13 +105,13 @@ body {
   --color-border-heritage: var(--color-chakra-400);
   --color-border-error: var(--color-error-500);
 
-  --shadow-subtle: 0 1px 2px 0 rgb(0 0 0 / 0.07);
-  --shadow-default: 0 1px 3px 0 rgb(0 0 0 / 0.12), 0 1px 2px -1px rgb(0 0 0 / 0.12);
-  --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15);
-  --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 0.18), 0 4px 6px -4px rgb(0 0 0 / 0.18);
-  --shadow-brand: 0 6px 18px 0 rgb(184 107 94 / 0.28);
-  --shadow-accent: 0 6px 18px 0 rgb(244 196 48 / 0.28);
-  --shadow-heritage: 0 6px 18px 0 rgb(6 3 141 / 0.28);
+  --shadow-subtle: 0 1px 2px 0 var(--overlay-10);
+  --shadow-default: 0 1px 3px 0 var(--overlay-20), 0 1px 2px -1px var(--overlay-20);
+  --shadow-medium: 0 4px 6px -1px var(--overlay-20), 0 2px 4px -2px var(--overlay-20);
+  --shadow-large: 0 10px 15px -3px var(--overlay-20), 0 4px 6px -4px var(--overlay-20);
+  --shadow-brand: 0 6px 18px 0 color-mix(in srgb, var(--color-brand-500) 28%, transparent);
+  --shadow-accent: 0 6px 18px 0 color-mix(in srgb, var(--color-accent-500) 28%, transparent);
+  --shadow-heritage: 0 6px 18px 0 color-mix(in srgb, var(--color-chakra-500) 28%, transparent);
 
   /* === Gradients for signage & CTAs === */
   --grad-saffron-brand: linear-gradient(135deg, var(--color-accent-400), var(--color-brand-500));
@@ -172,10 +172,10 @@ html.dark {
   --color-border-default: var(--color-stout-600);
   --color-border-emphasis: var(--color-stout-500);
 
-  --shadow-subtle: 0 1px 2px 0 rgb(0 0 0 / 0.30);
-  --shadow-default: 0 1px 3px 0 rgb(0 0 0 / 0.40), 0 1px 2px -1px rgb(0 0 0 / 0.40);
-  --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.45), 0 2px 4px -2px rgb(0 0 0 / 0.45);
-  --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 0.50), 0 4px 6px -4px rgb(0 0 0 / 0.50);
+  --shadow-subtle: 0 1px 2px 0 var(--overlay-40);
+  --shadow-default: 0 1px 3px 0 var(--overlay-40), 0 1px 2px -1px var(--overlay-40);
+  --shadow-medium: 0 4px 6px -1px var(--overlay-60), 0 2px 4px -2px var(--overlay-60);
+  --shadow-large: 0 10px 15px -3px var(--overlay-60), 0 4px 6px -4px var(--overlay-60);
 }
 
 /* It makes the HTML progress bar filling smooth when value change. */
@@ -255,11 +255,11 @@ progress::-webkit-progress-value {
   
   /* Text shadow utilities */
   .text-shadow {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 2px 4px var(--overlay-10);
   }
   
   .text-shadow-lg {
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    text-shadow: 0 4px 8px var(--overlay-20), 0 2px 4px var(--overlay-10);
   }
 
   /* Adaptive foreground utilities that follow the semantic token --color-text and variants.
