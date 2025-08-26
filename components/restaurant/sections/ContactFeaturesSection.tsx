@@ -92,7 +92,7 @@ export default function ContactFeaturesSection({
               variants={item}
               whileHover={{ 
                 scale: 1.05,
-                backgroundColor: "rgba(0, 0, 0, 0.02)"
+                backgroundColor: "var(--overlay-10)"
               }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 p-2 rounded-md transition-colors duration-200 cursor-default"

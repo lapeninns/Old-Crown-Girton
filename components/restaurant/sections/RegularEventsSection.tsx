@@ -76,7 +76,7 @@ export default function RegularEventsSection({
             variants={item}
             whileHover={{ 
               scale: 1.02,
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)"
+              boxShadow: "var(--shadow-medium)"
             }}
             className="bg-white rounded-xl shadow-lg p-6 transition-all duration-200" 
             itemScope 
