@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 // Dynamic imports for Contact page sections
 const ContactInfoSection = dynamic(() => import("@/components/restaurant/sections/ContactInfoSection"));
-const OpeningHoursSection = dynamic(() => import("@/components/restaurant/sections/OpeningHoursSection"));
+const RestaurantHoursCard = dynamic(() => import("@/components/restaurant/RestaurantHoursCard"));
 const ContactFeaturesSection = dynamic(() => import("@/components/restaurant/sections/ContactFeaturesSection"));
 const SocialMediaSection = dynamic(() => import("@/components/restaurant/sections/SocialMediaSection"));
 
@@ -33,11 +33,12 @@ export default async function ContactPage() {
 
             {/* Opening Hours & Additional Info */}
             <div className="space-y-8">
-              <OpeningHoursSection 
-                title={contactContent.hours.title}
-                restaurant={contactContent.hours.restaurant}
-                bar={contactContent.hours.bar}
-              />
+              <div>
+                <h2 className="text-2xl font-semibold text-foreground-strong mb-6">
+                  {contactContent.hours.title}
+                </h2>
+                <RestaurantHoursCard />
+              </div>
 
               <ContactFeaturesSection 
                 title={contactContent.features.title}

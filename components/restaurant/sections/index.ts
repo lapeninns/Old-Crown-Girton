@@ -13,7 +13,6 @@ export { default as AboutCTASection } from './AboutCTASection';
 
 // Contact page sections
 export { default as ContactInfoSection } from './ContactInfoSection';
-export { default as OpeningHoursSection } from './OpeningHoursSection';
 export { default as ContactFeaturesSection } from './ContactFeaturesSection';
 export { default as SocialMediaSection } from './SocialMediaSection';
 

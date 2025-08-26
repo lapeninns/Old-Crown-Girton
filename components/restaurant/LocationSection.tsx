@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import OpeningHours from './OpeningHours';
+import RestaurantHoursCard from './RestaurantHoursCard';
 import { getContactInfo } from '@/lib/restaurantData';
 
 export default function LocationSection() {
@@ -71,8 +71,10 @@ export default function LocationSection() {
               </div>
             </div>
 
-            {/* Opening Hours - New Modern Component */}
-            <OpeningHours variant="compact" showTitle={false} />
+            {/* Opening Hours - New Restaurant Hours Card */}
+            <div className="mt-8">
+              <RestaurantHoursCard />
+            </div>
           </motion.div>
 
           {/* Map */}

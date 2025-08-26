@@ -11,8 +11,8 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     turbo: {
-      loaders: {
-        '.svg': ['@svgr/webpack'],
+      rules: {
+        '*.svg': ['@svgr/webpack'],
       },
     },
     scrollRestoration: true,
@@ -91,8 +91,6 @@ const nextConfig = {
     // Optimize imports for tree shaking
     config.resolve.alias = {
       ...config.resolve.alias,
-      // Optimize lucide-react imports
-      'lucide-react': 'lucide-react/dist/esm/icons',
     };
 
     return config;
