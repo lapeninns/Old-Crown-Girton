@@ -1,26 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Accordion from './Accordion';
-import { getContactInfo, getHours } from '@/lib/restaurantData';
+import OpeningHours from './OpeningHours';
+import { getContactInfo } from '@/lib/restaurantData';
 
 export default function LocationSection() {
   const contact = getContactInfo();
-  const hours = getHours();
-  const mapKitchen = hours?.kitchen || {};
-  const mapBar = hours?.bar || {};
-  const pretty = (range?: string) => {
-    if (!range) return '';
-    // Convert 24h times like 12:00-15:00,17:00-22:00 -> 12:00–15:00 / 17:00–22:00 and then compress minutes :00 to no minutes for display
-    return range.split(',')
-      .map(slot => slot.trim().replace('-', '–'))
-      .map(slot => slot.replace(/:00/g, ''))
-      .join(' / ');
-  };
-  const order = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-  const label: Record<string,string> = {monday:'Monday',tuesday:'Tuesday',wednesday:'Wednesday',thursday:'Thursday',friday:'Friday',saturday:'Saturday',sunday:'Sunday'};
-  const restaurantHours = order.map(d => ({ day: label[d], hours: pretty((mapKitchen as any)[d]) })).filter(r => r.hours);
-  const barHours = order.map(d => ({ day: label[d], hours: pretty((mapBar as any)[d]) })).filter(r => r.hours);
 
   return (
     <section className="py-16 bg-brand-50">
@@ -86,39 +71,8 @@ export default function LocationSection() {
               </div>
             </div>
 
-            {/* Opening Hours */}
-            <div className="bg-neutral-50 rounded-xl shadow-lg overflow-hidden">
-              <div className="p-6 pb-2">
-                <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
-                  <span className="text-accent">⏰</span>
-                  Opening Hours
-                </h3>
-              </div>
-              
-              <div className="px-6 pb-6">
-                <Accordion title="Restaurant Hours" defaultOpen>
-                  <div className="space-y-2">
-                    {restaurantHours.map((item) => (
-                      <div key={item.day} className="flex justify-between items-center">
-                        <span className="font-medium text-foreground-strong">{item.day}</span>
-                        <span className="text-foreground">{item.hours}</span>
-                      </div>
-                    ))}
-                  </div>
-                </Accordion>
-                
-                <Accordion title="Bar Hours">
-                  <div className="space-y-2">
-                    {barHours.map((item) => (
-                      <div key={item.day} className="flex justify-between items-center">
-                        <span className="font-medium text-foreground-strong">{item.day}</span>
-                        <span className="text-foreground">{item.hours}</span>
-                      </div>
-                    ))}
-                  </div>
-                </Accordion>
-              </div>
-            </div>
+            {/* Opening Hours - New Modern Component */}
+            <OpeningHours variant="compact" showTitle={false} />
           </motion.div>
 
           {/* Map */}

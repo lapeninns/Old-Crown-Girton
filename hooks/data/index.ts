@@ -12,6 +12,9 @@ export type { UseMenuResult, UseMenuOptions } from './useMenu';
 export { useRestaurant, useRestaurantContact, useRestaurantHours } from './useRestaurant';
 export type { UseRestaurantResult, UseRestaurantOptions } from './useRestaurant';
 
+export { useOpeningHours } from './useOpeningHours';
+export type { DayHours, ProcessedHours } from './useOpeningHours';
+
 export { useMarketing, usePromotions, useHeroContent, useFeaturedContent } from './useMarketing';
 export type { UseMarketingResult, UseMarketingOptions } from './useMarketing';
 
