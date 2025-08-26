@@ -4,10 +4,16 @@ import Link from "next/link";
 import { Metadata } from 'next';
 import { getMarketingSmart, getMenuSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import MenuHero from '@/components/menu/MenuHero';
-import MenuInteractive from '@/components/menu/MenuInteractive';
 import dynamic from 'next/dynamic';
-
 // Dynamic imports for Menu page sections
+const MenuInteractive = dynamic(() => import('@/components/menu/MenuInteractive'), {
+	ssr: false,
+	loading: () => (
+		<div className="min-h-96 bg-surface-base animate-pulse flex items-center justify-center">
+			<div className="text-lg text-neutral-500">Loading interactive menu...</div>
+		</div>
+	)
+});
 const MenuInformationSection = dynamic(() => import("@/components/restaurant/sections/MenuInformationSection"));
 const MenuCTASection = dynamic(() => import("@/components/restaurant/sections/MenuCTASection"));
 
