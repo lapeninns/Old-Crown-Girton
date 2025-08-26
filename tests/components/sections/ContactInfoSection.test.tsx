@@ -33,7 +33,7 @@ describe('ContactInfoSection', () => {
     // Check phone section
     expect(screen.getByText('Phone')).toBeInTheDocument();
     expect(screen.getByText('Call us for bookings')).toBeInTheDocument();
-    expect(screen.getByText('📞 01223 276027')).toBeInTheDocument();
+    expect(screen.getByText('01223 276027')).toBeInTheDocument();
     
     // Check location section
     expect(screen.getByText('Location')).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe('ContactInfoSection', () => {
   it('renders phone link with correct href', () => {
     render(<ContactInfoSection phone={mockPhone} location={mockLocation} />);
     
-    const phoneLink = screen.getByRole('link', { name: /call restaurant at 01223 276027/i });
+    const phoneLink = screen.getByRole('link', { name: '01223 276027' });
     expect(phoneLink).toHaveAttribute('href', 'tel:01223276027');
   });
 

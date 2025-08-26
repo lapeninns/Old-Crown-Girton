@@ -1,11 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { PerformantMotionSection, PerformantMotionDiv, performantVariants } from '@/components/motion/DynamicMotion';
 import Image from 'next/image';
 
 export default function AboutSection() {
   return (
-    <section className="py-16 bg-neutral-50">
+    <PerformantMotionSection 
+      className="py-16 bg-neutral-50"
+      initial="hidden"
+      whileInView="visible"
+      variants={performantVariants}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -82,6 +88,6 @@ export default function AboutSection() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </PerformantMotionSection>
   );
 }

@@ -52,6 +52,7 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
               return null;
             }
             
+            
             return (
               <motion.div
                 key={index}
@@ -67,13 +68,17 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
                 <p className="text-brand-600 text-sm mb-4">
                   {link.description}
                 </p>
-                <Link 
-                  href={link.link} 
-                  className="text-foreground-strong font-semibold hover:underline transition-all duration-200 hover:text-accent-700"
-                  aria-label={`${link.title}: ${link.linkText}`}
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
                 >
-                  {link.linkText}
-                </Link>
+                  <a 
+                    href={link.link} 
+                    className="text-foreground-strong font-semibold hover:underline transition-all duration-200 hover:text-accent-700"
+                    aria-label={`${link.title}: ${link.linkText}`}
+                  >
+                    {link.linkText}
+                  </a>
+                </motion.div>
               </motion.div>
             );
           })}

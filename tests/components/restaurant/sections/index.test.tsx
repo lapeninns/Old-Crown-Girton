@@ -6,12 +6,39 @@ import { expect } from '@jest/globals';
 import { QuickLinksSection, CallToActionSection } from '../../../../components/restaurant/sections';
 
 // Mock framer-motion
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
-  },
-}));
+jest.mock('framer-motion', () => {
+  const React = require('react');
+  
+  const createMotionComponent = (tag: string) => {
+    return ({ children, ...props }: any) => {
+      // Filter out motion-specific props to avoid React warnings
+      const {
+        whileHover,
+        whileTap,
+        whileInView,
+        initial,
+        animate,
+        exit,
+        transition,
+        variants,
+        viewport,
+        onAnimationComplete,
+        onAnimationStart,
+        ...domProps
+      } = props;
+      
+      return React.createElement(tag, domProps, children);
+    };
+  };
+  
+  return {
+    motion: {
+      div: createMotionComponent('div'),
+      section: createMotionComponent('section'),
+      a: createMotionComponent('a'),
+    },
+  };
+});
 
 // Mock Next.js Link
 jest.mock('next/link', () => {

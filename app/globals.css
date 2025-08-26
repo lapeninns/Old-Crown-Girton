@@ -287,17 +287,28 @@ progress::-webkit-progress-value {
   .animate-pulse-slow { @apply motion-safe:animate-[pulse-slow_3.2s_ease-in-out_infinite]; }
 }
 
-/* Menu section entrance animation */
+/* Menu section entrance animation - optimized for scroll performance */
 @keyframes menu-section-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(6px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+    will-change: auto; /* Remove will-change when animation completes */
+  }
 }
+
 section[data-mounted="true"] {
-  animation: menu-section-in 260ms ease;
+  animation: menu-section-in 260ms ease forwards;
   /* Prevent layout shifts during animation */
   transform-origin: top;
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
+  /* Enhanced scroll performance optimizations */
+  will-change: opacity, transform;
+  contain: layout style paint;
 }
 
 /* Rotate chevron when details is open */
@@ -344,13 +355,34 @@ details[open] summary svg {
 /* Scroll optimization classes */
 .scroll-optimized {
   contain: layout style paint;
-  transform: translateZ(0);
-}
-
-.sticky-optimized {
-  position: -webkit-sticky;
-  position: sticky;
   will-change: transform;
   backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Performance-optimized motion elements */
+.motion-safe {
+  /* Only apply animations in motion-safe environments */
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+}
+
+/* Global performance optimizations for Framer Motion components */
+[data-framer-component] {
+  transform: translateZ(0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  will-change: auto; /* Reset will-change after animations complete */
+}
+
+/* Optimize whileInView animations */
+[data-whileinview="true"] {
+  contain: layout style;
+  will-change: opacity, transform;
+}
+
+[data-whileinview="true"].animate-complete {
+  will-change: auto; /* Remove will-change when animation completes */
 }
 

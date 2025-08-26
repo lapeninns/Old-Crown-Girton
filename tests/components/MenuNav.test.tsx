@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import MenuNav from '../../components/menu/MenuNav';
+import MenuNav from '../../components/menu/legacy/MenuNav';
 
 describe('MenuNav', () => {
   it('renders links to sections and highlights the active one', () => {

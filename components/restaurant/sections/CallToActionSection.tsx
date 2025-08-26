@@ -107,7 +107,7 @@ export default function CallToActionSection({
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link
+                  <a
                     href={button.href}
                     className={getButtonClasses(button.variant)}
                     {...buttonProps}
@@ -118,7 +118,7 @@ export default function CallToActionSection({
                         ↗
                       </span>
                     )}
-                  </Link>
+                  </a>
                 </motion.div>
               );
             })}

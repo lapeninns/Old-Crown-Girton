@@ -27,6 +27,9 @@ afterEach(() => {
 //   server.close();
 // });
 
+// Mock server-only modules to prevent import errors in client-side tests
+jest.mock('server-only', () => ({}));
+
 // Mock IntersectionObserver (used by many UI components)
 (global as any).IntersectionObserver = class IntersectionObserver {
   constructor() {}
@@ -134,6 +137,7 @@ jest.mock('framer-motion', () => {
       form: ({ children, ...props }: any) => React.createElement('form', props, children),
       input: ({ children, ...props }: any) => React.createElement('input', props, children),
       textarea: ({ children, ...props }: any) => React.createElement('textarea', props, children),
+      a: ({ children, ...props }: any) => React.createElement('a', props, children),
     },
     AnimatePresence: ({ children }: any) => children,
     useAnimation: () => ({

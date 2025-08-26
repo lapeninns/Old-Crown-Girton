@@ -5,7 +5,7 @@
  * content loading, and validation functionality.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import {
   composeContent,
   composePageContent,

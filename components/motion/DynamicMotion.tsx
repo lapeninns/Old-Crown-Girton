@@ -64,3 +64,11 @@ export const MemoizedMotionButton = memo(MotionButton);
 MemoizedMotionDiv.displayName = 'MemoizedMotionDiv';
 MemoizedMotionSpan.displayName = 'MemoizedMotionSpan'; 
 MemoizedMotionButton.displayName = 'MemoizedMotionButton';
+
+// Performance-optimized motion components
+export { 
+  PerformantMotionDiv, 
+  PerformantMotionSection, 
+  performantVariants, 
+  performantStagger 
+} from './PerformantMotion';

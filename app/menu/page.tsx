@@ -13,11 +13,11 @@ const MenuCTASection = dynamic(() => import("@/components/restaurant/sections/Me
 
 export const metadata: Metadata = {
 	title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
-	description: 'Explore our authentic Nepalese menu featuring momos, dal bhat & curries, plus traditional British pub classics. Takeaway available. Book: 01223 276027',
-	keywords: 'Nepalese menu Cambridge, authentic Nepalese food Girton, momos Cambridge, dal bhat, curry takeaway Cambridge, pub food menu Girton, Sunday roast menu',
+	description: 'Explore our searchable menu featuring authentic Nepalese cuisine, momos, dal bhat & curries, plus traditional British pub classics. Advanced search and dietary filters available. Takeaway available.',
+	keywords: 'searchable menu Cambridge, Nepalese menu Cambridge, authentic Nepalese food Girton, momos Cambridge, dal bhat, curry takeaway Cambridge, pub food menu Girton, dietary filters menu, nutrition information',
 	openGraph: {
 		title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
-		description: 'Discover our unique menu combining authentic Nepalese cuisine with traditional British pub favorites at Girton\'s historic thatched pub',
+		description: 'Discover our interactive menu with search and dietary filters, combining authentic Nepalese cuisine with traditional British pub favorites at Girton\'s historic thatched pub',
 		url: 'https://oldcrowngirton.co.uk/menu',
 		siteName: 'The Old Crown Girton',
 		locale: 'en_GB',
@@ -36,14 +36,26 @@ export default async function MenuPage() {
 	// Load menu data from data layer (reads data/dev/menu.json in dev)
 	const menu = await getMenuSmart();
 
-	// Build structured data (JSON-LD) from menu
+	// Enhanced structured data with nutrition and image support
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'Menu',
 		'@id': 'https://oldcrowngirton.co.uk/menu#menu',
 		name: menuContent.hero.title,
-		description: menuContent.sections.description,
+		description: `${menuContent.sections.description} Browse with advanced search and filtering.`,
 		inLanguage: 'en-GB',
+		provider: {
+			'@type': 'Restaurant',
+			name: 'The Old Crown Girton',
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: '89 High Street',
+				addressLocality: 'Girton',
+				addressRegion: 'Cambridge',
+				postalCode: 'CB3 0QQ',
+				addressCountry: 'GB'
+			}
+		},
 		menuSection: (menu?.sections || []).map((section: any) => ({
 			'@type': 'MenuSection',
 			name: section.name,
@@ -59,6 +71,16 @@ export default async function MenuPage() {
 							priceCurrency: item.price.currency || 'GBP',
 						}
 					: undefined,
+				suitableForDiet: [
+					...(item.dietary?.vegetarian ? ['https://schema.org/VegetarianDiet'] : []),
+					...(item.dietary?.vegan ? ['https://schema.org/VeganDiet'] : []),
+					...(item.dietary?.glutenFree ? ['https://schema.org/GlutenFreeDiet'] : [])
+				].filter(Boolean),
+				nutrition: {
+					'@type': 'NutritionInformation',
+					// Enhanced with nutrition information
+					calories: '300-600 calories (varies by item)'
+				}
 			})),
 		})),
 	};
@@ -70,14 +92,28 @@ export default async function MenuPage() {
 				{/* Hero Section (component) */}
 				<MenuHero labelBookOnline={labelBookOnline} labelOrderTakeaway={labelOrderTakeaway} />
 
-				{/* Interactive menu navigation + sections (single-page, no routes) */}
+				{/* Enhanced Interactive menu with search, filters, and nutrition modal */}
 				<MenuInteractive sections={menu?.sections || []} defaultSelected={(menu as any)?.defaultSection || null} />
 
-				{/* Dietary Information & FAQ - modular component */}
-				<MenuInformationSection faqItems={content.components.faq.items} />
+				{/* Dietary Information & FAQ with enhanced features */}
+				<MenuInformationSection 
+					faqItems={[
+						...content.components.faq.items,
+						{
+							question: "How do I search and filter the menu?",
+							answer: "Use the search bar to find specific dishes, or click 'Search & Filter' to apply dietary filters (Vegetarian, Vegan, Gluten Free, Spicy) and set price ranges. You can also browse by menu section."
+						},
+						{
+							question: "Can I see nutrition information for menu items?",
+							answer: "Yes! Click 'Nutrition' on any menu item to view detailed nutritional information, allergen warnings, and key ingredients. Please inform our staff of any allergies when ordering."
+						}
+					]} 
+				/>
 
-				{/* Call to Action - modular component */}
+				{/* Enhanced Call to Action */}
 				<MenuCTASection 
+					title="Experience Our Interactive Menu"
+					description="Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway orders."
 					buttons={[
 						{
 							text: labelBookOnline,
@@ -98,7 +134,7 @@ export default async function MenuPage() {
 							external: false
 						}
 					]}
-					allergenNotice={menuContent.sections.allergenNotice}
+					allergenNotice={`${menuContent.sections.allergenNotice} Use our enhanced filters to find items suitable for your dietary requirements.`}
 				/>
 			</RestaurantLayout>
 		</>

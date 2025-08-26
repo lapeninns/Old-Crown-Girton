@@ -25,6 +25,7 @@ export const MenuItemSchema = z.object({
 export const MenuSectionSchema = z.object({
   id: z.string(),
   name: z.string(),
+  description: z.string().optional(),
   items: z.array(MenuItemSchema),
 });
 
