@@ -8,6 +8,7 @@ import MenuSections from './MenuSections';
 type Props = {
   sections: Menu['sections'];
   defaultSelected?: string | null;
+  preloadedData?: boolean; // Indicates data is pre-optimized server-side
 };
 
 function normalizeId(input?: string | number | null) {
@@ -15,14 +16,14 @@ function normalizeId(input?: string | number | null) {
 }
 
 /**
- * MenuInteractive component with search, filtering, and improved UX
+ * MenuInteractive component with search, filtering, and optimized performance
+ * Now supports server-side preloaded data for faster initial rendering
  * Maintains backward compatibility with existing functionality
- * Follows scroll-performance-conflict-resolution from memory for smooth operation
  */
-export default function MenuInteractive({ sections, defaultSelected }: Props) {
-  const [selected, setSelected] = useState<string | null>(null);
+export default function MenuInteractive({ sections, defaultSelected, preloadedData = false }: Props) {
+  const [selected, setSelected] = useState<string | null>(defaultSelected || null);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(preloadedData); // Start hydrated if data is preloaded
   const [filteredSections, setFilteredSections] = useState<Menu['sections']>(sections);
   const [searchTerm, setSearchTerm] = useState('');
   const [showSearch, setShowSearch] = useState(false);
@@ -37,8 +38,29 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
     }
   }, [selected, isAnimating]);
 
-  // Hydration effect - maintains existing initialization logic
+  // Optimized hydration effect for preloaded data
   useEffect(() => {
+    if (preloadedData) {
+      // Data is already optimized server-side, skip client-side processing
+      setIsHydrated(true);
+      
+      // Use defaultSelected if provided, or current hash
+      const currentHash = typeof window !== 'undefined' && window.location.hash 
+        ? window.location.hash.replace('#', '') 
+        : null;
+      
+      const targetSelected = currentHash || defaultSelected;
+      
+      if (targetSelected && targetSelected !== selected) {
+        setSelected(targetSelected);
+        if (typeof window !== 'undefined' && !currentHash) {
+          history.replaceState(null, '', window.location.pathname + window.location.search + `#${targetSelected}`);
+        }
+      }
+      return;
+    }
+    
+    // Legacy hydration logic for non-preloaded data
     setIsHydrated(true);
     
     // Initialize selected state from URL hash or default
@@ -61,7 +83,7 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
         history.replaceState(null, '', window.location.pathname + window.location.search + `#${defaultIdFromMenu}`);
       }
     }
-  }, [sections, defaultSelected]);
+  }, [sections, defaultSelected, preloadedData, selected]);
 
   // Hash change listener - maintains existing pattern
   useEffect(() => {

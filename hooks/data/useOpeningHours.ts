@@ -45,7 +45,10 @@ export function useOpeningHours() {
   const { data: restaurant, isLoading, error } = useRestaurant();
 
   const processedHours = useMemo((): ProcessedHours | null => {
-    if (!restaurant?.hours) return null;
+    // More robust checking
+    if (!restaurant || !restaurant.hours) {
+      return null;
+    }
 
     const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
     
@@ -53,62 +56,67 @@ export function useOpeningHours() {
     let kitchenHours: DayHours[] = [];
     let barHours: DayHours[] = [];
 
-    if (typeof restaurant.hours === 'object') {
-      // Type guard to determine the hours format
-      const hasKitchenBar = 'kitchen' in restaurant.hours && 'bar' in restaurant.hours;
-      const hasLegacyFormat = 'Mon-Thu' in restaurant.hours || 'Mon' in restaurant.hours;
-      
-      if (hasKitchenBar) {
-        // Handle the detailed format with separate kitchen and bar hours
-        const kitchenData = typeof restaurant.hours.kitchen === 'object' ? restaurant.hours.kitchen : {};
-        const barData = typeof restaurant.hours.bar === 'object' ? restaurant.hours.bar : {};
-        kitchenHours = processDetailedHours(kitchenData, today);
-        barHours = processDetailedHours(barData, today);
-      } else if (hasLegacyFormat) {
-        // Handle legacy compact format
-        kitchenHours = expandCompactHours(restaurant.hours as Record<string, string>, today);
-        barHours = kitchenHours.map(day => ({
-          ...day,
-          hours: extendHours(day.hours, 1)
-        }));
-      } else {
-        // Handle simple daily format
-        kitchenHours = processDetailedHours(restaurant.hours as Record<string, string>, today);
-        barHours = processDetailedHours(restaurant.hours as Record<string, string>, today);
+    try {
+      if (typeof restaurant.hours === 'object') {
+        // Type guard to determine the hours format
+        const hasKitchenBar = 'kitchen' in restaurant.hours && 'bar' in restaurant.hours;
+        const hasLegacyFormat = 'Mon-Thu' in restaurant.hours || 'Mon' in restaurant.hours;
+        
+        if (hasKitchenBar) {
+          // Handle the detailed format with separate kitchen and bar hours
+          const kitchenData = typeof restaurant.hours.kitchen === 'object' ? restaurant.hours.kitchen : {};
+          const barData = typeof restaurant.hours.bar === 'object' ? restaurant.hours.bar : {};
+          kitchenHours = processDetailedHours(kitchenData, today);
+          barHours = processDetailedHours(barData, today);
+        } else if (hasLegacyFormat) {
+          // Handle legacy compact format
+          kitchenHours = expandCompactHours(restaurant.hours as Record<string, string>, today);
+          barHours = kitchenHours.map(day => ({
+            ...day,
+            hours: extendHours(day.hours, 1)
+          }));
+        } else {
+          // Handle simple daily format
+          kitchenHours = processDetailedHours(restaurant.hours as Record<string, string>, today);
+          barHours = processDetailedHours(restaurant.hours as Record<string, string>, today);
+        }
       }
+
+      // Add current open status to each day
+      kitchenHours = kitchenHours.map(day => ({
+        ...day,
+        isOpen: day.isToday ? isCurrentlyOpen(day.hours) : false
+      }));
+      
+      barHours = barHours.map(day => ({
+        ...day,
+        isOpen: day.isToday ? isCurrentlyOpen(day.hours) : false
+      }));
+
+      // Generate summaries
+      const kitchenSummary = generateSummary(kitchenHours);
+      const barSummary = generateSummary(barHours);
+
+      // Determine current status
+      const currentStatus = {
+        isOpen: getCurrentOpenStatus(kitchenHours, barHours),
+        currentService: getCurrentService(kitchenHours, barHours),
+        nextChange: getNextChange(kitchenHours, barHours)
+      };
+
+      return {
+        kitchen: kitchenHours,
+        bar: barHours,
+        summary: {
+          kitchenSummary,
+          barSummary
+        },
+        currentStatus
+      };
+    } catch (error) {
+      console.error('useOpeningHours: Error processing hours:', error);
+      return null;
     }
-
-    // Add current open status to each day
-    kitchenHours = kitchenHours.map(day => ({
-      ...day,
-      isOpen: day.isToday ? isCurrentlyOpen(day.hours) : false
-    }));
-    
-    barHours = barHours.map(day => ({
-      ...day,
-      isOpen: day.isToday ? isCurrentlyOpen(day.hours) : false
-    }));
-
-    // Generate summaries
-    const kitchenSummary = generateSummary(kitchenHours);
-    const barSummary = generateSummary(barHours);
-
-    // Determine current status
-    const currentStatus = {
-      isOpen: getCurrentOpenStatus(kitchenHours, barHours),
-      currentService: getCurrentService(kitchenHours, barHours),
-      nextChange: getNextChange(kitchenHours, barHours)
-    };
-
-    return {
-      kitchen: kitchenHours,
-      bar: barHours,
-      summary: {
-        kitchenSummary,
-        barSummary
-      },
-      currentStatus
-    };
   }, [restaurant?.hours]);
 
   return {
@@ -288,6 +296,14 @@ function extendHours(hours: string, extraHours: number): string {
 function generateSummary(hours: DayHours[]): string {
   const openDays = hours.filter(day => day.hours !== 'Closed');
   if (openDays.length === 0) return 'Closed all week';
+  
+  // Find today's hours first
+  const today = hours.find(day => day.isToday);
+  if (today && today.hours !== 'Closed') {
+    return `Today: ${today.hours}`;
+  }
+  
+  // If today is closed, find the most common pattern
   if (openDays.length === 7) return 'Open daily';
   
   // Find the most common hours pattern
@@ -306,7 +322,9 @@ function generateSummary(hours: DayHours[]): string {
   if (patterns.length > 0) {
     const [hoursStr, days] = patterns[0];
     if (days.length >= 5) {
-      return `Daily ${hoursStr}`;
+      return `${hoursStr} (most days)`;
+    } else if (days.length === 1) {
+      return `${days[0]}: ${hoursStr}`;
     } else {
       return `${days[0]} ${hoursStr}`;
     }

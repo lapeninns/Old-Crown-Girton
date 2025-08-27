@@ -2,17 +2,34 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { getContactInfo, getHours } from '@/lib/restaurantData';
+import { getContactInfo } from '@/lib/restaurantData';
 import { useParsedData } from '@/hooks/useParsedData';
 import { useContent } from '@/hooks/useContent';
+import { useOpeningHours } from '@/hooks/data/useOpeningHours';
 import { MarketingDataSchema } from '@/lib/schemas';
 
 export default function Hero() {
   const contact = getContactInfo();
-  const hours = getHours();
-  const kitchenWeek = hours?.display?.kitchen?.weekdays;
-  const barWeek = hours?.display?.bar?.mon_thu;
-  const hoursSnippet = kitchenWeek && barWeek ? `Kitchen ${kitchenWeek} | Bar ${barWeek}` : 'Open – see full hours';
+  const { hours, isLoading: hoursLoading } = useOpeningHours();
+  
+  // Generate hours snippet from actual restaurant data
+  const hoursSnippet = (() => {
+    if (hoursLoading) return 'Loading hours...';
+    if (!hours) return 'Open – see full hours';
+    
+    const { kitchenSummary, barSummary } = hours.summary;
+    
+    if (kitchenSummary && barSummary) {
+      return `Kitchen: ${kitchenSummary} | Bar: ${barSummary}`;
+    } else if (kitchenSummary) {
+      return `Kitchen: ${kitchenSummary}`;
+    } else if (barSummary) {
+      return `Bar: ${barSummary}`;
+    }
+    
+    return 'Open – see full hours';
+  })();
+  
   const { data: marketing } = useParsedData('marketing.json', MarketingDataSchema);
   const { data: content } = useContent();
   

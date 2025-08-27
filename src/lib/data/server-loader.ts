@@ -133,6 +133,108 @@ export async function getMenuData(env: AppEnv = resolveEnv()): Promise<Menu> {
   });
 }
 
+export async function getMenuDataOptimized(priorityCategory?: string, env: AppEnv = resolveEnv()): Promise<Menu> {
+  const cacheKey = createCacheKey(`menu-optimized-${priorityCategory || 'all'}`, env);
+  
+  return globalCache.get(cacheKey, async () => {
+    return loadMenuFromFileSystemOptimized(priorityCategory);
+  }, {
+    ttl: getMenuCacheTTL(env),
+    enableCompression: true
+  });
+}
+
+async function loadMenuFromFileSystemOptimized(priorityCategory?: string): Promise<Menu> {
+  // Load from modular menu files in /menu directory with optimized concurrent loading
+  const modularMenuDir = path.join(process.cwd(), "menu");
+  
+  const categories = [
+    { id: "starters", name: "Starters" },
+    { id: "mixed_grills", name: "Mixed Grills" },
+    { id: "speciality", name: "Speciality Dishes" },
+    { id: "authentic_dishes", name: "Authentic Dishes" },
+    { id: "naans", name: "Naans" },
+    { id: "fries", name: "Fries" },
+    { id: "pub_grub", name: "Pub Grub" },
+    { id: "rice", name: "Rice" },
+    { id: "pub_classics", name: "Pub Classic" },
+    { id: "salads", name: "Salads" },
+    { id: "sides", name: "Sides" },
+    { id: "kids_menu", name: "Kids" },
+    { id: "desserts", name: "Desserts" }
+  ];
+  
+  // Prioritize loading order - priority category first
+  const orderedCategories = priorityCategory
+    ? [
+        ...categories.filter(cat => cat.id === priorityCategory),
+        ...categories.filter(cat => cat.id !== priorityCategory)
+      ]
+    : categories;
+  
+  // Load categories concurrently with Promise.allSettled for better error handling
+  const categoryPromises = orderedCategories.map(async (cat) => {
+    const filePath = path.join(modularMenuDir, `${cat.id}.json`);
+    try {
+      const raw = await fs.readFile(filePath, "utf8");
+      const items = JSON.parse(raw);
+      
+      // Transform items to match expected schema structure with optimizations
+      const transformedItems = items.map((item: any, index: number) => {
+        const dietary = {
+          vegetarian: item.labels?.includes("veg") || false,
+          glutenFree: item.labels?.includes("GF") || false
+        };
+        
+        return {
+          id: item.id || `${cat.id}-${index + 1}`,
+          name: item.name,
+          description: item.description || "",
+          price: item.price,
+          available: item.available !== false,
+          dietary,
+          tags: item.labels?.filter((label: string) => !['veg', 'GF'].includes(label)) || [],
+          // Pre-compute search terms for faster client-side filtering
+          searchTerms: `${item.name} ${item.description || ''} ${item.labels?.join(' ') || ''}`.toLowerCase()
+        };
+      });
+      
+      return { 
+        id: cat.id, 
+        name: cat.name, 
+        items: transformedItems,
+        // Pre-compute section metadata
+        itemCount: transformedItems.length,
+        hasVegetarian: transformedItems.some((item: any) => item.dietary.vegetarian),
+        hasGlutenFree: transformedItems.some((item: any) => item.dietary.glutenFree),
+        priceRange: transformedItems.length > 0 ? {
+          min: Math.min(...transformedItems.map((item: any) => item.price?.amount || 0)),
+          max: Math.max(...transformedItems.map((item: any) => item.price?.amount || 0))
+        } : null
+      };
+    } catch (e) {
+      console.warn(`Warning: Could not load menu category file ${cat.id}.json:`, e);
+      return null;
+    }
+  });
+  
+  const results = await Promise.allSettled(categoryPromises);
+  const sections = results
+    .filter((result): result is PromiseFulfilledResult<any> => 
+      result.status === 'fulfilled' && result.value !== null
+    )
+    .map(result => result.value);
+  
+  if (sections.length === 0) {
+    throw new Error('No menu data could be loaded from /menu directory');
+  }
+  
+  return {
+    updatedAt: new Date().toISOString(),
+    sections
+  };
+}
+
 async function loadMenuFromFileSystem(): Promise<Menu> {
   // Load from modular menu files in /menu directory
   const modularMenuDir = path.join(process.cwd(), "menu");
@@ -195,7 +297,7 @@ async function loadMenuFromFileSystem(): Promise<Menu> {
   };
 }
 
-export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
+export async function getMenuSmart(priorityCategory?: string, env: AppEnv = resolveEnv()): Promise<Menu> {
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
@@ -217,7 +319,11 @@ export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
   } catch {
     // ignore config errors; fallback to fs
   }
-  return getMenuData(env);
+  
+  // Use optimized loader if priority category is specified
+  return priorityCategory 
+    ? getMenuDataOptimized(priorityCategory, env)
+    : getMenuData(env);
 }
 
 export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Marketing> {
@@ -276,18 +382,19 @@ export async function preloadCriticalContent(env: AppEnv = resolveEnv()): Promis
   const preloadPromises = [
     globalCache.preload(
       createCacheKey('content', env),
-      () => getContentDataOptimized(env),
-      { priority: 'high' }
+      () => getContentDataOptimized(env)
     ),
     globalCache.preload(
       createCacheKey('config', env),
-      () => getConfigData(env),
-      { priority: 'high' }
+      () => getConfigData(env)
+    ),
+    globalCache.preload(
+      createCacheKey('menu-optimized-starters', env),
+      () => getMenuDataOptimized('starters', env)
     ),
     globalCache.preload(
       createCacheKey('menu', env),
-      () => getMenuData(env),
-      { priority: 'normal' }
+      () => getMenuData(env)
     )
   ];
   

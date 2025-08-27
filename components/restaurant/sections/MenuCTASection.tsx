@@ -53,7 +53,7 @@ export default function MenuCTASection({
       case 'secondary':
         return 'bg-crimson-600 hover:bg-crimson-800 text-white';
       case 'tertiary':
-        return 'bg-surface-base hover:bg-neutral-100 text-stout-700';
+        return 'bg-white hover:bg-neutral-100 text-stout-700';
       default:
         return 'bg-accent hover:bg-accent-700 text-white';
     }

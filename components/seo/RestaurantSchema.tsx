@@ -152,13 +152,35 @@ const buildBaseData = () => {
   const contact = getContactInfo();
   const hours = getHours();
   const menu = getMenu();
+  
+  // Extract kitchen hours from actual restaurant data
   const kitchen = hours?.kitchen || {};
   const openingHours: { days: string[]; opens: string; closes: string }[] = [];
+  
+  // Handle different hour formats with proper type checking
   Object.entries(kitchen).forEach(([day, ranges]) => {
-    const firstRange = (ranges as string).split(',')[0];
-    const [opens, closes] = firstRange.split('-');
-    openingHours.push({ days: [day.charAt(0).toUpperCase() + day.slice(1)], opens, closes });
+    // Type guard to ensure ranges is a string before calling split
+    if (typeof ranges === 'string' && ranges.trim()) {
+      try {
+        const firstRange = ranges.split(',')[0]?.trim();
+        if (firstRange && firstRange.includes('-')) {
+          const [opens, closes] = firstRange.split('-').map(time => time.trim());
+          if (opens && closes) {
+            openingHours.push({ 
+              days: [day.charAt(0).toUpperCase() + day.slice(1)], 
+              opens, 
+              closes 
+            });
+          }
+        }
+      } catch (error) {
+        console.warn(`Failed to parse hours for ${day}:`, ranges, error);
+      }
+    } else {
+      console.warn(`Invalid hours format for ${day}:`, ranges);
+    }
   });
+  
   const paymentMethods = ['Cash', 'Credit Card', 'Debit Card', 'Contactless'];
   return { identity, contact, menu, openingHours, paymentMethods };
 };

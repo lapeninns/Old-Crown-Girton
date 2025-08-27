@@ -34,7 +34,7 @@ const HoursSection: React.FC<HoursSectionProps> = ({ title, hoursData, isOpen })
   return (
     <div className="mb-4 last:mb-0">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="font-semibold text-foreground-strong">{title}</h4>
+        <h4 className="font-semibold text-brand-700">{title}</h4>
         <div className="flex items-center gap-2">
           <div className={`w-2 h-2 rounded-full ${isOpen ? 'bg-green-500' : 'bg-red-500'}`}></div>
           <span className={`text-sm ${isOpen ? 'text-green-600' : 'text-red-600'}`}>
@@ -50,7 +50,7 @@ const HoursSection: React.FC<HoursSectionProps> = ({ title, hoursData, isOpen })
         
         <button
           onClick={() => setShowAllDays(!showAllDays)}
-          className="text-accent hover:underline text-sm"
+          className="text-brand-600 hover:text-brand-700 hover:underline text-sm transition-colors duration-200"
         >
           {showAllDays ? 'Show less' : 'Show all hours'}
         </button>
@@ -60,7 +60,7 @@ const HoursSection: React.FC<HoursSectionProps> = ({ title, hoursData, isOpen })
             {orderedHours.map((dayHours) => (
               <div 
                 key={dayHours.day} 
-                className={`flex justify-between py-1 ${dayHours.isToday ? 'font-medium text-accent' : ''}`}
+                className={`flex justify-between py-1 ${dayHours.isToday ? 'font-medium text-brand-600' : ''}`}
               >
                 <span>{dayHours.day}</span>
                 <span>{dayHours.hours}</span>
@@ -104,12 +104,12 @@ const RestaurantHoursCard: React.FC = () => {
   if (error || !hours) {
     return (
       <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
-        <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-display font-bold text-brand-700 mb-4 flex items-center gap-2">
           <span className="text-accent">🕒</span>
           Restaurant & Bar Opening Time
         </h3>
         <p className="text-foreground">Please call us for current hours</p>
-        <a href="tel:01223276027" className="text-accent hover:underline">
+        <a href="tel:01223276027" className="text-brand-600 hover:text-brand-700 hover:underline transition-colors duration-200">
           01223 276027
         </a>
       </div>
@@ -121,7 +121,7 @@ const RestaurantHoursCard: React.FC = () => {
   
   return (
     <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
-      <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
+      <h3 className="text-xl font-display font-bold text-brand-700 mb-4 flex items-center gap-2">
         <span className="text-accent">🕒</span>
         Restaurant & Bar Opening Time
       </h3>

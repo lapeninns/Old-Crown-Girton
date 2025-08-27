@@ -66,7 +66,7 @@ export default function DishCard({
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-display font-bold text-stout-700 mb-2">
+        <h3 className="text-xl font-display font-bold text-stout-700 mb-2 break-words hyphens-auto" lang="en">
           {title}
         </h3>
         <p className="text-neutral-600 mb-4 line-clamp-2">

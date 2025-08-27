@@ -37,14 +37,14 @@ export default function SocialMediaSection({
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       whileHover={{ scale: 1.02 }}
-      className={`bg-accent-50 border-2 border-accent-500 p-6 rounded-xl text-center transition-transform duration-200 ${className}`}
+      className={`bg-neutral-50 p-6 rounded-xl shadow-lg text-center transition-transform duration-200 ${className}`}
     >
       <motion.h2 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
         viewport={{ once: true }}
-        className="text-xl font-display font-bold text-stout-700 mb-4"
+        className="text-xl font-display font-bold text-brand-700 mb-4"
       >
         {title}
       </motion.h2>
@@ -73,7 +73,7 @@ export default function SocialMediaSection({
           href="https://facebook.com" 
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="text-accent hover:text-accent-700 transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60 rounded-full p-1"
+          className="text-brand-600 hover:text-brand-700 transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60 rounded-full p-1"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Follow us on Facebook"
@@ -88,7 +88,7 @@ export default function SocialMediaSection({
           href="https://instagram.com" 
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="text-accent hover:text-accent-700 transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60 rounded-full p-1"
+          className="text-brand-600 hover:text-brand-700 transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60 rounded-full p-1"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Follow us on Instagram"

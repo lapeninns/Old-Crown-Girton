@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useOpeningHours } from '@/hooks/data/useOpeningHours';
 
 /**
@@ -9,9 +10,14 @@ import { useOpeningHours } from '@/hooks/data/useOpeningHours';
  * This is a client component that can be used within the server-rendered Footer.
  */
 export default function FooterOpeningHours() {
+  const [isClient, setIsClient] = useState(false);
   const { hours, isLoading, error } = useOpeningHours();
 
-  if (isLoading) {
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient || isLoading) {
     return (
       <div className="text-sm space-y-1 animate-pulse">
         <div className="h-4 bg-neutral-600 rounded w-24 mb-2"></div>

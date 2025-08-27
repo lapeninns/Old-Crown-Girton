@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { getRestaurantIdentity, getContactInfo, getSocialMedia } from '@/lib/restaurantData';
 import { getContentSmart } from '@/src/lib/data/server-loader';
 import AllergenNotice from './AllergenNotice';
-import FooterOpeningHours from './FooterOpeningHours';
+import SimpleFooterHours from '@/components/simple/SimpleFooterHours';
 
 export default async function Footer() {
   const identity = getRestaurantIdentity();
@@ -47,7 +47,7 @@ export default async function Footer() {
           {/* Opening Hours */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Opening Hours</h4>
-            <FooterOpeningHours />
+            <SimpleFooterHours />
           </div>
         </div>
 

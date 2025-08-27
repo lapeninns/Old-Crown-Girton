@@ -18,6 +18,30 @@
 /* Utility classes to produce semantic markup (h1-h3, p) with optional visually-hidden elements for screen readers */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
+/* Hyphenation and text breaking utilities for long content */
+.hyphens-auto {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
+.break-words {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Enhanced text wrapping for menu items and food names */
+.text-wrap-balance {
+  text-wrap: balance;
+}
+
+@supports (text-wrap: balance) {
+  .menu-item-name {
+    text-wrap: balance;
+  }
+}
+
 /* Respect reduced motion and prefer-reduced-motion for typography animations (if any) */
 @media (prefers-reduced-motion: reduce) {
   .animate-text { animation: none !important; transition: none !important; }

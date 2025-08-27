@@ -61,14 +61,14 @@ export default function ContactFeaturesSection({
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       whileHover={{ scale: 1.02 }}
-      className={`bg-neutral-50 border-2 border-neutral-200 p-6 rounded-xl transition-transform duration-200 ${className}`}
+      className={`bg-neutral-50 p-6 rounded-xl shadow-lg transition-transform duration-200 ${className}`}
     >
       <motion.h2 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
         viewport={{ once: true }}
-        className="text-xl font-display font-bold text-stout-700 mb-4"
+        className="text-xl font-display font-bold text-brand-700 mb-4"
       >
         {title}
       </motion.h2>

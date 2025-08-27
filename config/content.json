@@ -286,22 +286,7 @@
       },
       "hours": {
         "title": "Opening Hours",
-        "restaurant": {
-          "title": "Restaurant",
-          "schedule": [
-            { "days": "Monday - Thursday", "hours": "12:00 - 22:00" },
-            { "days": "Friday - Saturday", "hours": "12:00 - 22:30" },
-            { "days": "Sunday", "hours": "12:00 - 21:30" }
-          ]
-        },
-        "bar": {
-          "title": "Bar",
-          "schedule": [
-            { "days": "Monday - Thursday", "hours": "12:00 - 23:00" },
-            { "days": "Friday - Saturday", "hours": "12:00 - 00:00" },
-            { "days": "Sunday", "hours": "12:00 - 22:30" }
-          ]
-        }
+        "note": "Hours are fetched dynamically from restaurant data"
       },
       "features": {
         "title": "What We Offer",

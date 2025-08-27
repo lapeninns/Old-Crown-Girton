@@ -2,7 +2,7 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
-import { getContactInfo, getHours } from "@/lib/restaurantData";
+import { getContactInfo } from "@/lib/restaurantData";
 import dynamic from 'next/dynamic';
 
 // Dynamic imports for non-LCP sections
@@ -19,14 +19,7 @@ export default async function AboutPage() {
   // About page content
   const aboutContent = content.pages.about;
   const contact = getContactInfo();
-  const hours = getHours();
   const postcode = contact?.address.postcode || "CB3 0QQ";
-  // Derive a concise combined hours summary for quick display
-  const kitchenWeek = hours?.display?.kitchen?.weekdays;
-  const kitchenWeekend = `${hours?.display?.kitchen?.saturday || ''}${hours?.display?.kitchen?.saturday && hours?.display?.kitchen?.sunday ? ' / ' : ''}${hours?.display?.kitchen?.sunday || ''}`;
-  const barWeek = hours?.display?.bar?.mon_thu;
-  const barWeekend = `${hours?.display?.bar?.fri_sat || ''}${hours?.display?.bar?.fri_sat && hours?.display?.bar?.sunday ? ' / ' : ''}${hours?.display?.bar?.sunday || ''}`;
-  const quickHours = kitchenWeek || barWeek ? `Kitchen ${kitchenWeek}${kitchenWeekend ? ` • W/E ${kitchenWeekend}` : ''} | Bar ${barWeek}${barWeekend ? ` • W/E ${barWeekend}` : ''}` : undefined;
   return (
     <RestaurantLayout>
       <SchemaInjector type="breadcrumb" data={[
@@ -61,8 +54,7 @@ export default async function AboutPage() {
             buttonHref="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
             buttonLabel={labelBookOnline}
             contact={{
-              address: aboutContent.cta.contact.address,
-              hours: quickHours || aboutContent.cta.contact.hours
+              address: aboutContent.cta.contact.address
             }}
           />
         </div>

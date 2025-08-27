@@ -38,16 +38,16 @@ export default function MenuSections({ sections, selectedId }: Props) {
                   return (
                     // This is a static content list item (not interactive). Removing invalid ARIA attributes
                     // and relying on semantic markup. Prices are visually emphasized for contrast.
-                    <li key={item.id || item.name} className="py-3 flex justify-between items-center">
-                      <div className="flex items-center gap-3">
-                        <span className="text-sm sm:text-base text-brand-800">{item.name}</span>
+                    <li key={item.id || item.name} className="py-3 flex justify-between items-center gap-3">
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <span className="text-sm sm:text-base text-brand-800 break-words hyphens-auto" lang="en">{item.name}</span>
                         <div className="flex items-center gap-2" aria-hidden={true}>
                           {isGlutenFree && <span className="text-xs px-1.5 py-0.5 bg-cardamom-100 text-cardamom-800 rounded">GF</span>}
                           {isVeg && <span className="text-xs px-1.5 py-0.5 bg-indiagreen-100 text-indiagreen-800 rounded">V</span>}
                           {isVegan && <span className="text-xs px-1.5 py-0.5 bg-marigold-100 text-marigold-800 rounded">VE</span>}
                         </div>
                       </div>
-                      <div className="text-sm sm:text-base font-semibold text-brand-800 tabular-nums">{priceText}</div>
+                      <div className="text-sm sm:text-base font-semibold text-brand-800 tabular-nums flex-shrink-0 ml-2">{priceText}</div>
                     </li>
                   );
                 })}
