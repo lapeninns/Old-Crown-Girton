@@ -2,8 +2,22 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
+import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import { getContactInfo } from "@/lib/restaurantData";
 import dynamic from 'next/dynamic';
+
+// SEO Metadata
+export const metadata = getSEOTags({
+  title: "About Old Crown Girton - Historic Thatched Pub Heritage | Cambridge",
+  description: "Discover the story of Old Crown Girton - the largest thatched pub in the country. From historic village pub to authentic Nepalese restaurant in Cambridge.",
+  keywords: ["Old Crown Girton history", "historic thatched pub Cambridge", "Girton pub heritage", "largest thatched pub country", "Cambridge pub story"],
+  canonicalUrlRelative: "/about",
+  openGraph: {
+    title: "About Old Crown Girton - Historic Thatched Pub Heritage",
+    description: "Discover the story of Old Crown Girton - the largest thatched pub in the country. From historic village pub to authentic Nepalese restaurant.",
+    url: "https://oldcrowngirton.co.uk/about",
+  },
+});
 
 // Dynamic imports for non-LCP sections
 const StoryTimelineSection = dynamic(() => import("@/components/restaurant/sections/StoryTimelineSection"));
@@ -22,6 +36,45 @@ export default async function AboutPage() {
   const postcode = contact?.address.postcode || "CB3 0QQ";
   return (
     <RestaurantLayout>
+      {renderSchemaTags([
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "@id": "https://oldcrowngirton.co.uk/#organization",
+          "name": "Old Crown Girton",
+          "alternateName": "The Old Crown",
+          "description": "Historic thatched pub in Girton, claimed to be the largest thatched pub in the country, serving authentic Nepalese cuisine alongside traditional British pub fare.",
+          "url": "https://oldcrowngirton.co.uk",
+          "logo": "https://oldcrowngirton.co.uk/icon.png",
+          "image": "https://oldcrowngirton.co.uk/opengraph-image.png",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "89 High Street",
+            "addressLocality": "Girton",
+            "addressRegion": "Cambridgeshire",
+            "postalCode": "CB3 0QQ",
+            "addressCountry": "GB"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 52.2462,
+            "longitude": 0.0731
+          },
+          "telephone": "+441223276027",
+          "email": "info@oldcrowngirton.co.uk",
+          "foundingDate": "1930",
+          "sameAs": [
+            "https://www.facebook.com/oldcrowngirton",
+            "https://www.instagram.com/theoldcrowngirton",
+            "https://www.tripadvisor.com/Restaurant_Review-g3135834-d17412510-Reviews-Old_Crown_Girton-Girton_Cambridgeshire_England.html"
+          ],
+          "brand": {
+            "@type": "Brand",
+            "name": "Old Crown Girton",
+            "description": "Historic thatched pub with authentic Nepalese cuisine"
+          }
+        }
+      ])}
       <SchemaInjector type="breadcrumb" data={[
         { name: 'Home', url: 'https://oldcrowngirton.co.uk/' },
         { name: 'About', url: 'https://oldcrowngirton.co.uk/about' }

@@ -1,6 +1,16 @@
-"use client";
-
+import { getSEOTags } from '@/libs/seo';
 import { OfflineStatus, OfflineFeatures, OfflineActions, OfflineBackground } from './_components';
+
+// SEO Metadata with noindex
+export const metadata = getSEOTags({
+  title: "Offline - Old Crown Girton",
+  description: "You are currently offline. Old Crown Girton content will be available when your connection is restored.",
+  canonicalUrlRelative: "/offline",
+  robots: {
+    index: false,
+    follow: false,
+  },
+});
 
 export default function OfflinePage() {
   return (

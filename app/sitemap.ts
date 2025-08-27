@@ -60,7 +60,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     
-  // (blog removed)
+    // Blog - medium-high priority, updated weekly
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     
     // Legal pages - low priority, rarely updated
     {
@@ -77,6 +83,64 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Blog posts - medium priority, content rarely changes once published
+  const blogPages: SitemapEntry[] = [
+    {
+      url: `${BASE_URL}/blog/authentic-momo-dumplings-nepalese-cuisine`,
+      lastModified: new Date('2024-11-15'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/business-lunch-cambridge-guide`,
+      lastModified: new Date('2024-11-25'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/student-guide-cambridge-university`,
+      lastModified: new Date('2024-11-20'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/dog-friendly-dining-guide`,
+      lastModified: new Date('2024-12-20'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/perfect-sunday-roast-guide`,
+      lastModified: new Date('2024-12-15'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/largest-thatched-pub-history`,
+      lastModified: new Date('2024-12-10'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/ultimate-sports-viewing-guide`,
+      lastModified: new Date('2024-12-05'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/local-suppliers-fresh-ingredients`,
+      lastModified: new Date('2024-11-30'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/nepalese-cuisine-journey`,
+      lastModified: new Date('2024-08-15'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+  ];
+
   // No additional service pages or local SEO pages needed
   const servicePages: SitemapEntry[] = [];
   const localSEOPages: SitemapEntry[] = [];
@@ -84,6 +148,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Combine all pages
   const allPages = [
     ...staticPages,
+    ...blogPages,
     ...servicePages,
     ...localSEOPages
   ];

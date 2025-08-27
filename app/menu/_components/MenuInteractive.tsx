@@ -19,6 +19,7 @@ function normalizeId(input?: string | number | null) {
  * MenuInteractive component with search, filtering, and optimized performance
  * Now supports server-side preloaded data for faster initial rendering
  * Maintains backward compatibility with existing functionality
+ * Enhanced with improved sticky navigation for all responsive devices
  */
 export default function MenuInteractive({ sections, defaultSelected, preloadedData = false }: Props) {
   const [selected, setSelected] = useState<string | null>(defaultSelected || null);
@@ -27,6 +28,7 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
   const [filteredSections, setFilteredSections] = useState<Menu['sections']>(sections);
   const [searchTerm, setSearchTerm] = useState('');
   const [showSearch, setShowSearch] = useState(false);
+  const [navbarHeight, setNavbarHeight] = useState(64); // Default to 64px
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Debounce hash changes to prevent rapid state updates - maintaining existing pattern
@@ -37,6 +39,46 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
       setSelected(newHash);
     }
   }, [selected, isAnimating]);
+
+  // Detect actual navbar height for accurate sticky positioning
+  useEffect(() => {
+    const detectNavbarHeight = () => {
+      // Try to find the navbar element
+      const navbar = document.querySelector('nav[class*="sticky"]') || 
+                     document.querySelector('header nav') || 
+                     document.querySelector('nav') ||
+                     document.querySelector('header');
+      
+      if (navbar) {
+        const rect = navbar.getBoundingClientRect();
+        const height = rect.height;
+        // Use detected height, but ensure it's reasonable (between 40-120px)
+        if (height >= 40 && height <= 120) {
+          setNavbarHeight(height);
+        } else {
+          // Fallback to standard height based on screen size
+          setNavbarHeight(window.innerWidth < 768 ? 56 : 64);
+        }
+      } else {
+        // Fallback if no navbar found
+        setNavbarHeight(window.innerWidth < 768 ? 56 : 64);
+      }
+    };
+
+    // Initial detection with a small delay to ensure DOM is ready
+    const timeoutId = setTimeout(detectNavbarHeight, 100);
+    
+    // Re-detect on resize for responsive navbar changes
+    const handleResize = () => {
+      setTimeout(detectNavbarHeight, 150); // Slightly longer delay on resize
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Optimized hydration effect for preloaded data
   useEffect(() => {
@@ -158,18 +200,23 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
 
   return (
     <div className="scroll-manual">
-      {/* Enhanced Navigation Bar */}
-      <section className="py-3 bg-neutral/30 sticky top-0 z-30 backdrop-blur-sm sticky-optimized">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      {/* Enhanced Navigation Bar with dynamic positioning */}
+      <section 
+        className="py-2 sm:py-3 bg-white/95 border-b border-neutral-200/50 sticky z-30 backdrop-blur-md shadow-sm"
+        style={{ 
+          top: `${navbarHeight}px`,
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
           {/* Search Toggle and Navigation */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
             <button
               type="button"
               onClick={toggleSearch}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+              className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base ${
                 showSearch 
                   ? 'bg-accent text-white shadow-md' 
-                  : 'bg-white text-brand-700 hover:bg-accent hover:text-white border border-neutral-300'
+                  : 'bg-white text-brand-700 hover:bg-accent hover:text-white border border-neutral-300 shadow-sm'
               }`}
               aria-expanded={showSearch}
               aria-controls="search-panel"
@@ -199,26 +246,30 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
             )}
           </div>
 
-          {/* Section Navigation */}
-          <div className="overflow-x-auto -mx-4 px-4 scrollbar-hide">
-            <nav className="flex gap-3 whitespace-nowrap items-center" aria-label="Menu categories">
-              {/* All sections button */}
-              <div className="flex-shrink-0 sticky left-0 z-40 pr-2 bg-neutral/30 backdrop-blur-sm">
+          {/* Section Navigation with improved mobile support */}
+          <div className="overflow-x-auto -mx-3 sm:-mx-4 px-3 sm:px-4 scrollbar-hide">
+            <nav className="flex gap-2 sm:gap-3 whitespace-nowrap items-center pb-1" aria-label="Menu categories">
+              {/* All sections button with enhanced sticky behavior */}
+              <div 
+                className="flex-shrink-0 sticky left-0 z-40 pr-2 bg-white/95 backdrop-blur-md"
+              >
                 <button
                   key="all"
                   type="button"
                   onClick={() => handleSectionChange(null)}
                   disabled={isAnimating}
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    selected === null ? 'bg-accent text-white' : 'bg-neutral-50 text-brand-700 hover:bg-accent hover:text-white'
+                  className={`inline-block px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors duration-200 ${
+                    selected === null ? 'bg-accent text-white shadow-sm' : 'bg-neutral-50 text-brand-700 hover:bg-accent hover:text-white'
                   } ${isAnimating ? 'opacity-70 cursor-not-allowed' : ''}`}
                   aria-pressed={selected === null}
                 >
-                  All ({displaySections.reduce((total, section) => total + section.items.length, 0)})
+                  <span className="hidden sm:inline">All </span>
+                  <span className="sm:hidden">All </span>
+                  ({displaySections.reduce((total, section) => total + section.items.length, 0)})
                 </button>
               </div>
 
-              {/* Section buttons */}
+              {/* Section buttons with enhanced responsive design */}
               {sections.map((section) => {
                 const idSeed = normalizeId(section?.id || section?.name);
                 const isActive = selected === idSeed;
@@ -230,9 +281,9 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
                     type="button"
                     onClick={() => handleSectionChange(isActive ? null : idSeed)}
                     disabled={isAnimating || sectionItemCount === 0}
-                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                    className={`inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors duration-200 ${
                       isActive 
-                        ? 'bg-accent text-white' 
+                        ? 'bg-accent text-white shadow-sm' 
                         : sectionItemCount > 0
                           ? 'bg-neutral-50 text-brand-700 hover:bg-accent hover:text-white'
                           : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
@@ -240,8 +291,8 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
                     aria-pressed={isActive}
                     title={sectionItemCount === 0 ? 'No items in this section match current filters' : undefined}
                   >
-                    <span>{section.name}</span>
-                    <span className="text-xs bg-white bg-opacity-20 px-1.5 py-0.5 rounded-full">
+                    <span className="truncate max-w-[80px] sm:max-w-none">{section.name}</span>
+                    <span className="text-xs bg-white bg-opacity-20 px-1 sm:px-1.5 py-0.5 rounded-full flex-shrink-0">
                       {sectionItemCount}
                     </span>
                   </button>
@@ -252,10 +303,17 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
         </div>
       </section>
 
-      {/* Search Panel */}
+      {/* Search Panel with improved positioning */}
       {showSearch && (
-        <div id="search-panel" className="bg-neutral-50 border-b border-neutral-200 py-4">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div 
+          id="search-panel" 
+          className="bg-neutral-50 border-b border-neutral-200 py-3 sm:py-4 sticky"
+          style={{
+            top: `${navbarHeight + 60}px`, // Account for navbar + menu nav estimated height
+            zIndex: 25,
+          }}
+        >
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
             <MenuSearchFilter
               sections={sections}
               onFilterChange={handleFilterChange}

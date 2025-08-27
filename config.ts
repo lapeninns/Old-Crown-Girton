@@ -12,10 +12,10 @@ function snapshot(): ConfigProps {
   // config should use the data loader directly server-side.
   const isProd = process.env.NODE_ENV === "production";
   return {
-    appName: isProd ? "Old Crown" : "Old Crown (dev)",
+    appName: "Old Crown Girton",
     appDescription:
-      "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics.",
-    domainName: isProd ? "oldcrowngirton.co.uk" : "localhost",
+      "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Voted #1 restaurant in Girton on TripAdvisor.",
+    domainName: "oldcrowngirton.co.uk",
     crisp: { id: "", onlyShowOnRoutes: ["/"] },
     stripe: {
       plans: [

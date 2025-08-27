@@ -16,6 +16,7 @@ export default async function RestaurantLayout({ children }: LayoutProps) {
         style={{
           minHeight: 'calc(100vh - 64px)', // Account for navbar height
           isolation: 'isolate', // Create new stacking context
+          paddingTop: '64px', // Add padding for fixed navbar
         }}
       >
         {children}

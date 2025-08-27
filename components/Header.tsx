@@ -45,7 +45,7 @@ const Header = () => {
   }, [searchParams]);
 
   return (
-    <header className="bg-neutral">
+    <header className="bg-neutral sticky top-0 z-50 transition-all duration-300">
       <nav
         className="container flex items-center justify-between px-8 py-4 mx-auto"
         aria-label="Global"

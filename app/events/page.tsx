@@ -1,7 +1,21 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 import { getContentSmart } from '@/src/lib/data/server-loader';
+import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import dynamic from 'next/dynamic';
+
+// SEO Metadata
+export const metadata = getSEOTags({
+  title: "Events at Old Crown Girton - Quiz Nights, Sports & Community Events | Cambridge",
+  description: "Join our regular events: weekly quiz nights, live sports on big screens, Girton Feast celebrations & private functions. Family & student-friendly events in Cambridge.",
+  keywords: ["Girton pub quiz", "Cambridge sports pub", "Girton Feast events", "Cambridge quiz night", "live sports Cambridge", "private events Girton", "student events Cambridge"],
+  canonicalUrlRelative: "/events",
+  openGraph: {
+    title: "Events at Old Crown Girton - Quiz Nights, Sports & Community Events",
+    description: "Join our regular events: weekly quiz nights, live sports on big screens, Girton Feast celebrations & private functions. Family & student-friendly events.",
+    url: "https://oldcrowngirton.co.uk/events",
+  },
+});
 
 // Dynamic imports for Events page sections
 const RegularEventsSection = dynamic(() => import("@/components/restaurant/sections/RegularEventsSection"));
@@ -21,15 +35,107 @@ export default async function EventsPage() {
 
   return (
     <RestaurantLayout>
-      {/* Breadcrumb Schema */}
-      <SchemaInjector type="breadcrumb" data={[
-        { name: 'Home', url: 'https://oldcrowngirton.co.uk/' },
-        { name: 'Events', url: 'https://oldcrowngirton.co.uk/events' }
-      ]} page="events" />
-      {/* Individual Event Schemas */}
-      {events.map((e, i) => (
-        <SchemaInjector key={i} type="event" data={{ name: e.title, description: e.description, startDate: e.startDate, endDate: (e as any).endDate }} page={`events-${i}`} />
-      ))}
+      {renderSchemaTags([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": "https://oldcrowngirton.co.uk/events#webpage",
+          "name": "Events at Old Crown Girton",
+          "description": "Regular events, quiz nights, live sports and community celebrations at Old Crown Girton - the historic thatched pub in Cambridge.",
+          "url": "https://oldcrowngirton.co.uk/events",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Old Crown Girton",
+            "url": "https://oldcrowngirton.co.uk"
+          },
+          "about": {
+            "@type": "LocalBusiness",
+            "name": "Old Crown Girton",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "89 High Street",
+              "addressLocality": "Girton",
+              "addressRegion": "Cambridgeshire",
+              "postalCode": "CB3 0QQ",
+              "addressCountry": "GB"
+            }
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "EventSeries",
+          "@id": "https://oldcrowngirton.co.uk/events#eventseries",
+          "name": "Old Crown Girton Regular Events",
+          "description": "Weekly quiz nights, live sports viewing, seasonal celebrations and community events at Old Crown Girton.",
+          "organizer": {
+            "@type": "LocalBusiness",
+            "name": "Old Crown Girton",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "89 High Street",
+              "addressLocality": "Girton",
+              "addressRegion": "Cambridgeshire",
+              "postalCode": "CB3 0QQ",
+              "addressCountry": "GB"
+            },
+            "telephone": "+441223276027",
+            "url": "https://oldcrowngirton.co.uk"
+          },
+          "location": {
+            "@type": "Place",
+            "name": "Old Crown Girton",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "89 High Street",
+              "addressLocality": "Girton",
+              "addressRegion": "Cambridgeshire",
+              "postalCode": "CB3 0QQ",
+              "addressCountry": "GB"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 52.2462,
+              "longitude": 0.0731
+            }
+          },
+          "subEvent": [
+            {
+              "@type": "Event",
+              "name": "Weekly Quiz Night",
+              "description": "Test your knowledge at our friendly weekly quiz night. Great prizes and community atmosphere.",
+              "startDate": "2025-08-28T20:00:00+01:00",
+              "endDate": "2025-08-28T22:30:00+01:00",
+              "eventSchedule": {
+                "@type": "Schedule",
+                "repeatFrequency": "P1W",
+                "byDay": "Thursday"
+              },
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "eventStatus": "https://schema.org/EventScheduled"
+            },
+            {
+              "@type": "Event",
+              "name": "Live Sports Viewing",
+              "description": "Watch all the big games on our large screens. Perfect atmosphere for football, rugby and more.",
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "eventStatus": "https://schema.org/EventScheduled"
+            },
+            {
+              "@type": "Event",
+              "name": "Girton Feast Celebrations",
+              "description": "Join us during Girton Feast Week for special events and community celebrations.",
+              "startDate": "2025-07-12T12:00:00+01:00",
+              "endDate": "2025-07-19T23:00:00+01:00",
+              "eventSchedule": {
+                "@type": "Schedule",
+                "repeatFrequency": "P1Y"
+              },
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "eventStatus": "https://schema.org/EventScheduled"
+            }
+          ]
+        }
+      ])}
       <div className="min-h-screen bg-neutral-50 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">

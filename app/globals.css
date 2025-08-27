@@ -13,6 +13,48 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Enhanced navigation positioning support */
+.navbar-fixed {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 50 !important;
+  width: 100% !important;
+  transform: translateZ(0) !important;
+  will-change: transform !important;
+  -webkit-transform: translateZ(0) !important;
+}
+
+/* Ensure body doesn't interfere with fixed navigation */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Force hardware acceleration for smooth scrolling */
+nav {
+  -webkit-overflow-scrolling: touch;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Legacy sticky support (fallback) */
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Ensure sticky elements work on iOS Safari */
+@supports (-webkit-appearance: none) {
+  .sticky {
+    -webkit-transform: translateZ(0);
+  }
+}
+
 /* Prevent scroll anchoring issues during dynamic content changes */
 body {
   overflow-anchor: none;
@@ -198,6 +240,35 @@ progress::-webkit-progress-value {
   
   .font-display {
     font-family: var(--font-playfair), 'Playfair Display', serif;
+  }
+
+  /* Blog-specific styles */
+  .blog-content h2 {
+    @apply text-2xl font-bold text-brand-700 mt-8 mb-4 leading-tight;
+  }
+  
+  .blog-content h3 {
+    @apply text-xl font-semibold text-brand-600 mt-6 mb-3 leading-tight;
+  }
+  
+  .blog-content p {
+    @apply text-neutral-700 leading-relaxed mb-4;
+  }
+  
+  .blog-content ul, .blog-content ol {
+    @apply ml-6 mb-4 space-y-2;
+  }
+  
+  .blog-content li {
+    @apply text-neutral-700 leading-relaxed;
+  }
+  
+  .blog-content strong {
+    @apply font-semibold text-neutral-800;
+  }
+  
+  .blog-content blockquote {
+    @apply border-l-4 border-brand-300 pl-4 italic text-neutral-600 my-6;
   }
 }
 

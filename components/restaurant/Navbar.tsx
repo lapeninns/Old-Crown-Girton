@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,8 +10,36 @@ import { NavDataSchema, NavDataParsed } from '@/lib/schemas';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const navbarRef = useRef<HTMLElement>(null);
   const { data, loading, error } = useParsedData<NavDataParsed>('nav.json', NavDataSchema);
   const { data: content } = useContent();
+  
+  // Force fixed positioning - this ensures navbar stays at top
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10);
+    };
+
+    // Immediately apply fixed positioning
+    const navbar = navbarRef.current;
+    if (navbar) {
+      navbar.style.position = 'fixed';
+      navbar.style.top = '0';
+      navbar.style.left = '0';
+      navbar.style.right = '0';
+      navbar.style.zIndex = '50';
+      navbar.style.width = '100%';
+      navbar.style.transform = 'translateZ(0)';
+      navbar.style.willChange = 'transform';
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   const navLinks = data?.links || content?.global?.navigation?.header?.links || [];
   const uiLabels = content?.global?.ui?.labels;
@@ -22,7 +50,22 @@ export default function Navbar() {
   const filteredLinks = navLinks.filter((link: any) => link.href !== '/' && link.href !== '/contact');
 
   return (
-    <nav className="bg-neutral-50 shadow-md sticky top-0 z-50 transition-all duration-300">
+    <nav 
+      ref={navbarRef}
+      className={`bg-neutral-50 shadow-md transition-all duration-300 ${
+        isScrolled ? 'shadow-lg bg-opacity-95 backdrop-blur-md' : 'shadow-md bg-opacity-100'
+      }`}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        width: '100%',
+        transform: 'translateZ(0)', // Hardware acceleration
+        willChange: 'transform'
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo - Left */}
