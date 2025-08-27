@@ -121,10 +121,10 @@ export default function MenuComponent({ menu }: MenuProps) {
                 )}
 
                 <div className={`p-6 ${isMixedPlatter ? 'pt-10 px-8' : ''}`}>
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <h3 className={`font-semibold flex items-center gap-3 ${
+                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-4 gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start gap-3 mb-3">
+                        <h3 className={`font-semibold flex items-start gap-3 flex-1 min-w-0 ${
                           isMixedPlatter 
                             ? 'text-2xl font-display text-brand-900 font-bold tracking-tight'
                             : 'text-lg text-brand-800'
@@ -134,7 +134,7 @@ export default function MenuComponent({ menu }: MenuProps) {
                               <Award className="w-5 h-5 text-white" />
                             </div>
                           )}
-                          <span className={isMixedPlatter ? 'text-brand-900' : 'text-brand-800'}>
+                          <span className={`break-words hyphens-auto flex-1 min-w-0 ${isMixedPlatter ? 'text-brand-900' : 'text-brand-800'}`} lang="en">
                             {item.name}
                           </span>
                           {item.dietary.glutenFree && (
@@ -201,7 +201,7 @@ export default function MenuComponent({ menu }: MenuProps) {
                       )}
                     </div>
                     
-                    <div className="ml-8 flex-shrink-0">
+                    <div className="flex-shrink-0 lg:ml-8">
                       <div className={`text-center ${
                         isMixedPlatter ? 'transform scale-110' : ''
                       }`}>

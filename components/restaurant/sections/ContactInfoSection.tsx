@@ -76,7 +76,7 @@ export default function ContactInfoSection({
       <motion.div 
         variants={item}
         whileHover={{ scale: 1.02 }}
-        className="bg-neutral-100 p-6 rounded-xl transition-transform duration-200"
+        className="bg-neutral-50 p-6 rounded-xl shadow-lg transition-transform duration-200"
       >
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📞</span>
@@ -91,7 +91,7 @@ export default function ContactInfoSection({
         </div>
               <p>
                 <strong>Phone:</strong> 
-                <a href={`tel:${phone.number.replace(/\s/g, '')}`} className="inline-block bg-accent-700 text-neutral-50 font-semibold py-1 px-3 rounded ml-2 hover:bg-accent-800">
+                <a href={`tel:${phone.number.replace(/\s/g, '')}`} className="inline-block bg-brand-600 hover:bg-brand-700 text-neutral-50 font-semibold py-1 px-3 rounded ml-2 transition-colors duration-200">
                   {phone.number}
                 </a>
               </p>
@@ -101,7 +101,7 @@ export default function ContactInfoSection({
       <motion.div 
         variants={item}
         whileHover={{ scale: 1.02 }}
-        className="bg-neutral-50 border-2 border-neutral-200 p-6 rounded-xl transition-transform duration-200"
+        className="bg-neutral-50 p-6 rounded-xl shadow-lg transition-transform duration-200"
       >
         <div className="flex items-start gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📍</span>
@@ -125,7 +125,7 @@ export default function ContactInfoSection({
       <motion.div 
         variants={item}
         whileHover={{ scale: 1.02 }}
-        className="bg-neutral-50 border-2 border-neutral-200 p-6 rounded-xl transition-transform duration-200"
+        className="bg-neutral-50 p-6 rounded-xl shadow-lg transition-transform duration-200"
       >
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📧</span>
@@ -141,7 +141,7 @@ export default function ContactInfoSection({
               <motion.a
                 href={`mailto:${'info@oldcrowngirton.co.uk'}`}
                 whileHover={{ scale: 1.05 }}
-                className="inline-block bg-accent-700 text-neutral-50 font-semibold py-2 px-4 rounded hover:bg-accent-800 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                className="inline-block bg-brand-600 hover:bg-brand-700 text-neutral-50 font-semibold py-2 px-4 rounded transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60"
                 aria-label="Email restaurant at info@oldcrowngirton.co.uk"
               >
                 info@oldcrowngirton.co.uk

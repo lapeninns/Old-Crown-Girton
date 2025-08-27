@@ -44,7 +44,13 @@ export const RestaurantSchema = z.object({
     state: z.string(),
     zip: z.string(),
   }),
-  hours: z.record(z.string(), z.string()),
+  hours: z.union([
+    z.record(z.string(), z.string()), // Legacy format: {"Mon-Thu": "12:00-23:00"}
+    z.object({
+      kitchen: z.record(z.string(), z.string()),
+      bar: z.record(z.string(), z.string()),
+    }), // New detailed format: {kitchen: {monday: "12:00-15:00,17:00-22:00"}, bar: {monday: "12:00-22:00"}}
+  ]),
 });
 
 export const MarketingSchema = z.object({

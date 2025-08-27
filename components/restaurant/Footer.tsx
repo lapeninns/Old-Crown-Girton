@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { getRestaurantIdentity, getContactInfo, getHours, getSocialMedia } from '@/lib/restaurantData';
+import { getRestaurantIdentity, getContactInfo, getSocialMedia } from '@/lib/restaurantData';
 import { getContentSmart } from '@/src/lib/data/server-loader';
 import AllergenNotice from './AllergenNotice';
+import SimpleFooterHours from '@/components/simple/SimpleFooterHours';
 
 export default async function Footer() {
   const identity = getRestaurantIdentity();
   const contact = getContactInfo();
-  const hours = getHours();
   const social = getSocialMedia();
   const content = await getContentSmart();
   const footerContent = content.global.navigation.footer;
@@ -47,20 +47,7 @@ export default async function Footer() {
           {/* Opening Hours */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Opening Hours</h4>
-            <div className="text-sm space-y-1">
-              <div>
-                <p className="font-medium">Kitchen</p>
-                <p className="text-neutral-100">{hours?.display?.kitchen?.weekdays || 'Mon-Fri: 12PM-3PM & 5PM-10PM'}</p>
-                <p className="text-neutral-100">{hours?.display?.kitchen?.saturday || 'Sat: 12PM-10PM'}</p>
-                <p className="text-neutral-100">{hours?.display?.kitchen?.sunday || 'Sun: 12PM-9PM'}</p>
-              </div>
-              <div className="mt-3">
-                <p className="font-medium">Bar</p>
-                <p className="text-neutral-100">{hours?.display?.bar?.mon_thu || 'Mon-Thu: 12PM-10PM'}</p>
-                <p className="text-neutral-100">{hours?.display?.bar?.fri_sat || 'Fri-Sat: 12PM-11PM'}</p>
-                <p className="text-neutral-100">{hours?.display?.bar?.sunday || 'Sun: 12PM-10PM'}</p>
-              </div>
-            </div>
+            <SimpleFooterHours />
           </div>
         </div>
 

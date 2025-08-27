@@ -120,11 +120,13 @@ export default function MenuItemCard({
       <div className="p-4 space-y-3">
         {/* Header with Name and Price */}
         <div className="flex justify-between items-start gap-3">
-          <h3 className="font-semibold text-brand-800 text-base leading-tight group-hover:text-brand-900 transition-colors">
-            {highlightText(item.name)}
+          <h3 className="font-semibold text-brand-800 text-base leading-tight group-hover:text-brand-900 transition-colors flex-1 min-w-0">
+            <span className="break-words hyphens-auto" lang="en">
+              {highlightText(item.name)}
+            </span>
           </h3>
           {priceText && (
-            <span className="text-brand-700 font-bold text-base tabular-nums flex-shrink-0">
+            <span className="text-brand-700 font-bold text-base tabular-nums flex-shrink-0 ml-2">
               {priceText}
             </span>
           )}

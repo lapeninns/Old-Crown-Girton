@@ -1,7 +1,7 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState, ReactNode } from "react";
+import React, { useEffect, useState, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Crisp } from "crisp-sdk-web";
 import NextTopLoader from "nextjs-toploader";
@@ -9,7 +9,6 @@ import { Toaster } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import config from "@/config";
 import StickyCallButton from "./StickyCallButton";
-import * as React from "react";
 import BookingModal from "./restaurant/BookingModal";
 
 const BookingModalPortal = () => {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Metadata } from 'next';
 import ClientLayout from '@/components/LayoutClient';
 import './globals.css';

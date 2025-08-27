@@ -224,38 +224,95 @@ export const getContactInfo = () => ({
   }
 });
 
-export const getHours = () => ({
-  kitchen: (restaurantTemplate as any)?.hours || {
-    "monday": "12:00-22:00",
-    "tuesday": "12:00-22:00",
-    "wednesday": "12:00-22:00", 
-    "thursday": "12:00-22:00",
-    "friday": "12:00-22:30",
-    "saturday": "12:00-22:30",
-    "sunday": "12:00-21:30"
-  },
-  bar: {
-    "monday": "12:00-23:00",
-    "tuesday": "12:00-23:00",
-    "wednesday": "12:00-23:00",
-    "thursday": "12:00-23:00",
-    "friday": "12:00-00:00",
-    "saturday": "12:00-00:00",
-    "sunday": "12:00-22:30"
-  },
-  display: {
+export const getHours = () => {
+  // Try to read from the actual restaurant data if available, otherwise use fallback
+  const hours = (restaurantTemplate as any)?.hours;
+  
+  if (hours && hours.kitchen && hours.bar) {
+    // Use the actual restaurant.json data
+    return {
+      kitchen: hours.kitchen,
+      bar: hours.bar,
+      display: {
+        kitchen: {
+          "weekdays": generateDisplayHours(hours.kitchen, ['monday', 'tuesday', 'wednesday', 'thursday']),
+          "friday": generateDisplayHours(hours.kitchen, ['friday']),
+          "saturday": generateDisplayHours(hours.kitchen, ['saturday']),
+          "sunday": generateDisplayHours(hours.kitchen, ['sunday'])
+        },
+        bar: {
+          "mon_thu": generateDisplayHours(hours.bar, ['monday', 'tuesday', 'wednesday', 'thursday']),
+          "fri_sat": generateDisplayHours(hours.bar, ['friday', 'saturday']),
+          "sunday": generateDisplayHours(hours.bar, ['sunday'])
+        }
+      }
+    };
+  }
+  
+  // Fallback to hardcoded data if restaurant.json is not available
+  return {
     kitchen: {
-      "weekdays": "Mon-Thu: 12:00-22:00",
-      "saturday": "Fri-Sat: 12:00-22:30",
-      "sunday": "Sun: 12:00-21:30"
+      "monday": "12:00-22:00",
+      "tuesday": "12:00-22:00",
+      "wednesday": "12:00-22:00", 
+      "thursday": "12:00-22:00",
+      "friday": "12:00-22:30",
+      "saturday": "12:00-22:30",
+      "sunday": "12:00-21:30"
     },
     bar: {
-      "mon_thu": "Mon-Thu: 12:00-23:00",
-      "fri_sat": "Fri-Sat: 12:00-00:00",
-      "sunday": "Sun: 12:00-22:30"
+      "monday": "12:00-23:00",
+      "tuesday": "12:00-23:00",
+      "wednesday": "12:00-23:00",
+      "thursday": "12:00-23:00",
+      "friday": "12:00-00:00",
+      "saturday": "12:00-00:00",
+      "sunday": "12:00-22:30"
+    },
+    display: {
+      kitchen: {
+        "weekdays": "Mon-Thu: 12:00-22:00",
+        "friday": "Fri: 12:00-22:30",
+        "saturday": "Sat: 12:00-22:30",
+        "sunday": "Sun: 12:00-21:30"
+      },
+      bar: {
+        "mon_thu": "Mon-Thu: 12:00-23:00",
+        "fri_sat": "Fri-Sat: 12:00-00:00",
+        "sunday": "Sun: 12:00-22:30"
+      }
     }
+  };
+};
+
+// Helper function to generate display strings from hours data
+function generateDisplayHours(hoursData: Record<string, string>, days: string[]): string {
+  if (days.length === 0) return '';
+  
+  // Get hours for the specified days
+  const dayHours = days.map(day => hoursData[day]).filter(Boolean);
+  
+  if (dayHours.length === 0) return 'Closed';
+  
+  // Check if all days have the same hours
+  const firstHours = dayHours[0];
+  const allSame = dayHours.every(hours => hours === firstHours);
+  
+  if (allSame) {
+    const dayAbbrevs = {
+      'monday': 'Mon', 'tuesday': 'Tue', 'wednesday': 'Wed', 'thursday': 'Thu',
+      'friday': 'Fri', 'saturday': 'Sat', 'sunday': 'Sun'
+    };
+    
+    const dayNames = days.map(day => dayAbbrevs[day as keyof typeof dayAbbrevs]);
+    const rangeStr = dayNames.length > 1 ? `${dayNames[0]}-${dayNames[dayNames.length - 1]}` : dayNames[0];
+    
+    return `${rangeStr}: ${firstHours.replace(',', ', ')}`;
   }
-});
+  
+  // If different hours, return the first day's hours
+  return `${days[0]}: ${firstHours.replace(',', ', ')}`;
+}
 
 export const getMenu = () => ({
   metadata: {

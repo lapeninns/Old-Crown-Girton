@@ -59,31 +59,73 @@ const checkIsOpen = (hours: any): boolean => {
   const currentDay = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
   const currentTime = now.getHours() * 60 + now.getMinutes(); // minutes since midnight
   
+  // Handle new detailed format with kitchen and bar hours
+  if (typeof hours === 'object' && ('kitchen' in hours || 'bar' in hours)) {
+    const kitchenHours = hours.kitchen?.[currentDay];
+    const barHours = hours.bar?.[currentDay];
+    
+    return isTimeRangeOpen(kitchenHours, currentTime) || isTimeRangeOpen(barHours, currentTime);
+  }
+  
+  // Handle legacy format
   const todayHours = hours[currentDay];
   if (!todayHours || todayHours.toLowerCase() === 'closed') return false;
   
-  // Parse hours like "11:30 AM - 10:00 PM"
-  const timeRange = todayHours.split(' - ');
-  if (timeRange.length !== 2) return false;
+  return isTimeRangeOpen(todayHours, currentTime);
+};
+
+// Helper function to check if a time range is currently open
+const isTimeRangeOpen = (hoursString: string | undefined, currentTime: number): boolean => {
+  if (!hoursString || hoursString.toLowerCase() === 'closed') return false;
   
-  const parseTime = (timeStr: string): number => {
-    const [time, period] = timeStr.trim().split(' ');
-    const [hours, minutes] = time.split(':').map(Number);
-    let totalMinutes = hours * 60 + (minutes || 0);
+  // Handle both 12-hour ("11:30 AM - 10:00 PM") and 24-hour ("12:00-15:00,17:00-22:00") formats
+  if (hoursString.includes('AM') || hoursString.includes('PM')) {
+    // 12-hour format
+    const timeRange = hoursString.split(' - ');
+    if (timeRange.length !== 2) return false;
     
-    if (period?.toUpperCase() === 'PM' && hours !== 12) {
-      totalMinutes += 12 * 60;
-    } else if (period?.toUpperCase() === 'AM' && hours === 12) {
-      totalMinutes = minutes || 0;
+    const parseTime12Hour = (timeStr: string): number => {
+      const [time, period] = timeStr.trim().split(' ');
+      const [hours, minutes] = time.split(':').map(Number);
+      let totalMinutes = hours * 60 + (minutes || 0);
+      
+      if (period?.toUpperCase() === 'PM' && hours !== 12) {
+        totalMinutes += 12 * 60;
+      } else if (period?.toUpperCase() === 'AM' && hours === 12) {
+        totalMinutes = minutes || 0;
+      }
+      
+      return totalMinutes;
+    };
+    
+    const openTime = parseTime12Hour(timeRange[0]);
+    const closeTime = parseTime12Hour(timeRange[1]);
+    
+    return currentTime >= openTime && currentTime <= closeTime;
+  } else {
+    // 24-hour format with possible multiple ranges
+    const timeRanges = hoursString.split(',').map(range => range.trim());
+    
+    for (const range of timeRanges) {
+      const match = range.match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/);
+      if (match) {
+        const [, startHour, startMin, endHour, endMin] = match;
+        const startMinutes = parseInt(startHour) * 60 + parseInt(startMin);
+        let endMinutes = parseInt(endHour) * 60 + parseInt(endMin);
+        
+        // Handle overnight hours (e.g., 23:00-01:00)
+        if (endMinutes <= startMinutes) {
+          endMinutes += 24 * 60;
+        }
+        
+        if (currentTime >= startMinutes && currentTime <= endMinutes) {
+          return true;
+        }
+      }
     }
     
-    return totalMinutes;
-  };
-  
-  const openTime = parseTime(timeRange[0]);
-  const closeTime = parseTime(timeRange[1]);
-  
-  return currentTime >= openTime && currentTime <= closeTime;
+    return false;
+  }
 };
 
 // Helper to get current day's hours
@@ -91,7 +133,46 @@ const getCurrentHours = (hours: any): string | null => {
   if (!hours) return null;
   
   const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+  
+  // Handle new detailed format with kitchen and bar hours
+  if (typeof hours === 'object' && ('kitchen' in hours || 'bar' in hours)) {
+    const kitchenHours = hours.kitchen?.[currentDay];
+    const barHours = hours.bar?.[currentDay];
+    
+    if (kitchenHours && barHours) {
+      return `Kitchen: ${formatHoursDisplay(kitchenHours)} | Bar: ${formatHoursDisplay(barHours)}`;
+    } else if (kitchenHours) {
+      return `Kitchen: ${formatHoursDisplay(kitchenHours)}`;
+    } else if (barHours) {
+      return `Bar: ${formatHoursDisplay(barHours)}`;
+    }
+    
+    return 'Closed';
+  }
+  
+  // Handle legacy format
   return hours[currentDay] || null;
+};
+
+// Helper to format hours for display
+const formatHoursDisplay = (timeRange: string): string => {
+  if (!timeRange || timeRange.toLowerCase() === 'closed') return 'Closed';
+  
+  // Handle multiple ranges separated by comma
+  const ranges = timeRange.split(',').map(range => {
+    return range.trim()
+      .replace(/(\d{2}):(\d{2})/g, (match, hours, minutes) => {
+        const h = parseInt(hours);
+        const m = minutes === '00' ? '' : `:${minutes}`;
+        if (h === 0) return `12${m} AM`;
+        if (h < 12) return `${h}${m} AM`;
+        if (h === 12) return `${h}${m} PM`;
+        return `${h - 12}${m} PM`;
+      })
+      .replace('-', ' – ');
+  });
+  
+  return ranges.join(', ');
 };
 
 /**

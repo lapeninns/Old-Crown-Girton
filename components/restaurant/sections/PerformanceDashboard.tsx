@@ -142,10 +142,10 @@ const PerformanceDashboard: React.FC = () => {
     return (
       <div className="p-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
+          <div className="h-8 bg-neutral-200 rounded w-1/3 mb-4"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="h-32 bg-gray-200 rounded"></div>
+              <div key={i} className="h-32 bg-neutral-200 rounded"></div>
             ))}
           </div>
         </div>
@@ -243,7 +243,7 @@ const PerformanceDashboard: React.FC = () => {
                 <div className="text-3xl font-bold">
                   {(metrics.cache.hitRate * 100).toFixed(1)}%
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                <div className="w-full bg-neutral-200 rounded-full h-2 mt-2">
                   <div 
                     className="bg-blue-600 h-2 rounded-full" 
                     style={{ width: `${metrics.cache.hitRate * 100}%` }}
@@ -260,7 +260,7 @@ const PerformanceDashboard: React.FC = () => {
                 <div className="text-3xl font-bold">
                   {metrics.cache.averageLoadTime.toFixed(0)}ms
                 </div>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-neutral-500 mt-1">
                   Target: &lt;2000ms
                 </p>
               </div>
@@ -274,7 +274,7 @@ const PerformanceDashboard: React.FC = () => {
                 <div className="text-3xl font-bold">
                   {(metrics.cache.compressionRatio * 100).toFixed(1)}%
                 </div>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-neutral-500 mt-1">
                   Space saved
                 </p>
               </div>
@@ -288,7 +288,7 @@ const PerformanceDashboard: React.FC = () => {
                 <div className="text-3xl font-bold">
                   {(metrics.cache.totalSize / (1024 * 1024)).toFixed(1)}MB
                 </div>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-neutral-500 mt-1">
                   {metrics.cache.size} entries
                 </p>
               </div>
@@ -308,7 +308,7 @@ const PerformanceDashboard: React.FC = () => {
                       <div key={i} className="flex items-center">
                         <div className="w-32 text-sm truncate">{entry.endpoint}</div>
                         <div className="flex-1 ml-2">
-                          <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="w-full bg-neutral-200 rounded-full h-2">
                             <div 
                               className="bg-green-600 h-2 rounded-full" 
                               style={{ width: `${Math.min(entry.time / 50, 100)}%` }}
@@ -322,7 +322,7 @@ const PerformanceDashboard: React.FC = () => {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-500">No recent API data available</p>
+                  <p className="text-neutral-500">No recent API data available</p>
                 )}
               </div>
             </div>

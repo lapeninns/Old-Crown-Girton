@@ -166,11 +166,13 @@ const OptimizedMenuItem = memo<MenuItemProps>(({
       {/* Content Section */}
       <div className="p-6">
         {/* Header */}
-        <div className="flex justify-between items-start mb-3">
-          <h3 className="text-xl font-display font-bold text-stout-700 group-hover:text-foreground-strong transition-colors">
-            {name}
+        <div className="flex justify-between items-start mb-3 gap-4">
+          <h3 className="text-xl font-display font-bold text-stout-700 group-hover:text-foreground-strong transition-colors flex-1 min-w-0">
+            <span className="break-words hyphens-auto" lang="en">
+              {name}
+            </span>
           </h3>
-          <span className="text-xl font-bold text-foreground-strong ml-4 flex-shrink-0">
+          <span className="text-xl font-bold text-foreground-strong flex-shrink-0">
             {formattedPrice}
           </span>
         </div>

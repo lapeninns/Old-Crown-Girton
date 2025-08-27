@@ -1,13 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import BasicTest from '@/components/simple/BasicTest';
 
 /**
  * Props interfaces for AboutCTASection component
  */
 interface ContactInfo {
   address: string;
-  hours: string;
+  hours?: string; // Make hours optional since we'll fetch dynamically
 }
 
 interface AboutCTASectionProps {
@@ -29,6 +31,7 @@ interface AboutCTASectionProps {
  * Features:
  * - Centered layout with prominent CTA button
  * - External link handling with security attributes
+ * - Dynamic opening hours from useOpeningHours hook
  * - Contact information display
  * - Framer Motion animations
  * - Focus management and accessibility
@@ -43,6 +46,12 @@ export default function AboutCTASection({
   buttonLabel,
   className = '' 
 }: AboutCTASectionProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   if (!title || !buttonText || !buttonHref) {
     return null;
   }
@@ -82,7 +91,7 @@ export default function AboutCTASection({
               target: '_blank',
               rel: 'noopener noreferrer'
             })}
-            className="inline-block bg-accent-700 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 hover:bg-accent-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/60 shadow-lg"
+            className="inline-block bg-brand-600 hover:bg-brand-700 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60 shadow-lg"
             aria-label={buttonLabel || buttonText}
           >
             {buttonText}
@@ -119,12 +128,10 @@ export default function AboutCTASection({
                 <span className="font-semibold">Address:</span> {contact.address}
               </p>
             )}
-            {contact.hours && (
-              <p>
-                <span className="font-semibold">Opening Hours:</span>{' '}
-                <span className="italic">{contact.hours}</span>
-              </p>
-            )}
+            <p>
+              <span className="font-semibold">Opening Hours:</span>{' '}
+              {isClient ? <BasicTest /> : <span className="italic">Loading hours...</span>}
+            </p>
           </motion.div>
         )}
       </div>

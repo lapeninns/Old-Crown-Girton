@@ -4,10 +4,16 @@ import Link from "next/link";
 import { Metadata } from 'next';
 import { getMarketingSmart, getMenuSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import MenuHero from '@/components/menu/MenuHero';
-import MenuInteractive from '@/components/menu/MenuInteractive';
 import dynamic from 'next/dynamic';
-
-// Dynamic imports for Menu page sections
+// Dynamic imports for Menu page sections - optimized for performance
+const MenuInteractive = dynamic(() => import('@/components/menu/MenuInteractive'), {
+	ssr: true, // Enable SSR for faster initial render
+	loading: () => (
+		<div className="min-h-96 bg-surface-base animate-pulse flex items-center justify-center">
+			<div className="text-lg text-neutral-500">Loading menu...</div>
+		</div>
+	)
+});
 const MenuInformationSection = dynamic(() => import("@/components/restaurant/sections/MenuInformationSection"));
 const MenuCTASection = dynamic(() => import("@/components/restaurant/sections/MenuCTASection"));
 
@@ -25,18 +31,46 @@ export const metadata: Metadata = {
 	},
 };
 
-export default async function MenuPage() {
-	const m = await getMarketingSmart();
-	const content = await getContentSmart();
+export default async function MenuPage({ searchParams }: { searchParams?: { category?: string } }) {
+	// Detect priority category from search params or URL hash (for server-side optimization)
+	const priorityCategory = searchParams?.category;
+	
+	// Preload all data concurrently with priority category optimization
+	const [m, content, menu] = await Promise.all([
+		getMarketingSmart(),
+		getContentSmart(),
+		getMenuSmart(priorityCategory) // Pass priority category for optimized loading
+	]);
+	
 	const menuContent = content.pages.menu;
 	
 	const labels = m.buttons || {};
 	const labelBookOnline = labels.bookOnline || menuContent.hero.cta.book || content.global.ui.buttons.bookOnline || 'Book Online';
 	const labelOrderTakeaway = labels.orderTakeaway || menuContent.hero.cta.order || 'Order Takeaway';
-	// Load menu data from data layer (reads data/dev/menu.json in dev)
-	const menu = await getMenuSmart();
+	
+	// Optimize menu data structure for faster client-side rendering
+	const optimizedMenu = {
+		...menu,
+		sections: (menu?.sections || []).map(section => ({
+			...section,
+			// Pre-calculate section metadata for faster navigation
+			itemCount: section.items?.length || 0,
+			hasVegetarian: section.items?.some(item => item.dietary?.vegetarian) || false,
+			hasGlutenFree: section.items?.some(item => item.dietary?.glutenFree) || false,
+			priceRange: section.items?.length > 0 ? {
+				min: Math.min(...section.items.map(item => item.price?.amount || 0)),
+				max: Math.max(...section.items.map(item => item.price?.amount || 0))
+			} : null
+		}))
+	};
+	
+	// Determine default section (prioritize starters if available)
+	const starterSection = optimizedMenu.sections.find(s => 
+		s.id?.toLowerCase().includes('starter') || s.name?.toLowerCase().includes('starter')
+	);
+	const defaultSection = starterSection?.id || optimizedMenu.sections[0]?.id || null;
 
-	// Enhanced structured data with nutrition and image support
+	// Enhanced structured data with optimized menu
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'Menu',
@@ -56,7 +90,7 @@ export default async function MenuPage() {
 				addressCountry: 'GB'
 			}
 		},
-		menuSection: (menu?.sections || []).map((section: any) => ({
+		menuSection: (optimizedMenu?.sections || []).map((section: any) => ({
 			'@type': 'MenuSection',
 			name: section.name,
 			description: (section as any).description || undefined,
@@ -92,8 +126,12 @@ export default async function MenuPage() {
 				{/* Hero Section (component) */}
 				<MenuHero labelBookOnline={labelBookOnline} labelOrderTakeaway={labelOrderTakeaway} />
 
-				{/* Enhanced Interactive menu with search, filters, and nutrition modal */}
-				<MenuInteractive sections={menu?.sections || []} defaultSelected={(menu as any)?.defaultSection || null} />
+				{/* Optimized Interactive menu with pre-loaded data */}
+				<MenuInteractive 
+					sections={optimizedMenu?.sections || []} 
+					defaultSelected={defaultSection}
+					preloadedData={true}
+				/>
 
 				{/* Dietary Information & FAQ with enhanced features */}
 				<MenuInformationSection 
