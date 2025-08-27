@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Page Not Found - 404",
+    "description": "404 error page with helpful navigation options"
+  },
+  "ui": {
+    "title": "Page Not Found",
+    "subtitle": "Oops! This page seems to have wandered off",
+    "description": "The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.",
+    "suggestionsTitle": "What you can try:",
+    "suggestions": [
+      "Check the URL for typos",
+      "Use the navigation menu", 
+      "Visit our homepage",
+      "Contact us for help"
+    ],
+    "buttons": {
+      "home": "Go Home",
+      "menu": "View Menu",
+      "support": "Get Help"
+    }
+  },
+  "messaging": {
+    "errorCode": "404",
+    "technicalDescription": "The requested resource could not be found on this server."
+  }
+}

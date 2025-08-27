@@ -3,8 +3,33 @@
 import { motion } from 'framer-motion';
 import { PerformantMotionSection, PerformantMotionDiv, performantVariants } from '@/components/motion/DynamicMotion';
 import Image from 'next/image';
+import { useHomeContent } from '../_content/useHomeContent';
 
 export default function AboutSection() {
+  const content = useHomeContent();
+  
+  if (!content) {
+    return (
+      <PerformantMotionSection className="py-16 bg-neutral-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="animate-pulse">
+              <div className="h-10 bg-gray-200 rounded w-3/4 mb-6"></div>
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-200 rounded w-full"></div>
+                <div className="h-4 bg-gray-200 rounded w-full"></div>
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              </div>
+            </div>
+            <div className="h-96 bg-gray-200 rounded-xl"></div>
+          </div>
+        </div>
+      </PerformantMotionSection>
+    );
+  }
+  
+  const { aboutSection } = content;
+  
   return (
     <PerformantMotionSection 
       className="py-16 bg-neutral-50"
@@ -22,13 +47,15 @@ export default function AboutSection() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-6">
-              Welcome to <span className="text-accent">Old Crown</span>
+              {aboutSection.title.split(aboutSection.titleAccent)[0]}
+              <span className="text-accent">{aboutSection.titleAccent}</span>
+              {aboutSection.title.split(aboutSection.titleAccent)[1]}
             </h2>
             
             <div className="prose prose-lg text-brand-600 space-y-4">
-              <p>Girton's historic thatched pub just outside Cambridge – blending community heritage with a warmly spiced Nepalese kitchen and familiar British pub comfort.</p>
-              <p>Garden space for long summer evenings, cosy interior for winter gatherings, and a welcoming spot for locals, families, students, professionals & visitors.</p>
-              <p>Our dual identity means you can explore aromatic Himalayan-inspired dishes while friends opt for classic favourites – shared tables, shared experiences.</p>
+              {aboutSection.description.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
 
             {/* Awards Section */}
@@ -39,13 +66,13 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="mt-8 p-6 bg-brand-50 rounded-lg"
             >
-              <h3 className="text-xl font-display font-bold text-stout-700 mb-4">Why Guests Visit</h3>
+              <h3 className="text-xl font-display font-bold text-stout-700 mb-4">
+                {aboutSection.features.title}
+              </h3>
               <ul className="list-disc pl-5 text-sm text-brand-600 space-y-1">
-                <li>Distinctive thatched setting & village feel</li>
-                <li>Authentic Nepalese flavour + pub classics</li>
-                <li>Inclusive for mixed groups & families</li>
-                <li>Close to Girton College / north Cambridge</li>
-                <li>Garden & seasonal community events</li>
+                {aboutSection.features.items.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
             </motion.div>
           </motion.div>
@@ -60,8 +87,8 @@ export default function AboutSection() {
           >
             <div className="relative h-96 lg:h-[500px] rounded-xl overflow-hidden shadow-2xl">
               <Image
-                src="/restaurant-interior.jpg"
-                alt="Old Crown restaurant interior"
+                src={aboutSection.images.main}
+                alt={aboutSection.images.alt}
                 fill
                 className="object-cover"
                 placeholder="blur"

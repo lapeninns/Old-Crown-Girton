@@ -352,6 +352,29 @@
         "allergenNotice": "Please inform us of any allergies or dietary requirements when ordering."
       }
     },
+    "signin": {
+      "title": "Sign in to The Old Crown Girton",
+      "subtitle": "Access your account",
+      "form": {
+        "email": {
+          "label": "Email",
+          "placeholder": "your.email@example.com"
+        },
+        "buttons": {
+          "google": "Sign in with Google",
+          "magicLink": "Send Magic Link",
+          "divider": "OR"
+        },
+        "messages": {
+          "checkEmail": "Check your emails!",
+          "loading": "Signing in..."
+        }
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Welcome to your account"
+    },
     "offline": {
       "title": "You're Offline",
       "subtitle": "Connection Lost",

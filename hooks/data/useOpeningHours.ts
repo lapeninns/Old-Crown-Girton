@@ -9,6 +9,7 @@ import { useRestaurant } from './useRestaurant';
 export interface DayHours {
   day: string;
   hours: string;
+  rawHours?: string; // Keep raw 24-hour format for calculations
   isToday: boolean;
   isOpen?: boolean;
 }
@@ -85,12 +86,12 @@ export function useOpeningHours() {
       // Add current open status to each day
       kitchenHours = kitchenHours.map(day => ({
         ...day,
-        isOpen: day.isToday ? isCurrentlyOpen(day.hours) : false
+        isOpen: day.isToday ? isCurrentlyOpen(day.rawHours || day.hours) : false
       }));
       
       barHours = barHours.map(day => ({
         ...day,
-        isOpen: day.isToday ? isCurrentlyOpen(day.hours) : false
+        isOpen: day.isToday ? isCurrentlyOpen(day.rawHours || day.hours) : false
       }));
 
       // Generate summaries
@@ -147,10 +148,11 @@ function processDetailedHours(hoursData: Record<string, string>, today: string):
   };
 
   return daysOrder.map(day => {
-    const hours = hoursData[day] || hoursData[dayLabels[day as keyof typeof dayLabels]] || 'Closed';
+    const rawHours = hoursData[day] || hoursData[dayLabels[day as keyof typeof dayLabels]] || 'Closed';
     return {
       day: dayLabels[day as keyof typeof dayLabels],
-      hours: formatTimeRange(hours),
+      hours: formatTimeRange(rawHours),
+      rawHours: rawHours, // Keep raw format for open status checking
       isToday: day === today
     };
   });
@@ -169,19 +171,30 @@ function isCurrentlyOpen(hoursString: string): boolean {
   const timeRanges = hoursString.split(',').map(range => range.trim());
   
   for (const range of timeRanges) {
-    const match = range.match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/);
+    // Match both 24-hour format and formatted time
+    const match = range.match(/(\d{1,2}):(\d{2})\s*[–-]\s*(\d{1,2}):(\d{2})/) ||
+                  range.match(/(\d{1,2})\s*([AP]M)?\s*[–-]\s*(\d{1,2})\s*([AP]M)?/);
     if (match) {
-      const [, startHour, startMin, endHour, endMin] = match;
-      const startMinutes = parseInt(startHour) * 60 + parseInt(startMin);
-      let endMinutes = parseInt(endHour) * 60 + parseInt(endMin);
+      let [, startHour, startMin, endHour, endMin] = match;
       
-      // Handle overnight hours (e.g., 23:00-01:00)
-      if (endMinutes <= startMinutes) {
-        endMinutes += 24 * 60;
-      }
-      
-      if (currentMinutes >= startMinutes && currentMinutes <= endMinutes) {
-        return true;
+      // Handle raw 24-hour format
+      if (startMin && endMin) {
+        const startMinutes = parseInt(startHour) * 60 + parseInt(startMin);
+        let endMinutes = parseInt(endHour) * 60 + parseInt(endMin);
+        
+        // Handle overnight hours (e.g., 23:00-01:00)
+        if (endMinutes <= startMinutes) {
+          endMinutes += 24 * 60;
+          // For overnight hours, check if current time is after start OR before end
+          if ((currentMinutes >= startMinutes) || (currentMinutes <= endMinutes - 24 * 60)) {
+            return true;
+          }
+        } else {
+          // Normal hours
+          if (currentMinutes >= startMinutes && currentMinutes <= endMinutes) {
+            return true;
+          }
+        }
       }
     }
   }
@@ -233,14 +246,15 @@ function expandCompactHours(compactHours: Record<string, string>, today: string)
     'Fri': 'Friday', 'Sat': 'Saturday', 'Sun': 'Sunday'
   };
 
-  Object.entries(compactHours).forEach(([range, hours]) => {
+  Object.entries(compactHours).forEach(([range, rawHours]) => {
     if (range.includes('-')) {
       const [start, end] = range.split('-');
       const days = getDayRange(start, end);
       days.forEach(day => {
         result.push({
           day,
-          hours: formatTimeRange(hours),
+          hours: formatTimeRange(rawHours),
+          rawHours: rawHours,
           isToday: day.toLowerCase() === today
         });
       });
@@ -248,7 +262,8 @@ function expandCompactHours(compactHours: Record<string, string>, today: string)
       const day = dayMap[range as keyof typeof dayMap] || range;
       result.push({
         day,
-        hours: formatTimeRange(hours),
+        hours: formatTimeRange(rawHours),
+        rawHours: rawHours,
         isToday: day.toLowerCase() === today
       });
     }
@@ -261,6 +276,7 @@ function expandCompactHours(compactHours: Record<string, string>, today: string)
     return existing || {
       day,
       hours: 'Closed',
+      rawHours: 'Closed',
       isToday: day.toLowerCase() === today
     };
   });

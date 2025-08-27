@@ -1,6 +1,22 @@
 "use client";
 
+import { useOfflineContent } from '../_content/useOfflineContent';
+
 export default function OfflineStatus() {
+  const content = useOfflineContent();
+  
+  if (!content) {
+    return (
+      <div className="relative z-10 max-w-md w-full text-center">
+        <div className="animate-pulse">
+          <div className="h-16 w-16 bg-gray-200 rounded-xl mx-auto mb-6"></div>
+          <div className="h-8 bg-gray-200 rounded w-3/4 mx-auto mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-full mx-auto mb-2"></div>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className="relative z-10 max-w-md w-full text-center">
       {/* Offline icon */}
@@ -28,11 +44,11 @@ export default function OfflineStatus() {
 
       {/* Title and description */}
       <h1 className="text-3xl font-bold text-brand-800 mb-4 font-display">
-        You're Offline
+        {content.ui.title}
       </h1>
       
       <p className="text-brand-600 mb-8 leading-relaxed">
-        It looks like you've lost your internet connection. Don't worry - you can still access some features.
+        {content.ui.description}
       </p>
 
       {/* Connection status */}
@@ -42,7 +58,7 @@ export default function OfflineStatus() {
           className="flex items-center justify-center text-sm font-medium"
         >
           <span className="inline-block w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-          Offline
+          {content.ui.connectionStatus.offline}
         </div>
       </div>
     </div>

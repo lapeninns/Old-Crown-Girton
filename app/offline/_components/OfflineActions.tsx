@@ -1,17 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useContent } from '@/hooks/useContent';
+import { useOfflineContent } from '../_content/useOfflineContent';
 
 export default function OfflineActions() {
-  const { data: content } = useContent();
-  const offlineContent = content?.pages?.offline || {
-    buttons: {
-      home: "Go Home",
-      tryAgain: "Try Again",
-      goBack: "Go Back"
-    }
-  };
+  const content = useOfflineContent();
+  
+  if (!content) {
+    return (
+      <div className="flex flex-wrap gap-4 justify-center">
+        <div className="animate-pulse flex gap-4">
+          <div className="h-8 w-20 bg-gray-200 rounded"></div>
+          <div className="h-8 w-20 bg-gray-200 rounded"></div>
+          <div className="h-8 w-20 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-wrap gap-4 justify-center">
@@ -31,7 +36,7 @@ export default function OfflineActions() {
             clipRule="evenodd"
           />
         </svg>
-        {offlineContent.buttons.goBack}
+        {content.ui.buttons.goBack}
       </button>
 
       <button 
@@ -50,7 +55,7 @@ export default function OfflineActions() {
             clipRule="evenodd"
           />
         </svg>
-        {offlineContent.buttons.tryAgain}
+        {content.ui.buttons.tryAgain}
       </button>
 
       <Link href="/" className="btn btn-secondary btn-sm">
@@ -66,7 +71,7 @@ export default function OfflineActions() {
             clipRule="evenodd"
           />
         </svg>
-        {offlineContent.buttons.home}
+        {content.ui.buttons.home}
       </Link>
     </div>
   );

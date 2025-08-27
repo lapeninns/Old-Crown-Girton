@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "title": "You're Offline",
+    "description": "Offline functionality and connection status page"
+  },
+  "ui": {
+    "title": "You're Offline",
+    "description": "It looks like you've lost your internet connection. Don't worry - you can still access some features.",
+    "connectionStatus": {
+      "offline": "Offline",
+      "connecting": "Reconnecting...",
+      "online": "Connected"
+    },
+    "buttons": {
+      "home": "Go Home",
+      "tryAgain": "Try Again", 
+      "goBack": "Go Back"
+    }
+  },
+  "features": {
+    "title": "Available Offline:",
+    "availableFeatures": [
+      "Previously viewed menu items",
+      "Restaurant information",
+      "Contact details"
+    ]
+  },
+  "messaging": {
+    "statusMessages": {
+      "offline": "You are currently offline",
+      "reconnecting": "Attempting to reconnect...",
+      "online": "Connection restored"
+    }
+  }
+}

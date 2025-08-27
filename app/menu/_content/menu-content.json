@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "title": "Menu - Nepalese & Pub Classics",
+    "description": "Curated menu featuring authentic Nepalese cuisine and British pub classics"
+  },
+  "hero": {
+    "title": "Menu — Nepalese & Pub Classics",
+    "subtitle": "Curated menu — quick to scan. Book or order takeaway.",
+    "buttons": {
+      "bookOnline": {
+        "label": "Book Online",
+        "url": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+        "target": "_blank",
+        "style": "primary"
+      },
+      "orderTakeaway": {
+        "label": "Order Takeaway",
+        "url": "tel:01223276027",
+        "style": "secondary"
+      }
+    }
+  },
+  "interactive": {
+    "search": {
+      "placeholder": "Search menu items...",
+      "toggleLabel": "Search & Filter",
+      "hideLabel": "Hide Search",
+      "clearLabel": "Clear All",
+      "activeLabel": "Active"
+    },
+    "navigation": {
+      "allSectionsLabel": "All",
+      "menuCategoriesLabel": "Menu categories",
+      "noItemsMessage": "No items in this section match current filters"
+    },
+    "results": {
+      "showingPrefix": "Showing",
+      "itemsSuffix": "items",
+      "matchingText": "matching",
+      "withFiltersText": "with applied filters"
+    }
+  },
+  "ui": {
+    "loading": {
+      "message": "Loading menu...",
+      "error": "Failed to load menu content"
+    }
+  }
+}

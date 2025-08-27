@@ -1,18 +1,22 @@
-import { getContentSmart } from '@/src/lib/data/server-loader';
+'use client';
 
-export default async function NotFoundContent() {
-  const content = await getContentSmart();
-  const notFoundContent = content?.pages?.notFound || {
-    title: "Page Not Found",
-    subtitle: "Oops! This page seems to have wandered off",
-    description: "The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.",
-    suggestions: [
-      "Check the URL for typos",
-      "Use the navigation menu",
-      "Visit our homepage",
-      "Contact us for help"
-    ]
-  };
+import { useNotFoundContent } from '../_content/useNotFoundContent';
+
+export default function NotFoundContent() {
+  const content = useNotFoundContent();
+  
+  if (!content) {
+    return (
+      <div className="relative z-10 max-w-md w-full text-center">
+        <div className="animate-pulse">
+          <div className="h-16 w-16 bg-gray-200 rounded-xl mx-auto mb-6"></div>
+          <div className="h-8 bg-gray-200 rounded w-3/4 mx-auto mb-4"></div>
+          <div className="h-6 bg-gray-200 rounded w-full mx-auto mb-6"></div>
+          <div className="h-4 bg-gray-200 rounded w-full mx-auto mb-2"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative z-10 max-w-md w-full text-center">
@@ -36,25 +40,25 @@ export default async function NotFoundContent() {
 
       {/* Title and description */}
       <h1 className="text-3xl font-bold text-brand-800 mb-4 font-display">
-        {notFoundContent.title}
+        {content.ui.title}
       </h1>
       
       <p className="text-xl text-brand-600 mb-6 leading-relaxed">
-        {notFoundContent.subtitle}
+        {content.ui.subtitle}
       </p>
 
       <p className="text-brand-600 mb-8 leading-relaxed">
-        {notFoundContent.description}
+        {content.ui.description}
       </p>
 
       {/* Suggestions */}
       <div className="bg-white rounded-xl p-6 shadow-sm border border-neutral-200 mb-8">
         <h2 className="text-lg font-semibold text-brand-700 mb-4">
-          What you can try:
+          {content.ui.suggestionsTitle}
         </h2>
         
         <div className="space-y-3 text-left">
-          {notFoundContent.suggestions.map((suggestion: string, index: number) => (
+          {content.ui.suggestions.map((suggestion: string, index: number) => (
             <div key={index} className="flex items-center space-x-3">
               <div className="w-2 h-2 bg-brand-500 rounded-full flex-shrink-0"></div>
               <span className="text-sm text-brand-600">{suggestion}</span>

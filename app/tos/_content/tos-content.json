@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "effectiveDate": "10 August 2025",
+    "title": "Terms of Service",
+    "contactEmail": "legal@oldcrowngirton.co.uk",
+    "businessName": "The Old Crown Girton"
+  },
+  "introduction": "These Terms govern your use of this website (the \"Site\") operated for **The Old Crown Girton** (\"we\", \"us\"). By accessing or using the Site you agree to these Terms. If you do not agree, discontinue use.",
+  "policies": {
+    "cancellation": "24 hours notice required for groups of 6 or more; repeated no-shows may limit future bookings.",
+    "deposit": "Deposits (only for large/peak private events) deducted from final bill if minimum spend met; non-refundable within 72h unless slot rebooked."
+  },
+  "sections": {
+    "scope": {
+      "title": "Scope",
+      "content": "Applies to browsing the Site, submitting enquiries, reservation requests, private hire/event enquiries and optional newsletter sign‑ups."
+    },
+    "notRestaurantContract": {
+      "title": "Not Restaurant Contract",
+      "content": "Content is informational. A confirmed booking / event agreement (verbal or written) forms the service arrangement. Menu items, prices and availability may change without notice."
+    },
+    "userResponsibilities": {
+      "title": "User Responsibilities",
+      "items": [
+        "Provide accurate information in forms",
+        "No unlawful, disruptive or automated scraping activities",
+        "Do not misuse contact channels (spam / abusive language)"
+      ]
+    },
+    "reservationsEnquiries": {
+      "title": "Reservations & Enquiries",
+      "content": "Submission does not guarantee fulfilment until confirmed by us (email / phone / on‑screen). We may decline or adjust requests (capacity, timing or operational reasons). **Cancellation / No‑Show:** {{cancellation_policy}}"
+    },
+    "privateHireEvents": {
+      "title": "Private Hire & Events",
+      "content": "Additional terms (minimum spend, deposit, timings, music / equipment rules) may apply and will be communicated on confirmation. {{deposit_policy}}"
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "content": "All Site text, structure, graphics, and branding are owned by or licensed to us. You may not reproduce or republish without permission except for limited personal, non‑commercial reference."
+    },
+    "reviewsFeedback": {
+      "title": "Reviews & Feedback",
+      "content": "By submitting optional feedback you grant us a non‑exclusive licence to display, reproduce or adapt it (may be anonymised) for promotional or improvement purposes."
+    },
+    "thirdPartyLinks": {
+      "title": "Third‑Party Links",
+      "content": "Links to external services (maps, booking widgets, social platforms) are provided for convenience; we are not responsible for their content or policies."
+    },
+    "privacy": {
+      "title": "Privacy",
+      "content": "See our [Privacy Policy](/privacy-policy) for data handling details."
+    },
+    "liability": {
+      "title": "Liability",
+      "content": "The Site is provided \"as is.\" To the extent permitted by law we exclude implied warranties and are not liable for indirect, incidental, or consequential loss from Site use. Nothing limits liability for fraud or personal injury caused by negligence."
+    },
+    "changes": {
+      "title": "Changes",
+      "content": "We may modify these Terms; updates will show a new Effective Date. Continued use = acceptance."
+    },
+    "severability": {
+      "title": "Severability",
+      "content": "If any provision is unenforceable the remainder remains effective."
+    },
+    "governingLaw": {
+      "title": "Governing Law",
+      "content": "England & Wales law; courts of England & Wales have exclusive jurisdiction."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "Questions: {{contact_email}}"
+    }
+  }
+}

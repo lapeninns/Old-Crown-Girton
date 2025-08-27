@@ -1,15 +1,23 @@
+'use client';
+
 import Link from "next/link";
 import ButtonSupport from "@/components/ButtonSupport";
-import { getContentSmart } from '@/src/lib/data/server-loader';
+import { useNotFoundContent } from '../_content/useNotFoundContent';
 
-export default async function NotFoundActions() {
-  const content = await getContentSmart();
-  const notFoundContent = content?.pages?.notFound || {
-    buttons: {
-      home: "Go Home",
-      menu: "View Menu"
-    }
-  };
+export default function NotFoundActions() {
+  const content = useNotFoundContent();
+  
+  if (!content) {
+    return (
+      <div className="flex flex-wrap gap-4 justify-center">
+        <div className="animate-pulse flex gap-4">
+          <div className="h-8 w-20 bg-gray-200 rounded"></div>
+          <div className="h-8 w-20 bg-gray-200 rounded"></div>
+          <div className="h-8 w-20 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-wrap gap-4 justify-center">
@@ -26,7 +34,7 @@ export default async function NotFoundActions() {
             clipRule="evenodd"
           />
         </svg>
-        {notFoundContent.buttons.home}
+        {content.ui.buttons.home}
       </Link>
 
       <Link href="/menu" className="btn btn-secondary btn-sm">
@@ -38,7 +46,7 @@ export default async function NotFoundActions() {
         >
           <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
         </svg>
-        {notFoundContent.buttons.menu}
+        {content.ui.buttons.menu}
       </Link>
 
       <ButtonSupport />

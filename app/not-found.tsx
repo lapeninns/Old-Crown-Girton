@@ -1,4 +1,4 @@
-import { NotFoundContent, NotFoundActions, NotFoundBackground } from './_components';
+import { NotFoundContent, NotFoundActions, NotFoundBackground } from './not-found/_components';
 
 export default function Custom404() {
   return (

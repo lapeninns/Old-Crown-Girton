@@ -124,7 +124,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 			<RestaurantLayout>
 				{/* Hero Section (component) */}
-				<MenuHero labelBookOnline={labelBookOnline} labelOrderTakeaway={labelOrderTakeaway} />
+				<MenuHero />
 
 				{/* Optimized Interactive menu with pre-loaded data */}
 				<MenuInteractive 
