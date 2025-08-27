@@ -1,17 +1,19 @@
 {
   "sections": [
     {
-      "title": "LINKS",
+      "title": "QUICK LINKS",
       "links": [
-  { "href": "/#pricing", "label": "Pricing" },
-        { "href": "https://affiliate.example.com", "label": "Affiliates", "external": true }
+        { "href": "/menu", "label": "Menu" },
+        { "href": "/about", "label": "About" },
+        { "href": "/events", "label": "Events" },
+        { "href": "/contact", "label": "Contact" }
       ]
     },
     {
       "title": "LEGAL",
       "links": [
-        { "href": "/tos", "label": "Terms of services" },
-        { "href": "/privacy-policy", "label": "Privacy policy" }
+        { "href": "/tos", "label": "Terms of Service" },
+        { "href": "/privacy-policy", "label": "Privacy Policy" }
       ]
     }
   ]

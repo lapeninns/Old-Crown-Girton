@@ -352,53 +352,34 @@
         "allergenNotice": "Please inform us of any allergies or dietary requirements when ordering."
       }
     },
-    "signin": {
-      "title": "Sign-in to {appName}",
-      "subtitle": "Access your account",
-      "form": {
-        "email": {
-          "label": "Email",
-          "placeholder": "tom@cruise.com"
-        },
-        "buttons": {
-          "google": "Sign-up with Google",
-          "magicLink": "Send Magic Link",
-          "divider": "OR"
-        },
-        "messages": {
-          "checkEmail": "Check your emails!",
-          "loading": "Signing in..."
-        }
-      }
-    },
-    "dashboard": {
-      "title": "Private Page",
-      "subtitle": "Welcome to your dashboard"
-    },
     "offline": {
       "title": "You're Offline",
-      "subtitle": "Don't worry, some content is still available",
-      "description": "It looks like you've lost your internet connection. Some features may not work as expected, but you can still browse previously loaded content.",
-      "features": {
-        "title": "Available Offline:",
-        "items": [
-          "Previously viewed menu items",
-          "Restaurant information",
-          "Contact details",
-          "Form submissions (will sync when online)"
-        ]
-      },
-      "actions": {
-        "goBack": "Go Back",
-        "tryAgain": "Try Again"
+      "subtitle": "Connection Lost",
+      "description": "It looks like you've lost your internet connection. Don't worry - you can still access some features.",
+      "availableFeatures": [
+        "Previously viewed menu items",
+        "Restaurant information",
+        "Contact details"
+      ],
+      "buttons": {
+        "home": "Go Home",
+        "tryAgain": "Try Again",
+        "goBack": "Go Back"
       }
     },
     "notFound": {
-      "title": "This page doesn't exist 😅",
-      "subtitle": "The page you're looking for could not be found.",
+      "title": "Page Not Found",
+      "subtitle": "Oops! This page seems to have wandered off",
+      "description": "The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.",
+      "suggestions": [
+        "Check the URL for typos",
+        "Use the navigation menu",
+        "Visit our homepage",
+        "Contact us for help"
+      ],
       "buttons": {
-        "home": "Home",
-        "support": "Contact Support"
+        "home": "Go Home",
+        "menu": "View Menu"
       }
     }
   },

@@ -77,73 +77,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Generate service pages for local SEO
-  const servicePages: SitemapEntry[] = [
-    {
-      url: `${BASE_URL}/book-table`,
-      lastModified: currentDate,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/takeaway`,
-      lastModified: lastWeek,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/dining-in`,
-      lastModified: lastMonth,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/private-dining`,
-      lastModified: lastMonth,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/catering`,
-      lastModified: lastMonth,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    }
-  ];
-
-  // Generate local SEO pages
-  const localSEOPages: SitemapEntry[] = [
-    {
-      url: `${BASE_URL}/nepalese-restaurant-girton`,
-      lastModified: lastMonth,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/indian-restaurant-cambridge`,
-      lastModified: lastMonth,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/pub-food-girton`,
-      lastModified: lastMonth,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/takeaway-near-cambridge`,
-      lastModified: lastWeek,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/restaurant-near-me`,
-      lastModified: lastWeek,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    }
-  ];
+  // No additional service pages or local SEO pages needed
+  const servicePages: SitemapEntry[] = [];
+  const localSEOPages: SitemapEntry[] = [];
 
   // Combine all pages
   const allPages = [
