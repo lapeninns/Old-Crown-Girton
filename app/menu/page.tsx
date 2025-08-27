@@ -3,10 +3,10 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import Link from "next/link";
 import { Metadata } from 'next';
 import { getMarketingSmart, getMenuSmart, getContentSmart } from '@/src/lib/data/server-loader';
-import MenuHero from '@/components/menu/MenuHero';
+import MenuHero from './_components/MenuHero';
 import dynamic from 'next/dynamic';
 // Dynamic imports for Menu page sections - optimized for performance
-const MenuInteractive = dynamic(() => import('@/components/menu/MenuInteractive'), {
+const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
 	ssr: true, // Enable SSR for faster initial render
 	loading: () => (
 		<div className="min-h-96 bg-surface-base animate-pulse flex items-center justify-center">

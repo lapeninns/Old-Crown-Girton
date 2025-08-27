@@ -2,8 +2,8 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import Showcase from '@/components/slideshow/Showcase';
 import dynamic from 'next/dynamic';
 // Dynamic non-LCP sections
-const AboutSection = dynamic(() => import("@/components/restaurant/AboutSection"), { ssr: true });
-const MenuHighlights = dynamic(() => import("@/components/restaurant/MenuHighlights"));
+import AboutSection from './_components/AboutSection';
+import MenuHighlights from './_components/MenuHighlights';
 const QuickLinksSection = dynamic(() => import("@/components/restaurant/sections/QuickLinksSection"));
 const CallToActionSection = dynamic(() => import("@/components/restaurant/sections/CallToActionSection"));
 const TestimonialsSection = dynamic(() => import("@/components/restaurant/TestimonialsSection"));
