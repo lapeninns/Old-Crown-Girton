@@ -35,7 +35,7 @@ export default function BlogPostPage() {
       <p>The response from the Girton community has been overwhelmingly positive. Students from nearby Girton College have embraced the diverse menu options, while long-time village residents appreciate the care we take in explaining each dish and accommodating different spice preferences.</p>
       
       <h2>Looking Forward</h2>
-      <p>As we continue to evolve, we remain committed to being both a guardian of Nepalese culinary traditions and a welcoming community hub for all. Whether you're craving a traditional Sunday roast or adventurous enough to try our signature curry dishes, Old Crown Girton offers something special for everyone.</p>
+      <p>As we continue to evolve, we remain committed to being both a guardian of Nepalese culinary traditions and a welcoming community hub for all. While we don't currently serve a traditional Sunday roast, our signature Nepalese dishes and British pub classics offer comforting options for every taste.</p>
     `,
     image: "/images/blog/nepalese-cuisine-hero.jpg",
     category: "Cuisine",

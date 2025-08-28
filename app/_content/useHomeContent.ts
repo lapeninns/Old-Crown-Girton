@@ -57,7 +57,7 @@ export function useHomeContent(): HomeContent | null {
             titleAccent: 'Old Crown',
             description: [
               'Experience Cambridge\'s most unique dining destination: England\'s largest thatched pub combining 16th-century heritage with authentic Himalayan flavours in the heart of Girton village.',
-              'From traditional Sunday roasts to award-winning Nepalese cuisine including signature momos and slow-cooked Khasi Ko Masu, we serve Cambridge University students, Silicon Fen professionals, Girton families, and curious tourists seeking an authentic English pub experience with extraordinary food.',
+              'While we don\'t currently serve a traditional Sunday roast, our authentic Nepalese cuisine (including momos and slow-cooked favourites) and British pub classics make hearty Sunday roast alternatives for Cambridge families, students, and visitors.',
               'Our expansive beer garden, live sports coverage, dog-friendly atmosphere, and convenient free parking make us the perfect destination for family gatherings, business lunches, student socials, and memorable dining experiences just minutes from Cambridge city centre.'
             ],
             features: {
@@ -68,7 +68,7 @@ export function useHomeContent(): HomeContent | null {
                 'Expansive beer garden with free parking (rare in Cambridge)',
                 'Live sports, dog-friendly, perfect for students & families',
                 'Historic Girton village location, easy access from Cambridge',
-                'Traditional Sunday roasts meet exotic Himalayan spices'
+                'Sunday roast alternatives: Himalayan-inspired comfort dishes (no traditional Sunday roast served)'
               ]
             },
             images: {
@@ -145,7 +145,7 @@ export function useHomeContent(): HomeContent | null {
           titleAccent: 'Old Crown',
           description: [
             'Experience Cambridge\'s most unique dining destination: England\'s largest thatched pub combining 16th-century heritage with authentic Himalayan flavours in the heart of Girton village.',
-            'From traditional Sunday roasts to award-winning Nepalese cuisine including signature momos and slow-cooked Khasi Ko Masu, we serve Cambridge University students, Silicon Fen professionals, Girton families, and curious tourists seeking an authentic English pub experience with extraordinary food.',
+            'While we don\'t currently serve a traditional Sunday roast, our authentic Nepalese cuisine (including momos and slow-cooked favourites) and British pub classics make hearty Sunday roast alternatives for Cambridge families, students, and visitors.',
             'Our expansive beer garden, live sports coverage, dog-friendly atmosphere, and convenient free parking make us the perfect destination for family gatherings, business lunches, student socials, and memorable dining experiences just minutes from Cambridge city centre.'
           ],
           features: {
@@ -156,7 +156,7 @@ export function useHomeContent(): HomeContent | null {
               'Expansive beer garden with free parking (rare in Cambridge)',
               'Live sports, dog-friendly, perfect for students & families',
               'Historic Girton village location, easy access from Cambridge',
-              'Traditional Sunday roasts meet exotic Himalayan spices'
+              'Sunday roast alternatives: Himalayan-inspired comfort dishes (no traditional Sunday roast served)'
             ]
           },
           images: {

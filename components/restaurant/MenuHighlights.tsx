@@ -5,11 +5,11 @@ import { useContent } from '@/hooks/useContent';
 import DishCard from './DishCard';
 import Link from 'next/link';
 
-// Fallback featured dishes if content management is not available
-const fallbackFeaturedDishes = [
+// Featured dishes using only high-quality real dish images
+const featuredDishes = [
   {
     title: 'Crispy Hot Wings',
-    description: 'Spiced grilled chicken wings with our signature marinade',
+    description: 'Spiced grilled chicken wings with our signature marinade - perfectly crispy and bursting with flavor',
     price: '£7.25',
     image: '/dishes/CrispyHotWings.jpeg',
     spiceLevel: 'medium' as const,
@@ -60,8 +60,8 @@ export default function MenuHighlights() {
   const subtitle = menuHighlightsContent?.subtitle || 'A taste of what we offer';
   const ctaLabel = content?.global?.ui?.buttons?.viewMenu || 'View Full Menu';
   
-  // Use content management dishes if available, otherwise fallback
-  const featuredDishes = fallbackFeaturedDishes; // For now using fallback until dish content is defined
+  // Use our curated selection of high-quality featured dishes
+  const dishesToDisplay = featuredDishes;
   
   return (
     <section className="py-16 bg-brand-50">
@@ -82,7 +82,7 @@ export default function MenuHighlights() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredDishes.map((dish, index) => (
+          {dishesToDisplay.map((dish, index) => (
             <DishCard
               key={dish.title}
               {...dish}

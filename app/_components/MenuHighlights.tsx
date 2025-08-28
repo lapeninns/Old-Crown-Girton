@@ -4,10 +4,11 @@ import { motion } from 'framer-motion';
 import DishCard from '@/components/restaurant/DishCard';
 import Link from 'next/link';
 
-const fallbackDishes = [
+// Featured dishes using only high-quality real dish images
+const featuredDishes = [
   {
     title: 'Crispy Hot Wings',
-    description: 'Spiced grilled chicken wings with our signature marinade',
+    description: 'Spiced grilled chicken wings with our signature marinade - perfectly crispy and bursting with flavor',
     price: '£7.25',
     image: '/dishes/CrispyHotWings.jpeg',
     spiceLevel: 'medium' as const,
@@ -69,7 +70,7 @@ export default function MenuHighlights() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {fallbackDishes.map((dish, index) => (
+          {featuredDishes.map((dish, index) => (
             <DishCard
               key={dish.title}
               {...dish}

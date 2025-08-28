@@ -67,11 +67,11 @@ const blogPosts = [
   },
   {
     id: "perfect-sunday-roast-guide",
-    title: "The Perfect Sunday Roast: A Girton Tradition at Old Crown",
-    excerpt: "Discover what makes Old Crown Girton's Sunday roast the perfect centerpiece for your weekend family dining experience.",
+    title: "Sunday Roast in Cambridge: Where to Go + Our Alternatives",
+    excerpt: "We don't currently serve a traditional Sunday roast. Explore Cambridge options and what to try at our thatched pub instead.",
     image: "/images/blog/sunday-roast.jpg",
     category: "Food & Dining",
-    author: "Chef Marcus Thompson",
+    author: "Old Crown Team",
     publishedDate: "2024-12-15",
     readTime: "7 min read",
     slug: "perfect-sunday-roast-guide"

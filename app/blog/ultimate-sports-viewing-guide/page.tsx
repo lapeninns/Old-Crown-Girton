@@ -90,7 +90,7 @@ export default function SportsViewingGuidePage() {
         <li><strong>Fish and chips:</strong> British classic that's easy to eat while watching</li>
         <li><strong>Burgers and chips:</strong> Satisfying meal that won't take attention from the screen</li>
         <li><strong>Sharing platters:</strong> Perfect for groups wanting to sample multiple dishes</li>
-        <li><strong>Sunday roasts:</strong> For those special Sunday afternoon matches</li>
+        <li><strong>Sunday roast alternatives:</strong> Comforting Nepalese and British plates for Sunday afternoon matches (we don't currently serve a traditional Sunday roast)</li>
       </ul>
       
       <h3>Nepalese Options</h3>

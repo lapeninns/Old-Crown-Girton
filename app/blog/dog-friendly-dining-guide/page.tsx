@@ -41,7 +41,7 @@ export default function DogFriendlyDiningPage() {
       <h2>Dog-Walking Routes and Local Attractions</h2>
       <p>Old Crown Girton's location makes it the perfect stopping point for dog walks around the beautiful Cambridgeshire countryside. Just minutes away, you'll find scenic footpaths along the River Cam, while Girton Wood offers longer adventures for more energetic dogs.</p>
       
-      <p>Many of our regular customers make us part of their weekend walking routine – starting with a hearty breakfast, heading out for a countryside ramble, then returning for a well-deserved Sunday roast. It's a perfect day out that both human and canine family members thoroughly enjoy.</p>
+      <p>Many of our regulars make us part of their weekend walking routine – starting with a hearty breakfast, heading out for a countryside ramble, then returning for a relaxed Sunday lunch. While we don't currently serve a traditional Sunday roast, our comforting Nepalese dishes and British pub classics make great Sunday roast alternatives for a laid-back afternoon.</p>
       
       <h2>Special Considerations for Dog Owners</h2>
       <p>We understand that dining out with dogs requires thoughtful planning. That's why we've implemented several dog-friendly features:</p>
@@ -58,7 +58,7 @@ export default function DogFriendlyDiningPage() {
       
       <ul>
         <li><strong>Weekend breakfast:</strong> Perfect fuel before a long countryside walk</li>
-        <li><strong>Sunday roasts:</strong> A relaxed meal that allows plenty of time for your dog to settle and observe the world</li>
+        <li><strong>Sunday roast alternatives:</strong> Comforting Nepalese and British plates perfect for a leisurely afternoon (we don't currently serve a traditional Sunday roast)</li>
         <li><strong>Light lunches:</strong> Our Nepalese small plates are ideal for sharing while keeping one hand free for the occasional head pat</li>
         <li><strong>Afternoon drinks:</strong> Post-walk refreshments in our peaceful garden setting</li>
       </ul>

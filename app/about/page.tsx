@@ -8,13 +8,13 @@ import dynamic from 'next/dynamic';
 
 // SEO Metadata
 export const metadata = getSEOTags({
-  title: "About Old Crown Girton - Historic Thatched Pub Heritage | Cambridge",
-  description: "Discover the story of Old Crown Girton - the largest thatched pub in the country. From historic village pub to authentic Nepalese restaurant in Cambridge.",
-  keywords: ["Old Crown Girton history", "historic thatched pub Cambridge", "Girton pub heritage", "largest thatched pub country", "Cambridge pub story"],
+  title: "About Old Crown Girton - Largest Thatched Pub | Nepalese Restaurant Cambridge",
+  description: "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. While we don't serve a traditional Sunday roast, we offer comforting Sunday roast alternatives in Cambridge.",
+  keywords: ["Old Crown Girton", "largest thatched pub", "Nepalese restaurant Cambridge", "Girton pub", "Sunday roast Cambridge", "British pub classics"],
   canonicalUrlRelative: "/about",
   openGraph: {
-    title: "About Old Crown Girton - Historic Thatched Pub Heritage",
-    description: "Discover the story of Old Crown Girton - the largest thatched pub in the country. From historic village pub to authentic Nepalese restaurant.",
+    title: "About Old Crown Girton - Historic Thatched Pub & Nepalese Kitchen",
+    description: "Discover England's largest thatched pub in Girton serving authentic Nepalese cuisine and British pub classics.",
     url: "https://oldcrowngirton.co.uk/about",
   },
 });

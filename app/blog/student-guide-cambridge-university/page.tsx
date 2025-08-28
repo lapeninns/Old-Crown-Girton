@@ -32,7 +32,7 @@ export default function StudentGuideePage() {
       <h2>Student-Friendly Dining That Won't Break the Bank</h2>
       <p>We understand student budgets, which is why our portions are generous and our prices fair. Our lunch specials offer exceptional value, with authentic Nepalese dishes like dal bhat providing a complete, satisfying meal that's both nutritious and filling - perfect fuel for those long study sessions.</p>
       
-      <p>The Sunday roast represents incredible value for money, offering traditional British comfort food that reminds you of home. Many students make this a weekly tradition, bringing friends or visiting family for a proper Sunday lunch that beats any college offering.</p>
+      <p>While we don't currently serve a traditional Sunday roast, many students treat our comforting Nepalese dishes and British pub classics as their go-to Sunday lunch alternatives – great value, filling, and perfect for sharing after a long week.</p>
       
       <h2>The Perfect Study Break Destination</h2>
       <p>Sometimes you need to escape the college environment entirely. Our spacious garden and terrace provide the perfect setting for a proper break from academic pressure. The journey from central Cambridge takes just 15 minutes by bike, offering a refreshing change of scenery and the mental reset that only a proper pub atmosphere can provide.</p>

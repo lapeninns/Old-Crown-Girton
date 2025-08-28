@@ -5,13 +5,13 @@ import Image from 'next/image';
 
 // SEO Metadata
 export const metadata = getSEOTags({
-  title: "Perfect Sunday Roast at Old Crown Girton | Best Sunday Lunch in Cambridge",
-  description: "Discover why Old Crown Girton serves Cambridge's perfect Sunday roast. Traditional British roasts with Yorkshire pudding, seasonal vegetables, and gravy in our historic thatched pub.",
-  keywords: ["Sunday roast Girton", "Sunday lunch Cambridge", "best Sunday roast Cambridge", "traditional Sunday dinner", "pub Sunday roast CB3", "family Sunday lunch"],
+  title: "Sunday Roast in Cambridge: Where to Go + Roast Alternatives | Old Crown Girton",
+  description: "We don't currently serve a traditional Sunday roast. Discover Cambridge Sunday roast options and our Sunday roast alternatives at Old Crown Girton's historic thatched pub.",
+  keywords: ["Sunday roast Girton", "Sunday lunch Cambridge", "best Sunday roast Cambridge", "Sunday roast alternatives", "pub Sunday roast CB3", "family Sunday lunch"],
   canonicalUrlRelative: "/blog/perfect-sunday-roast-guide",
   openGraph: {
-    title: "Perfect Sunday Roast at Old Crown Girton | Best Sunday Lunch in Cambridge",
-    description: "Experience the perfect Sunday roast in Cambridge's historic thatched pub. Traditional British cooking meets comfort dining every Sunday.",
+    title: "Sunday Roast in Cambridge: Where to Go + Alternatives",
+    description: "We don't serve a traditional Sunday roast — explore Cambridge options and our comforting Sunday alternatives.",
     url: "https://oldcrowngirton.co.uk/blog/perfect-sunday-roast-guide",
     type: "article",
   },
@@ -19,101 +19,42 @@ export const metadata = getSEOTags({
 
 export default function SundayRoastGuidePage() {
   const post = {
-    title: "The Perfect Sunday Roast: A Girton Tradition at Old Crown",
-    excerpt: "Discover what makes Old Crown Girton's Sunday roast the perfect centerpiece for your weekend family dining experience.",
+    title: "Sunday Roast in Cambridge: A Guide + Our Alternatives",
+    excerpt: "We don't currently serve a traditional Sunday roast. Here's how to enjoy Sunday lunch in Cambridge and what to try at our thatched pub instead.",
     content: `
-      <p>There's something magical about a proper Sunday roast that transforms an ordinary weekend into something special. At Old Crown Girton, we've perfected this quintessentially British tradition, combining time-honoured cooking techniques with the warm atmosphere of our historic thatched pub.</p>
+      <p>There's something special about a proper Sunday roast – it turns a regular weekend into a ritual. While Old Crown Girton does not currently serve a traditional Sunday roast, we want to help you enjoy Sunday lunch in Cambridge and share our favourite roast alternatives at our historic thatched pub.</p>
       
-      <h2>The Art of the Traditional Sunday Roast</h2>
-      <p>Our Sunday roast isn't just a meal – it's a celebration of British culinary heritage. Every Sunday, our kitchen team begins preparation in the early morning hours, ensuring that each element reaches perfect harmony by lunchtime.</p>
+      <h2>What Makes a Great Sunday Roast</h2>
+      <p>The classic British Sunday roast brings together roasted meat, crispy potatoes, seasonal vegetables, Yorkshire pudding and gravy. Families gather, friends catch up, and the pace slows down – it's as much about comfort and connection as it is about the food.</p>
       
-      <p>We source our meats from carefully selected local suppliers who share our commitment to quality and ethical farming practices. Whether you choose our succulent roast beef, tender lamb, or perfectly seasoned chicken, each joint is prepared with the care and attention it deserves.</p>
+      <h2>Finding a Sunday Roast in Cambridge</h2>
+      <p>Across Cambridge and nearby villages, many pubs and gastropubs offer Sunday roast. If you're set on a traditional roast, check local listings and book ahead – popular spots tend to fill quickly, especially in colder months.</p>
       
-      <h2>What Makes Our Sunday Roast Special</h2>
-      
-      <h3>The Perfect Meat Selection</h3>
-      <p>Our rotating selection ensures there's something for every taste:</p>
+      <h2>Our Sunday Roast Alternatives at Old Crown Girton</h2>
+      <p>Although we don't serve a traditional Sunday roast, our kitchen focuses on authentic Nepalese cuisine and British pub classics that deliver the same comforting, unhurried Sunday feel:</p>
       <ul>
-        <li><strong>Roast Beef:</strong> Slow-roasted to achieve the perfect pink center with a beautifully caramelized exterior</li>
-        <li><strong>Roast Lamb:</strong> Herb-crusted shoulder or leg, depending on the season, with subtle garlic and rosemary notes</li>
-        <li><strong>Roast Chicken:</strong> Free-range birds seasoned with traditional herbs and roasted until golden</li>
-        <li><strong>Roast Pork:</strong> Complete with proper crackling that crackles when you cut it</li>
+        <li><strong>Nepalese comfort dishes:</strong> Warming curries and slow-cooked favourites that pair wonderfully with a relaxed Sunday pace</li>
+        <li><strong>Momos & mixed platters:</strong> Perfect for sharing with family and friends</li>
+        <li><strong>British pub classics:</strong> Familiar favourites that satisfy when you're after a hearty Sunday lunch in Cambridge</li>
       </ul>
       
-      <h3>Yorkshire Puddings Done Right</h3>
-      <p>Perhaps nothing divides Sunday roast enthusiasts more than Yorkshire pudding technique. We're proud to say ours rise magnificently, achieving that perfect balance of crispy exterior and light, airy interior that soaks up gravy beautifully. Made fresh throughout service, they arrive at your table still warm from the oven.</p>
+      <h2>Why Choose Old Crown on Sundays</h2>
+      <p>Set in England's largest thatched pub, our cosy interiors and spacious terrace garden make for an easy Sunday. We're family-friendly, dog-friendly, and just minutes from Cambridge and Girton College – ideal for relaxed gatherings.</p>
       
-      <h3>Seasonal Vegetables</h3>
-      <p>We believe great vegetables make or break a Sunday roast. Our seasonal selection includes:</p>
-      <ul>
-        <li><strong>Roast potatoes:</strong> Fluffy interiors with golden, crispy exteriors</li>
-        <li><strong>Honey-glazed carrots:</strong> Sweet and tender with a subtle caramelization</li>
-        <li><strong>Buttered seasonal greens:</strong> From spring asparagus to winter Brussels sprouts</li>
-        <li><strong>Cauliflower cheese:</strong> Creamy, bubbling, and perfectly golden on top</li>
-      </ul>
-      
-      <h3>The Gravy That Brings It All Together</h3>
-      <p>Great gravy is an art form, and ours is made from the meat drippings, creating rich, flavourful accompaniment that enhances rather than masks the quality of our ingredients. Whether you prefer it thick or thin, our gravy boat ensures you can customize your perfect Sunday plate.</p>
-      
-      <h2>The Perfect Sunday Roast Setting</h2>
-      <p>Beyond the food itself, the Sunday roast experience at Old Crown Girton benefits from our unique setting. Dining in England's largest thatched pub adds an authenticity that modern establishments simply cannot replicate.</p>
-      
-      <p>During warmer months, our terrace garden provides the perfect al fresco Sunday dining experience. There's something particularly satisfying about enjoying traditional British cooking while surrounded by English countryside views. For cooler Sundays, our cosy interior, with its historic beams and warming atmosphere, creates the ideal backdrop for family gatherings.</p>
-      
-      <h2>Family Traditions and New Memories</h2>
-      <p>Sunday roast at Old Crown Girton has become a weekly tradition for many local families. We've watched children grow up coming here for Sunday lunch, eventually bringing their own families to continue the tradition. It's this continuity of community and family connection that makes our Sunday service so special.</p>
-      
-      <p>For families visiting from Cambridge and beyond, we offer the perfect opportunity to experience an authentic British Sunday roast in a genuinely historic setting. Many visitors tell us it's exactly what they imagined a proper English pub Sunday lunch should be.</p>
-      
-      <h2>Accommodating Every Dietary Need</h2>
-      <p>While traditional Sunday roast centers around meat, we ensure every member of your party can enjoy the experience:</p>
-      
-      <h3>Vegetarian Options</h3>
-      <p>Our vegetarian Sunday roast features seasonal vegetables, Yorkshire pudding, and all the traditional accompaniments. We often create special vegetarian centerpieces like stuffed butternut squash or hearty vegetable Wellington that capture the essence of Sunday roast satisfaction.</p>
-      
-      <h3>Children's Portions</h3>
-      <p>We understand that children's appetites vary, so we offer smaller portions at child-friendly prices. Young diners can experience all the traditional elements scaled appropriately for their appetite and preferences.</p>
-      
-      <h3>Gluten-Free Considerations</h3>
-      <p>While traditional Yorkshire pudding contains wheat, we can accommodate gluten-free requirements with advance notice, ensuring no one misses out on the Sunday roast experience.</p>
-      
-      <h2>The Sunday Roast Ritual</h2>
-      <p>Part of what makes Sunday roast special is the unhurried pace it encourages. This isn't fast food – it's slow living. Families linger over conversation, children play in our garden between courses, and friendships develop over shared appreciation for good food and comfortable surroundings.</p>
-      
-      <p>We encourage this relaxed approach. Sunday roast service runs from noon until early evening, giving families flexibility to arrive when it suits them and take as much time as they need to properly enjoy their meal.</p>
-      
-      <h2>Booking Your Sunday Roast Experience</h2>
-      <p>Given the popularity of our Sunday roast, particularly during colder months when indoor seating is at a premium, we highly recommend booking in advance. Our team can accommodate special requests, dietary requirements, and ensure your table is ready when you arrive.</p>
-      
-      <p>For larger family gatherings or special occasions, we can arrange private seating areas that maintain the intimate feel while giving your group the space and attention you deserve.</p>
-      
-      <h2>Making the Most of Your Sunday</h2>
-      <p>Many of our guests combine their Sunday roast with other activities that showcase the best of the Girton area:</p>
-      
-      <ul>
-        <li><strong>Pre-lunch walks:</strong> Work up an appetite with countryside walks along nearby footpaths</li>
-        <li><strong>Post-meal relaxation:</strong> Enjoy afternoon drinks in our garden while children play safely</li>
-        <li><strong>Local exploration:</strong> Visit nearby historical sites or Cambridge attractions</li>
-      </ul>
-      
-      <h2>Beyond Sunday: The Roast Tradition Continues</h2>
-      <p>While Sunday is our traditional roast day, the techniques and quality that make our Sunday roast special influence our approach to all our British pub classics throughout the week. The same attention to sourcing, preparation, and presentation that characterizes our Sunday offering extends to our daily menu.</p>
-      
-      <p>Whether you're seeking the perfect Sunday family tradition, wanting to introduce visitors to authentic British dining, or simply craving comfort food prepared with genuine care, Old Crown Girton's Sunday roast delivers an experience that satisfies both appetite and soul.</p>
-      
-      <p>Join us this Sunday and discover why so many consider our roast the highlight of their week. In a world of quick meals and busy schedules, we offer something increasingly rare: the time and space to properly savor both excellent food and good company.</p>
+      <h2>Planning Your Visit</h2>
+      <p>We recommend booking, especially for larger groups or peak Sunday times. Check our hours and menu before visiting.</p>
     `,
     image: "/images/blog/sunday-roast.jpg",
     category: "Food & Dining",
     author: {
-      name: "Chef Marcus Thompson",
-      bio: "Head chef at Old Crown Girton with over 15 years of experience perfecting traditional British cuisine and Sunday roast preparation."
+      name: "Old Crown Team",
+      bio: "The team behind Old Crown Girton's historic thatched pub and Nepalese kitchen."
     },
-    publishedDate: "2024-12-15T11:00:00+00:00",
-    modifiedDate: "2024-12-15T11:00:00+00:00",
+    publishedDate: "2024-12-15T13:00:00+00:00",
+    modifiedDate: "2024-12-15T13:00:00+00:00",
     readTime: "7 min read",
     slug: "perfect-sunday-roast-guide",
-    tags: ["Sunday roast", "Traditional British food", "Family dining", "Local cuisine", "Weekend dining"]
+    tags: ["Sunday roast", "Sunday lunch", "Cambridge", "Roast alternatives", "Family dining"]
   };
 
   return (
@@ -129,7 +70,7 @@ export default function SundayRoastGuidePage() {
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
-            "@type": "Person",
+            "@type": "Organization",
             "name": post.author.name,
             "description": post.author.bio
           },
@@ -161,7 +102,7 @@ export default function SundayRoastGuidePage() {
           },
           "articleSection": post.category,
           "keywords": post.tags.join(", "),
-          "wordCount": 1420,
+          "wordCount": 850,
           "inLanguage": "en-GB",
           "isPartOf": {
             "@type": "Blog",
@@ -187,26 +128,26 @@ export default function SundayRoastGuidePage() {
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "What time is Sunday roast served at Old Crown Girton?",
+              "name": "Do you serve a traditional Sunday roast?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Sunday roast is served from noon until early evening, giving families flexibility to arrive when convenient and take time to properly enjoy their meal."
+                "text": "No. We don't currently serve a traditional Sunday roast. However, we offer comforting Nepalese dishes and British pub classics that many guests enjoy as Sunday lunch alternatives."
               }
             },
             {
               "@type": "Question",
-              "name": "Do you accommodate dietary restrictions for Sunday roast?",
+              "name": "What should I order instead of a Sunday roast?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, we offer vegetarian Sunday roast options and can accommodate gluten-free requirements with advance notice. Children's portions are also available."
+                "text": "Try our Nepalese comfort dishes, momos, mixed platters for sharing, or familiar British pub classics – all great options for a relaxed Sunday meal."
               }
             },
             {
               "@type": "Question",
-              "name": "Do I need to book for Sunday roast?",
+              "name": "Are you open on Sundays?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "We highly recommend booking in advance, especially during colder months when indoor seating is at a premium. Our team can accommodate special requests and dietary requirements."
+                "text": "Yes, we open on Sundays. Please see our current opening hours in the footer or contact us to confirm."
               }
             }
           ]
@@ -255,7 +196,7 @@ export default function SundayRoastGuidePage() {
             <div className="relative h-64 md:h-96 rounded-xl overflow-hidden">
               <Image
                 src={post.image}
-                alt="Perfect Sunday roast with Yorkshire pudding at Old Crown Girton"
+                alt="Sunday lunch in Cambridge alternatives at Old Crown Girton"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 1024px"
@@ -295,13 +236,13 @@ export default function SundayRoastGuidePage() {
 
             {/* Call to Action */}
             <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
-              <h3 className="text-2xl font-bold mb-4">Ready for the Perfect Sunday Roast?</h3>
-              <p className="text-brand-100 mb-6">Join us this Sunday for Cambridge's most authentic Sunday roast experience. Book now to secure your table.</p>
+              <h3 className="text-2xl font-bold mb-4">Craving a cosy Sunday lunch?</h3>
+              <p className="text-brand-100 mb-6">We don't serve a traditional Sunday roast, but our Nepalese dishes and British pub classics make great Sunday roast alternatives.</p>
               <Link 
                 href="/book"
                 className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50 transition-colors"
               >
-                Book Sunday Roast
+                Book a Table
               </Link>
             </div>
 
@@ -329,3 +270,4 @@ export default function SundayRoastGuidePage() {
     </RestaurantLayout>
   );
 }
+

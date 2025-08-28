@@ -27,13 +27,13 @@ export default function LocalSuppliersPage() {
       <h2>Our Local Sourcing Philosophy</h2>
       <p>When we source locally, we're making a choice that benefits everyone: our customers enjoy fresher, more flavorful food, local producers receive fair compensation for their hard work, and our environment benefits from reduced transport miles and more sustainable farming practices.</p>
       
-      <p>This philosophy extends across our entire menu, from the vegetables in our Nepalese curries to the meat in our traditional Sunday roasts. While we source authentic spices and specialty ingredients from Nepal and India to ensure authenticity, everything else comes from as close to home as possible.</p>
+      <p>This philosophy extends across our entire menu — from the vegetables in our Nepalese curries to the meats used across our British pub classics. While we source authentic spices and specialty ingredients from Nepal and India to ensure authenticity, everything else comes from as close to home as possible.</p>
       
       <h2>Our Trusted Local Suppliers</h2>
       <p>Building relationships with local suppliers takes time, trust, and shared commitment to quality. We've spent years developing partnerships with farmers, producers, and artisans across Cambridgeshire who share our values of quality, sustainability, and community support.</p>
       
       <h3>Cambridgeshire Meat Suppliers</h3>
-      <p>For our Sunday roasts and traditional pub dishes, we work exclusively with local farms that practice ethical, sustainable farming. Our beef comes from grass-fed cattle raised on the fertile pastures surrounding Cambridge, ensuring not only exceptional flavor but also the highest standards of animal welfare.</p>
+      <p>For our traditional pub dishes, we work exclusively with local farms that practice ethical, sustainable farming. Our beef comes from grass-fed cattle raised on the fertile pastures surrounding Cambridge, ensuring not only exceptional flavor but also the highest standards of animal welfare.</p>
       
       <p>Our lamb supplier, a family farm that's been operating in the Fens for three generations, provides meat with exceptional marbling and flavor that comes from traditional farming methods and careful animal husbandry. The difference in quality is immediately apparent in every bite.</p>
       
@@ -49,7 +49,7 @@ export default function LocalSuppliersPage() {
       <h3>Local Dairy and Eggs</h3>
       <p>Fresh dairy products make an enormous difference in cooking, particularly in our creamy curry sauces and traditional British desserts. We source from a local dairy that maintains traditional methods while meeting modern food safety standards.</p>
       
-      <p>Our eggs come from a free-range farm where hens roam freely across meadowland, producing eggs with rich, golden yolks that enhance everything from our Yorkshire puddings to fresh pasta dishes.</p>
+      <p>Our eggs come from a free-range farm where hens roam freely across meadowland, producing eggs with rich, golden yolks that enhance everything from our homemade batters to fresh pasta dishes.</p>
       
       <h2>Seasonal Menu Planning</h2>
       <p>Working with local suppliers means embracing seasonality, and we view this as an opportunity rather than a constraint. Our menu evolves throughout the year to showcase the best ingredients available at each season.</p>
