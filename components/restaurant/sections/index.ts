@@ -24,8 +24,3 @@ export { default as EventsUpdatesSection } from './EventsUpdatesSection';
 // Menu page sections
 export { default as MenuInformationSection } from './MenuInformationSection';
 export { default as MenuCTASection } from './MenuCTASection';
-
-// Future exports will be added here as more sections are modularized
-// export { default as WelcomeSection } from './WelcomeSection';
-// export { default as CuisineSection } from './CuisineSection';
-// export { default as FeatureGrid } from './FeatureGrid';

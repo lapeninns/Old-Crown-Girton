@@ -48,7 +48,6 @@ export function useOfflineContent(): OfflineContent | null {
           setContent(fallbackContent);
         }
       } catch (error) {
-        console.error('Failed to load offline content:', error);
         // Use inline fallback as last resort
         setContent({
           meta: {

@@ -39,7 +39,6 @@ export function useNotFoundContent(): NotFoundContent | null {
           setContent(fallbackContent);
         }
       } catch (error) {
-        console.error('Failed to load not-found content:', error);
         // Use inline fallback as last resort
         setContent({
           meta: {

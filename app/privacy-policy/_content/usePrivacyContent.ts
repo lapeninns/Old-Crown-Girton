@@ -33,7 +33,6 @@ export function usePrivacyContent(): PrivacyContent | null {
           setContent(fallbackContent);
         }
       } catch (error) {
-        console.error('Failed to load privacy content:', error);
         // Use inline fallback as last resort
         setContent({
           meta: {

@@ -74,13 +74,6 @@ export async function POST(req: NextRequest) {
           })
           .eq("id", userId);
 
-        // Extra: send email with user link, product page, etc...
-        // try {
-        //   await sendEmail(...);
-        // } catch (e) {
-        //   console.error("Email issue:" + e?.message);
-        // }
-
         break;
       }
 

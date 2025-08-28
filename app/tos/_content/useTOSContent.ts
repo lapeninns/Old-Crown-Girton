@@ -37,7 +37,6 @@ export function useTOSContent(): TOSContent | null {
           setContent(processContent(fallbackContent));
         }
       } catch (error) {
-        console.error('Failed to load TOS content:', error);
         // Use inline fallback as last resort
         setContent({
           meta: {

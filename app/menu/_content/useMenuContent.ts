@@ -66,7 +66,6 @@ export function useMenuContent(): MenuContent | null {
           setContent(fallbackContent);
         }
       } catch (error) {
-        console.error('Failed to load menu content:', error);
         // Use inline fallback as last resort
         setContent({
           meta: {

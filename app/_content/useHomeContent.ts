@@ -133,9 +133,7 @@ export function useHomeContent(): HomeContent | null {
         setHomeContent(mappedContent);
       } else if (!loading && !content) {
         // Fallback content if main content API fails
-        console.warn('Main content API failed, using hardcoded fallback');
-        
-        // Use hardcoded fallback content directly
+        // Using hardcoded fallback content directly
         setHomeContent({
           meta: {
             title: 'The Old Crown Girton - Nepalese & British Cuisine',

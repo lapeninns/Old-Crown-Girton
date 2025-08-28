@@ -175,6 +175,78 @@ const formatHoursDisplay = (timeRange: string): string => {
   return ranges.join(', ');
 };
 
+// Helper to get next opening time when closed
+const getNextOpenTime = (hours: any): string | null => {
+  if (!hours) return null;
+  
+  const now = new Date();
+  const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  
+  // Check next 7 days
+  for (let i = 0; i < 7; i++) {
+    const dayIndex = (currentDay + i) % 7;
+    const dayName = days[dayIndex];
+    
+    let dayHours: string | undefined;
+    
+    // Handle new detailed format with kitchen and bar hours
+    if (typeof hours === 'object' && ('kitchen' in hours || 'bar' in hours)) {
+      dayHours = hours.kitchen?.[dayName] || hours.bar?.[dayName];
+    } else {
+      dayHours = hours[dayName];
+    }
+    
+    if (dayHours && dayHours.toLowerCase() !== 'closed') {
+      if (i === 0) {
+        // Today - check if we haven't passed opening time yet
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        const openingTime = getOpeningTime(dayHours);
+        if (openingTime && currentMinutes < openingTime) {
+          const openHour = Math.floor(openingTime / 60);
+          const openMin = openingTime % 60;
+          const displayTime = formatTime(openHour, openMin);
+          return `Today at ${displayTime}`;
+        }
+      } else {
+        // Future day
+        const openingTime = getOpeningTime(dayHours);
+        if (openingTime) {
+          const openHour = Math.floor(openingTime / 60);
+          const openMin = openingTime % 60;
+          const displayTime = formatTime(openHour, openMin);
+          const dayLabel = i === 1 ? 'Tomorrow' : dayName.charAt(0).toUpperCase() + dayName.slice(1);
+          return `${dayLabel} at ${displayTime}`;
+        }
+      }
+    }
+  }
+  
+  return null;
+};
+
+// Helper to get opening time in minutes from time string
+const getOpeningTime = (timeRange: string): number | null => {
+  if (!timeRange || timeRange.toLowerCase() === 'closed') return null;
+  
+  // Handle 24-hour format
+  const match = timeRange.match(/(\d{1,2}):(\d{2})/);
+  if (match) {
+    const [, hours, minutes] = match;
+    return parseInt(hours) * 60 + parseInt(minutes);
+  }
+  
+  return null;
+};
+
+// Helper to format time for display
+const formatTime = (hours: number, minutes: number): string => {
+  const period = hours >= 12 ? 'PM' : 'AM';
+  const displayHours = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
+  const displayMinutes = minutes === 0 ? '' : `:${minutes.toString().padStart(2, '0')}`;
+  return `${displayHours}${displayMinutes} ${period}`;
+};
+
 /**
  * Hook for fetching and managing restaurant data
  * 
@@ -227,8 +299,8 @@ export function useRestaurant(options: UseRestaurantOptions = {}): UseRestaurant
   const isOpen = data ? checkIsOpen(data.hours) : false;
   const currentHours = data ? getCurrentHours(data.hours) : null;
   
-  // TODO: Implement nextOpenTime logic
-  const nextOpenTime: string | null = null;
+  // Calculate next opening time when closed
+  const nextOpenTime: string | null = data && !isOpen ? getNextOpenTime(data.hours) : null;
 
   return {
     data: data || null,
