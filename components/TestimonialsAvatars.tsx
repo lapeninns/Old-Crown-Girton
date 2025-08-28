@@ -40,6 +40,7 @@ const TestimonialsAvatars = ({ priority }: { priority?: boolean }) => {
               priority={priority}
               width={50}
               height={50}
+              className="rounded-full border-2 border-accent-500/30"
             />
           </div>
         ))}
@@ -65,8 +66,8 @@ const TestimonialsAvatars = ({ priority }: { priority?: boolean }) => {
           ))}
         </div>
 
-        <div className="text-base text-base-content/80">
-          <span className="font-semibold text-base-content">32</span> makers
+        <div className="text-base text-neutral-700">
+          <span className="font-semibold text-brand-700">32</span> makers
           ship faster
         </div>
       </div>

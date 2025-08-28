@@ -175,57 +175,83 @@ const TestimonialsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full py-16 overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800">
+  <section className="relative w-full py-16 overflow-hidden bg-brand-50">
       {/* Floating Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[5%] left-[5%] w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/10 animate-pulse"></div>
-        <div className="absolute top-[60%] right-[10%] w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/8 animate-pulse delay-1000"></div>
-        <div className="absolute bottom-[15%] left-[70%] w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/12 animate-pulse delay-2000"></div>
-        <div className="absolute top-[25%] left-[80%] w-12 h-12 md:w-20 md:h-20 rounded-full bg-white/6 animate-pulse delay-500"></div>
+        <div className="absolute top-[5%] left-[5%] w-10 h-10 md:w-16 md:h-16 rounded-full bg-brand-200/30 animate-pulse"></div>
+        <div className="absolute top-[60%] right-[10%] w-16 h-16 md:w-24 md:h-24 rounded-full bg-accent-200/20 animate-pulse delay-1000"></div>
+        <div className="absolute bottom-[15%] left-[70%] w-8 h-8 md:w-12 md:h-12 rounded-full bg-brand-300/25 animate-pulse delay-2000"></div>
+        <div className="absolute top-[25%] left-[80%] w-12 h-12 md:w-20 md:h-20 rounded-full bg-accent-300/15 animate-pulse delay-500"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 text-shadow-lg">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-700 mb-4 font-display">
             What Our Customers Say
           </h2>
-          <p className="text-lg md:text-xl text-white/90 font-light tracking-wide">
-            Real reviews from Google Reviews and TripAdvisor
-          </p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <p className="text-lg md:text-xl text-neutral-700 font-light tracking-wide">
+              Real reviews from Google Maps and TripAdvisor — trusted by locals and visitors
+            </p>
+            <div className="flex items-center gap-6 mt-2 md:mt-0">
+              <a 
+                href="https://www.google.com/maps/place/Old+Crown+Girton/@52.2425913,0.0814946,17z/data=!3m1!4b1!4m6!3m5!1s0x47d876dbade6e2af:0xeba590b4974cfa4!8m2!3d52.2425913!4d0.0814946!16s%2Fg%2F1w6r7jkz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200 hover:shadow-xl hover:scale-105 transition-all duration-200"
+                aria-label="View Old Crown Girton reviews on Google Maps"
+              >
+                <span className="w-7 h-7 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base shadow">G</span>
+                <span className="text-base font-semibold text-neutral-800">4.5</span>
+                <span className="text-yellow-400 ml-1">★</span>
+                <span className="text-sm text-neutral-600 ml-2">(800+)</span>
+              </a>
+              
+              {/* Elegant Brand Divider */}
+              <div className="flex items-center">
+                <div className="w-1 h-8 bg-gradient-to-b from-brand-200 via-accent-300 to-brand-200 rounded-full"></div>
+              </div>
+              
+              <a 
+                href="https://www.tripadvisor.co.uk/Restaurant_Review-g3135834-d17412510-Reviews-Old_Crown_Girton-Girton_Cambridgeshire_England.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200 hover:shadow-xl hover:scale-105 transition-all duration-200"
+                aria-label="View Old Crown Girton reviews on TripAdvisor"
+              >
+                <span className="w-7 h-7 rounded-full flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 text-white font-bold text-base shadow">T</span>
+                <span className="text-base font-semibold text-neutral-800">4.6</span>
+                <span className="text-yellow-400 ml-1">★</span>
+                <span className="text-sm text-neutral-600 ml-2">(400+)</span>
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Reviews Slider */}
         <div className="relative">
           {/* Gradient Masks */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-600 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-800 to-transparent z-10 pointer-events-none"></div>
-          
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
           {/* Slider Container */}
           <div className="overflow-hidden py-8">
-            <div className="flex gap-6 animate-scroll-left hover:[animation-play-state:paused]">
+            <div className="flex gap-6 animate-scroll-left hover:[animation-play-state:paused] items-stretch">
               {/* Render reviews twice for seamless loop */}
               {[...reviews, ...reviews].map((review, index) => (
                 <div
                   key={`${review.id}-${index}`}
                   className={`
-                    flex-shrink-0 w-72 md:w-80 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl
-                    transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:bg-white
+                    flex-shrink-0 w-72 md:w-80 bg-white rounded-2xl p-6 shadow-xl
+                    transition-transform duration-300 hover:scale-105 hover:shadow-2xl
                     ${review.platform === 'google' ? 'border-t-4 border-blue-500' : 'border-t-4 border-green-500'}
-                    transform hover:-translate-y-2
-                    ${index % 6 === 0 ? 'rotate-[-2deg] translate-y-1' : ''}
-                    ${index % 6 === 1 ? 'rotate-[1.5deg] translate-y-[-2px]' : ''}
-                    ${index % 6 === 2 ? 'rotate-[-1deg] translate-y-[3px]' : ''}
-                    ${index % 6 === 3 ? 'rotate-[2.5deg] translate-y-[-4px]' : ''}
-                    ${index % 6 === 4 ? 'rotate-[-1.5deg] translate-y-[1px]' : ''}
-                    ${index % 6 === 5 ? 'rotate-[1deg] translate-y-[-1px]' : ''}
                   `}
                 >
-                  {/* Platform Header */}
+                  {/* Platform Header + Stars in same row */}
                   <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-3">
                       <div className={`
-                        w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md
+                        w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md
                         ${review.platform === 'google' ? 'bg-gradient-to-br from-blue-500 to-blue-600' : 'bg-gradient-to-br from-green-500 to-green-600'}
                       `}>
                         {getPlatformLogo(review.platform)}
@@ -234,18 +260,16 @@ const TestimonialsSection: React.FC = () => {
                         {getPlatformName(review.platform)}
                       </span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-yellow-400 text-base">
+                        {'★'.repeat(Math.max(0, Math.min(5, review.stars)))}
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-4">
-                    {renderStars(review.stars)}
-                  </div>
-
-                  {/* Review Text */}
-                  <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-6 font-medium">
+                  {/* Review Text - italic like design */}
+                  <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-6 font-medium italic">
                     "{review.text}"
                   </p>
-
                   {/* Reviewer Info */}
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-700 flex items-center justify-center text-white font-bold text-sm shadow-lg">
