@@ -56,18 +56,24 @@ export function useHomeContent(): HomeContent | null {
             title: 'Welcome to Old Crown',
             titleAccent: 'Old Crown',
             description: [
-              mainHomeContent.hero?.subtitle || 'Historic thatched pub in Girton combining authentic Nepalese cuisine with British pub classics',
-              mainHomeContent.hero?.description || 'A welcoming spot for locals, families, students, and visitors.'
+              'Experience Cambridge\'s most unique dining destination: England\'s largest thatched pub combining 16th-century heritage with authentic Himalayan flavours in the heart of Girton village.',
+              'From traditional Sunday roasts to award-winning Nepalese cuisine including signature momos and slow-cooked Khasi Ko Masu, we serve Cambridge University students, Silicon Fen professionals, Girton families, and curious tourists seeking an authentic English pub experience with extraordinary food.',
+              'Our expansive beer garden, live sports coverage, dog-friendly atmosphere, and convenient free parking make us the perfect destination for family gatherings, business lunches, student socials, and memorable dining experiences just minutes from Cambridge city centre.'
             ],
             features: {
-              title: mainHomeContent.sections?.features?.title || 'Why Guests Visit',
-              items: mainHomeContent.sections?.features?.items?.map((item: any) => item.title) || [
-                'Authentic Nepalese cuisine', 'Historic thatched setting', 'Welcoming atmosphere'
+              title: 'Why Cambridge Chooses The Old Crown',
+              items: [
+                'England\'s largest thatched pub with 16th-century heritage',
+                'Cambridge\'s most authentic Nepalese & Himalayan cuisine',
+                'Expansive beer garden with free parking (rare in Cambridge)',
+                'Live sports, dog-friendly, perfect for students & families',
+                'Historic Girton village location, easy access from Cambridge',
+                'Traditional Sunday roasts meet exotic Himalayan spices'
               ]
             },
             images: {
               main: '/restaurant-interior.jpg',
-              alt: 'Old Crown restaurant interior'
+              alt: 'Historic thatched interior of The Old Crown Girton featuring authentic Nepalese dining in Cambridge\'s most characterful pub'
             }
           },
           menuHighlights: {
@@ -134,19 +140,30 @@ export function useHomeContent(): HomeContent | null {
             title: 'The Old Crown Girton - Nepalese & British Cuisine',
             description: 'Historic thatched pub serving authentic cuisine'
           },
-          aboutSection: {
-            title: 'Welcome to Old Crown',
-            titleAccent: 'Old Crown',
-            description: ['Historic thatched pub in Girton combining authentic Nepalese cuisine with British pub classics'],
-            features: {
-              title: 'Why Guests Visit',
-              items: ['Authentic Nepalese cuisine', 'Historic thatched setting', 'Welcoming atmosphere']
-            },
-            images: {
-              main: '/restaurant-interior.jpg',
-              alt: 'Old Crown restaurant interior'
-            }
+        aboutSection: {
+          title: 'Welcome to Old Crown',
+          titleAccent: 'Old Crown',
+          description: [
+            'Experience Cambridge\'s most unique dining destination: England\'s largest thatched pub combining 16th-century heritage with authentic Himalayan flavours in the heart of Girton village.',
+            'From traditional Sunday roasts to award-winning Nepalese cuisine including signature momos and slow-cooked Khasi Ko Masu, we serve Cambridge University students, Silicon Fen professionals, Girton families, and curious tourists seeking an authentic English pub experience with extraordinary food.',
+            'Our expansive beer garden, live sports coverage, dog-friendly atmosphere, and convenient free parking make us the perfect destination for family gatherings, business lunches, student socials, and memorable dining experiences just minutes from Cambridge city centre.'
+          ],
+          features: {
+            title: 'Why Cambridge Chooses The Old Crown',
+            items: [
+              'England\'s largest thatched pub with 16th-century heritage',
+              'Cambridge\'s most authentic Nepalese & Himalayan cuisine',
+              'Expansive beer garden with free parking (rare in Cambridge)',
+              'Live sports, dog-friendly, perfect for students & families',
+              'Historic Girton village location, easy access from Cambridge',
+              'Traditional Sunday roasts meet exotic Himalayan spices'
+            ]
           },
+          images: {
+            main: '/restaurant-interior.jpg',
+            alt: 'Historic thatched interior of The Old Crown Girton featuring authentic Nepalese dining in Cambridge\'s most characterful pub'
+          }
+        },
           menuHighlights: {
             title: 'Our Signature Dishes',
             titleAccent: 'Signature',
