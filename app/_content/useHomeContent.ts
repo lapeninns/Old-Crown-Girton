@@ -76,7 +76,50 @@ export function useHomeContent(): HomeContent | null {
             subtitle: 'A taste of what we offer',
             ctaLabel: 'View Full Menu',
             ctaLink: '/menu',
-            featuredDishes: []
+            featuredDishes: [
+              {
+                title: 'Crispy Hot Wings',
+                description: 'Spiced grilled chicken wings with our signature marinade',
+                price: '£7.25',
+                image: '/dishes/CrispyHotWings.jpeg',
+                spiceLevel: 'medium' as const,
+              },
+              {
+                title: 'Himali Lamb',
+                description: 'Green curry seasoned with Himalayan salt and yoghurt blend with fresh mint, green chilli and Nepalese spice',
+                price: '£14.00',
+                image: '/dishes/HimaliLamb.jpeg',
+                spiceLevel: 'hot' as const,
+              },
+              {
+                title: 'Khasi Ko Masu (Goat Curry)',
+                description: 'A rich and flavoursome slow cooked goat on the bone/off the bone with unique blend of Nepalese spices',
+                price: '£14.00',
+                image: '/dishes/GoatCurry.jpeg',
+                spiceLevel: 'hot' as const,
+              },
+              {
+                title: 'Chicken Bhuna',
+                description: 'Traditional spiced curry with tender chicken pieces in a rich, thick sauce',
+                price: '£11.00',
+                image: '/dishes/ChickenBhuna.jpeg',
+                spiceLevel: 'medium' as const,
+              },
+              {
+                title: 'Chicken Curry',
+                description: 'Classic home-style curry with tender chicken in aromatic spices',
+                price: '£11.00',
+                image: '/dishes/ChickenCurry.jpeg',
+                spiceLevel: 'medium' as const,
+              },
+              {
+                title: 'Vindaloo',
+                description: 'Fiery hot curry with potatoes in a tangy, spiced sauce - for the brave!',
+                price: '£11.00',
+                image: '/dishes/Vindalo.jpeg',
+                spiceLevel: 'hot' as const,
+              }
+            ]
           }
         };
         
@@ -110,7 +153,50 @@ export function useHomeContent(): HomeContent | null {
             subtitle: 'A taste of what we offer',
             ctaLabel: 'View Full Menu',
             ctaLink: '/menu',
-            featuredDishes: []
+            featuredDishes: [
+              {
+                title: 'Crispy Hot Wings',
+                description: 'Spiced grilled chicken wings with our signature marinade',
+                price: '£7.25',
+                image: '/dishes/CrispyHotWings.jpeg',
+                spiceLevel: 'medium' as const,
+              },
+              {
+                title: 'Himali Lamb',
+                description: 'Green curry seasoned with Himalayan salt and yoghurt blend with fresh mint, green chilli and Nepalese spice',
+                price: '£14.00',
+                image: '/dishes/HimaliLamb.jpeg',
+                spiceLevel: 'hot' as const,
+              },
+              {
+                title: 'Khasi Ko Masu (Goat Curry)',
+                description: 'A rich and flavoursome slow cooked goat on the bone/off the bone with unique blend of Nepalese spices',
+                price: '£14.00',
+                image: '/dishes/GoatCurry.jpeg',
+                spiceLevel: 'hot' as const,
+              },
+              {
+                title: 'Chicken Bhuna',
+                description: 'Traditional spiced curry with tender chicken pieces in a rich, thick sauce',
+                price: '£11.00',
+                image: '/dishes/ChickenBhuna.jpeg',
+                spiceLevel: 'medium' as const,
+              },
+              {
+                title: 'Chicken Curry',
+                description: 'Classic home-style curry with tender chicken in aromatic spices',
+                price: '£11.00',
+                image: '/dishes/ChickenCurry.jpeg',
+                spiceLevel: 'medium' as const,
+              },
+              {
+                title: 'Vindaloo',
+                description: 'Fiery hot curry with potatoes in a tangy, spiced sauce - for the brave!',
+                price: '£11.00',
+                image: '/dishes/Vindalo.jpeg',
+                spiceLevel: 'hot' as const,
+              }
+            ]
           }
         });
       }

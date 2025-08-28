@@ -22,7 +22,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
         {/* Render only the active slide to avoid loading hidden images */}
         {slides[index] && (
           <div key={slides[index].id}>
-            <Slide slide={slides[index]} active={true} />
+            <Slide slide={slides[index]} slideIndex={index} active={true} />
           </div>
         )}
       </div>
