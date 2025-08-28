@@ -123,10 +123,10 @@ export default async function Page() {
       <RestaurantLayout>
   {/* Slideshow (replaces static hero for now) */}
   <Showcase />
+        <TestimonialsSection />
         <AboutSection />
         <MenuHighlights />
         <QuickLinksSection links={quickLinks} />
-        <TestimonialsSection />
         <TakeawayBanner />
         <LocationSection />
         <CallToActionSection 
