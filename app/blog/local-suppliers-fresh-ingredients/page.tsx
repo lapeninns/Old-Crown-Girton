@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -140,7 +141,7 @@ export default function LocalSuppliersPage() {
       
       <p>Come taste the difference that local sourcing makes, and join us in supporting the dedicated producers who make our exceptional menu possible.</p>
     `,
-    image: "/images/blog/local-ingredients.jpg",
+    image: Images.blog.localIngredients,
     category: "Local Sourcing",
     author: {
       name: "Emma Sutton",

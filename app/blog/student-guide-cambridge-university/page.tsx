@@ -62,7 +62,7 @@ export default function StudentGuideePage() {
       <h2>Building Memories Beyond the Classroom</h2>
       <p>Cambridge University provides world-class education, but the memories that last often come from the experiences outside lecture halls and libraries. Old Crown Girton offers the perfect setting for those conversations that define friendships, the meals that celebrate achievements, and the quiet moments that help you remember why you chose Cambridge in the first place.</p>
     `,
-    image: "/images/blog/student-guide.jpg",
+    image: "/images/slideshow/the-old-crown-pub-restaurant-interior-dining.jpg",
     category: "Student Life",
     author: {
       name: "James Mitchell",

@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -64,7 +65,7 @@ export default function MomoDumplingsPage() {
       
       <p>Don't be surprised if you find yourself planning your next visit before you've finished your first plate. There's something addictive about authentic momos that keeps people coming back, and we're proud to have introduced countless Cambridge residents to what might become their new favorite comfort food.</p>
     `,
-    image: "/images/blog/momo-dumplings.jpg",
+    image: Images.blog.momo,
     category: "Nepalese Cuisine",
     author: {
       name: "Raj Gurung",

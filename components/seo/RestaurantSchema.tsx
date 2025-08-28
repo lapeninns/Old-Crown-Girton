@@ -192,7 +192,7 @@ const MENU_ITEMS = {
       name: "Chicken Chilli",
       description: "Tender chicken pieces in a spicy tomato-based sauce with peppers and onions",
       price: "8.95",
-      image: "/dishes/chicken-chilli.jpg"
+      image: "/images/dishes/CrispyHotWings.jpeg"
     },
     {
       name: "Vegetable Samosa",
@@ -282,10 +282,10 @@ export const useRestaurantSchema = () => {
       currenciesAccepted: 'GBP',
       hasMenu: 'https://oldcrowngirton.co.uk/menu',
       image: [
-        '/hero-restaurant.jpg',
-        '/restaurant-interior.jpg',
-        '/restaurant/exterior.jpg',
-        '/restaurant/terrace.jpg'
+        '/images/slideshow/exterior-deck-umbrellas.jpg',
+        '/images/slideshow/interior-buddha-wall.jpg',
+        '/images/slideshow/beer-garden-long-view-benches.jpg',
+        '/images/slideshow/car-park-gravel-wide.jpg'
       ],
       logo: '/logos/old-crown-logo.png',
       sameAs: [

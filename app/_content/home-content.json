@@ -37,42 +37,42 @@
         "title": "Crispy Hot Wings",
         "description": "Spiced grilled chicken wings with our signature marinade",
         "price": "£7.25",
-        "image": "/dishes/CrispyHotWings.jpeg",
+        "image": "/images/dishes/CrispyHotWings.jpeg",
         "spiceLevel": "medium"
       },
       {
         "title": "Himali Lamb",
         "description": "Green curry seasoned with Himalayan salt and yoghurt blend with fresh mint, green chilli and Nepalese spice",
         "price": "£14.00",
-        "image": "/dishes/HimaliLamb.jpeg",
+        "image": "/images/dishes/HimaliLamb.jpeg",
         "spiceLevel": "hot"
       },
       {
         "title": "Khasi Ko Masu (Goat Curry)",
         "description": "A rich and flavoursome slow cooked goat on the bone/off the bone with unique blend of Nepalese spices",
         "price": "£14.00",
-        "image": "/dishes/GoatCurry.jpeg",
+        "image": "/images/dishes/GoatCurry.jpeg",
         "spiceLevel": "hot"
       },
       {
         "title": "Chicken Bhuna",
         "description": "Traditional spiced curry with tender chicken pieces in a rich, thick sauce",
         "price": "£11.00",
-        "image": "/dishes/ChickenBhuna.jpeg",
+        "image": "/images/dishes/ChickenBhuna.jpeg",
         "spiceLevel": "medium"
       },
       {
         "title": "Chicken Curry",
         "description": "Classic home-style curry with tender chicken in aromatic spices",
         "price": "£11.00",
-        "image": "/dishes/ChickenCurry.jpeg",
+        "image": "/images/dishes/ChickenCurry.jpeg",
         "spiceLevel": "medium"
       },
       {
         "title": "Vindaloo",
         "description": "Fiery hot curry with potatoes in a tangy, spiced sauce - for the brave!",
         "price": "£11.00",
-        "image": "/dishes/Vindalo.jpeg",
+        "image": "/images/dishes/Vindalo.jpeg",
         "spiceLevel": "hot"
       }
     ]

@@ -33,7 +33,7 @@ export default function DishCard({
       <div className="relative h-48 w-full">
         <Image
           src={image}
-          alt={title}
+          alt={`${title} - authentic Nepalese cuisine at The Old Crown Girton Cambridge`}
           fill
           className="object-cover"
           placeholder="blur"

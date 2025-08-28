@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -37,7 +38,7 @@ export default function BlogPostPage() {
       <h2>Looking Forward</h2>
       <p>As we continue to evolve, we remain committed to being both a guardian of Nepalese culinary traditions and a welcoming community hub for all. While we don't currently serve a traditional Sunday roast, our signature Nepalese dishes and British pub classics offer comforting options for every taste.</p>
     `,
-    image: "/images/blog/nepalese-cuisine-hero.jpg",
+    image: Images.blog.nepaleseHero,
     category: "Cuisine",
     author: {
       name: "Old Crown Team",

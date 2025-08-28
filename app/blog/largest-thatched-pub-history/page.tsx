@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -106,7 +107,7 @@ export default function ThatchedPubHistoryPage() {
       
       <p>Come and experience the remarkable story of England's largest thatched pub, where every visit adds another page to our ongoing history.</p>
     `,
-    image: "/images/blog/thatched-pub-exterior.jpg",
+    image: Images.blog.thatchedExterior,
     category: "History & Heritage",
     author: {
       name: "Dr. Margaret Whitfield",

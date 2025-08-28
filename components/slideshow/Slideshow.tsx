@@ -16,6 +16,9 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
 
   if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
 
+  const goPrev = () => setIndex((i) => (i - 1 + slideCount) % slideCount);
+  const goNext = () => setIndex((i) => (i + 1) % slideCount);
+
   return (
     <div className="relative w-full h-full" role="region" aria-label="Slideshow">
       <div className="slides-wrapper h-full">
@@ -27,7 +30,25 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
         )}
       </div>
 
-
+      {/* Controls */}
+      {slideCount > 1 && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-between px-2 md:px-4">
+          <button
+            aria-label="Previous slide"
+            onClick={goPrev}
+            className="pointer-events-auto bg-black/40 hover:bg-black/60 text-white rounded-full w-10 h-10 flex items-center justify-center"
+          >
+            ‹
+          </button>
+          <button
+            aria-label="Next slide"
+            onClick={goNext}
+            className="pointer-events-auto bg-black/40 hover:bg-black/60 text-white rounded-full w-10 h-10 flex items-center justify-center"
+          >
+            ›
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -116,6 +116,16 @@ const nextConfig = {
   // Advanced performance optimizations
   swcMinify: true,
   output: 'standalone',
+  async rewrites() {
+    return [
+      // Virtualize dish image paths under /images/dishes/* to actual /dishes/*
+      { source: '/images/dishes/:path*', destination: '/dishes/:path*' },
+      // Virtualize slideshow subfolders to the flat storage under /images/slideshow/*
+      { source: '/images/slideshow/interior/:path*', destination: '/images/slideshow/:path*' },
+      { source: '/images/slideshow/exterior/:path*', destination: '/images/slideshow/:path*' },
+      { source: '/images/slideshow/garden/:path*', destination: '/images/slideshow/:path*' },
+    ];
+  },
   
   // Bundle analysis environment variable
   ...(process.env.ANALYZE === 'true' && {

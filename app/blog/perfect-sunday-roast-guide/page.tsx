@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -44,7 +45,7 @@ export default function SundayRoastGuidePage() {
       <h2>Planning Your Visit</h2>
       <p>We recommend booking, especially for larger groups or peak Sunday times. Check our hours and menu before visiting.</p>
     `,
-    image: "/images/blog/sunday-roast.jpg",
+    image: Images.blog.sundayRoast,
     category: "Food & Dining",
     author: {
       name: "Old Crown Team",
@@ -270,4 +271,3 @@ export default function SundayRoastGuidePage() {
     </RestaurantLayout>
   );
 }
-

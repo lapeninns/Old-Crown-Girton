@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -151,7 +152,7 @@ export default function SportsViewingGuidePage() {
       
       <p>Come experience sports viewing as it should be: surrounded by fellow fans, enjoying great food and drink, and celebrating the passion that makes sport such an important part of community life. Whether you're a dedicated supporter or casual viewer, you'll find your place in our sporting community.</p>
     `,
-    image: "/images/blog/sports-viewing.jpg",
+    image: Images.blog.sportsViewing,
     category: "Sports & Entertainment",
     author: {
       name: "Tom Richardson",

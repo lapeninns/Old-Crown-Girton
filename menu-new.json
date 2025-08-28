@@ -18,116 +18,116 @@
         "name": "Onion Bhaji",
         "price": "\u00a34.25",
         "gluten_free": true,
-        "image": "/dishes/onion-bhaji.jpg"
+        "image": "/images/dishes/onion-bhaji.jpg"
     ,"labels": ["GF"]
       },
         {
           "name": "Mixed Platter-1",
           "price": "£13.00",
           "description": "A selection of starters including onion bhaji, samosas, chilli mogo, and chicken pakora.",
-          "image": "/dishes/ChickenCurry.jpeg"
+          "image": "/images/dishes/ChickenCurry.jpeg"
     ,"labels": ["spice-1", "GF"]
         },
       {
         "name": "Samosas (Veg/Meat)",
         "price": "\u00a34.50",
-        "image": "/dishes/veg-samosas.jpg"
+        "image": "/images/dishes/veg-samosas.jpg"
     ,"labels": ["veg"]
       },
       {
         "name": "Chilli Mogo",
         "price": "\u00a35.25",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Samosa Chaat",
         "price": "\u00a35.50",
-        "image": "/dishes/veg-samosas.jpg"
+        "image": "/images/dishes/veg-samosas.jpg"
       },
       {
         "name": "Garlic Mushroom",
         "price": "\u00a35.75",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Momo (Veg)",
         "price": "\u00a36.25",
         "description": "Famous traditional Nepalese dumplings made with various seasonal vegetables.",
-        "image": "/dishes/momo.jpg"
+        "image": "/images/dishes/momo.jpg"
       },
       {
         "name": "Stuff Tandoori Mushroom",
         "price": "\u00a36.25",
         "gluten_free": true,
-        "image": "/dishes/tandoori-platter.jpg"
+        "image": "/images/dishes/tandoori-platter.jpg"
       },
       {
         "name": "Chilli Paneer",
         "price": "\u00a36.25",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Chicken Pakora",
         "price": "\u00a36.25",
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Fish Pakora",
         "price": "\u00a36.25",
-        "image": "/dishes/fish-chips.jpg"
+        "image": "/images/dishes/fish-chips.jpg"
       },
       {
         "name": "Crispy Squid",
         "price": "\u00a36.50",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Chicken Wings",
         "price": "\u00a36.75",
         "gluten_free": true,
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Momo (Chicken)",
         "price": "\u00a36.75",
         "description": "Made with chicken mince and herba",
-        "image": "/dishes/momo.jpg"
+        "image": "/images/dishes/momo.jpg"
       },
       {
         "name": "Chilli Chicken",
         "price": "\u00a37.00",
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Crispy Hot Wings",
         "price": "\u00a37.25",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Chicken Tikka",
         "price": "\u00a37.50",
         "gluten_free": true,
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Sheek Kebab",
         "price": "\u00a37.50",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Lamb Chops",
         "price": "\u00a38.25",
         "gluten_free": true,
-        "image": "/dishes/lamb-curry.jpg"
+        "image": "/images/dishes/lamb-curry.jpg"
       },
       {
         "name": "Battered King Prawn",
         "price": "\u00a38.50",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       }
     ],
     "mixed_grills": [
@@ -135,33 +135,33 @@
         "name": "Galley's Veg Grill",
         "price": "\u00a311.00",
         "description": "Onion bhaji, mogo, samosas and paneer",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
     ,"labels": ["veg", "dry"]
       },
       {
         "name": "Small Mixed Grill",
         "price": "\u00a312.00",
         "description": "Chicken wings, chicken tikka, sheekh kebab, chicken pakora",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
     ,"labels": ["spice-2"]
       },
       {
         "name": "Regular Mixed Grill",
         "price": "\u00a315.00",
         "description": "Same as our small mixed grill plus lamb chops",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Large Mixed Grill",
         "price": "\u00a318.00",
         "description": "Same as our regular mixed grill plus, Kathmandu Tikka and fish pakora",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Xtra Large Special Mixed Grill",
         "price": "\u00a322.00",
         "description": "Same as our large mixed grill plus king prawn",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       }
     ],
     "old_crown_speciality_dishes": [
@@ -170,7 +170,7 @@
         "price": "£12.00",
         "description": "Traditional Nepalese speciality chicken cooked with dried crushed chilli and crushed garlic",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg",
+        "image": "/images/dishes/curry-selection.jpg",
         "labels": ["spice-2", "GF", "dry"]
       },
       {
@@ -178,7 +178,7 @@
         "price": "£13.00",
         "description": "Traditional Nepalese speciality lamb cooked with dried crushed chilli and crushed garlic",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg",
+        "image": "/images/dishes/curry-selection.jpg",
         "labels": ["spice-2", "GF", "dry"]
       },
       {
@@ -186,7 +186,7 @@
         "price": "£12.00",
         "description": "Succulent chicken cubes marinated in cheese and cream with a hint of crushed black peppers.",
         "gluten_free": true,
-        "image": "/dishes/chicken-tikka.jpg",
+        "image": "/images/dishes/chicken-tikka.jpg",
         "labels": ["spice-3", "GF"]
       },
       {
@@ -194,114 +194,114 @@
         "price": "£13.00",
         "description": "Succulent lamb cubes marinated in cheese and cream with a hint of crushed black peppers.",
         "gluten_free": true,
-        "image": "/dishes/chicken-tikka.jpg",
+        "image": "/images/dishes/chicken-tikka.jpg",
         "labels": ["spice-3", "GF"]
       },
       {
         "name": "Veggie Biryani",
         "price": "£13.00",
         "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
-        "image": "/dishes/biryani.jpg"
+        "image": "/images/dishes/biryani.jpg"
       },
       {
         "name": "Chicken Biryani",
         "price": "£14.00",
         "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Lamb Biryani",
         "price": "£15.00",
         "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
-        "image": "/dishes/lamb-curry.jpg"
+        "image": "/images/dishes/lamb-curry.jpg"
       },
       {
         "name": "King Prawn Biryani",
         "price": "£16.00",
         "description": "A well seasoned one pot dish, made by layering fragrant basmati rice",
-        "image": "/dishes/biryani.jpg"
+        "image": "/images/dishes/biryani.jpg"
       },
       {
         "name": "Paneer Saslick",
         "price": "\u00a313.00",
         "description": "Soft cheese cooked in tandoor oren served in sizzler with onion and peppers",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Chicken Rum Rum",
         "price": "\u00a313.00",
         "description": "Must ny Nepalese duh. Chicken cooked with himalayan herbs, nepalese black peppers itimurl",
         "gluten_free": true,
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Khasi Ko Masu (Goat Curry)",
         "price": "\u00a313.50",
         "description": "A rich and flavoursome slow cooked gear in the bong/off the bane with unique blend of Nepalese spices.",
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Rack of Lamb",
         "price": "\u00a314.00",
         "description": "Lamb chops marinated overnight to give extra softnem and tender, cooked in tandoor",
         "gluten_free": true,
-        "image": "/dishes/lamb-curry.jpg"
+        "image": "/images/dishes/lamb-curry.jpg"
       },
       {
         "name": "Special Butter Chicken",
         "price": "\u00a314.00",
         "description": "One butter chicken is irwsistibility creamy with mothi flavour and a hint of chilli. Fancy a mild one? Let us know.",
         "gluten_free": true,
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Himali Lamb",
         "price": "\u00a314.00",
         "description": "Green curry samoned with Himalayan saltand yoghurt bend with fresh mint, green chill and Nepalese apie",
         "gluten_free": true,
-        "image": "/dishes/lamb-curry.jpg"
+        "image": "/images/dishes/lamb-curry.jpg"
       },
       {
         "name": "Pokhareli Fish Curry",
         "price": "\u00a314.00",
         "description": "Another traditional flavourful curry with a hint of mustard, coconut milk, xhilarating",
         "gluten_free": true,
-        "image": "/dishes/lamb-curry.jpg"
+        "image": "/images/dishes/lamb-curry.jpg"
       },
       {
         "name": "Rara King Prawn",
         "price": "\u00a315.00",
         "description": "King prawn cooled in coconut hased medium sauce with blend of Nepalese spices, termind and mustard",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Salmon Tikka",
         "price": "\u00a316.00",
         "description": "Pieces of aadion flavoured with cumin seeds and chargrilled in tandoor.",
         "gluten_free": true,
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Tandoori King Prawn",
         "price": "\u00a318.00",
         "description": "King prawn marinated in nepalese spices and herbs and onokel in tandour.",
         "gluten_free": true,
-        "image": "/dishes/tandoori-platter.jpg"
+        "image": "/images/dishes/tandoori-platter.jpg"
       },
       {
         "name": "Lamb Shank",
         "price": "\u00a320.00",
         "description": "Absolutely delicious and succulent, this LAMB dich is to die for or shall we say to live forf",
         "gluten_free": true,
-        "image": "/dishes/lamb-curry.jpg"
+        "image": "/images/dishes/lamb-curry.jpg"
       }
     ],
     "home_made_authentic_dishes": {
       "curry_types": [
           "gluten_free": true,
-          "image": "/dishes/curry-selection.jpg",
+          "image": "/images/dishes/curry-selection.jpg",
           "labels": ["spice-2", "GF", "dry"]
         },
         {
@@ -309,7 +309,7 @@
           "price": "£13.00",
           "description": "Traditional Nepalese speciality lamb cooked with dried crushed chilli and crushed garlic",
           "gluten_free": true,
-          "image": "/dishes/curry-selection.jpg",
+          "image": "/images/dishes/curry-selection.jpg",
           "labels": ["spice-2", "GF", "dry"]
         },
         {
@@ -317,7 +317,7 @@
           "price": "£12.00",
           "description": "Succulent chicken cubes marinated in cheese and cream with a hint of crushed black peppers.",
           "gluten_free": true,
-          "image": "/dishes/chicken-tikka.jpg",
+          "image": "/images/dishes/chicken-tikka.jpg",
           "labels": ["spice-3", "GF"]
         },
         {
@@ -325,72 +325,72 @@
           "price": "£13.00",
           "description": "Succulent lamb cubes marinated in cheese and cream with a hint of crushed black peppers.",
           "gluten_free": true,
-          "image": "/dishes/chicken-tikka.jpg",
+          "image": "/images/dishes/chicken-tikka.jpg",
           "labels": ["spice-3", "GF"]
         },
         "price": "\u00a314.00",
         "description": "A well semarned one pot dish, made by layering fragrant barmati rice",
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Lamb Biryani",
         "price": "\u00a315.00",
         "description": "A well semarned one pot dish, made by layering fragrant barmati rice",
-        "image": "/dishes/lamb-curry.jpg"
+        "image": "/images/dishes/lamb-curry.jpg"
       },
       {
         "name": "King Prawn Biryani",
         "price": "\u00a316.00",
         "description": "A well semarned one pot dish, made by layering fragrant barmati rice",
-        "image": "/dishes/biryani.jpg"
+        "image": "/images/dishes/biryani.jpg"
       }
     ],
     "sides": [
       {
         "name": "Tadka Daal (Lentil)",
         "price": "\u00a36.00",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Gurkha Aalo",
         "price": "\u00a36.00",
         "description": "Dry potato cooked in Nepalese special herbs",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Saag Aalo",
         "price": "\u00a36.00",
         "description": "Spinach and potato",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Chana Masala",
         "price": "\u00a36.00",
         "description": "Chickpeas",
-        "image": "/dishes/chicken-tikka-masala.jpg"
+        "image": "/images/dishes/chicken-tikka-masala.jpg"
       },
       {
         "name": "Saag Bhaji",
         "price": "\u00a36.00",
         "description": "Spinach",
-        "image": "/dishes/onion-bhaji.jpg"
+        "image": "/images/dishes/onion-bhaji.jpg"
       },
       {
         "name": "Mushroom Bhaji",
         "price": "\u00a36.00",
-        "image": "/dishes/onion-bhaji.jpg"
+        "image": "/images/dishes/onion-bhaji.jpg"
       },
       {
         "name": "Saag Paneer",
         "price": "\u00a36.50",
         "description": "Fresh spinach and cottage cheese",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Matar Paneer",
         "price": "\u00a36.50",
         "description": "Green peas and cottage cheese",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Special Veggie Tarkari",
@@ -398,7 +398,7 @@
         "description": "Nepalese style vegetarian semi dry curry cooled with aromatic splos and herbe full of flavours",
         "vegetarian": true,
         "gluten_free": true,
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       }
     ],
     "rice": [
@@ -514,18 +514,18 @@
       {
         "name": "Chicken Strips with Chips",
         "price": "\u00a39.00",
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Peri-Peri Chicken with Chips",
         "price": "\u00a39.00",
-        "image": "/dishes/chicken-tikka.jpg"
+        "image": "/images/dishes/chicken-tikka.jpg"
       },
       {
         "name": "Fish & Chips",
         "price": "\u00a312.00",
         "description": "MEDIUM BATTERED COD FISH SERVED WITH TARTAR SAUCE",
-        "image": "/dishes/fish-chips.jpg"
+        "image": "/images/dishes/fish-chips.jpg"
       }
     ],
     "burgers": [
@@ -566,29 +566,29 @@
       {
         "name": "Gulab Jamun",
         "price": "\u00a34.50",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Nepalese Rice Pudding (Kheer)",
         "price": "\u00a34.50",
-        "image": "/dishes/biryani.jpg"
+        "image": "/images/dishes/biryani.jpg"
       },
       {
         "name": "Chocolate Fondant",
         "price": "\u00a34.50",
         "description": "(chocolate sponge with chocolate liquid in the middle)",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Punky Ice Cream",
         "price": "\u00a35.00",
         "description": "(Kiddies ice cream)",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       },
       {
         "name": "Vanilla and Honey Toffee Ice Cream",
         "price": "\u00a36.50",
-        "image": "/dishes/curry-selection.jpg"
+        "image": "/images/dishes/curry-selection.jpg"
       }
     ]
   },

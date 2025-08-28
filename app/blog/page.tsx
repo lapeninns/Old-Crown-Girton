@@ -1,6 +1,7 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
+import { Images } from '@/src/lib/images';
 import { BlogHero, BlogFeatured, BlogGrid, BlogCategories } from './_components';
 
 // SEO Metadata
@@ -23,7 +24,7 @@ const featuredPost = {
   id: "authentic-momo-dumplings-nepalese-cuisine",
   title: "A Guide to Authentic Momo Dumplings and Nepalese Cuisine at Old Crown Girton",
   excerpt: "Discover the art of authentic Nepalese momo dumplings and explore the rich flavors of Himalayan cuisine at Cambridge's most unique restaurant destination.",
-  image: "/images/blog/momo-dumplings.jpg",
+  image: Images.blog.momo,
   category: "Nepalese Cuisine",
   author: "Raj Gurung",
   publishedDate: "2024-11-15",
@@ -36,7 +37,7 @@ const blogPosts = [
     id: "business-lunch-cambridge-guide",
     title: "The Ultimate Business Lunch Destination in Cambridge",
     excerpt: "Discover why Old Crown Girton has become the go-to choice for professionals seeking the perfect balance of quality cuisine, professional atmosphere, and convenient location.",
-    image: "/images/blog/business-lunch.jpg",
+    image: Images.blog.businessLunch,
     category: "Business Dining",
     author: "Emma Sutton",
     publishedDate: "2024-11-25",
@@ -47,7 +48,7 @@ const blogPosts = [
     id: "dog-friendly-dining-guide",
     title: "The Ultimate Dog-Friendly Dining Experience at Old Crown Girton",
     excerpt: "Discover why Old Crown Girton has become Cambridge's favourite destination for dining with four-legged family members.",
-    image: "/images/blog/dog-friendly-dining.jpg",
+    image: Images.blog.dogFriendly,
     category: "Dog-Friendly",
     author: "Sarah Mitchell",
     publishedDate: "2024-12-20",
@@ -58,7 +59,7 @@ const blogPosts = [
     id: "student-guide-cambridge-university",
     title: "A Cambridge Student's Guide to Old Crown Girton",
     excerpt: "Discover why Old Crown Girton has become the go-to destination for Cambridge University students seeking affordable quality dining, unique experiences, and the perfect study break.",
-    image: "/images/blog/student-guide.jpg",
+    image: Images.blog.studentGuide,
     category: "Student Life",
     author: "James Mitchell",
     publishedDate: "2024-11-20",
@@ -69,7 +70,7 @@ const blogPosts = [
     id: "perfect-sunday-roast-guide",
     title: "Sunday Roast in Cambridge: Where to Go + Our Alternatives",
     excerpt: "We don't currently serve a traditional Sunday roast. Explore Cambridge options and what to try at our thatched pub instead.",
-    image: "/images/blog/sunday-roast.jpg",
+    image: Images.blog.sundayRoast,
     category: "Food & Dining",
     author: "Old Crown Team",
     publishedDate: "2024-12-15",
@@ -80,7 +81,7 @@ const blogPosts = [
     id: "largest-thatched-pub-history",
     title: "The Remarkable History of England's Largest Thatched Pub",
     excerpt: "Journey through centuries of history at Old Crown Girton, from its medieval origins to its current status as a unique dining destination.",
-    image: "/images/blog/thatched-pub-exterior.jpg",
+    image: Images.blog.thatchedExterior,
     category: "History & Heritage",
     author: "Dr. Margaret Whitfield",
     publishedDate: "2024-12-10",
@@ -91,7 +92,7 @@ const blogPosts = [
     id: "ultimate-sports-viewing-guide",
     title: "The Ultimate Sports Viewing Experience at Old Crown Girton",
     excerpt: "Discover why Old Crown Girton has become Cambridge's premier destination for watching live sports with unbeatable atmosphere and crystal-clear viewing.",
-    image: "/images/blog/sports-viewing.jpg",
+    image: Images.blog.sportsViewing,
     category: "Sports & Entertainment",
     author: "Tom Richardson",
     publishedDate: "2024-12-05",
@@ -102,7 +103,7 @@ const blogPosts = [
     id: "local-suppliers-fresh-ingredients",
     title: "Supporting Local: Our Commitment to Fresh Ingredients and Community Suppliers",
     excerpt: "Discover how Old Crown Girton's partnership with local suppliers creates exceptional flavors while supporting the Cambridgeshire community.",
-    image: "/images/blog/local-ingredients.jpg",
+    image: Images.blog.localIngredients,
     category: "Local Sourcing",
     author: "Emma Sutton",
     publishedDate: "2024-11-30",
@@ -113,7 +114,7 @@ const blogPosts = [
     id: "nepalese-cuisine-journey",
     title: "The Journey of Nepalese Cuisine to Girton Village",
     excerpt: "Discover how authentic Nepalese flavors found their home in Cambridge's historic thatched pub, creating a unique dining experience.",
-    image: "/images/blog/nepalese-cuisine-hero.jpg",
+    image: Images.blog.nepaleseHero,
     category: "Cuisine",
     author: "Old Crown Team",
     publishedDate: "2024-08-15",

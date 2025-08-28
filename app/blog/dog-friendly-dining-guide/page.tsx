@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -80,7 +81,7 @@ export default function DogFriendlyDiningPage() {
       
       <p>Come discover why so many Cambridge dog owners consider us their second home. Your dog will thank you, and you'll understand why we've become the go-to destination for four-legged family dining in Cambridgeshire.</p>
     `,
-    image: "/images/blog/dog-friendly-dining.jpg",
+    image: Images.blog.dogFriendly,
     category: "Dog-Friendly",
     author: {
       name: "Sarah Mitchell",

@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Images } from '@/src/lib/images';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -49,7 +50,7 @@ export default function BusinessLunchGuidePage() {
       
       <p>Whether you're impressing a new client, negotiating a partnership, or celebrating a successful project with your team, Old Crown Girton provides the professional yet welcoming environment that makes business dining truly effective.</p>
     `,
-    image: "/images/blog/business-lunch.jpg",
+    image: Images.blog.businessLunch,
     category: "Business Dining",
     author: {
       name: "Emma Sutton",
