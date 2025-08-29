@@ -19,8 +19,8 @@ const MenuCTASection = dynamic(() => import("@/components/restaurant/sections/Me
 
 export const metadata: Metadata = {
 	title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
-	description: 'Explore our searchable menu featuring authentic Nepalese cuisine, momos, dal bhat & curries, plus traditional British pub classics. Advanced search and dietary filters available. Takeaway available.',
-	keywords: 'searchable menu Cambridge, Nepalese menu Cambridge, authentic Nepalese food Girton, momos Cambridge, dal bhat, curry takeaway Cambridge, pub food menu Girton, dietary filters menu, nutrition information',
+	description: 'Explore our searchable menu featuring authentic Nepalese cuisine, momo, dal bhat & curries, plus traditional British pub classics. Advanced search and dietary filters available. Takeaway available.',
+	keywords: 'searchable menu Cambridge, Nepalese menu Cambridge, authentic Nepalese food Girton, momo Cambridge, dal bhat, curry takeaway Cambridge, pub food menu Girton, dietary filters menu, nutrition information',
 	openGraph: {
 		title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
 		description: 'Discover our interactive menu with search and dietary filters, combining authentic Nepalese cuisine with traditional British pub favorites at Girton\'s historic thatched pub',

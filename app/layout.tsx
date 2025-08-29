@@ -6,7 +6,7 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.co.uk'),
   title: 'The Old Crown Girton | Historic Thatched Pub & Nepalese Restaurant',
-  description: 'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223 276027',
+  description: 'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223277217',
 };
 
 // Minimal inline scripts injected into the server HTML to ensure tests

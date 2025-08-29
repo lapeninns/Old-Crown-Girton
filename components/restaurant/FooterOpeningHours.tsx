@@ -32,7 +32,7 @@ export default function FooterOpeningHours() {
       <div className="text-sm text-neutral-100">
         <p className="font-medium">Hours</p>
         <p>Call for current hours</p>
-        <p>01223 276027</p>
+        <p>01223277217</p>
       </div>
     );
   }

@@ -28,7 +28,7 @@ export default function BlogPostPage() {
       <h2>A Culinary Bridge Between Cultures</h2>
       <p>Our journey began with a simple vision: to introduce the Cambridge community to the incredible diversity and depth of Nepalese cuisine while preserving the historic charm and community feel that makes Old Crown Girton special.</p>
       
-      <p>Nepal's cuisine reflects the country's position as a cultural crossroads between India and Tibet, creating unique flavors that are both familiar and exciting. Our momos (traditional dumplings) have become a local favorite, while our dal bhat (lentil curry with rice) offers comfort food with a Himalayan twist.</p>
+      <p>Nepal's cuisine reflects the country's position as a cultural crossroads between India and Tibet, creating unique flavors that are both familiar and exciting. Our momo (traditional dumplings) have become a local favorite, while our dal bhat (lentil curry with rice) offers comfort food with a Himalayan twist.</p>
       
       <h2>Preserving Tradition in a Historic Setting</h2>
       <p>What makes our approach special is how we've integrated these authentic recipes into the fabric of village life. Our head chef, who grew up in Kathmandu, works closely with local suppliers to source the freshest ingredients while maintaining the traditional preparation methods passed down through generations.</p>

@@ -93,7 +93,7 @@ export default function ThatchedPubHistoryPage() {
       <h2>From Historic Heritage to Modern Innovation</h2>
       <p>Perhaps the most remarkable chapter in Old Crown Girton's long history is being written today. While preserving every aspect of our architectural heritage, we've introduced something completely new: authentic Nepalese cuisine served alongside traditional British pub food.</p>
       
-      <p>This cultural fusion represents the best of both preservation and innovation. We honor our past while embracing the multicultural reality of modern Britain. Visitors can enjoy traditional momos or curry beneath the same timber beams that have sheltered generations of local residents.</p>
+      <p>This cultural fusion represents the best of both preservation and innovation. We honor our past while embracing the multicultural reality of modern Britain. Visitors can enjoy traditional momo or curry beneath the same timber beams that have sheltered generations of local residents.</p>
       
       <h2>Looking Toward the Future</h2>
       <p>As custodians of this remarkable building, we understand our responsibility to future generations. This means continuing the traditions of maintenance and care that have preserved Old Crown Girton for over 600 years while adapting to serve contemporary needs.</p>

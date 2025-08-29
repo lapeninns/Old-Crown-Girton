@@ -6,12 +6,12 @@ import dynamic from 'next/dynamic';
 // SEO Metadata
 export const metadata = getSEOTags({
   title: "Contact Old Crown Girton - Book Table | Directions | Opening Hours",
-  description: "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223 276027. Free parking available.",
+  description: "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223277217. Free parking available.",
   keywords: ["Old Crown Girton contact", "book table Girton pub", "Girton pub phone number", "Old Crown directions", "Cambridge pub booking", "Girton restaurant address"],
   canonicalUrlRelative: "/contact",
   openGraph: {
     title: "Contact Old Crown Girton - Book Table | Directions",
-    description: "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223 276027.",
+    description: "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223277217.",
     url: "https://oldcrowngirton.co.uk/contact",
   },
 });
@@ -56,7 +56,7 @@ export default async function ContactPage() {
           },
           "url": "https://oldcrowngirton.co.uk",
           "telephone": "+441223276027",
-          "email": "info@oldcrowngirton.co.uk",
+          "email": "oldcrown@lapeninns.com",
           "priceRange": "££",
           "servesCuisine": ["Nepalese", "British", "Pub food"],
           "acceptsReservations": true,
@@ -115,7 +115,7 @@ export default async function ContactPage() {
           "@type": "ContactPoint",
           "telephone": "+441223276027",
           "contactType": "Reservations",
-          "email": "info@oldcrowngirton.co.uk",
+          "email": "oldcrown@lapeninns.com",
           "areaServed": ["Girton", "Cambridge", "Cambridgeshire"],
           "availableLanguage": ["English", "Nepali"]
         }

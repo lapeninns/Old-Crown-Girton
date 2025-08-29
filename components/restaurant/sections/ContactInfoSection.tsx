@@ -106,11 +106,11 @@ export default function ContactInfoSection({
           </div>
         </div>
               <a
-                href={`mailto:${'info@oldcrowngirton.co.uk'}`}
+                href={`mailto:${'oldcrown@lapeninns.com'}`}
                 className="inline-block bg-brand-600 text-neutral-50 font-semibold py-2 px-4 rounded focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60"
-                aria-label="Email restaurant at info@oldcrowngirton.co.uk"
+                aria-label="Email restaurant at oldcrown@lapeninns.com"
               >
-                info@oldcrowngirton.co.uk
+                oldcrown@lapeninns.com
               </a>
       </div>
     </div>

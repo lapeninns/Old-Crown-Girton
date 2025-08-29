@@ -71,8 +71,8 @@ export const mockMarketing: Marketing = {
 
 export const mockRestaurant: Restaurant = {
   name: 'Old Crown',
-  phone: '01223 276027',
-  email: 'info@oldcrowngirton.co.uk',
+  phone: '01223277217',
+  email: 'oldcrown@lapeninns.com',
   address: {
     street: 'High Street',
     city: 'Cambridge',

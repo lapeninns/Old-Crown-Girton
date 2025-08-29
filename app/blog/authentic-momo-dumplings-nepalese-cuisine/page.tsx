@@ -7,7 +7,7 @@ import { Images } from '@/src/lib/images';
 // SEO Metadata
 export const metadata = getSEOTags({
   title: "Authentic Momo Dumplings Cambridge | Best Nepalese Restaurant Old Crown Girton",
-  description: "Discover authentic Nepalese momo dumplings at Old Crown Girton. Cambridge's best Nepalese restaurant serving traditional Himalayan momos, dal bhat, and curry in historic thatched pub setting.",
+  description: "Discover authentic Nepalese momo dumplings at Old Crown Girton. Cambridge's best Nepalese restaurant serving traditional Himalayan momo, dal bhat, and curry in historic thatched pub setting.",
   keywords: ["momo dumplings Cambridge", "Nepalese restaurant Cambridge", "authentic Nepalese food", "best curry Cambridge", "Himalayan food Cambridge", "Nepalese food Cambridge"],
   canonicalUrlRelative: "/blog/authentic-momo-dumplings-nepalese-cuisine",
   openGraph: {
@@ -26,22 +26,22 @@ export default function MomoDumplingsPage() {
       <p>In the heart of Girton village, inside England's largest thatched pub, something extraordinary is happening. The ancient art of Nepalese cooking is being preserved and celebrated, bringing the authentic flavors of the Himalayas to Cambridge. At the center of this culinary journey are our signature momo dumplings - a dish that represents centuries of tradition and the soul of Nepalese cuisine.</p>
       
       <h2>What Are Momo Dumplings?</h2>
-      <p>Momos are traditional Nepalese dumplings that originated in Tibet and have become Nepal's most beloved comfort food. These delicate parcels consist of thin dough wrapped around carefully seasoned fillings, then steamed to perfection. Our momo dumplings at Old Crown Girton are handmade using recipes passed down through generations, ensuring every bite delivers authentic Himalayan flavors.</p>
+      <p>momo are traditional Nepalese dumplings that originated in Tibet and have become Nepal's most beloved comfort food. These delicate parcels consist of thin dough wrapped around carefully seasoned fillings, then steamed to perfection. Our momo dumplings at Old Crown Girton are handmade using recipes passed down through generations, ensuring every bite delivers authentic Himalayan flavors.</p>
       
-      <p>Unlike Chinese dumplings or other Asian alternatives, Nepalese momos have their own distinct character. The dough is rolled thinner, the seasoning blend includes unique Himalayan spices, and the folding technique creates distinctive pleated patterns that aren't just beautiful - they help the momos cook evenly and hold the perfect amount of flavorful filling.</p>
+      <p>Unlike Chinese dumplings or other Asian alternatives, Nepalese momo have their own distinct character. The dough is rolled thinner, the seasoning blend includes unique Himalayan spices, and the folding technique creates distinctive pleated patterns that aren't just beautiful - they help the momo cook evenly and hold the perfect amount of flavorful filling.</p>
       
       <h2>Our Authentic Momo Making Process</h2>
-      <p>Every morning, our kitchen team begins the meticulous process of creating fresh momos. The dough is mixed from scratch using just flour, water, and a pinch of salt - simplicity that allows the filling flavors to shine. Each piece is hand-rolled to achieve the perfect thickness, then carefully filled with our signature mixtures.</p>
+      <p>Every morning, our kitchen team begins the meticulous process of creating fresh momo. The dough is mixed from scratch using just flour, water, and a pinch of salt - simplicity that allows the filling flavors to shine. Each piece is hand-rolled to achieve the perfect thickness, then carefully filled with our signature mixtures.</p>
       
-      <p>Our vegetable momos feature a aromatic blend of cabbage, carrots, onions, ginger, garlic, and traditional Nepalese spices including cumin, coriander, and fenugreek. The chicken momos use fresh, locally-sourced chicken mince combined with the same vegetable base, creating a satisfying and well-balanced filling that's neither too heavy nor too light.</p>
+      <p>Our vegetable momo feature a aromatic blend of cabbage, carrots, onions, ginger, garlic, and traditional Nepalese spices including cumin, coriander, and fenugreek. The chicken momo use fresh, locally-sourced chicken mince combined with the same vegetable base, creating a satisfying and well-balanced filling that's neither too heavy nor too light.</p>
       
       <h2>The Art of Momo Folding</h2>
-      <p>Perhaps the most skilled aspect of momo preparation is the folding technique. Our experienced chefs create 16-18 pleats around each dumpling, a process that requires years to master. This isn't just for aesthetics - the pleating technique ensures the momos maintain their shape during steaming and creates the perfect texture contrast between the soft, yielding exterior and the flavorful interior.</p>
+      <p>Perhaps the most skilled aspect of momo preparation is the folding technique. Our experienced chefs create 16-18 pleats around each dumpling, a process that requires years to master. This isn't just for aesthetics - the pleating technique ensures the momo maintain their shape during steaming and creates the perfect texture contrast between the soft, yielding exterior and the flavorful interior.</p>
       
-      <p>Watching our team fold momos is mesmerizing - their hands move with practiced precision, creating perfect dumplings at remarkable speed. Each momo is a small work of art, consistent in size and shape, ensuring even cooking and an attractive presentation that honors the tradition behind the dish.</p>
+      <p>Watching our team fold momo is mesmerizing - their hands move with practiced precision, creating perfect dumplings at remarkable speed. Each momo is a small work of art, consistent in size and shape, ensuring even cooking and an attractive presentation that honors the tradition behind the dish.</p>
       
-      <h2>Beyond Momos: Exploring Our Nepalese Menu</h2>
-      <p>While momos are our signature, they're just the beginning of your Nepalese culinary journey at Old Crown Girton. Our dal bhat - the national dish of Nepal - offers a complete, nutritious meal featuring lentil curry (dal) served with rice (bhat), along with seasonal vegetables, pickles, and your choice of curry.</p>
+      <h2>Beyond momo: Exploring Our Nepalese Menu</h2>
+      <p>While momo are our signature, they're just the beginning of your Nepalese culinary journey at Old Crown Girton. Our dal bhat - the national dish of Nepal - offers a complete, nutritious meal featuring lentil curry (dal) served with rice (bhat), along with seasonal vegetables, pickles, and your choice of curry.</p>
       
       <p>Our curry selection showcases the diversity of Nepalese cuisine, which draws influences from Indian, Tibetan, and Chinese cooking traditions while maintaining its own distinct character. Our chefs use authentic spice blends imported directly from Nepal, ensuring flavors that transport you to the markets of Kathmandu.</p>
       
@@ -56,14 +56,14 @@ export default function MomoDumplingsPage() {
       <p>Our location in a traditional English pub creates an unexpected but delightful contrast - the familiar comfort of a village pub setting combined with the exotic excitement of discovering authentic Himalayan flavors. It's this combination that makes Old Crown Girton truly unique in the Cambridge dining scene.</p>
       
       <h2>Pairing Nepalese Food with English Pub Atmosphere</h2>
-      <p>One might think Nepalese cuisine and English pub culture would clash, but the opposite is true. Both traditions emphasize community, sharing, and taking time to enjoy good food with good company. Our spacious beer garden provides the perfect setting for enjoying momos with friends, while our selection of real ales and wines complement the aromatic spices beautifully.</p>
+      <p>One might think Nepalese cuisine and English pub culture would clash, but the opposite is true. Both traditions emphasize community, sharing, and taking time to enjoy good food with good company. Our spacious beer garden provides the perfect setting for enjoying momo with friends, while our selection of real ales and wines complement the aromatic spices beautifully.</p>
       
       <p>Many customers discover that our Nepalese dishes pair wonderfully with traditional English beverages. The clean, crisp flavors of a well-kept bitter provide an excellent counterpoint to our mildly spiced curries, while our house wines are selected specifically to complement both our Nepalese and traditional British offerings.</p>
       
       <h2>Your First Momo Experience</h2>
       <p>For newcomers to Nepalese cuisine, we recommend starting with our mixed momo plate, which allows you to try both vegetable and chicken varieties. Each order comes with our homemade chutney - a spicy, tangy accompaniment that perfectly complements the dumplings.</p>
       
-      <p>Don't be surprised if you find yourself planning your next visit before you've finished your first plate. There's something addictive about authentic momos that keeps people coming back, and we're proud to have introduced countless Cambridge residents to what might become their new favorite comfort food.</p>
+      <p>Don't be surprised if you find yourself planning your next visit before you've finished your first plate. There's something addictive about authentic momo that keeps people coming back, and we're proud to have introduced countless Cambridge residents to what might become their new favorite comfort food.</p>
     `,
     image: Images.blog.momo,
     category: "Nepalese Cuisine",
@@ -213,7 +213,7 @@ export default function MomoDumplingsPage() {
             },
             {
               "@type": "Question",
-              "name": "Are your momos made fresh daily?",
+              "name": "Are your momo made fresh daily?",
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Yes, all our momo dumplings are handmade fresh every morning using traditional techniques and recipes passed down through generations."
@@ -313,8 +313,8 @@ export default function MomoDumplingsPage() {
 
             {/* Call to Action */}
             <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
-              <h3 className="text-2xl font-bold mb-4">Ready to Try Authentic Momos?</h3>
-              <p className="text-brand-100 mb-6">Experience the authentic flavors of Nepal in Cambridge's most unique setting. Book your table today and discover why our momos are becoming legendary.</p>
+              <h3 className="text-2xl font-bold mb-4">Ready to Try Authentic momo?</h3>
+              <p className="text-brand-100 mb-6">Experience the authentic flavors of Nepal in Cambridge's most unique setting. Book your table today and discover why our momo are becoming legendary.</p>
               <Link 
                 href="/book"
                 className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50"

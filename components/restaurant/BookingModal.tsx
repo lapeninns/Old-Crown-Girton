@@ -236,7 +236,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   className="text-accent font-semibold hover:underline"
                   aria-label="Open booking dialog"
                 >
-                  01223 276027
+                  01223277217
                 </a>
               </div>
 

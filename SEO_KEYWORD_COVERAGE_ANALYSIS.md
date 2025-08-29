@@ -22,7 +22,7 @@ Based on the comprehensive Local SEO Research document, I have analyzed and ensu
 - **Primary:** "Authentic Momo Dumplings & Nepalese Cuisine" (comprehensive 1,680-word guide)
 - **Secondary:** "Journey of Nepalese Cuisine to Girton Village"
 - **Supporting:** All other blog posts mention Nepalese cuisine as key differentiator
-- **Specific dishes:** Detailed coverage of momos, dal bhat, and curry varieties
+- **Specific dishes:** Detailed coverage of momo, dal bhat, and curry varieties
 
 #### 3. Feature-Based Keywords
 **Research Keywords:** "Sunday roast Girton", "Sunday lunch Cambridge", "dog friendly pubs Cambridge", "pubs showing football Cambridge", "pub with live sport Cambridge"

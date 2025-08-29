@@ -66,7 +66,7 @@ export default async function AboutPage() {
             "longitude": 0.0731
           },
           "telephone": "+441223276027",
-          "email": "info@oldcrowngirton.co.uk",
+          "email": "oldcrown@lapeninns.com",
           "foundingDate": "1930",
           "sameAs": [
             "https://www.facebook.com/oldcrowngirton",

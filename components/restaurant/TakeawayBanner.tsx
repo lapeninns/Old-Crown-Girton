@@ -23,7 +23,7 @@ export default function TakeawayBanner() {
               href="tel:01223276027"
               className="bg-accent-500 text-neutral-900 font-bold py-4 px-8 rounded-lg text-lg shadow-lg"
             >
-              📞 Call to Order: 01223 276027
+              📞 Call to Order: 01223277217
             </a>
           </div>
 

@@ -3,6 +3,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Slide from './Slide';
 import { slides as defaultSlides } from './slides';
+import { useImagePreloader } from './useImagePreloader';
+import SlideshowDebugger from './SlideshowDebugger';
 
 const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolean }> = ({ slides = defaultSlides, interval = 5000, autoplay = true }) => {
   const slideCount = slides.length;
@@ -21,6 +23,13 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   }, [autoplay, interval, slideCount]);
 
   if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
+
+  // Preload next images to avoid visible loading on navigation
+  const loadedSet = useImagePreloader(
+    slides.map((s) => s.image),
+    index,
+    { ahead: 2, behind: 1 }
+  );
 
   const goPrev = () => setIndex((i) => (i - 1 + slideCount) % slideCount);
   const goNext = () => setIndex((i) => (i + 1) % slideCount);
@@ -99,11 +108,17 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
+      {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
       <div className="slides-wrapper h-full">
         {/* Render only the active slide to avoid loading hidden images */}
         {slides[index] && (
           <div key={slides[index].id}>
-            <Slide slide={slides[index]} slideIndex={index} active={true} />
+            <Slide
+              slide={slides[index]}
+              slideIndex={index}
+              active={true}
+              preloaded={loadedSet.has(slides[index].image)}
+            />
           </div>
         )}
       </div>

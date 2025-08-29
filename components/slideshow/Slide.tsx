@@ -1,10 +1,13 @@
 "use client";
 
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
 
-const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }> = ({ slide, slideIndex, active }) => {
+const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; preloaded?: boolean }> = ({ slide, slideIndex, active, preloaded }) => {
+  const [imageLoaded, setImageLoaded] = useState<boolean>(!!preloaded);
+  const [imageError, setImageError] = useState<boolean>(false);
+  const altText = useMemo(() => slide.alt || 'Slideshow image', [slide.alt]);
   
   // Dynamic button logic with ABC cycling pattern
   // A (slides 0, 3, 6...): Book Online + Call for Takeaway
@@ -12,6 +15,8 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
   // C (slides 2, 5, 8...): Call for Booking + Book Online
   const slideType = slideIndex % 3; // 0=A, 1=B, 2=C
   
+  const baseBtn = 'text-white font-bold rounded-xl shadow-xl shadow-black/25 ring-1 ring-white/10 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60';
+
   const getButtonConfig = () => {
     switch (slideType) {
       case 0: // A: Book Online + Call for Takeaway
@@ -19,12 +24,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
           primaryButton: {
             text: '🍽️ Book Online',
             href: slide.ctas?.bookUrl,
-            className: 'bg-accent hover:bg-accent-700'
+            className: `${baseBtn} bg-accent hover:bg-accent/90`
           },
           secondaryButton: {
             text: '📞 Call for Takeaway',
             href: slide.ctas?.callTel,
-            className: 'bg-crimson-600 hover:bg-crimson-800'
+            className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           }
         };
       case 1: // B: Call for Takeaway + Call for Booking
@@ -32,12 +37,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
           primaryButton: {
             text: '📞 Call for Takeaway',
             href: slide.ctas?.callTel,
-            className: 'bg-crimson-600 hover:bg-crimson-800'
+            className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           },
           secondaryButton: {
             text: '📞 Call for Booking',
             href: slide.ctas?.callTel,
-            className: 'bg-accent hover:bg-accent-700'
+            className: `${baseBtn} bg-accent hover:bg-accent/90`
           }
         };
       case 2: // C: Call for Booking + Book Online
@@ -45,12 +50,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
           primaryButton: {
             text: '📞 Call for Booking',
             href: slide.ctas?.callTel,
-            className: 'bg-accent hover:bg-accent-700'
+            className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           },
           secondaryButton: {
             text: '🍽️ Book Online',
             href: slide.ctas?.bookUrl,
-            className: 'bg-accent hover:bg-accent-700'
+            className: `${baseBtn} bg-accent hover:bg-accent/90`
           }
         };
       default:
@@ -59,12 +64,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
           primaryButton: {
             text: '🍽️ Book Online',
             href: slide.ctas?.bookUrl,
-            className: 'bg-accent hover:bg-accent-700'
+            className: `${baseBtn} bg-accent hover:bg-accent/90`
           },
           secondaryButton: {
             text: '📞 Call for Takeaway',
             href: slide.ctas?.callTel,
-            className: 'bg-crimson-600 hover:bg-crimson-800'
+            className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           }
         };
     }
@@ -74,26 +79,37 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
   return (
     <section className="relative h-[52svh] sm:h-[58svh] md:h-[65svh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        {active && (
+        {/* Placeholder backdrop while loading or on error */}
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 bg-neutral-800 animate-pulse" aria-hidden="true" />
+        )}
+        {imageError && (
+          <div className="absolute inset-0 bg-neutral-700 flex items-center justify-center text-neutral-200 text-sm" role="img" aria-label={`${altText} (failed to load)`}>
+            Image failed to load
+          </div>
+        )}
+        {active && !imageError && (
           <Image
             src={slide.image}
-            alt={slide.alt || 'Slideshow image'}
+            alt={altText}
             fill
             priority={slideIndex === 0}
-            className="object-cover transform xxs:scale-100 sm:scale-110 object-center"
+            className={`object-cover transform xxs:scale-100 sm:scale-110 object-center transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             sizes="100vw"
+            onLoadingComplete={() => setImageLoaded(true)}
+            onError={() => setImageError(true)}
           />
         )}
-        {/* Even stronger black overlay for higher contrast */}
-        <div className="absolute inset-0 bg-black/75" />
+        {/* Overlay for text contrast; ease in slightly after image loads to avoid "grey flash" perception */}
+        <div className={`absolute inset-0 bg-black/75 transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-70'}`} />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-5xl mx-auto">
             <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 sm:mb-6 leading-tight md:leading-tight">
-            <span className="block text-white">{slide.eyebrow}</span>
-            <span className="block text-neutral-100 text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-4xl">{slide.headline}</span>
-          </h1>
+              <span className="block text-white">{slide.eyebrow}</span>
+              <span className="block text-neutral-100 text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-4xl">{slide.headline}</span>
+            </h1>
 
           <p className="text-xs xs:text-sm sm:text-base md:text-lg text-neutral-200 mb-5 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-1 sm:px-0">{slide.copy}</p>
 

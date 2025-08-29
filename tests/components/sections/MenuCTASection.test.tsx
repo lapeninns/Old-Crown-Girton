@@ -38,7 +38,7 @@ describe('MenuCTASection', () => {
       external: true
     },
     {
-      text: 'Order Takeaway: 01223 276027',
+      text: 'Order Takeaway: 01223277217',
       href: 'tel:01223276027',
       variant: 'secondary' as const,
       external: false
@@ -188,7 +188,7 @@ describe('MenuCTASection', () => {
     
     const links = screen.getAllByRole('link');
     expect(links[0]).toHaveTextContent('Book Online');
-    expect(links[1]).toHaveTextContent('Order Takeaway: 01223 276027');
+    expect(links[1]).toHaveTextContent('Order Takeaway: 01223277217');
     expect(links[2]).toHaveTextContent('Learn Our Story');
   });
 

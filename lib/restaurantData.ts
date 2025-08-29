@@ -205,13 +205,13 @@ export const getRestaurantIdentity = () => ({
 export const getContactInfo = () => ({
   phone: {
     primary: (restaurantTemplate as any)?.phone || "+44 1223 276027",
-    display: "01223 276027",
+    display: "01223277217",
     whatsapp: (restaurantTemplate as any)?.phone || "+44 1223 276027"
   },
   email: {
-    primary: (restaurantTemplate as any)?.email || "info@oldcrowngirton.co.uk",
-    bookings: (restaurantTemplate as any)?.email || "info@oldcrowngirton.co.uk",
-    events: (restaurantTemplate as any)?.email || "info@oldcrowngirton.co.uk"
+    primary: (restaurantTemplate as any)?.email || "oldcrown@lapeninns.com",
+    bookings: (restaurantTemplate as any)?.email || "oldcrown@lapeninns.com",
+    events: (restaurantTemplate as any)?.email || "oldcrown@lapeninns.com"
   },
   address: {
     street: (restaurantTemplate as any)?.address?.street || "89 High Street",

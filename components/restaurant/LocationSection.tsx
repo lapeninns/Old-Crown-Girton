@@ -46,13 +46,13 @@ export default function LocationSection() {
                 <p>
                   <strong>Phone:</strong> 
                   <a href="tel:01223276027" className="text-accent hover:underline ml-2">
-                    {contact?.phone.display || '01223 276027'}
+                    {contact?.phone.display || '01223277217'}
                   </a>
                 </p>
                 <p>
                   <strong>Email:</strong> 
-                  <a href="mailto:info@oldcrowngirton.co.uk" className="text-accent hover:underline ml-2">
-                    {contact?.email.primary || 'info@oldcrowngirton.co.uk'}
+                  <a href="mailto:oldcrown@lapeninns.com" className="text-accent hover:underline ml-2">
+                    {contact?.email.primary || 'oldcrown@lapeninns.com'}
                   </a>
                 </p>
               </div>

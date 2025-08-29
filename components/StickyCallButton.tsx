@@ -30,7 +30,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	// Button rotation state: 0 = directions, 1 = call, 2 = booking
 	const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
 		// Responsive flag removed: not currently used (kept minimal to avoid UI changes)
-	const restaurantPhone = phone || bookingData?.phone || "01223 276027";
+	const restaurantPhone = phone || bookingData?.phone || "01223277217";
 	const pathname = usePathname();
 
 	// Marketing copy (button labels) externalized

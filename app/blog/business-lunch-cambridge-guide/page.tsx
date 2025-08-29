@@ -31,7 +31,7 @@ export default function BusinessLunchGuidePage() {
       <p>Our spacious dining areas offer the privacy needed for confidential discussions, while our attentive but unobtrusive service ensures your meeting flows smoothly. The WiFi is reliable, parking is ample and free, and our location away from the busy city centre means you can focus on business without distractions.</p>
       
       <h2>The Perfect Menu for Business Dining</h2>
-      <p>Our business lunch menu strikes the ideal balance between impressive and practical. The authentic Nepalese dishes like our signature momos or dal bhat provide a unique talking point while demonstrating cultural sophistication. For more traditional preferences, our perfectly prepared British classics ensure every guest feels comfortable.</p>
+      <p>Our business lunch menu strikes the ideal balance between impressive and practical. The authentic Nepalese dishes like our signature momo or dal bhat provide a unique talking point while demonstrating cultural sophistication. For more traditional preferences, our perfectly prepared British classics ensure every guest feels comfortable.</p>
       
       <p>Portion sizes are carefully considered for midday dining - substantial enough to satisfy without causing afternoon lethargy. Our extensive drinks menu includes premium wines, craft beers, and excellent coffee to complement any business discussion.</p>
       

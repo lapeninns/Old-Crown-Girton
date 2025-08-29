@@ -35,7 +35,7 @@ export default function SundayRoastGuidePage() {
       <p>Although we don't serve a traditional Sunday roast, our kitchen focuses on authentic Nepalese cuisine and British pub classics that deliver the same comforting, unhurried Sunday feel:</p>
       <ul>
         <li><strong>Nepalese comfort dishes:</strong> Warming curries and slow-cooked favourites that pair wonderfully with a relaxed Sunday pace</li>
-        <li><strong>Momos & mixed platters:</strong> Perfect for sharing with family and friends</li>
+        <li><strong>momo & mixed platters:</strong> Perfect for sharing with family and friends</li>
         <li><strong>British pub classics:</strong> Familiar favourites that satisfy when you're after a hearty Sunday lunch in Cambridge</li>
       </ul>
       
@@ -145,7 +145,7 @@ export default function SundayRoastGuidePage() {
               "name": "What should I order instead of a Sunday roast?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Try our Nepalese comfort dishes, momos, mixed platters for sharing, or familiar British pub classics – all great options for a relaxed Sunday meal."
+                "text": "Try our Nepalese comfort dishes, momo, mixed platters for sharing, or familiar British pub classics – all great options for a relaxed Sunday meal."
               }
             },
             {

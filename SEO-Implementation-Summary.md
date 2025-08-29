@@ -17,7 +17,7 @@ Based on the comprehensive SEO research for The Old Crown Girton, I've created t
 - Entity-rich content covering all major keywords
 
 ### 2. Menu Page (`/app/menu/page-optimized.tsx`)
-**Primary Keywords:** "Nepalese menu Cambridge", "authentic Nepalese food Girton", "momos Cambridge"
+**Primary Keywords:** "Nepalese menu Cambridge", "authentic Nepalese food Girton", "momo Cambridge"
 **Target Intent:** Transactional
 **Key Features:**
 - Menu structured data with pricing and descriptions
@@ -96,7 +96,7 @@ Based on the comprehensive SEO research for The Old Crown Girton, I've created t
 #### NAP Consistency
 - Complete business address and phone number on every page
 - Consistent formatting: "89 High Street, Girton, Cambridge CB3 0QQ"
-- "01223 276027" phone number consistently formatted
+- "01223277217" phone number consistently formatted
 
 #### Local Content
 - Girton village context and community integration

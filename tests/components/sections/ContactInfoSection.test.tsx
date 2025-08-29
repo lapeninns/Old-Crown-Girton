@@ -18,7 +18,7 @@ describe('ContactInfoSection', () => {
   const mockPhone = {
     title: 'Phone',
     description: 'Call us for bookings',
-    number: '01223 276027'
+    number: '01223277217'
   };
 
   const mockLocation = {
@@ -33,7 +33,7 @@ describe('ContactInfoSection', () => {
     // Check phone section
     expect(screen.getByText('Phone')).toBeInTheDocument();
     expect(screen.getByText('Call us for bookings')).toBeInTheDocument();
-    expect(screen.getByText('01223 276027')).toBeInTheDocument();
+    expect(screen.getByText('01223277217')).toBeInTheDocument();
     
     // Check location section
     expect(screen.getByText('Location')).toBeInTheDocument();
@@ -43,21 +43,21 @@ describe('ContactInfoSection', () => {
     
     // Check email section
     expect(screen.getByText('Email')).toBeInTheDocument();
-    expect(screen.getByText('info@oldcrowngirton.co.uk')).toBeInTheDocument();
+    expect(screen.getByText('oldcrown@lapeninns.com')).toBeInTheDocument();
   });
 
   it('renders phone link with correct href', () => {
     render(<ContactInfoSection phone={mockPhone} location={mockLocation} />);
     
-    const phoneLink = screen.getByRole('link', { name: '01223 276027' });
+    const phoneLink = screen.getByRole('link', { name: '01223277217' });
     expect(phoneLink).toHaveAttribute('href', 'tel:01223276027');
   });
 
   it('renders email link with correct href', () => {
     render(<ContactInfoSection phone={mockPhone} location={mockLocation} />);
     
-    const emailLink = screen.getByRole('link', { name: /email restaurant at info@oldcrowngirton.co.uk/i });
-    expect(emailLink).toHaveAttribute('href', 'mailto:info@oldcrowngirton.co.uk');
+    const emailLink = screen.getByRole('link', { name: /email restaurant at oldcrown@lapeninns.com/i });
+    expect(emailLink).toHaveAttribute('href', 'mailto:oldcrown@lapeninns.com');
   });
 
   it('parses multi-line address correctly', () => {

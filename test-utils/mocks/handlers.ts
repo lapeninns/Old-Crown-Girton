@@ -18,7 +18,7 @@ const mockRestaurantData = {
   },
   contact: {
     phone: "01223 276071",
-    email: "info@oldcrowngirton.co.uk"
+    email: "oldcrown@lapeninns.com"
   },
   openingHours: {
     monday: { open: "12:00", close: "23:00" },
