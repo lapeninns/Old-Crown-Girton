@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import RestaurantHoursCard from './RestaurantHoursCard';
 import InteractiveMap from './InteractiveMap';
 import { getContactInfo } from '@/lib/restaurantData';
@@ -11,13 +9,7 @@ export default function LocationSection() {
   return (
     <section className="py-16 bg-brand-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground-strong mb-4">
             Find <span className="text-accent">Us</span>
           </h2>
@@ -25,17 +17,11 @@ export default function LocationSection() {
             Located in the heart of Girton village, we&apos;re easily accessible 
             and just a short drive from Cambridge city center.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             {/* Address */}
             <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
               <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
@@ -76,20 +62,15 @@ export default function LocationSection() {
             <div className="mt-8">
               <RestaurantHoursCard />
             </div>
-          </motion.div>
+          </div>
 
           {/* Map */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <InteractiveMap 
               className="h-[600px] bg-neutral-50 rounded-xl shadow-lg overflow-hidden"
               title="Old Crown Girton Location"
             />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

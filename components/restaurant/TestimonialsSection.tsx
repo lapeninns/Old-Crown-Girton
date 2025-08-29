@@ -199,7 +199,7 @@ const TestimonialsSection: React.FC = () => {
                 href="https://www.google.com/maps/place/Old+Crown+Girton/@52.2425913,0.0814946,17z/data=!3m1!4b1!4m6!3m5!1s0x47d876dbade6e2af:0xeba590b4974cfa4!8m2!3d52.2425913!4d0.0814946!16s%2Fg%2F1w6r7jkz"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200 hover:shadow-xl hover:scale-105 transition-all duration-200"
+                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200"
                 aria-label="View Old Crown Girton reviews on Google Maps"
               >
                 <span className="w-7 h-7 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base shadow">G</span>
@@ -217,7 +217,7 @@ const TestimonialsSection: React.FC = () => {
                 href="https://www.tripadvisor.co.uk/Restaurant_Review-g3135834-d17412510-Reviews-Old_Crown_Girton-Girton_Cambridgeshire_England.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200 hover:shadow-xl hover:scale-105 transition-all duration-200"
+                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200"
                 aria-label="View Old Crown Girton reviews on TripAdvisor"
               >
                 <span className="w-7 h-7 rounded-full flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 text-white font-bold text-base shadow">T</span>
@@ -235,15 +235,14 @@ const TestimonialsSection: React.FC = () => {
           <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
           {/* Slider Container */}
-          <div className="overflow-hidden py-8">
-            <div className="flex gap-6 animate-scroll-left hover:[animation-play-state:paused] items-stretch">
+            <div className="overflow-hidden py-8">
+            <div className="flex gap-6 items-stretch">
               {/* Render reviews twice for seamless loop */}
               {[...reviews, ...reviews].map((review, index) => (
                 <div
                   key={`${review.id}-${index}`}
                   className={`
                     flex-shrink-0 w-72 md:w-80 bg-white rounded-2xl p-6 shadow-xl
-                    transition-transform duration-300 hover:scale-105 hover:shadow-2xl
                     ${review.platform === 'google' ? 'border-t-4 border-blue-500' : 'border-t-4 border-green-500'}
                   `}
                 >

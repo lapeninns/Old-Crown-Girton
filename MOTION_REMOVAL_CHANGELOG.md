@@ -1,4 +1,4 @@
-Motion Removal: /menu, /about, /events, /contact
+Motion Removal: /menu, /about, /events, /contact, /, /tos, /privacy-policy, /blog (+ posts)
 
 Summary
 - Eliminated all CSS/JS animation and motion on the four routes. Layout, spacing and interactivity preserved; state changes are now instant.
@@ -35,6 +35,11 @@ Key Changes
 Guard Styles (per-route, inline)
 * Disables animation and transition globally on the page subtree and forces scroll-behavior to auto.
 
+Additional Routes
+- / (home): Replaced motion across homepage sections (AboutSection, MenuHighlights, QuickLinksSection, CallToActionSection, TakeawayBanner, LocationSection). Slideshow now renders without autoplay. TestimonialsSection marquee animation removed.
+- /tos, /privacy-policy: Added guard CSS and removed skeleton animate-pulse in content components.
+- /blog and all blog posts: Added guard CSS and `noMotion` layout; removed transition utility classes from Blog components (Categories, Featured, Grid).
+
 Bundle Impact
 - Framer Motion removed from components rendered on /menu, /about, /events, /contact.
 - NavbarStatic avoids framer-motion import for target routes. ClientLayout gates motion-heavy widgets (StickyCallButton, BookingModal) on these routes.
@@ -42,4 +47,3 @@ Bundle Impact
 Accessibility & Functionality
 - Kept semantic structure, focus states, ARIA and keyboard navigation.
 - Collapses, toggles and filters remain functional but instant.
-

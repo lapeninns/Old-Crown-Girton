@@ -123,9 +123,17 @@ const CrispChat = (): null => {
 // 3. Tooltip: Show tooltips if any JSX elements has these 2 attributes: data-tooltip-id="tooltip" data-tooltip-content=""
 // 4. CrispChat: Set Crisp customer chat support (see above)
 const ClientLayout = ({ children }: { children: ReactNode }) => {
-  const pathname = usePathname();
-  const noMotionRoutes = new Set(['/menu', '/about', '/events', '/contact']);
-  const isNoMotion = noMotionRoutes.has(pathname || '');
+  const pathname = usePathname() || '';
+  const isNoMotion = (
+    pathname === '/' ||
+    pathname === '/menu' ||
+    pathname === '/about' ||
+    pathname === '/events' ||
+    pathname === '/contact' ||
+    pathname === '/tos' ||
+    pathname === '/privacy-policy' ||
+    pathname.startsWith('/blog')
+  );
   return (
     <>
       {/* Show a progress bar at the top when navigating between pages */}

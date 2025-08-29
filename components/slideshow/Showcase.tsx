@@ -3,7 +3,8 @@
 import Slideshow from './Slideshow';
 
 const Showcase = () => {
-  return <Slideshow />;
+  // Disable autoplay to avoid motion on pages using this component
+  return <Slideshow autoplay={false} />;
 };
 
 export default Showcase;

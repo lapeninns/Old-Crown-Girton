@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import DishCard from '@/components/restaurant/DishCard';
 import Link from 'next/link';
 
@@ -54,20 +52,14 @@ export default function MenuHighlights() {
   return (
     <section className="py-16 bg-brand-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
             Our <span className="text-accent">Signature</span> Dishes
           </h2>
           <p className="text-lg text-brand-600 max-w-2xl mx-auto">
             A taste of what we offer
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredDishes.map((dish, index) => (
@@ -79,20 +71,14 @@ export default function MenuHighlights() {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
+        <div className="text-center">
           <Link
             href="/menu"
-            className="inline-block bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+            className="inline-block bg-accent text-white font-bold py-4 px-8 rounded-lg text-lg"
           >
             View Full Menu
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

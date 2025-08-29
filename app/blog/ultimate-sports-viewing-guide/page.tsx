@@ -166,7 +166,12 @@ export default function SportsViewingGuidePage() {
   };
 
   return (
-    <RestaurantLayout>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+        html:focus-within{scroll-behavior:auto!important}
+      ` }} />
+      <RestaurantLayout noMotion>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -348,7 +353,7 @@ export default function SportsViewingGuidePage() {
               <p className="text-brand-100 mb-6">Join Cambridge's best sports viewing community. Book your table for the next big match and experience the atmosphere!</p>
               <Link 
                 href="/book"
-                className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50 transition-colors"
+                className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50"
               >
                 Book for Sports Viewing
               </Link>
@@ -358,7 +363,7 @@ export default function SportsViewingGuidePage() {
             <div className="mt-12 flex justify-between items-center">
               <Link 
                 href="/blog"
-                className="inline-flex items-center text-brand-600 font-semibold hover:text-brand-700 transition-colors"
+                className="inline-flex items-center text-brand-600 font-semibold hover:text-brand-700"
               >
                 <svg className="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
@@ -367,7 +372,7 @@ export default function SportsViewingGuidePage() {
               </Link>
               
               <div className="flex gap-4">
-                <button className="text-neutral-600 hover:text-brand-600 transition-colors">
+                <button className="text-neutral-600 hover:text-brand-600">
                   Share
                 </button>
               </div>
@@ -375,6 +380,7 @@ export default function SportsViewingGuidePage() {
           </div>
         </main>
       </div>
-    </RestaurantLayout>
+      </RestaurantLayout>
+    </>
   );
 }

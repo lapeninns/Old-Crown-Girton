@@ -120,7 +120,11 @@ export default async function Page() {
           ]
         }
       ])}
-      <RestaurantLayout>
+      <style dangerouslySetInnerHTML={{ __html: `
+        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+        html:focus-within{scroll-behavior:auto!important}
+      ` }} />
+      <RestaurantLayout noMotion>
   {/* Slideshow (replaces static hero for now) */}
   <Showcase />
         <TestimonialsSection />

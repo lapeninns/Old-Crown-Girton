@@ -111,7 +111,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
                 target={primaryButton.text.includes('Book Online') ? '_blank' : undefined} 
                 rel={primaryButton.text.includes('Book Online') ? 'noopener noreferrer' : undefined} 
                 href={primaryButton.href} 
-                className={`${primaryButton.className} text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
+                className={`${primaryButton.className} text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
               >
                 {primaryButton.text}
               </a>
@@ -121,7 +121,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean }
                 target={secondaryButton.text.includes('Book Online') ? '_blank' : undefined} 
                 rel={secondaryButton.text.includes('Book Online') ? 'noopener noreferrer' : undefined} 
                 href={secondaryButton.href} 
-                className={`${secondaryButton.className} text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
+                className={`${secondaryButton.className} text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
               >
                 {secondaryButton.text}
               </a>

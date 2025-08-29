@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 interface DishCardProps {
@@ -23,13 +21,7 @@ export default function DishCard({
   delay = 0,
 }: DishCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
-      viewport={{ once: true }}
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-    >
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
       <div className="relative h-48 w-full">
         <Image
           src={image}
@@ -74,11 +66,11 @@ export default function DishCard({
         </p>
         <a
           href="tel:01223276027"
-          className="block w-full text-center bg-accent hover:bg-accent-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+          className="block w-full text-center bg-accent text-white font-medium py-2 px-4 rounded-lg"
         >
           📞 Call to Order
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 }

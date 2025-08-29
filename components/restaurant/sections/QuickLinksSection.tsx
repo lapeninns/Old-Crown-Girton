@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 /**
@@ -39,13 +37,7 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
   return (
     <section className={`py-12 bg-surface-base lazy-section ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="grid gap-8 md:grid-cols-3"
-        >
+        <div className="grid gap-8 md:grid-cols-3">
           {links.map((link, index) => {
             // Skip items with missing required data
             if (!link.title || !link.description || !link.link || !link.linkText) {
@@ -54,13 +46,9 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
             
             
             return (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="p-6 rounded-lg border border-neutral-200 bg-neutral/40 hover:bg-neutral/60 transition-colors duration-200"
+                className="p-6 rounded-lg border border-neutral-200 bg-neutral/40"
               >
                 <h3 className="font-display font-bold text-xl mb-2 text-brand-700">
                   {link.title}
@@ -68,21 +56,19 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
                 <p className="text-brand-600 text-sm mb-4">
                   {link.description}
                 </p>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                >
+                <div>
                   <a 
                     href={link.link} 
-                    className="text-foreground-strong font-semibold hover:underline transition-all duration-200 hover:text-accent-700"
+                    className="text-foreground-strong font-semibold hover:underline"
                     aria-label={`${link.title}: ${link.linkText}`}
                   >
                     {link.linkText}
                   </a>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

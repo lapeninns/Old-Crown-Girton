@@ -46,7 +46,7 @@ export default function BlogFeatured({ post }: BlogFeaturedProps) {
           </div>
           
           <h2 className="text-2xl md:text-3xl font-display font-bold text-brand-700 mb-4 leading-tight">
-            <Link href={`/blog/${post.slug}`} className="hover:text-brand-800 transition-colors">
+            <Link href={`/blog/${post.slug}`} className="hover:text-brand-800">
               {post.title}
             </Link>
           </h2>
@@ -70,7 +70,7 @@ export default function BlogFeatured({ post }: BlogFeaturedProps) {
             
             <Link 
               href={`/blog/${post.slug}`}
-              className="inline-flex items-center text-brand-600 font-semibold hover:text-brand-700 transition-colors"
+              className="inline-flex items-center text-brand-600 font-semibold hover:text-brand-700"
             >
               Read More
               <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

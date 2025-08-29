@@ -36,7 +36,7 @@ export default function TOSContent() {
   if (!content) {
     return (
       <div className="leading-relaxed space-y-6 text-sm px-5">
-        <div className="animate-pulse">
+        <div>
           <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
           <div className="h-4 bg-gray-200 rounded w-5/6"></div>

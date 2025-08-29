@@ -137,7 +137,12 @@ const categories = [
 
 export default function BlogPage() {
   return (
-    <RestaurantLayout>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+        html:focus-within{scroll-behavior:auto!important}
+      ` }} />
+      <RestaurantLayout noMotion>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -243,7 +248,7 @@ export default function BlogPage() {
             <div className="text-center mt-12">
               <Link 
                 href="/blog/all"
-                className="inline-flex items-center px-6 py-3 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700 transition-colors"
+                className="inline-flex items-center px-6 py-3 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700"
               >
                 View All Posts
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -267,13 +272,14 @@ export default function BlogPage() {
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-3 border border-brand-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
-              <button className="px-6 py-3 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700 transition-colors">
+              <button className="px-6 py-3 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">
                 Subscribe
               </button>
             </div>
           </div>
         </section>
       </div>
-    </RestaurantLayout>
+      </RestaurantLayout>
+    </>
   );
 }

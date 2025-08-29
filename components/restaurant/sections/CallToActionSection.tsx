@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 /**
@@ -48,7 +46,7 @@ export default function CallToActionSection({
    * Get button styling based on variant using design system tokens
    */
   const getButtonClasses = (variant: CTAButton['variant']): string => {
-    const baseClasses = 'font-bold py-3 px-6 rounded-lg text-sm md:text-base transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    const baseClasses = 'font-bold py-3 px-6 rounded-lg text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-offset-2';
     
     switch (variant) {
       case 'accent':
@@ -65,12 +63,6 @@ export default function CallToActionSection({
   return (
     <section className={`py-16 bg-accent/10 ${className}`}>
       <div className="max-w-4xl mx-auto text-center px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
           <h2 className="font-display font-bold text-brand-700 mb-4 h2">
             {headline}
           </h2>
@@ -78,13 +70,7 @@ export default function CallToActionSection({
             {description}
           </p>
           
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap gap-4 justify-center"
-          >
+          <div className="flex flex-wrap gap-4 justify-center">
             {buttons.map((button, index) => {
               const isExternal = button.external || button.href.startsWith('http');
               const buttonProps = isExternal 
@@ -98,15 +84,7 @@ export default function CallToActionSection({
                   };
 
               return (
-                <motion.div
-                  key={button.key || button.text || index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.3 + (index * 0.1) }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <div key={button.key || button.text || index}>
                   <a
                     href={button.href}
                     className={getButtonClasses(button.variant)}
@@ -119,11 +97,10 @@ export default function CallToActionSection({
                       </span>
                     )}
                   </a>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
-        </motion.div>
+          </div>
       </div>
     </section>
   );

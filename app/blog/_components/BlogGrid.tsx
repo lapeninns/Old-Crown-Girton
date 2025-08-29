@@ -21,7 +21,7 @@ export default function BlogGrid({ posts }: BlogGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {posts.map((post) => (
-        <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+        <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="relative h-48">
             <Image
               src={post.image}
@@ -41,7 +41,7 @@ export default function BlogGrid({ posts }: BlogGridProps) {
             </div>
             
             <h3 className="text-xl font-display font-bold text-brand-700 mb-3 leading-tight">
-              <Link href={`/blog/${post.slug}`} className="hover:text-brand-800 transition-colors">
+              <Link href={`/blog/${post.slug}`} className="hover:text-brand-800">
                 {post.title}
               </Link>
             </h3>
