@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface Review {
   id: string;
@@ -235,58 +235,56 @@ const TestimonialsSection: React.FC = () => {
           <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
           {/* Slider Container */}
-            <div className="overflow-hidden py-8">
-            <div className="flex gap-6 items-stretch">
-              {/* Render reviews twice for seamless loop */}
-              {[...reviews, ...reviews].map((review, index) => (
-                <div
-                  key={`${review.id}-${index}`}
-                  className={`
-                    flex-shrink-0 w-72 md:w-80 bg-white rounded-2xl p-6 shadow-xl
-                    ${review.platform === 'google' ? 'border-t-4 border-blue-500' : 'border-t-4 border-green-500'}
-                  `}
-                >
-                  {/* Platform Header + Stars in same row */}
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className={`
-                        w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md
-                        ${review.platform === 'google' ? 'bg-gradient-to-br from-blue-500 to-blue-600' : 'bg-gradient-to-br from-green-500 to-green-600'}
-                      `}>
-                        {getPlatformLogo(review.platform)}
-                      </div>
-                      <span className="text-sm font-semibold text-gray-600 tracking-wide">
-                        {getPlatformName(review.platform)}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="text-yellow-400 text-base">
-                        {'★'.repeat(Math.max(0, Math.min(5, review.stars)))}
-                      </div>
-                    </div>
-                  </div>
-                  {/* Review Text - italic like design */}
-                  <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-6 font-medium italic">
-                    "{review.text}"
-                  </p>
-                  {/* Reviewer Info */}
+          <AutoMarquee>
+            {/* Render reviews twice for seamless loop */}
+            {[...reviews, ...reviews].map((review, index) => (
+              <div
+                key={`${review.id}-${index}`}
+                className={`
+                  flex-shrink-0 w-72 md:w-80 bg-white rounded-2xl p-6 shadow-xl
+                  ${review.platform === 'google' ? 'border-t-4 border-blue-500' : 'border-t-4 border-green-500'}
+                `}
+              >
+                {/* Platform Header + Stars in same row */}
+                <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-700 flex items-center justify-center text-white font-bold text-sm shadow-lg">
-                      {review.reviewer.initials}
+                    <div className={`
+                      w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md
+                      ${review.platform === 'google' ? 'bg-gradient-to-br from-blue-500 to-blue-600' : 'bg-gradient-to-br from-green-500 to-green-600'}
+                    `}>
+                      {getPlatformLogo(review.platform)}
                     </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-800">
-                        {review.reviewer.name}
-                      </h4>
-                      <p className="text-xs text-gray-600">
-                        {review.reviewer.timeAgo}
-                      </p>
+                    <span className="text-sm font-semibold text-gray-600 tracking-wide">
+                      {getPlatformName(review.platform)}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="text-yellow-400 text-base">
+                      {'★'.repeat(Math.max(0, Math.min(5, review.stars)))}
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
+                {/* Review Text - italic like design */}
+                <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-6 font-medium italic">
+                  "{review.text}"
+                </p>
+                {/* Reviewer Info */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-700 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                    {review.reviewer.initials}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-800">
+                      {review.reviewer.name}
+                    </h4>
+                    <p className="text-xs text-gray-600">
+                      {review.reviewer.timeAgo}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </AutoMarquee>
         </div>
       </div>
     </section>
@@ -294,3 +292,110 @@ const TestimonialsSection: React.FC = () => {
 };
 
 export default TestimonialsSection;
+
+// Lightweight marquee that auto-scrolls left-to-right and resumes after pause
+const AutoMarquee: React.FC<{ children: React.ReactNode; speedPxPerSec?: number; resumeAfterMs?: number }> = ({ children, speedPxPerSec = 40, resumeAfterMs = 2500 }) => {
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const setWidthRef = useRef<number>(0);
+  const offsetRef = useRef<number>(0);
+  const rafRef = useRef<number | null>(null);
+  const lastTsRef = useRef<number>(0);
+  const pausedUntilRef = useRef<number>(0);
+
+  // Start the animation loop
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!viewport || !track) return;
+
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const recalc = () => {
+      // Width of a single set (track contains two identical sets)
+      const full = track.scrollWidth;
+      setWidthRef.current = full / 2;
+      // Initialize offset so content moves right (from left to right)
+      offsetRef.current = -setWidthRef.current;
+      applyTransform();
+    };
+
+    const applyTransform = () => {
+      const x = offsetRef.current;
+      track.style.transform = `translate3d(${x}px, 0, 0)`;
+    };
+
+    const onResize = () => {
+      recalc();
+    };
+
+    const step = (ts: number) => {
+      if (!trackRef.current) return;
+      if (!lastTsRef.current) lastTsRef.current = ts;
+      const dt = Math.max(0, Math.min(0.05, (ts - lastTsRef.current) / 1000)); // clamp to 50ms
+      lastTsRef.current = ts;
+
+      const now = performance.now();
+      const paused = now < pausedUntilRef.current;
+      const speed = prefersReduced ? 0 : speedPxPerSec;
+
+      if (!paused && setWidthRef.current > 0 && speed > 0) {
+        offsetRef.current += speed * dt; // move right
+        if (offsetRef.current >= 0) {
+          // wrap back seamlessly
+          offsetRef.current -= setWidthRef.current;
+        }
+        applyTransform();
+      }
+
+      rafRef.current = requestAnimationFrame(step);
+    };
+
+    recalc();
+    window.addEventListener('resize', onResize);
+    rafRef.current = requestAnimationFrame(step);
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [speedPxPerSec, resumeAfterMs]);
+
+  // Pause on interaction; resume automatically after resumeAfterMs
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    const bumpPause = () => {
+      pausedUntilRef.current = performance.now() + resumeAfterMs;
+    };
+
+    const onPointerEnter = () => bumpPause();
+    const onPointerDown = () => bumpPause();
+    const onTouchStart = () => bumpPause();
+    const onWheel = () => bumpPause();
+    const onFocusIn = () => bumpPause();
+
+    viewport.addEventListener('pointerenter', onPointerEnter);
+    viewport.addEventListener('pointerdown', onPointerDown);
+    viewport.addEventListener('touchstart', onTouchStart, { passive: true });
+    viewport.addEventListener('wheel', onWheel, { passive: true });
+    viewport.addEventListener('focusin', onFocusIn);
+
+    return () => {
+      viewport.removeEventListener('pointerenter', onPointerEnter);
+      viewport.removeEventListener('pointerdown', onPointerDown);
+      viewport.removeEventListener('touchstart', onTouchStart as any);
+      viewport.removeEventListener('wheel', onWheel as any);
+      viewport.removeEventListener('focusin', onFocusIn);
+    };
+  }, [resumeAfterMs]);
+
+  return (
+    <div ref={viewportRef} className="overflow-hidden py-8 select-none" aria-roledescription="carousel" aria-label="Customer testimonials (auto scrolling)">
+      <div ref={trackRef} className="flex gap-6 items-stretch will-change-transform">
+        {children}
+      </div>
+    </div>
+  );
+};
