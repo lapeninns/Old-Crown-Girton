@@ -98,7 +98,7 @@ export default function MenuItemCard({
 
   return (
     <article 
-      className={`group bg-white rounded-lg border border-neutral-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${className}`}
+      className={`group bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden ${className}`}
       aria-label={`Menu item: ${item.name}`}
     >
       {/* Image Section */}
@@ -108,7 +108,7 @@ export default function MenuItemCard({
             src={imageUrl}
             alt={`${item.name} - ${section} from Old Crown Girton`}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             loading="lazy"
             onError={handleImageError}
@@ -120,7 +120,7 @@ export default function MenuItemCard({
       <div className="p-4 space-y-3">
         {/* Header with Name and Price */}
         <div className="flex justify-between items-start gap-3">
-          <h3 className="font-semibold text-brand-800 text-base leading-tight group-hover:text-brand-900 transition-colors flex-1 min-w-0">
+          <h3 className="font-semibold text-brand-800 text-base leading-tight flex-1 min-w-0">
             <span className="break-words hyphens-auto" lang="en">
               {highlightText(item.name)}
             </span>

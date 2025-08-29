@@ -7,9 +7,9 @@ import MenuHero from './_components/MenuHero';
 import dynamic from 'next/dynamic';
 // Dynamic imports for Menu page sections - optimized for performance
 const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
-	ssr: true, // Enable SSR for faster initial render
+	ssr: true,
 	loading: () => (
-		<div className="min-h-96 bg-surface-base animate-pulse flex items-center justify-center">
+		<div className="min-h-96 bg-surface-base flex items-center justify-center">
 			<div className="text-lg text-neutral-500">Loading menu...</div>
 		</div>
 	)
@@ -121,8 +121,12 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 
 	return (
 		<>
+			<style dangerouslySetInnerHTML={{ __html: `
+			  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+			  html:focus-within{scroll-behavior:auto!important}
+			` }} />
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-			<RestaurantLayout>
+			<RestaurantLayout noMotion>
 				{/* Hero Section (component) */}
 				<MenuHero />
 

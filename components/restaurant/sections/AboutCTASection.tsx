@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import BasicTest from '@/components/simple/BasicTest';
 
@@ -59,39 +57,20 @@ export default function AboutCTASection({
   const isExternal = buttonHref.startsWith('http');
 
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className={`${className}`}
-    >
+    <section className={`${className}`}>
       <div className="bg-accent-50 rounded-xl p-8 text-center">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true }}
-          className="text-xl font-display font-bold text-brand-700 mb-4"
-        >
+        <h2 className="text-xl font-display font-bold text-brand-700 mb-4">
           {title}
-        </motion.h2>
+        </h2>
         
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
+        <div>
           <a
             href={buttonHref}
             {...(isExternal && {
               target: '_blank',
               rel: 'noopener noreferrer'
             })}
-            className="inline-block bg-brand-600 hover:bg-brand-700 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60 shadow-lg"
+            className="inline-block bg-brand-600 text-neutral-50 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60 shadow-lg"
             aria-label={buttonLabel || buttonText}
           >
             {buttonText}
@@ -101,28 +80,16 @@ export default function AboutCTASection({
               </span>
             )}
           </a>
-        </motion.div>
+        </div>
         
         {description && (
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="text-neutral-600 mt-4 mb-2"
-          >
+          <p className="text-neutral-600 mt-4 mb-2">
             {description}
-          </motion.p>
+          </p>
         )}
         
         {contact && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="mt-4 text-sm text-neutral-600"
-          >
+          <div className="mt-4 text-sm text-neutral-600">
             {contact.address && (
               <p>
                 <span className="font-semibold">Address:</span> {contact.address}
@@ -132,9 +99,9 @@ export default function AboutCTASection({
               <span className="font-semibold">Opening Hours:</span>{' '}
               {isClient ? <BasicTest /> : <span className="italic">Loading hours...</span>}
             </p>
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.section>
+    </section>
   );
 }

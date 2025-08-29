@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 interface InteractiveMapProps {
   className?: string;
@@ -57,8 +56,6 @@ export default function InteractiveMap({
       <div 
         className="relative h-full cursor-pointer group"
         onClick={handleMapClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         role="button"
         tabIndex={0}
         aria-label="Click to get directions to Old Crown Girton"
@@ -82,50 +79,27 @@ export default function InteractiveMap({
           className="pointer-events-none"
         />
 
-        {/* Interactive Overlay */}
-        <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors duration-300" />
+        {/* Overlay (no transition) */}
+        <div className="absolute inset-0 bg-transparent" />
 
-        {/* Direction Indicator */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ 
-            opacity: isHovered ? 1 : 0.8, 
-            scale: isHovered ? 1.05 : 1,
-          }}
-          transition={{ duration: 0.2 }}
-          className="absolute top-4 right-4 bg-brand-700 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 text-sm font-medium"
-        >
+        {/* Direction Indicator (static) */}
+        <div className="absolute top-4 right-4 bg-brand-700 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 text-sm font-medium">
           <span className="text-lg">🧭</span>
           <span>Get Directions</span>
-        </motion.div>
+        </div>
 
-        {/* Center Pin Indicator */}
-        <motion.div
-          animate={{ 
-            scale: isHovered ? 1.1 : 1,
-            y: isHovered ? -2 : 0
-          }}
-          transition={{ duration: 0.2 }}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl drop-shadow-lg"
-        >
+        {/* Center Pin Indicator (static) */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl drop-shadow-lg">
           📍
-        </motion.div>
+        </div>
 
-        {/* Click Hint */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ 
-            opacity: isHovered ? 1 : 0,
-            y: isHovered ? 0 : 10
-          }}
-          transition={{ duration: 0.3 }}
-          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg text-sm text-neutral-700 font-medium"
-        >
+        {/* Click Hint (always visible, no motion) */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg text-sm text-neutral-700 font-medium">
           Click for directions to Old Crown Girton
-        </motion.div>
+        </div>
 
         {/* Focus Ring */}
-        <div className="absolute inset-0 rounded-xl ring-0 group-focus-visible:ring-4 group-focus-visible:ring-brand-700/40 transition-all" />
+        <div className="absolute inset-0 rounded-xl ring-0 group-focus-visible:ring-4 group-focus-visible:ring-brand-700/40" />
       </div>
     </div>
   );

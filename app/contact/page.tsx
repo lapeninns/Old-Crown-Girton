@@ -27,7 +27,12 @@ export default async function ContactPage() {
   const content = await getContentSmart();
   const contactContent = content.pages.contact;
   return (
-    <RestaurantLayout>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+        html:focus-within{scroll-behavior:auto!important}
+      ` }} />
+      <RestaurantLayout noMotion>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -161,6 +166,7 @@ export default async function ContactPage() {
           </div>
         </div>
       </div>
-    </RestaurantLayout>
+      </RestaurantLayout>
+    </>
   );
 }

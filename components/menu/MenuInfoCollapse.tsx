@@ -47,13 +47,13 @@ function AccordionItem({ title, children, isOpen, onToggle }: { title: string; c
     <div className="bg-neutral-50 rounded-lg overflow-hidden">
       <button onClick={onToggle} className="w-full text-left px-6 py-4 flex justify-between items-center text-stout-700 font-semibold">
         <span>{title}</span>
-        <svg className={`w-5 h-5 text-stout-700 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <svg className={`w-5 h-5 text-stout-700 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
           <path d="M6 8l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
       <div
         ref={contentRef}
-        style={{ height, transition: 'height 220ms ease' }}
+        style={{ height }}
         className="px-6 overflow-hidden text-brand-600"
       >
         <div className="py-4">

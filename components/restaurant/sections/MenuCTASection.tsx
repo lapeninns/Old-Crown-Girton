@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 /**
@@ -59,57 +57,18 @@ export default function MenuCTASection({
     }
   };
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0 }
-  };
-
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className={`py-16 bg-stout-700 text-white ${className}`}
-    >
+    <section className={`py-16 bg-stout-700 text-white ${className}`}>
       <div className="max-w-4xl mx-auto text-center px-4">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-display font-bold mb-6"
-        >
+        <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
           {title}
-        </motion.h2>
+        </h2>
         
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-xl text-neutral-200 mb-8"
-        >
+        <p className="text-xl text-neutral-200 mb-8">
           {description}
-        </motion.p>
+        </p>
         
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="flex flex-wrap gap-4 justify-center"
-        >
+        <div className="flex flex-wrap gap-4 justify-center">
           {buttons.map((button, index) => {
             const ButtonComponent = button.external ? 'a' : Link;
             const buttonProps = button.external 
@@ -121,10 +80,10 @@ export default function MenuCTASection({
               : { href: button.href };
 
             return (
-              <motion.div key={index} variants={item}>
+              <div key={index}>
                 <ButtonComponent
                   {...buttonProps}
-                  className={`${getButtonClasses(button.variant)} font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block`}
+                  className={`${getButtonClasses(button.variant)} font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block`}
                 >
                   {button.text}
                   {button.external && (
@@ -133,23 +92,17 @@ export default function MenuCTASection({
                     </span>
                   )}
                 </ButtonComponent>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
 
         {allergenNotice && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="mt-8 text-sm text-neutral-300"
-          >
+          <div className="mt-8 text-sm text-neutral-300">
             <p className="text-neutral-300">{allergenNotice}</p>
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.section>
+    </section>
   );
 }

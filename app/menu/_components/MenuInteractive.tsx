@@ -23,7 +23,6 @@ function normalizeId(input?: string | number | null) {
  */
 export default function MenuInteractive({ sections, defaultSelected, preloadedData = false }: Props) {
   const [selected, setSelected] = useState<string | null>(defaultSelected || null);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [isHydrated, setIsHydrated] = useState(preloadedData); // Start hydrated if data is preloaded
   const [filteredSections, setFilteredSections] = useState<Menu['sections']>(sections);
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,12 +32,11 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
 
   // Debounce hash changes to prevent rapid state updates - maintaining existing pattern
   const debouncedHashChange = useCallback(() => {
-    if (isAnimating) return;
     const newHash = window.location.hash ? window.location.hash.replace('#', '') : null;
     if (newHash !== selected) {
       setSelected(newHash);
     }
-  }, [selected, isAnimating]);
+  }, [selected]);
 
   // Detect actual navbar height for accurate sticky positioning
   useEffect(() => {
@@ -148,12 +146,8 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
 
   // Handle section changes - maintains existing pattern
   const handleSectionChange = useCallback((newId: string | null) => {
-    if (isAnimating || newId === selected) return;
-    
-    setIsAnimating(true);
+    if (newId === selected) return;
     setSelected(newId);
-    
-    // Update URL
     if (typeof window !== 'undefined') {
       if (newId) {
         window.history.replaceState(null, '', window.location.pathname + window.location.search + `#${newId}`);
@@ -161,12 +155,7 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
       }
     }
-    
-    // Reset animation state
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 300);
-  }, [selected, isAnimating]);
+  }, [selected]);
 
   // Handle filter changes from search component
   const handleFilterChange = useCallback((newFilteredSections: Menu['sections'], newSearchTerm: string) => {
@@ -213,10 +202,10 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
             <button
               type="button"
               onClick={toggleSearch}
-              className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base ${
+              className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-sm sm:text-base ${
                 showSearch 
                   ? 'bg-accent text-white shadow-md' 
-                  : 'bg-white text-brand-700 hover:bg-accent hover:text-white border border-neutral-300 shadow-sm'
+                  : 'bg-white text-brand-700 border border-neutral-300 shadow-sm'
               }`}
               aria-expanded={showSearch}
               aria-controls="search-panel"
@@ -239,7 +228,7 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
               <button
                 type="button"
                 onClick={clearSearchAndFilters}
-                className="text-sm text-accent-700 hover:text-accent-800 font-medium px-3 py-1 rounded border border-accent-300 hover:bg-accent-50 transition-colors"
+                className="text-sm text-accent-700 font-medium px-3 py-1 rounded border border-accent-300"
               >
                 Clear All
               </button>
@@ -257,10 +246,9 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
                   key="all"
                   type="button"
                   onClick={() => handleSectionChange(null)}
-                  disabled={isAnimating}
-                  className={`inline-block px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors duration-200 ${
-                    selected === null ? 'bg-accent text-white shadow-sm' : 'bg-neutral-50 text-brand-700 hover:bg-accent hover:text-white'
-                  } ${isAnimating ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  className={`inline-block px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium ${
+                    selected === null ? 'bg-accent text-white shadow-sm' : 'bg-neutral-50 text-brand-700'
+                  }`}
                   aria-pressed={selected === null}
                 >
                   <span className="hidden sm:inline">All </span>
@@ -276,21 +264,21 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
                 const sectionItemCount = displaySections.find(s => normalizeId(s?.id || s?.name) === idSeed)?.items.length || 0;
                 
                 return (
-                  <button
-                    key={section.id || section.name}
-                    type="button"
-                    onClick={() => handleSectionChange(isActive ? null : idSeed)}
-                    disabled={isAnimating || sectionItemCount === 0}
-                    className={`inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors duration-200 ${
+                <button
+                  key={section.id || section.name}
+                  type="button"
+                  onClick={() => handleSectionChange(isActive ? null : idSeed)}
+                  disabled={sectionItemCount === 0}
+                    className={`inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium ${
                       isActive 
                         ? 'bg-accent text-white shadow-sm' 
                         : sectionItemCount > 0
-                          ? 'bg-neutral-50 text-brand-700 hover:bg-accent hover:text-white'
+                          ? 'bg-neutral-50 text-brand-700'
                           : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
-                    } ${isAnimating ? 'opacity-70 cursor-not-allowed' : ''}`}
-                    aria-pressed={isActive}
-                    title={sectionItemCount === 0 ? 'No items in this section match current filters' : undefined}
-                  >
+                    }`}
+                  aria-pressed={isActive}
+                  title={sectionItemCount === 0 ? 'No items in this section match current filters' : undefined}
+                >
                     <span className="truncate max-w-[80px] sm:max-w-none">{section.name}</span>
                     <span className="text-xs bg-white bg-opacity-20 px-1 sm:px-1.5 py-0.5 rounded-full flex-shrink-0">
                       {sectionItemCount}
@@ -325,15 +313,7 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
 
       {/* Content Area */}
       <div className="relative min-h-[400px]" ref={contentRef}>
-        <div 
-          className={`transition-all duration-300 ease-out scroll-optimized ${
-            isAnimating ? 'opacity-0 transform translate-y-2' : 'opacity-100 transform translate-y-0'
-          }`}
-          style={{
-            position: 'relative',
-            willChange: isAnimating ? 'opacity, transform' : 'auto',
-          }}
-        >
+        <div style={{ position: 'relative' }}>
           <div className="py-8">
             <MenuSections 
               sections={displaySections} 

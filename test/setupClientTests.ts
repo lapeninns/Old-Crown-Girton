@@ -144,8 +144,8 @@ jest.mock('framer-motion', () => {
 jest.mock('swr', () => ({
   __esModule: true,
   default: jest.fn(() => ({
-    data: undefined,
-    error: undefined,
+    data: undefined as any,
+    error: undefined as Error | null,
     isLoading: false,
     isValidating: false,
     mutate: jest.fn(),

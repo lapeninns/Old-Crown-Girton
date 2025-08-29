@@ -2,7 +2,6 @@
 
 import { useCallback } from 'react';
 import type { Menu } from '@/src/lib/data/schemas';
-import { usePerformantMountAnimation } from '@/hooks/utils';
 import MenuItemCard from './MenuItemCard';
 
 type Props = {
@@ -23,7 +22,6 @@ export default function MenuSections({
   searchTerm = '',
   className = '' 
 }: Props) {
-  const isMounted = usePerformantMountAnimation();
 
   // Filter sections based on selectedId
   const displaySections = selectedId 
@@ -86,7 +84,6 @@ export default function MenuSections({
               key={sectionId} 
               id={sectionId} 
               className="scroll-optimized" 
-              data-mounted={isMounted}
               aria-labelledby={`section-${sectionId}-title`}
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

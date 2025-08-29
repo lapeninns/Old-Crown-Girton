@@ -1,6 +1,4 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import MenuInfoCollapse from '@/components/menu/MenuInfoCollapse';
 
 /**
@@ -48,33 +46,16 @@ export default function MenuInformationSection({
     }));
 
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className={`py-16 bg-brand-50/20 ${className}`}
-    >
+    <section className={`py-16 bg-brand-50/20 ${className}`}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-3xl font-display font-bold text-stout-700 text-center mb-12"
-        >
+        <h2 className="text-3xl font-display font-bold text-stout-700 text-center mb-12">
           {title}
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
+        <div>
           <MenuInfoCollapse items={collapseItems} />
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

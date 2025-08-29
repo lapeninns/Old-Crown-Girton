@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 /**
  * Props interfaces for ContactInfoSection component
  */
@@ -46,38 +44,15 @@ export default function ContactInfoSection({
     return null;
   }
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0 }
-  };
+  // No motion: remove animation variants
 
   // Parse address into lines for better display
   const addressLines = location.address.split(', ');
 
   return (
-    <motion.div 
-      variants={container}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true }}
-      className={`space-y-8 ${className}`}
-    >
+    <div className={`space-y-8 ${className}`}>
       {/* Phone */}
-      <motion.div 
-        variants={item}
-        whileHover={{ scale: 1.02 }}
-        className="bg-neutral-50 p-6 rounded-xl shadow-lg transition-transform duration-200"
-      >
+      <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📞</span>
           <div>
@@ -91,18 +66,14 @@ export default function ContactInfoSection({
         </div>
               <p>
                 <strong>Phone:</strong> 
-                <a href={`tel:${phone.number.replace(/\s/g, '')}`} className="inline-block bg-brand-600 hover:bg-brand-700 text-neutral-50 font-semibold py-1 px-3 rounded ml-2 transition-colors duration-200">
+                <a href={`tel:${phone.number.replace(/\s/g, '')}`} className="inline-block bg-brand-600 text-neutral-50 font-semibold py-1 px-3 rounded ml-2">
                   {phone.number}
                 </a>
               </p>
-      </motion.div>
+      </div>
 
       {/* Address */}
-      <motion.div 
-        variants={item}
-        whileHover={{ scale: 1.02 }}
-        className="bg-neutral-50 p-6 rounded-xl shadow-lg transition-transform duration-200"
-      >
+      <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
         <div className="flex items-start gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📍</span>
           <div>
@@ -119,14 +90,10 @@ export default function ContactInfoSection({
         <p className="text-sm text-neutral-500">
           {location.description}
         </p>
-      </motion.div>
+      </div>
 
       {/* Email */}
-      <motion.div 
-        variants={item}
-        whileHover={{ scale: 1.02 }}
-        className="bg-neutral-50 p-6 rounded-xl shadow-lg transition-transform duration-200"
-      >
+      <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📧</span>
           <div>
@@ -138,15 +105,14 @@ export default function ContactInfoSection({
             </p>
           </div>
         </div>
-              <motion.a
+              <a
                 href={`mailto:${'info@oldcrowngirton.co.uk'}`}
-                whileHover={{ scale: 1.05 }}
-                className="inline-block bg-brand-600 hover:bg-brand-700 text-neutral-50 font-semibold py-2 px-4 rounded transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60"
+                className="inline-block bg-brand-600 text-neutral-50 font-semibold py-2 px-4 rounded focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60"
                 aria-label="Email restaurant at info@oldcrowngirton.co.uk"
               >
                 info@oldcrowngirton.co.uk
-              </motion.a>
-      </motion.div>
-    </motion.div>
+              </a>
+      </div>
+    </div>
   );
 }

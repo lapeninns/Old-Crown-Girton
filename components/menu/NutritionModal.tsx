@@ -148,7 +148,7 @@ export default function NutritionModal({ item, isOpen, onClose }: NutritionModal
           <button
             type="button"
             onClick={onClose}
-            className="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500"
+            className="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500"
             aria-label="Close nutrition information"
           >
             <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -280,7 +280,7 @@ export default function NutritionModal({ item, isOpen, onClose }: NutritionModal
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-brand-700 bg-neutral-100 hover:bg-neutral-200 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500"
+            className="px-4 py-2 text-brand-700 bg-neutral-100 hover:bg-neutral-200 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-accent-500"
           >
             Close
           </button>

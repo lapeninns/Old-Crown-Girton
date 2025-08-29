@@ -34,7 +34,12 @@ export default async function EventsPage() {
   }));
 
   return (
-    <RestaurantLayout>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+        html:focus-within{scroll-behavior:auto!important}
+      ` }} />
+      <RestaurantLayout noMotion>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -162,6 +167,7 @@ export default async function EventsPage() {
           <EventsUpdatesSection />
         </div>
       </div>
-    </RestaurantLayout>
+      </RestaurantLayout>
+    </>
   );
 }

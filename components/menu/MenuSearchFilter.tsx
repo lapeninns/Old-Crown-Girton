@@ -234,7 +234,7 @@ export default function MenuSearchFilter({
               </span>
             )}
             <svg
-              className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+              className={`h-4 w-4 ${isExpanded ? 'rotate-180' : ''}`}
               viewBox="0 0 20 20"
               fill="currentColor"
             >
