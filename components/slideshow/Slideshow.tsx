@@ -6,9 +6,14 @@ import { slides as defaultSlides } from './slides';
 import { useImagePreloader } from './useImagePreloader';
 import SlideshowDebugger from './SlideshowDebugger';
 
+const TRANSITION_MS = 400;
+
 const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolean }> = ({ slides = defaultSlides, interval = 5000, autoplay = true }) => {
   const slideCount = slides.length;
   const [index, setIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
+  const [showPrev, setShowPrev] = useState(false);
+  const transitioningRef = useRef(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
   const mouseStartX = useRef<number | null>(null);
@@ -16,23 +21,64 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   const isDragging = useRef(false);
   const minSwipeDistance = 50;
 
-  useEffect(() => {
-    if (!autoplay || slideCount <= 1) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % slideCount), interval);
-    return () => clearInterval(id);
-  }, [autoplay, interval, slideCount]);
-
-  if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
-
   // Preload next images to avoid visible loading on navigation
-  const loadedSet = useImagePreloader(
+  const { loaded, waitFor } = useImagePreloader(
     slides.map((s) => s.image),
     index,
     { ahead: 2, behind: 1 }
   );
 
-  const goPrev = () => setIndex((i) => (i - 1 + slideCount) % slideCount);
-  const goNext = () => setIndex((i) => (i + 1) % slideCount);
+  // Request an advance with crossfade; waits until the target image is decoded
+  const startTransitionTo = (next: number) => {
+    if (transitioningRef.current) return;
+    transitioningRef.current = true;
+    setPrevIndex(index);
+    setShowPrev(true);
+    setIndex(next);
+    // Fade out prev on next frame to trigger CSS transition
+    if (typeof window !== 'undefined' && 'requestAnimationFrame' in window) {
+      requestAnimationFrame(() => setShowPrev(false));
+    } else {
+      setTimeout(() => setShowPrev(false), 0);
+    }
+    // Cleanup after transition
+    setTimeout(() => {
+      setPrevIndex(null);
+      transitioningRef.current = false;
+    }, TRANSITION_MS + 30);
+  };
+
+  const requestAdvance = async (direction: 1 | -1) => {
+    if (transitioningRef.current) return;
+    const next = (index + direction + slideCount) % slideCount;
+    const nextSrc = slides[next]?.image;
+    if (nextSrc && !loaded.has(nextSrc)) {
+      const status = await waitFor(nextSrc, Math.max(1000, Math.min(6000, interval)));
+      if (status === 'error') {
+        // proceed even if failed; avoids stalling
+      }
+    }
+    startTransitionTo(next);
+  };
+
+  // Autoplay that waits for the next image to be ready
+  useEffect(() => {
+    if (!autoplay || slideCount <= 1) return;
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      if (cancelled) return;
+      await requestAdvance(1);
+    }, interval);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [autoplay, interval, slideCount, index, loaded]);
+
+  if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
+
+  const goPrev = () => requestAdvance(-1);
+  const goNext = () => requestAdvance(1);
 
   // Touch event handlers for swipe functionality
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -97,7 +143,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
 
   return (
     <div 
-      className="relative w-full h-full touch-pan-y cursor-grab active:cursor-grabbing select-none" 
+      className="relative w-full touch-pan-y cursor-grab active:cursor-grabbing select-none" 
       role="region" 
       aria-label="Slideshow - Swipe to navigate"
       onTouchStart={handleTouchStart}
@@ -109,15 +155,30 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
       onMouseLeave={handleMouseLeave}
     >
       {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
-      <div className="slides-wrapper h-full">
-        {/* Render only the active slide to avoid loading hidden images */}
+      <div className="slides-wrapper relative">
+        {/* Current slide in normal flow to establish height */}
         {slides[index] && (
-          <div key={slides[index].id}>
+          <div key={`curr-${slides[index].id}`} className="relative z-0">
             <Slide
               slide={slides[index]}
               slideIndex={index}
               active={true}
-              preloaded={loadedSet.has(slides[index].image)}
+              preloaded={loaded.has(slides[index].image)}
+            />
+          </div>
+        )}
+        {/* Previous slide (on top, fading out) */}
+        {prevIndex !== null && slides[prevIndex] && (
+          <div
+            key={`prev-${slides[prevIndex].id}`}
+            className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-300 ease-in-out ${showPrev ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <Slide
+              slide={slides[prevIndex]}
+              slideIndex={prevIndex}
+              active={false}
+              visualOnly
+              preloaded={true}
             />
           </div>
         )}

@@ -4,7 +4,7 @@ import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
 
-const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; preloaded?: boolean }> = ({ slide, slideIndex, active, preloaded }) => {
+const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; preloaded?: boolean; visualOnly?: boolean }> = ({ slide, slideIndex, active, preloaded, visualOnly = false }) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(!!preloaded);
   const [imageError, setImageError] = useState<boolean>(false);
   const altText = useMemo(() => slide.alt || 'Slideshow image', [slide.alt]);
@@ -77,7 +77,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
   
   const { primaryButton, secondaryButton } = getButtonConfig();
   return (
-    <section className="relative h-[52svh] sm:h-[58svh] md:h-[65svh] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[52svh] sm:h-[58svh] md:h-[65svh] flex items-center justify-center overflow-hidden" aria-hidden={visualOnly || undefined}>
       <div className="absolute inset-0 z-0">
         {/* Placeholder backdrop while loading or on error */}
         {!imageLoaded && !imageError && (
@@ -88,7 +88,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
             Image failed to load
           </div>
         )}
-        {active && !imageError && (
+        {(active || visualOnly) && !imageError && (
           <Image
             src={slide.image}
             alt={altText}
@@ -104,6 +104,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
         <div className={`absolute inset-0 bg-black/75 transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-70'}`} />
       </div>
 
+      {!visualOnly && (
       <div className="relative z-10 w-full max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-5xl mx-auto">
             <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 sm:mb-6 leading-tight md:leading-tight">
@@ -145,6 +146,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
           </div>
         </div>
       </div>
+      )}
 
 
     </section>

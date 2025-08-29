@@ -12,7 +12,11 @@ export function useImagePreloader(
   const ahead = options?.ahead ?? 2; // preload next N images
   const behind = options?.behind ?? 1; // optionally keep previous in cache
   const [loaded, setLoaded] = useState<Set<string>>(new Set());
+  const [failed, setFailed] = useState<Set<string>>(new Set());
   const loadingMap = useRef<Map<string, HTMLImageElement>>(new Map());
+  const listenersRef = useRef<
+    Map<string, Array<(status: 'loaded' | 'error') => void>>
+  >(new Map());
 
   // Compute a small window of images to preload around the current index
   const windowSources = useMemo(() => {
@@ -53,30 +57,69 @@ export function useImagePreloader(
     if (!windowSources.length) return;
 
     windowSources.forEach((src) => {
-      if (!src || loaded.has(src) || loadingMap.current.has(src)) return;
+      if (!src || loaded.has(src) || failed.has(src) || loadingMap.current.has(src)) return;
       try {
         const img = new Image();
         loadingMap.current.set(src, img);
         const start = performance.now();
-        img.onload = () => {
-          setLoaded((prev) => new Set(prev).add(src));
+        const markLoaded = () => {
+          setLoaded((prev) => {
+            const next = new Set(prev).add(src);
+            return next;
+          });
+          const listeners = listenersRef.current.get(src);
+          if (listeners) {
+            listeners.forEach((cb) => cb('loaded'));
+            listenersRef.current.delete(src);
+          }
           loadingMap.current.delete(src);
           if (process.env.NODE_ENV !== 'production') {
             // eslint-disable-next-line no-console
-            console.debug(`[preload] ${src} loaded in ${(performance.now() - start).toFixed(0)}ms`);
+            console.debug(`[preload] ${src} decoded in ${(performance.now() - start).toFixed(0)}ms`);
           }
         };
-        img.onerror = () => {
+        const markError = () => {
+          setFailed((prev) => new Set(prev).add(src));
+          const listeners = listenersRef.current.get(src);
+          if (listeners) {
+            listeners.forEach((cb) => cb('error'));
+            listenersRef.current.delete(src);
+          }
           loadingMap.current.delete(src);
           if (process.env.NODE_ENV !== 'production') {
             // eslint-disable-next-line no-console
             console.warn(`[preload] failed to load ${src}`);
           }
         };
+        img.onload = () => {
+          // Ensure the image is decoded before marking as loaded to avoid flicker
+          if ('decode' in img && typeof (img as any).decode === 'function') {
+            (img as any)
+              .decode()
+              .then(markLoaded)
+              .catch(() => markLoaded());
+          } else {
+            markLoaded();
+          }
+        };
+        img.onerror = () => {
+          markError();
+        };
         img.decoding = "async";
         // Give hint to browser (supported in modern browsers)
         (img as any).fetchPriority = 'low';
         img.src = buildOptimizedUrl(src);
+        // If the image is already cached, onload may not fire; handle synchronous complete
+        if ((img as any).complete && (img as any).naturalWidth > 0) {
+          if ('decode' in img && typeof (img as any).decode === 'function') {
+            (img as any)
+              .decode()
+              .then(markLoaded)
+              .catch(() => markLoaded());
+          } else {
+            markLoaded();
+          }
+        }
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn('[preload] exception creating Image for', src, e);
@@ -85,7 +128,26 @@ export function useImagePreloader(
 
     // Optional: cleanup any that fell out of window (keep cache in state though)
     // We won't revoke anything here; browser cache handles memory.
-  }, [windowSources, loaded]);
+  }, [windowSources, loaded, failed]);
 
-  return loaded;
+  const waitFor = (src: string, timeoutMs = 5000): Promise<'loaded' | 'error' | 'timeout'> => {
+    if (!src) return Promise.resolve('error');
+    if (loaded.has(src)) return Promise.resolve('loaded');
+    if (failed.has(src)) return Promise.resolve('error');
+
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        // Give up waiting; do not clear listeners so it can still resolve later for others
+        resolve('timeout');
+      }, timeoutMs);
+      const arr = listenersRef.current.get(src) || [];
+      arr.push((status) => {
+        clearTimeout(timer);
+        resolve(status);
+      });
+      listenersRef.current.set(src, arr);
+    });
+  };
+
+  return { loaded, waitFor };
 }
