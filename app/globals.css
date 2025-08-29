@@ -2,11 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Accessibility and a11y helpers */
+@import '../styles/accessibility.css';
+
 html,
 body {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+
+/* Foundation: fluid typography, spacing, and container tokens */
+:root {
+  --rhythm: clamp(0.75rem, 1.6vw, 1.25rem);
+  --lh-body: clamp(1.45, 1.2 + 0.8vw, 1.65);
+  --container-gutter: clamp(1rem, 3vw, 2rem);
+  --content-max: 72ch; /* optimal reading width */
+  --page-max: 1440px; /* default page max */
+}
+
+body {
+  font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.0625rem);
+  line-height: var(--lh-body);
+}
+
+h1 { font-size: clamp(1.75rem, 4vw, 3.5rem); line-height: 1.15; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.75rem); line-height: 1.2; }
+h3 { font-size: clamp(1.25rem, 2.8vw, 2rem); line-height: 1.25; }
+h4 { font-size: clamp(1.125rem, 2.2vw, 1.5rem); line-height: 1.3; }
+h5 { font-size: clamp(1rem, 1.8vw, 1.25rem); line-height: 1.35; }
+h6 { font-size: clamp(0.95rem, 1.4vw, 1.125rem); line-height: 1.4; }
+
+/* Fluid container with safe-area gutters */
+.oc-container { margin-inline: auto; padding-inline: max(var(--container-gutter), env(safe-area-inset-left)); width: min(100%, var(--page-max)); }
+.oc-content { max-width: var(--content-max); margin-inline: auto; }
+.safe-area-top { padding-top: env(safe-area-inset-top); }
+.safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-area-x { padding-inline: max(var(--container-gutter), env(safe-area-inset-left), env(safe-area-inset-right)); }
 
 /* Improve scroll performance and prevent scroll issues */
 * {
@@ -39,6 +70,9 @@ nav {
   backface-visibility: hidden;
   perspective: 1000px;
 }
+
+/* Prevent nested flex/grid overflow */
+main, section, div { min-width: 0; }
 
 /* Legacy sticky support (fallback) */
 .sticky {
@@ -240,6 +274,14 @@ progress::-webkit-progress-value {
   
   .font-display {
     font-family: var(--font-playfair), 'Playfair Display', serif;
+  }
+
+  /* Accessible form defaults */
+  input, select, textarea { min-height: 44px; padding: 12px; font-size: max(16px, 1rem); }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  @media (min-width: 768px) {
+    .form-row { display: flex; flex-direction: row; align-items: center; gap: 1rem; }
+    .form-label { flex: 0 0 120px; }
   }
 
   /* Blog-specific styles */
@@ -457,3 +499,32 @@ details[open] summary svg {
   will-change: auto; /* Remove will-change when animation completes */
 }
 
+/* Intrinsic grids and additional utilities */
+@layer components {
+  .grid-auto-fit { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(1rem, 3vw, 2rem); }
+  .grid-responsive { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: clamp(1rem, 3vw, 2rem); }
+}
+
+@layer utilities {
+  .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  @media (max-width: 767px) {
+    .responsive-table thead { display: none; }
+    .responsive-table tr { display: block; margin-bottom: 1rem; }
+    .responsive-table td { display: block; text-align: right; border: none; padding-left: 50%; position: relative; }
+    .responsive-table td:before { content: attr(data-label); position: absolute; left: 6px; width: 45%; text-align: left; font-weight: bold; }
+  }
+  .vh-section { min-height: 100vh; min-height: 100svh; min-height: 100dvh; }
+  .is-container { container-type: inline-size; }
+}
+
+/* Ultra-wide adaptations to avoid overlong lines */
+@media (min-width: 1400px) { :root { --content-max: 78ch; --page-max: 1600px; } }
+@media (min-width: 1920px) { :root { --content-max: 80ch; --page-max: 1840px; } }
+@media (min-width: 2560px) { :root { --content-max: 82ch; --page-max: 2000px; } }
+
+/* Print optimization */
+@media print {
+  * { background: transparent !important; color: black !important; box-shadow: none !important; text-shadow: none !important; }
+  .no-print { display: none !important; }
+  a[href^="http"]:after { content: " (" attr(href) ")"; }
+}

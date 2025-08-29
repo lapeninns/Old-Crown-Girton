@@ -194,12 +194,12 @@ const TestimonialsSection: React.FC = () => {
             <p className="text-lg md:text-xl text-neutral-700 font-light tracking-wide">
               Real reviews from Google Maps and TripAdvisor — trusted by locals and visitors
             </p>
-            <div className="flex items-center gap-6 mt-2 md:mt-0">
+            <div className="flex items-center justify-center gap-4 md:gap-6 mt-2 md:mt-0 flex-wrap w-full">
               <a 
                 href="https://www.google.com/maps/place/Old+Crown+Girton/@52.2425913,0.0814946,17z/data=!3m1!4b1!4m6!3m5!1s0x47d876dbade6e2af:0xeba590b4974cfa4!8m2!3d52.2425913!4d0.0814946!16s%2Fg%2F1w6r7jkz"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200"
+                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200 shrink-0"
                 aria-label="View Old Crown Girton reviews on Google Maps"
               >
                 <span className="w-7 h-7 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base shadow">G</span>
@@ -217,7 +217,7 @@ const TestimonialsSection: React.FC = () => {
                 href="https://www.tripadvisor.co.uk/Restaurant_Review-g3135834-d17412510-Reviews-Old_Crown_Girton-Girton_Cambridgeshire_England.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200"
+                className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-neutral-200 shrink-0"
                 aria-label="View Old Crown Girton reviews on TripAdvisor"
               >
                 <span className="w-7 h-7 rounded-full flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 text-white font-bold text-base shadow">T</span>

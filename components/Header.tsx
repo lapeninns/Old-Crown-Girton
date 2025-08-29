@@ -45,7 +45,7 @@ const Header = () => {
   }, [searchParams]);
 
   return (
-    <header className="bg-neutral sticky top-0 z-50 transition-all duration-300">
+    <header className="bg-neutral sticky top-0 z-50 transition-all duration-300 safe-area-top">
       <nav
         className="container flex items-center justify-between px-8 py-4 mx-auto"
         aria-label="Global"
@@ -75,6 +75,8 @@ const Header = () => {
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
             onClick={() => setIsOpen(true)}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             <span className="sr-only">Open main menu</span>
             <svg
@@ -113,7 +115,7 @@ const Header = () => {
       </nav>
 
       {/* Mobile menu, show/hide based on menu state. */}
-      <div className={`relative z-50 ${isOpen ? "" : "hidden"}`}>
+      <div className={`relative z-50 ${isOpen ? "" : "hidden"}`} id="mobile-menu" role="dialog" aria-modal="true">
         <div
           className={`fixed inset-y-0 right-0 z-10 w-full px-8 py-4 overflow-y-auto bg-base-200 sm:max-w-sm sm:ring-1 sm:ring-neutral/10 transform origin-right transition ease-in-out duration-300`}
         >

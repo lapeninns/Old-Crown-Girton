@@ -9,7 +9,39 @@ module.exports = {
     "./styles/globals.css",
   ],
   theme: {
+    // Custom container to align with requested breakpoint sizes
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1rem',
+        md: '1.25rem',
+        lg: '1.5rem',
+        xl: '2rem',
+        '2xl': '2.5rem',
+      },
+      screens: {
+        sm: '576px',   // Small tablets portrait
+        md: '768px',   // Tablets portrait, small laptops
+        lg: '992px',   // Tablets landscape, desktop
+        xl: '1200px',  // Desktop
+        '2xl': '1400px',
+      },
+    },
     extend: {
+      // Additional fine‑grained breakpoints (preserve Tailwind defaults)
+      screens: {
+        xxs: '320px',   // Smallest phones
+        xs: '375px',    // iPhone SE, small phones
+        sm480: '480px', // Large phones landscape
+        sm576: '576px', // Small tablets portrait
+        lg992: '992px',
+        xl1200: '1200px',
+        xl1400: '1400px',
+        fhd: '1920px',  // Full HD+
+        uw2k: '2560px', // 2K/4K ultra-wide
+        uw3440: '3440px',
+      },
       colors: {
         // Himalayan Spice Brand Colors (50-950 scales)
         brand: {

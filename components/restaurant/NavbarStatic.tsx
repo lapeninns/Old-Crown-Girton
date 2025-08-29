@@ -82,7 +82,12 @@ export default function NavbarStatic() {
           </div>
 
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-brand-700 focus:outline-none p-2">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="text-brand-700 focus:outline-none p-2" 
+              aria-expanded={isOpen}
+              aria-controls="nav-mobile-menu"
+            >
               <span className="sr-only">{ariaLabels?.openMenu || 'Open main menu'}</span>
               {!isOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +104,7 @@ export default function NavbarStatic() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50">
+        <div className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50" id="nav-mobile-menu" role="dialog" aria-modal="true">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {loading && <div className="px-3 py-2 text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</div>}
             {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
@@ -128,4 +133,3 @@ export default function NavbarStatic() {
     </nav>
   );
 }
-

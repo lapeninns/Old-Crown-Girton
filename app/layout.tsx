@@ -20,6 +20,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
+        {/* Skip link for keyboard users */}
+        <a href="#main-content" className="accessibility-skip-link">Skip to main content</a>
         <script dangerouslySetInnerHTML={{ __html: QUEUE_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: FALLBACK_SCRIPT }} />
 
