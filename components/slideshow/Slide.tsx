@@ -3,10 +3,8 @@
 import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
-import { useReducedMotion } from 'framer-motion';
 
 const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; preloaded?: boolean; visualOnly?: boolean }> = ({ slide, slideIndex, active, preloaded, visualOnly = false }) => {
-  const prefersReduced = useReducedMotion();
   const [imageLoaded, setImageLoaded] = useState<boolean>(!!preloaded);
   const [imageError, setImageError] = useState<boolean>(false);
   const altText = useMemo(() => slide.alt || 'Slideshow image', [slide.alt]);
@@ -96,9 +94,8 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
             alt={altText}
             fill
             priority={slideIndex === 0}
-            className={`object-cover transform xxs:scale-100 sm:scale-110 object-center transition-opacity ${prefersReduced ? 'duration-150' : 'duration-300'} ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            className={`object-cover transform xxs:scale-100 sm:scale-110 object-center transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             sizes="100vw"
-            draggable={false}
             onLoadingComplete={(img: any) => {
               try {
                 if (img && typeof img.decode === 'function') {
@@ -114,7 +111,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
           />
         )}
         {/* Overlay for text contrast; ease in slightly after image loads to avoid "grey flash" perception */}
-        <div className={`absolute inset-0 bg-black/75 transition-opacity ${prefersReduced ? 'duration-150' : 'duration-300'} ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-70'}`} />
+        <div className={`absolute inset-0 bg-black/75 transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-70'}`} />
       </div>
 
       {!visualOnly && (
@@ -166,4 +163,4 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
   );
 };
 
-export default React.memo(Slide);
+export default Slide;

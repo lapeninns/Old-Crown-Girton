@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence, useReducedMotion, useMotionValue, useVelocity, animate } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Slide from './Slide';
 import { slides as defaultSlides } from './slides';
 import { useImagePreloader } from './useImagePreloader';
 import SlideshowDebugger from './SlideshowDebugger';
-import { useWheelNavigate } from './useWheelNavigate';
 
 const TRANSITION_MS = 400;
 
@@ -17,14 +16,12 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [showPrev, setShowPrev] = useState(false);
   const transitioningRef = useRef(false);
-  const interactingRef = useRef(false);
-  const [isInteracting, setIsInteracting] = useState(false);
-  // Legacy refs removed; Framer Motion handles drag/gesture logic
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  // Motion values for buttery-smooth drag with minimal React re-rendering
-  const x = useMotionValue(0);
-  const xVelocity = useVelocity(x);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const mouseStartX = useRef<number | null>(null);
+  const mouseEndX = useRef<number | null>(null);
+  const isDragging = useRef(false);
+  const minSwipeDistance = 50;
 
   // Preload next images to avoid visible loading on navigation
   const { loaded, waitFor } = useImagePreloader(
@@ -68,7 +65,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
 
   // Autoplay that waits for the next image to be ready
   useEffect(() => {
-    if (!autoplay || slideCount <= 1 || isInteracting || transitioningRef.current) return;
+    if (!autoplay || slideCount <= 1) return;
     let cancelled = false;
     const timer = setTimeout(async () => {
       if (cancelled) return;
@@ -78,60 +75,98 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [autoplay, interval, slideCount, index, loaded, isInteracting]);
-
-  // Passive wheel/trackpad horizontal navigation (no re-render during wheel)
-  useWheelNavigate(containerRef, {
-    enabled: slideCount > 1,
-    get canNavigate() {
-      return !transitioningRef.current && !isInteracting;
-    },
-    onPrev: () => requestAdvance(-1),
-    onNext: () => requestAdvance(1),
-  });
+  }, [autoplay, interval, slideCount, index, loaded]);
 
   if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
 
   const goPrev = () => requestAdvance(-1);
   const goNext = () => requestAdvance(1);
 
-  // Remove manual touch/mouse drag in favor of Framer Motion drag for consistency
+  // Touch event handlers for swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && slideCount > 1) {
+      goNext();
+    }
+    if (isRightSwipe && slideCount > 1) {
+      goPrev();
+    }
+  };
+
+  // Mouse event handlers for desktop drag functionality
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    mouseStartX.current = e.clientX;
+    mouseEndX.current = null;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current) return;
+    mouseEndX.current = e.clientX;
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging.current || !mouseStartX.current || !mouseEndX.current) {
+      isDragging.current = false;
+      return;
+    }
+    
+    const distance = mouseStartX.current - mouseEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && slideCount > 1) {
+      goNext();
+    }
+    if (isRightSwipe && slideCount > 1) {
+      goPrev();
+    }
+    
+    isDragging.current = false;
+  };
+
+  const handleMouseLeave = () => {
+    isDragging.current = false;
+  };
 
   return (
     <motion.div
-      ref={containerRef}
-      className="relative w-full touch-pan-y overscroll-contain cursor-grab active:cursor-grabbing select-none"
+      className="relative w-full touch-pan-y cursor-grab active:cursor-grabbing select-none"
       role="region"
       aria-label="Slideshow - Swipe to navigate"
-      drag="x"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
+      drag={prefersReduced ? false : "x"}
       dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={prefersReduced ? 0.05 : 0.18}
-      dragMomentum={false}
-      style={{ x, willChange: isInteracting ? 'transform' : 'auto' }}
-      onDragStart={() => { interactingRef.current = true; setIsInteracting(true); }}
+      dragElastic={0.2}
       onDragEnd={(e, info) => {
-        const { offset } = info;
-        const velocityX = xVelocity.get();
-        const travel = Math.abs(offset.x);
-        const fast = Math.abs(velocityX) > (prefersReduced ? 500 : 700);
-        const far = travel > (prefersReduced ? 60 : 90);
-        const swipe = fast || far;
-
-        const settleSpring = { type: 'spring' as const, stiffness: prefersReduced ? 600 : 420, damping: prefersReduced ? 42 : 36 };
-        const reset = () => {
-          animate(x, 0, settleSpring).then(() => { interactingRef.current = false; setIsInteracting(false); });
-        };
-
-        if (!swipe) {
-          reset();
-          return;
-        }
+        const { offset, velocity } = info;
+        const swipe = Math.abs(offset.x) > 80 || Math.abs(velocity.x) > 300;
+        if (!swipe) return;
         if (offset.x < 0) {
           goNext();
         } else {
           goPrev();
         }
-        reset();
       }}
     >
       {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
@@ -148,16 +183,15 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
           </div>
         )}
         {/* Previous slide (on top, fading out) */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {prevIndex !== null && slides[prevIndex] && (
             <motion.div
               key={`prev-${slides[prevIndex].id}`}
               className="absolute inset-0 z-10 pointer-events-none"
-              style={{ willChange: transitioningRef.current ? 'opacity' : 'auto' }}
               initial={{ opacity: prefersReduced ? 1 : 1 }}
               animate={{ opacity: showPrev ? 1 : 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: prefersReduced ? 0.12 : 0.28, ease: 'easeInOut' }}
+              transition={{ duration: prefersReduced ? 0 : 0.3, ease: 'easeInOut' }}
             >
               <Slide
                 slide={slides[prevIndex]}
