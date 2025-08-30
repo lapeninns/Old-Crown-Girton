@@ -50,6 +50,8 @@ export default function MenuItemCard({
   className = '' 
 }: MenuItemProps) {
   const [imageError, setImageError] = useState(false);
+  // Feature flag: disable menu item images by default
+  const MENU_ITEM_IMAGES_ENABLED = process.env.NEXT_PUBLIC_MENU_ITEM_IMAGES === 'true';
   
   // Format price with proper currency formatting
   const priceText = item?.price
@@ -75,8 +77,8 @@ export default function MenuItemCard({
   const spiceTag = item.tags?.find(tag => tag.startsWith('spice-'));
   const spiceLevel = spiceTag ? parseInt(spiceTag.split('-')[1]) : null;
 
-  // Generate image URL (placeholder for now, would be actual images in production)
-  const imageUrl = !imageError && item.name 
+  // Generate image URL only if images are enabled
+  const imageUrl = MENU_ITEM_IMAGES_ENABLED && !imageError && item.name
     ? `/images/menu/${section}/${item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.jpg`
     : null;
 
