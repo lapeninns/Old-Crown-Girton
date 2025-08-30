@@ -13,6 +13,9 @@ export function useImagePreloader(
   const behind = options?.behind ?? 1; // optionally keep previous in cache
   const [loaded, setLoaded] = useState<Set<string>>(new Set());
   const [failed, setFailed] = useState<Set<string>>(new Set());
+  const [loadingStates, setLoadingStates] = useState<
+    Map<string, 'loading' | 'loaded' | 'error'>
+  >(new Map());
   const loadingMap = useRef<Map<string, HTMLImageElement>>(new Map());
   const listenersRef = useRef<
     Map<string, Array<(status: 'loaded' | 'error') => void>>
@@ -67,6 +70,7 @@ export function useImagePreloader(
             const next = new Set(prev).add(src);
             return next;
           });
+          setLoadingStates((prev) => new Map(prev).set(src, 'loaded'));
           const listeners = listenersRef.current.get(src);
           if (listeners) {
             listeners.forEach((cb) => cb('loaded'));
@@ -80,6 +84,7 @@ export function useImagePreloader(
         };
         const markError = () => {
           setFailed((prev) => new Set(prev).add(src));
+          setLoadingStates((prev) => new Map(prev).set(src, 'error'));
           const listeners = listenersRef.current.get(src);
           if (listeners) {
             listeners.forEach((cb) => cb('error'));
@@ -106,6 +111,7 @@ export function useImagePreloader(
           markError();
         };
         img.decoding = "async";
+  setLoadingStates((prev) => new Map(prev).set(src, 'loading'));
         // Give hint to browser (supported in modern browsers)
         (img as any).fetchPriority = 'low';
         img.src = buildOptimizedUrl(src);
@@ -143,11 +149,13 @@ export function useImagePreloader(
       const arr = listenersRef.current.get(src) || [];
       arr.push((status) => {
         clearTimeout(timer);
+        if (status === 'loaded') setLoadingStates((prev) => new Map(prev).set(src, 'loaded'));
+        if (status === 'error') setLoadingStates((prev) => new Map(prev).set(src, 'error'));
         resolve(status);
       });
       listenersRef.current.set(src, arr);
     });
   };
 
-  return { loaded, waitFor };
+  return { loaded, loadingStates, waitFor };
 }

@@ -20,6 +20,35 @@ body {
   --page-max: 1440px; /* default page max */
 }
 
+/* Performance hygiene */
+.lazy-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 600px;
+}
+
+/* Gate hover micro-lifts on touch devices */
+@media (pointer: coarse) {
+  .hover-lift {
+    transform: none !important;
+  }
+}
+
+/* Only enable will-change hint when explicitly toggled */
+[data-animating="true"] {
+  will-change: transform, opacity;
+}
+
+/* Safari subpixel wobble mitigation */
+.gpu-fix {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduced motion: disable any smooth scrolling globally */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+}
+
 body {
   font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.0625rem);
   line-height: var(--lh-body);

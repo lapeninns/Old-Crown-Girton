@@ -16,6 +16,7 @@ export default async function RestaurantLayout({ children, noMotion = false }: L
       <main 
         className="overflow-x-hidden relative" 
         id="main-content"
+        tabIndex={-1}
         style={{
           minHeight: 'calc(100vh - 64px)', // Account for navbar height
           isolation: 'isolate', // Create new stacking context

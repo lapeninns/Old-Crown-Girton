@@ -1,5 +1,7 @@
 'use client';
 import Image from 'next/image';
+import { motion, useReducedMotion } from 'framer-motion';
+import { v } from '@/components/variants';
 
 interface DishCardProps {
   title: string;
@@ -20,8 +22,10 @@ export default function DishCard({
   isVegetarian,
   delay = 0,
 }: DishCardProps) {
+  const prefersReduced = useReducedMotion();
+  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+    <motion.div className="bg-white rounded-xl shadow-lg overflow-hidden hover-lift gpu-fix" variants={itemVariant as any} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }} whileHover={{ y: -2, scale: 1.01 }} transition={{ duration: 0.18 }}>
       <div className="relative h-48 w-full">
         <Image
           src={image}
@@ -64,13 +68,14 @@ export default function DishCard({
         <p className="text-neutral-600 mb-4 line-clamp-2">
           {description}
         </p>
-        <a
+        <motion.a
           href="tel:01223276027"
           className="block w-full text-center bg-accent text-white font-medium py-2 px-4 rounded-lg"
+          {...v.button}
         >
           📞 Call to Order
-        </a>
+        </motion.a>
       </div>
-    </div>
+    </motion.div>
   );
 }

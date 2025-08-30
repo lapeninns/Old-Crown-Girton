@@ -302,14 +302,44 @@ const AutoMarquee: React.FC<{ children: React.ReactNode; speedPxPerSec?: number;
   const rafRef = useRef<number | null>(null);
   const lastTsRef = useRef<number>(0);
   const pausedUntilRef = useRef<number>(0);
+  const [prefersReduced, setPrefersReduced] = React.useState<boolean>(false);
+
+  // Detect prefers-reduced-motion on mount and watch for changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const handle = () => setPrefersReduced(Boolean(mq.matches));
+    handle();
+    try {
+      mq.addEventListener ? mq.addEventListener('change', handle) : mq.addListener(handle);
+    } catch (e) {
+      // ignore
+    }
+    return () => {
+      try {
+        mq.removeEventListener ? mq.removeEventListener('change', handle) : mq.removeListener(handle);
+      } catch (e) {
+        // ignore
+      }
+    };
+  }, []);
+
+  // If user prefers reduced motion, render a static, accessible scroller instead of animated marquee
+  if (prefersReduced) {
+    return (
+      <div className="overflow-x-auto py-8" aria-roledescription="carousel" aria-label="Customer testimonials">
+        <div className="flex gap-6 items-stretch px-2">
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   // Start the animation loop
   useEffect(() => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!viewport || !track) return;
-
-    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const recalc = () => {
       // Width of a single set (track contains two identical sets)
@@ -337,7 +367,7 @@ const AutoMarquee: React.FC<{ children: React.ReactNode; speedPxPerSec?: number;
 
       const now = performance.now();
       const paused = now < pausedUntilRef.current;
-      const speed = prefersReduced ? 0 : speedPxPerSec;
+      const speed = speedPxPerSec;
 
       if (!paused && setWidthRef.current > 0 && speed > 0) {
         offsetRef.current += speed * dt; // move right
@@ -359,7 +389,7 @@ const AutoMarquee: React.FC<{ children: React.ReactNode; speedPxPerSec?: number;
       window.removeEventListener('resize', onResize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [speedPxPerSec, resumeAfterMs]);
+  }, [speedPxPerSec]);
 
   // Pause on interaction; resume automatically after resumeAfterMs
   useEffect(() => {
@@ -394,6 +424,7 @@ const AutoMarquee: React.FC<{ children: React.ReactNode; speedPxPerSec?: number;
   return (
     <div ref={viewportRef} className="overflow-hidden py-8 select-none" aria-roledescription="carousel" aria-label="Customer testimonials (auto scrolling)">
       <div ref={trackRef} className="flex gap-6 items-stretch will-change-transform">
+        {children}
         {children}
       </div>
     </div>

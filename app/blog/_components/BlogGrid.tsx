@@ -1,5 +1,8 @@
+"use client";
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, useReducedMotion } from 'framer-motion';
+import { v } from '@/components/variants';
 
 interface BlogPost {
   id: string;
@@ -18,18 +21,22 @@ interface BlogGridProps {
 }
 
 export default function BlogGrid({ posts }: BlogGridProps) {
+  const prefersReduced = useReducedMotion();
+  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" variants={v.list()} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
       {posts.map((post) => (
-        <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <motion.article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover-lift gpu-fix" variants={itemVariant as any} whileHover={{ y: -2, scale: 1.01 }} transition={{ duration: 0.18 }}>
           <div className="relative h-48">
-            <Image
-              src={post.image}
-              alt={post.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+            <motion.div layoutId={`post:${post.slug}:image`} className="absolute inset-0">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
           </div>
           
           <div className="p-6">
@@ -61,8 +68,8 @@ export default function BlogGrid({ posts }: BlogGridProps) {
               </time>
             </div>
           </div>
-        </article>
+        </motion.article>
       ))}
-    </div>
+    </motion.div>
   );
 }

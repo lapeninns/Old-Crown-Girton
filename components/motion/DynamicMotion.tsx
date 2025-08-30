@@ -1,3 +1,5 @@
+"use client";
+
 // Enhanced dynamic motion components for maximum bundle optimization
 import dynamic from 'next/dynamic';
 import React, { memo, forwardRef } from 'react';

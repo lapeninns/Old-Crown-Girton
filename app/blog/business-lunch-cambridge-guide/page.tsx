@@ -2,6 +2,8 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
 import { Images } from '@/src/lib/images';
 
 // SEO Metadata
@@ -66,10 +68,12 @@ export default function BusinessLunchGuidePage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
-        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-        html:focus-within{scroll-behavior:auto!important}
+        @media (prefers-reduced-motion: reduce) {
+          *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+          html:focus-within{scroll-behavior:auto!important}
+        }
       ` }} />
-      <RestaurantLayout noMotion>
+      <RestaurantLayout>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -205,14 +209,16 @@ export default function BusinessLunchGuidePage() {
             </div>
             
             <div className="relative h-64 md:h-96 rounded-xl overflow-hidden">
-              <Image
-                src={post.image}
-                alt="Professional business lunch meeting at Old Crown Girton with quality dining and networking atmosphere"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 1024px"
-                priority
-              />
+              <MotionDiv className="absolute inset-0" layoutId={`post:${post.slug}:image`}>
+                <Image
+                  src={post.image}
+                  alt="Professional business lunch meeting at Old Crown Girton with quality dining and networking atmosphere"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 1024px"
+                  priority
+                />
+              </MotionDiv>
             </div>
           </div>
         </header>

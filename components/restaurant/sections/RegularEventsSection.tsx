@@ -1,5 +1,8 @@
 'use client';
 
+import { motion, useReducedMotion } from 'framer-motion';
+import { v } from '@/components/variants';
+
 /**
  * Props interfaces for RegularEventsSection component
  */
@@ -38,9 +41,11 @@ export default function RegularEventsSection({
   if (!events || events.length === 0) {
     return null;
   }
+  const prefersReduced = useReducedMotion();
+  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
 
   return (
-    <div className={`space-y-6 ${className}`}>
+    <motion.div className={`space-y-6 ${className}`} variants={v.list()} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
       {events.map((event, index) => {
         // Skip events without required properties
         if (!event.title || !event.description || !event.frequency) {
@@ -48,8 +53,9 @@ export default function RegularEventsSection({
         }
         
         return (
-          <div 
+          <motion.div 
             key={index}
+            variants={itemVariant as any}
             className="bg-surface-base rounded-xl shadow-lg p-6"
             itemScope
             itemType="https://schema.org/Event"
@@ -86,9 +92,9 @@ export default function RegularEventsSection({
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         );
       }).filter(Boolean)}
-    </div>
+    </motion.div>
   );
 }

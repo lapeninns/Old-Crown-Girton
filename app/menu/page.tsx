@@ -122,11 +122,13 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 	return (
 		<>
 			<style dangerouslySetInnerHTML={{ __html: `
-			  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-			  html:focus-within{scroll-behavior:auto!important}
+			  @media (prefers-reduced-motion: reduce) {
+			    *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+			    html:focus-within{scroll-behavior:auto!important}
+			  }
 			` }} />
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-			<RestaurantLayout noMotion>
+			<RestaurantLayout>
 				{/* Hero Section (component) */}
 				<MenuHero />
 

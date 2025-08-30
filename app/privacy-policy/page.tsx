@@ -19,10 +19,12 @@ const PrivacyPolicy = () => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
-        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-        html:focus-within{scroll-behavior:auto!important}
+        @media (prefers-reduced-motion: reduce) {
+          *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+          html:focus-within{scroll-behavior:auto!important}
+        }
       ` }} />
-      <RestaurantLayout noMotion>
+      <RestaurantLayout>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",

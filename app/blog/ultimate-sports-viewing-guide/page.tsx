@@ -2,6 +2,7 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
 
 // SEO Metadata
@@ -17,6 +18,8 @@ export const metadata = getSEOTags({
     type: "article",
   },
 });
+
+const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
 
 export default function SportsViewingGuidePage() {
   const post = {
@@ -168,10 +171,12 @@ export default function SportsViewingGuidePage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
-        *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-        html:focus-within{scroll-behavior:auto!important}
+        @media (prefers-reduced-motion: reduce) {
+          *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+          html:focus-within{scroll-behavior:auto!important}
+        }
       ` }} />
-      <RestaurantLayout noMotion>
+      <RestaurantLayout>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -307,14 +312,16 @@ export default function SportsViewingGuidePage() {
             </div>
             
             <div className="relative h-64 md:h-96 rounded-xl overflow-hidden">
-              <Image
-                src={post.image}
-                alt="Sports fans watching Premier League football on large screens at Old Crown Girton"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 1024px"
-                priority
-              />
+              <MotionDiv className="absolute inset-0" layoutId={`post:${post.slug}:image`}>
+                <Image
+                  src={post.image}
+                  alt="Sports fans watching Premier League football on large screens at Old Crown Girton"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 1024px"
+                  priority
+                />
+              </MotionDiv>
             </div>
           </div>
         </header>

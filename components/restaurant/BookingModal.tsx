@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { v } from '@/components/variants';
 import { useContent } from '@/hooks/useContent';
 import Button from './Button';
 
@@ -57,18 +58,17 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         >
           {/* Backdrop */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            {...v.fade}
             className="absolute inset-0 bg-stout-900/70 backdrop-blur-sm"
             onClick={onClose}
           />
           
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            variants={v.scaleIn}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             className="relative bg-neutral-50 rounded-2xl shadow-2xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto"
           >
             {/* Header */}

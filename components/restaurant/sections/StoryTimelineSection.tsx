@@ -1,5 +1,8 @@
 'use client';
 
+import { motion, useReducedMotion } from 'framer-motion';
+import { v } from '@/components/variants';
+
 /**
  * Props interfaces for StoryTimelineSection component
  */
@@ -38,9 +41,11 @@ export default function StoryTimelineSection({
   if (!timeline || timeline.length === 0) {
     return null;
   }
+  const prefersReduced = useReducedMotion();
+  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
 
   return (
-    <section className={`py-8 ${className}`}>
+    <motion.section className={`py-8 ${className}`} variants={itemVariant as any} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
       <div className="prose prose-lg max-w-none">
         <p className="text-neutral-600 mb-6">
           {introduction}
@@ -50,14 +55,14 @@ export default function StoryTimelineSection({
           {title}
         </h2>
         
-        <div className="space-y-6">
+        <motion.div className="space-y-6" variants={v.list()} animate="animate">
           {timeline.map((period, index) => {
             if (!period.period || !period.title || !period.description) {
               return null;
             }
             
             return (
-              <div key={index} className="relative mb-6 last:mb-0">
+              <motion.div key={index} className="relative mb-6 last:mb-0" variants={itemVariant as any}>
                 {index < timeline.length - 1 && (
                   <div className="absolute left-0 top-8 w-0.5 h-16 bg-brand-200 hidden md:block" />
                 )}
@@ -71,11 +76,11 @@ export default function StoryTimelineSection({
                     {period.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             );
           }).filter(Boolean)}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

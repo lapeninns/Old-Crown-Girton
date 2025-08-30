@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { v } from '@/components/variants';
 import { ReactNode } from 'react';
 
 type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost' | 'link' | 'destructive';
@@ -58,8 +59,7 @@ export default function Button({
 
   const ButtonContent = () => (
     <motion.span
-      whileHover={!disabled ? { scale: 1.02 } : {}}
-      whileTap={!disabled ? { scale: 0.98 } : {}}
+      {...(!disabled ? v.button : {})}
       className="block"
     >
       {loading ? (

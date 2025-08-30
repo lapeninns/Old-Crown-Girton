@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
+const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
 import type { JSX } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -37,6 +40,7 @@ const cta: JSX.Element = <ButtonSignin extraStyle="btn-primary" />;
 // The header is responsive, and on mobile, the links are hidden behind a burger button.
 const Header = () => {
   const searchParams = useSearchParams();
+  const pathname = usePathname() || '/';
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // setIsOpen(false) when the route changes (i.e: when the user clicks on a link on mobile)
@@ -97,15 +101,18 @@ const Header = () => {
         </div>
 
         {/* Your links on large screens */}
-        <div className="hidden lg:flex lg:justify-center lg:gap-12 lg:items-center">
+        <div className="hidden lg:flex lg:justify-center lg:gap-12 lg:items-center relative">
           {links.map((link) => (
             <Link
               href={link.href}
               key={link.href}
-              className="link link-hover"
+              className="link link-hover relative px-1"
               title={link.label}
             >
               {link.label}
+              {pathname === link.href && (
+                <MotionDiv layoutId="nav:active-underline" className="absolute left-0 right-0 -bottom-2 h-0.5 bg-brand-600 rounded-full" />
+              )}
             </Link>
           ))}
         </div>

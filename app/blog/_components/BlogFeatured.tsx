@@ -1,5 +1,8 @@
+"use client";
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, useReducedMotion } from 'framer-motion';
+import { v } from '@/components/variants';
 
 interface BlogPost {
   id: string;
@@ -18,8 +21,10 @@ interface BlogFeaturedProps {
 }
 
 export default function BlogFeatured({ post }: BlogFeaturedProps) {
+  const prefersReduced = useReducedMotion();
+  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
   return (
-    <article className="relative bg-white rounded-xl shadow-xl overflow-hidden">
+    <motion.article className="relative bg-white rounded-xl shadow-xl overflow-hidden" variants={itemVariant as any} initial="initial" animate="animate">
       <div className="md:flex">
         <div className="md:w-1/2">
           <div className="relative h-64 md:h-full">
@@ -80,6 +85,6 @@ export default function BlogFeatured({ post }: BlogFeaturedProps) {
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

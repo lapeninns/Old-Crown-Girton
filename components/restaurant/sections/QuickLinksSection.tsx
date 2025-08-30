@@ -1,5 +1,7 @@
 'use client';
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
+import { v } from '@/components/variants';
 
 /**
  * Props interface for QuickLinksSection component
@@ -34,10 +36,13 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
     return null;
   }
 
+  const prefersReduced = useReducedMotion();
+  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
+
   return (
     <section className={`py-12 bg-surface-base lazy-section ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
+        <motion.div className="grid gap-8 md:grid-cols-3" variants={v.list()} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
           {links.map((link, index) => {
             // Skip items with missing required data
             if (!link.title || !link.description || !link.link || !link.linkText) {
@@ -46,9 +51,12 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
             
             
             return (
-              <div
+              <motion.div
                 key={index}
-                className="p-6 rounded-lg border border-neutral-200 bg-neutral/40"
+                variants={itemVariant as any}
+                className="p-6 rounded-lg border border-neutral-200 bg-neutral/40 hover-lift gpu-fix"
+                whileHover={{ y: -2, scale: 1.01 }}
+                transition={{ duration: 0.18 }}
               >
                 <h3 className="font-display font-bold text-xl mb-2 text-brand-700">
                   {link.title}
@@ -57,18 +65,21 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
                   {link.description}
                 </p>
                 <div>
-                  <a 
+                  <motion.a 
                     href={link.link} 
-                    className="text-foreground-strong font-semibold hover:underline"
+                    className="text-foreground-strong font-semibold hover:underline inline-block"
                     aria-label={`${link.title}: ${link.linkText}`}
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.18 }}
                   >
                     {link.linkText}
-                  </a>
+                  </motion.a>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

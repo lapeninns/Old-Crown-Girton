@@ -96,7 +96,17 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
             priority={slideIndex === 0}
             className={`object-cover transform xxs:scale-100 sm:scale-110 object-center transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             sizes="100vw"
-            onLoadingComplete={() => setImageLoaded(true)}
+            onLoadingComplete={(img: any) => {
+              try {
+                if (img && typeof img.decode === 'function') {
+                  img.decode().then(() => setImageLoaded(true)).catch(() => setImageLoaded(true));
+                } else {
+                  setImageLoaded(true);
+                }
+              } catch {
+                setImageLoaded(true);
+              }
+            }}
             onError={() => setImageError(true)}
           />
         )}

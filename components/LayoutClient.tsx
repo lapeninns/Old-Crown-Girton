@@ -9,6 +9,10 @@ import { Toaster } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import config from "@/config";
 import dynamic from 'next/dynamic';
+import PageTransition from '@/components/PageTransition';
+import { MotionConfig, LazyMotion, domAnimation } from 'framer-motion';
+import { motionTokens } from '@/components/motionTokens';
+import ReducedMotionBridge from '@/components/ReducedMotionBridge';
 
 const StickyCallButtonDynamic = dynamic(() => import('./StickyCallButton'));
 const BookingModal = dynamic(() => import('./restaurant/BookingModal'));
@@ -139,8 +143,14 @@ const ClientLayout = ({ children }: { children: ReactNode }) => {
       {/* Show a progress bar at the top when navigating between pages */}
       {!isNoMotion && <NextTopLoader color={config.colors.main} showSpinner={false} />}
 
-      {/* Content inside app/page.js files  */}
-      {children}
+      {/* LazyMotion + MotionConfig + Page transitions around route content */}
+  <LazyMotion features={domAnimation} strict={false}>
+        <MotionConfig transition={{ duration: 0.2, ease: motionTokens.ease.out }} reducedMotion="user">
+          <ReducedMotionBridge>
+            <PageTransition>{children}</PageTransition>
+          </ReducedMotionBridge>
+        </MotionConfig>
+      </LazyMotion>
 
       {/* Show Success/Error messages anywhere from the app with toast() */}
       <Toaster

@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { v } from '@/components/variants';
 import { useParsedData } from '@/hooks/useParsedData';
 import { useContent } from '@/hooks/useContent';
 import { NavDataSchema, NavDataParsed } from '@/lib/schemas';
@@ -14,6 +15,7 @@ export default function Navbar() {
   const navbarRef = useRef<HTMLElement>(null);
   const { data, loading, error } = useParsedData<NavDataParsed>('nav.json', NavDataSchema);
   const { data: content } = useContent();
+  const prefersReduced = useReducedMotion();
   
   // Force fixed positioning - this ensures navbar stays at top
   useEffect(() => {
@@ -132,37 +134,45 @@ export default function Navbar() {
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50"
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {loading && <div className="px-3 py-2 text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</div>}
-              {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
-              <div className="flex flex-col space-y-4">
-                {filteredLinks.map((link: any) => (
+          <>
+            {/* Scrim */}
+            <motion.div
+              {...v.fade}
+              className="fixed inset-0 bg-black/20 md:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            <motion.div
+              variants={prefersReduced ? (v.fade as any) : v.scaleIn}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50"
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                {loading && <div className="px-3 py-2 text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</div>}
+                {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
+                <div className="flex flex-col space-y-4">
+                  {filteredLinks.map((link: any) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="text-brand-600 hover:text-brand-800 py-2 px-3"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                   <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-brand-600 hover:text-brand-800 py-2 px-3"
+                    href="/contact"
+                    className="w-full px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800 transition-colors duration-300"
                     onClick={() => setIsOpen(false)}
                   >
-                    {link.label}
+                    {contactLabel}
                   </Link>
-                ))}
-                <Link
-                  href="/contact"
-                  className="w-full px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800 transition-colors duration-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {contactLabel}
-                </Link>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
