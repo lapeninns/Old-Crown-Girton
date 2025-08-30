@@ -88,7 +88,14 @@ export default function MenuHighlights() {
           <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
 
-          <AutoMarquee ariaLabel="Signature dishes" speedPxPerSec={38} direction="right">
+          <AutoMarquee
+            ariaLabel="Signature dishes"
+            speedPxPerSec={38}
+            direction="right"
+            maxFlingSpeed={2400}
+            minInertiaVelocity={20}
+            frictionPer60fps={0.99}
+          >
             {dishesToDisplay.map((dish) => (
               <div key={dish.title} className="flex-shrink-0 w-[82vw] max-w-[22rem] sm:w-72 md:w-80">
                 <DishCard {...dish} />

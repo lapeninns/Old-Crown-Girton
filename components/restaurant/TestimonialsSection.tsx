@@ -236,7 +236,13 @@ const TestimonialsSection: React.FC = () => {
           <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
           {/* Slider Container */}
-          <AutoMarquee ariaLabel="Customer testimonials" direction="left">
+          <AutoMarquee
+            ariaLabel="Customer testimonials"
+            direction="left"
+            maxFlingSpeed={2400}
+            minInertiaVelocity={20}
+            frictionPer60fps={0.99}
+          >
             {/* Render reviews twice for seamless loop */}
             {[...reviews, ...reviews].map((review, index) => (
               <div
