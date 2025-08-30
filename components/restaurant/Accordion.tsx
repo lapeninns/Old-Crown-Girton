@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { variants as mv } from '@/lib/motion/variants';
 
 interface AccordionProps {
   title: string;
@@ -33,13 +34,7 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
       
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
+          <motion.div variants={mv.expand} initial="collapsed" animate="expanded" exit="collapsed" className="overflow-hidden">
             <div className="px-6 py-4 bg-neutral-100 border-t border-neutral-200">
               {children}
             </div>

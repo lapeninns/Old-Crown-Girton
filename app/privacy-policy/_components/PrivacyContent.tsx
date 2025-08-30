@@ -60,7 +60,7 @@ export default function PrivacyContent() {
   ];
   
   return (
-    <div className="leading-relaxed space-y-6 text-sm px-5">
+    <article className="prose prose-brand max-w-prose mx-auto leading-relaxed space-y-6 text-sm px-5 sm:px-6">
       <p><strong>Effective Date:</strong> <span>{content.meta.effectiveDate}</span></p>
       <p>{content.introduction}</p>
       
@@ -69,17 +69,17 @@ export default function PrivacyContent() {
         if (!section) return null;
         
         return (
-          <div key={sectionKey}>
-            <h2 className="text-xl font-bold mt-4">
+          <section key={sectionKey}>
+            <h2 className="text-xl font-bold mt-6">
               {index + 1}. {section.title}
             </h2>
             {section.intro && (
               <p className="mt-2 leading-relaxed">{section.intro}</p>
             )}
             {renderSectionContent(section, index)}
-          </div>
+          </section>
         );
       })}
-    </div>
+    </article>
   );
 }

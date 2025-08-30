@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { v } from '@/components/variants';
+import { variants as mv } from '@/lib/motion/variants';
 
 /**
  * Props interfaces for RegularEventsSection component
@@ -42,10 +42,10 @@ export default function RegularEventsSection({
     return null;
   }
   const prefersReduced = useReducedMotion();
-  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
+  const itemVariant = prefersReduced ? mv.fadeIn : mv.fadeUp;
 
   return (
-    <motion.div className={`space-y-6 ${className}`} variants={v.list()} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
+    <motion.div className={`space-y-6 ${className}`} variants={mv.staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}>
       {events.map((event, index) => {
         // Skip events without required properties
         if (!event.title || !event.description || !event.frequency) {

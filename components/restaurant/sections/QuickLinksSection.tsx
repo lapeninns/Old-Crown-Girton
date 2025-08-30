@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { v } from '@/components/variants';
+import { variants as mv } from '@/lib/motion/variants';
 
 /**
  * Props interface for QuickLinksSection component
@@ -37,12 +37,12 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
   }
 
   const prefersReduced = useReducedMotion();
-  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
+  const itemVariant = prefersReduced ? mv.fadeIn : mv.fadeUp;
 
   return (
     <section className={`py-12 bg-surface-base lazy-section ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div className="grid gap-8 md:grid-cols-3" variants={v.list()} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
+        <motion.div className="grid gap-8 md:grid-cols-3" variants={mv.staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}>
           {links.map((link, index) => {
             // Skip items with missing required data
             if (!link.title || !link.description || !link.link || !link.linkText) {
@@ -69,8 +69,8 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
                     href={link.link} 
                     className="text-foreground-strong font-semibold hover:underline inline-block"
                     aria-label={`${link.title}: ${link.linkText}`}
-                    whileHover={{ y: -2, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={mv.button.hover}
+                    whileTap={mv.button.tap}
                     transition={{ duration: 0.18 }}
                   >
                     {link.linkText}

@@ -5,14 +5,13 @@ import React, { useEffect, useState, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Crisp } from "crisp-sdk-web";
 import NextTopLoader from "nextjs-toploader";
-import { Toaster } from "react-hot-toast";
+import NotificationToaster from '@/components/ui/Notifications';
 import { Tooltip } from "react-tooltip";
 import config from "@/config";
 import dynamic from 'next/dynamic';
 import PageTransition from '@/components/PageTransition';
-import { MotionConfig, LazyMotion, domAnimation } from 'framer-motion';
-import { motionTokens } from '@/components/motionTokens';
-import ReducedMotionBridge from '@/components/ReducedMotionBridge';
+import { MotionConfigProvider } from '@/lib/motion/accessibility';
+import { MotionFeatures } from '@/lib/motion/performance';
 
 const StickyCallButtonDynamic = dynamic(() => import('./StickyCallButton'));
 const BookingModal = dynamic(() => import('./restaurant/BookingModal'));
@@ -144,20 +143,16 @@ const ClientLayout = ({ children }: { children: ReactNode }) => {
       {!isNoMotion && <NextTopLoader color={config.colors.main} showSpinner={false} />}
 
       {/* LazyMotion + MotionConfig + Page transitions around route content */}
-  <LazyMotion features={domAnimation} strict={false}>
-        <MotionConfig transition={{ duration: 0.2, ease: motionTokens.ease.out }} reducedMotion="user">
-          <ReducedMotionBridge>
-            <PageTransition>{children}</PageTransition>
-          </ReducedMotionBridge>
-        </MotionConfig>
-      </LazyMotion>
+      <MotionFeatures>
+        <MotionConfigProvider reducedMotion="user">
+          <PageTransition disableMotion={isNoMotion} routeKey={pathname}>
+            {children}
+          </PageTransition>
+        </MotionConfigProvider>
+      </MotionFeatures>
 
-      {/* Show Success/Error messages anywhere from the app with toast() */}
-      <Toaster
-        toastOptions={{
-          duration: 3000,
-        }}
-      />
+      {/* Standardized notification toaster with ARIA live region */}
+      <NotificationToaster />
 
       {/* Show tooltips if any JSX elements has these 2 attributes: data-tooltip-id="tooltip" data-tooltip-content="" */}
       <Tooltip

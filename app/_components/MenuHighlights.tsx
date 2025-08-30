@@ -1,6 +1,7 @@
 'use client';
 import DishCard from '@/components/restaurant/DishCard';
 import Link from 'next/link';
+import { AutoMarquee } from '@/components/restaurant/AutoMarquee';
 
 // Featured dishes using only high-quality real dish images
 const featuredDishes = [
@@ -61,20 +62,23 @@ export default function MenuHighlights() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredDishes.map((dish, index) => (
-            <DishCard
-              key={dish.title}
-              {...dish}
-              delay={index * 0.1}
-            />
-          ))}
+        {/* Infinite horizontal marquee with 6 cards */}
+        <div className="relative mb-12">
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
+          <AutoMarquee ariaLabel="Signature dishes" speedPxPerSec={38} direction="right">
+            {featuredDishes.map((dish) => (
+              <div key={dish.title} className="flex-shrink-0 w-72 md:w-80">
+                <DishCard {...dish} />
+              </div>
+            ))}
+          </AutoMarquee>
         </div>
 
         <div className="text-center">
           <Link
             href="/menu"
-            className="inline-block bg-accent text-white font-bold py-4 px-8 rounded-lg text-lg"
+            className="inline-block bg-accent hover:bg-accent-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
           >
             View Full Menu
           </Link>

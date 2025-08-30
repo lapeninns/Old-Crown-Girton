@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { v } from '@/components/variants';
+import { variants as mv } from '@/lib/motion/variants';
 
 /**
  * Props interfaces for StoryTimelineSection component
@@ -42,10 +42,10 @@ export default function StoryTimelineSection({
     return null;
   }
   const prefersReduced = useReducedMotion();
-  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
+  const itemVariant = prefersReduced ? mv.fadeIn : mv.fadeUp;
 
   return (
-    <motion.section className={`py-8 ${className}`} variants={itemVariant as any} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
+    <motion.section className={`py-8 ${className}`} variants={itemVariant as any} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}>
       <div className="prose prose-lg max-w-none">
         <p className="text-neutral-600 mb-6">
           {introduction}
@@ -55,7 +55,7 @@ export default function StoryTimelineSection({
           {title}
         </h2>
         
-        <motion.div className="space-y-6" variants={v.list()} animate="animate">
+        <motion.div className="space-y-6" variants={mv.staggerContainer} initial="hidden" whileInView="visible">
           {timeline.map((period, index) => {
             if (!period.period || !period.title || !period.description) {
               return null;

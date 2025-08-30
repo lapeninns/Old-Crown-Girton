@@ -25,8 +25,8 @@ export default function DishCard({
   const prefersReduced = useReducedMotion();
   const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
   return (
-    <motion.div className="bg-white rounded-xl shadow-lg overflow-hidden hover-lift gpu-fix" variants={itemVariant as any} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }} whileHover={{ y: -2, scale: 1.01 }} transition={{ duration: 0.18 }}>
-      <div className="relative h-48 w-full">
+    <motion.div className="bg-white rounded-2xl sm:rounded-xl shadow-lg overflow-hidden hover-lift gpu-fix" variants={itemVariant as any} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }} whileHover={{ y: -2, scale: 1.01 }} transition={{ duration: 0.18 }}>
+      <div className="relative h-44 sm:h-48 w-full">
         <Image
           src={image}
           alt={`${title} - authentic Nepalese cuisine at The Old Crown Girton Cambridge`}
@@ -37,14 +37,14 @@ export default function DishCard({
         />
         
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex gap-2">
+        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 flex gap-2">
           {isVegetarian && (
-            <span className="bg-cardamom-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+            <span className="bg-cardamom-500 text-white text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium">
               Vegetarian
             </span>
           )}
           {spiceLevel && (
-            <span className={`text-white text-xs px-2 py-1 rounded-full font-medium ${
+            <span className={`text-white text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium ${
               spiceLevel === 'mild' ? 'bg-cardamom-400' :
               spiceLevel === 'medium' ? 'bg-accent-500' : 'bg-crimson-500'
             }`}>
@@ -54,23 +54,23 @@ export default function DishCard({
         </div>
 
         {/* Price */}
-        <div className="absolute top-3 right-3">
-          <span className="bg-accent text-white text-lg font-bold px-3 py-1 rounded-full">
+        <div className="absolute top-2 sm:top-3 right-2 sm:right-3">
+          <span className="bg-accent text-white text-sm sm:text-lg font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
             {price}
           </span>
         </div>
       </div>
 
-      <div className="p-6">
-        <h3 className="text-xl font-display font-bold text-stout-700 mb-2 break-words hyphens-auto" lang="en">
+      <div className="p-4 sm:p-6">
+        <h3 className="text-lg sm:text-xl font-display font-bold text-stout-700 mb-2 break-words hyphens-auto" lang="en">
           {title}
         </h3>
-        <p className="text-neutral-600 mb-4 line-clamp-2">
+        <p className="text-sm sm:text-base text-neutral-600 mb-4 line-clamp-2">
           {description}
         </p>
         <motion.a
           href="tel:01223276027"
-          className="block w-full text-center bg-accent text-white font-medium py-2 px-4 rounded-lg"
+          className="block w-full text-center bg-accent text-white font-medium py-2 px-4 rounded-lg text-sm sm:text-base"
           {...v.button}
         >
           📞 Call to Order

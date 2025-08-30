@@ -54,7 +54,7 @@ export default function TOSContent() {
   ];
   
   return (
-    <div className="leading-relaxed space-y-6 text-sm px-5">
+    <article className="prose prose-brand max-w-prose mx-auto leading-relaxed space-y-6 text-sm px-5 sm:px-6">
       <p><strong>Effective Date:</strong> <span>{content.meta.effectiveDate}</span></p>
       <p dangerouslySetInnerHTML={{
         __html: content.introduction.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -65,14 +65,14 @@ export default function TOSContent() {
         if (!section) return null;
         
         return (
-          <div key={sectionKey}>
-            <h2 className="text-xl font-bold mt-4">
+          <section key={sectionKey}>
+            <h2 className="text-xl font-bold mt-6">
               {index + 1}. {section.title}
             </h2>
             {renderSectionContent(section, index)}
-          </div>
+          </section>
         );
       })}
-    </div>
+    </article>
   );
 }

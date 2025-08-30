@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
-import { v } from '@/components/variants';
+import { variants as mv } from '@/lib/motion/variants';
 
 interface BlogPost {
   id: string;
@@ -22,19 +22,21 @@ interface BlogFeaturedProps {
 
 export default function BlogFeatured({ post }: BlogFeaturedProps) {
   const prefersReduced = useReducedMotion();
-  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
+  const itemVariant = prefersReduced ? mv.fadeIn : mv.fadeUp;
   return (
-    <motion.article className="relative bg-white rounded-xl shadow-xl overflow-hidden" variants={itemVariant as any} initial="initial" animate="animate">
+    <motion.article className="relative bg-white rounded-xl shadow-xl overflow-hidden" variants={itemVariant as any} initial="hidden" animate="visible">
       <div className="md:flex">
         <div className="md:w-1/2">
           <div className="relative h-64 md:h-full">
-            <Image
-              src={post.image}
-              alt={post.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+            <motion.div layoutId={`post:${post.slug}:image`} className="absolute inset-0">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </motion.div>
             <div className="absolute top-4 left-4">
               <span className="inline-block px-3 py-1 bg-brand-600 text-white text-sm font-medium rounded-full">
                 Featured

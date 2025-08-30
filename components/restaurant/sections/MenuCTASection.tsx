@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { v } from '@/components/variants';
+import { variants as mv } from '@/lib/motion/variants';
 
 /**
  * Props interfaces for MenuCTASection component
@@ -60,7 +60,7 @@ export default function MenuCTASection({
   };
 
   return (
-    <motion.section className={`py-16 bg-stout-700 text-white ${className}`} variants={v.fadeUp} initial="initial" animate="animate">
+    <motion.section className={`py-16 bg-stout-700 text-white ${className}`} variants={mv.fadeUp} initial="hidden" animate="visible">
       <div className="max-w-4xl mx-auto text-center px-4">
         <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
           {title}
@@ -82,7 +82,7 @@ export default function MenuCTASection({
               : { href: button.href };
 
             return (
-              <motion.div key={index} {...v.button}>
+              <motion.div key={index} whileHover={mv.button.hover} whileTap={mv.button.tap}>
                 <ButtonComponent
                   {...buttonProps}
                   className={`${getButtonClasses(button.variant)} font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block`}

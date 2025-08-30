@@ -294,6 +294,20 @@ progress::-webkit-progress-value {
   }
   .btn {
     @apply !capitalize;
+    /* Consistent hover effect across DaisyUI buttons; motion-safe gated */
+    @apply transition-transform duration-200 ease-out will-change-transform;
+  }
+
+  /* Mobile-first: keep subtle hover lift on non-touch, respect reduced motion */
+  @media (hover: hover) and (pointer: fine) {
+    @media (prefers-reduced-motion: no-preference) {
+      .btn:not(:disabled):not(.btn-disabled):hover {
+        transform: translateY(-2px) scale(1.02);
+      }
+      .btn:not(:disabled):not(.btn-disabled):active {
+        transform: translateY(0) scale(0.98);
+      }
+    }
   }
   
   /* Font face declarations */

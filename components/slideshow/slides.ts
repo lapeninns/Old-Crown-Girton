@@ -42,6 +42,16 @@ export const slides = [
     badges: ['Relaxed Lounge', 'Great Atmosphere', 'Pub Games'],
     ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
   },
+  {
+    id: 'slide-4b',
+    image: '/images/slideshow/interior/premier-league-sky-tv-sports.jpeg',
+    alt: 'Fans watching live Premier League football on a big screen inside a pub in Girton',
+    eyebrow: 'Live Sports',
+    headline: 'Catch Premier League & Major Matches Live',
+    copy: 'Join us for Premier League, football, rugby and headline sporting events on our big screen — the best place to watch the match in Girton and Cambridge.',
+    badges: ['Live Sports', 'Premier League', 'Big Screen'],
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+  },
   
   // Garden Images - Family-Friendly Outdoor Spaces
   {

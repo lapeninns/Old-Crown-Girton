@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { variants as mv } from '@/lib/motion/variants';
 import Image from 'next/image';
 import { getContactInfo } from '@/lib/restaurantData';
 import { useParsedData } from '@/hooks/useParsedData';
@@ -72,11 +73,7 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <motion.div variants={mv.fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}>
             <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-neutral-50 mb-6 leading-snug md:leading-tight">
             <span className="block text-accent-400">Girton’s Historic Thatched Pub</span>
             <span className="block text-neutral-50 text-xl sm:text-2xl md:text-3xl lg:text-4xl">with Himalayan Flavour</span>
@@ -97,19 +94,19 @@ export default function Hero() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <motion.a
-              href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-brand-600 hover:bg-accent-500 text-neutral-50 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
-            >
-              {primaryCTA}
-            </motion.a>
+                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                target="_blank"
+                rel="noopener noreferrer"
+              whileHover={mv.button.hover}
+              whileTap={mv.button.tap}
+                className="bg-brand-600 hover:bg-accent-500 text-neutral-50 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
+              >
+                {primaryCTA}
+              </motion.a>
             <motion.a
               href={`tel:${contact?.phone.primary || '01223276027'}`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={mv.button.hover}
+              whileTap={mv.button.tap}
               className="bg-crimson-600 hover:bg-crimson-700 text-neutral-50 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
             >
               📞 {labelCallForTakeaway}
@@ -117,10 +114,7 @@ export default function Hero() {
           </div>
 
           {/* Quick Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+          <motion.div variants={mv.fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}
             className="mt-12 flex flex-col md:flex-row justify-center items-center gap-6 text-neutral-100"
           >
             <div className="flex items-center gap-2">

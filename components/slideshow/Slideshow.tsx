@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Slide from './Slide';
 import { slides as defaultSlides } from './slides';
 import { useImagePreloader } from './useImagePreloader';
@@ -10,6 +11,7 @@ const TRANSITION_MS = 400;
 
 const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolean }> = ({ slides = defaultSlides, interval = 5000, autoplay = true }) => {
   const slideCount = slides.length;
+  const prefersReduced = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [showPrev, setShowPrev] = useState(false);
@@ -142,9 +144,9 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   };
 
   return (
-    <div 
-      className="relative w-full touch-pan-y cursor-grab active:cursor-grabbing select-none" 
-      role="region" 
+    <motion.div
+      className="relative w-full touch-pan-y cursor-grab active:cursor-grabbing select-none"
+      role="region"
       aria-label="Slideshow - Swipe to navigate"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -153,6 +155,19 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
+      drag={prefersReduced ? false : "x"}
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.2}
+      onDragEnd={(e, info) => {
+        const { offset, velocity } = info;
+        const swipe = Math.abs(offset.x) > 80 || Math.abs(velocity.x) > 300;
+        if (!swipe) return;
+        if (offset.x < 0) {
+          goNext();
+        } else {
+          goPrev();
+        }
+      }}
     >
       {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
       <div className="slides-wrapper relative">
@@ -168,22 +183,28 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
           </div>
         )}
         {/* Previous slide (on top, fading out) */}
-        {prevIndex !== null && slides[prevIndex] && (
-          <div
-            key={`prev-${slides[prevIndex].id}`}
-            className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-300 ease-in-out ${showPrev ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <Slide
-              slide={slides[prevIndex]}
-              slideIndex={prevIndex}
-              active={false}
-              visualOnly
-              preloaded={true}
-            />
-          </div>
-        )}
+        <AnimatePresence>
+          {prevIndex !== null && slides[prevIndex] && (
+            <motion.div
+              key={`prev-${slides[prevIndex].id}`}
+              className="absolute inset-0 z-10 pointer-events-none"
+              initial={{ opacity: prefersReduced ? 1 : 1 }}
+              animate={{ opacity: showPrev ? 1 : 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: prefersReduced ? 0 : 0.3, ease: 'easeInOut' }}
+            >
+              <Slide
+                slide={slides[prevIndex]}
+                slideIndex={prevIndex}
+                active={false}
+                visualOnly
+                preloaded={true}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

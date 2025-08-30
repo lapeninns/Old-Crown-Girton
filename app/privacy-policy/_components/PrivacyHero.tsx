@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function PrivacyHero() {
   return (
-    <div className="max-w-xl mx-auto">
-      <div className="p-5">
+    <div className="oc-container oc-content">
+      <div className="px-5 py-4 sm:py-6">
         <Link href="/" className="btn btn-ghost">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ export default function PrivacyHero() {
           </svg>{" "}
           Back
         </Link>
-        <h1 className="text-3xl font-extrabold pb-6">Privacy Policy</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold pt-3 sm:pt-4">Privacy Policy</h1>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
-import { v } from '@/components/variants';
+import { variants as mv } from '@/lib/motion/variants';
 
 interface BlogPost {
   id: string;
@@ -22,9 +22,9 @@ interface BlogGridProps {
 
 export default function BlogGrid({ posts }: BlogGridProps) {
   const prefersReduced = useReducedMotion();
-  const itemVariant = prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : v.fadeUp;
+  const itemVariant = prefersReduced ? mv.fadeIn : mv.fadeUp;
   return (
-    <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" variants={v.list()} initial="initial" whileInView="animate" viewport={{ once: true, margin: '-10% 0%' }}>
+    <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" variants={mv.staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}>
       {posts.map((post) => (
         <motion.article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover-lift gpu-fix" variants={itemVariant as any} whileHover={{ y: -2, scale: 1.01 }} transition={{ duration: 0.18 }}>
           <div className="relative h-48">

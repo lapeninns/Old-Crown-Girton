@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { v } from '@/components/variants';
 import { useContent } from '@/hooks/useContent';
 import Button from './Button';
+import { accessibility } from '@/lib/motion/accessibility';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -13,6 +14,7 @@ interface BookingModalProps {
 
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const { data: content } = useContent();
+  const containerRef = useRef<HTMLDivElement | null>(null);
   
   // Get form labels and messages from content management
   const formLabels = content?.forms?.labels;
@@ -39,6 +41,16 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     onClose();
   };
 
+  useEffect(() => {
+    const el = containerRef.current as HTMLDivElement | null;
+    if (isOpen && el) {
+      accessibility.focusManagement.trapFocus(el);
+    }
+    return () => {
+      if (el) accessibility.focusManagement.restoreFocus(el);
+    };
+  }, [isOpen]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -55,6 +67,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           aria-modal="true"
           aria-label="Booking modal"
           data-testid="booking-modal"
+          ref={containerRef}
         >
           {/* Backdrop */}
           <motion.div

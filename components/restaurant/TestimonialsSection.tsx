@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
+import { AutoMarquee } from './AutoMarquee';
 
 interface Review {
   id: string;
@@ -235,7 +236,7 @@ const TestimonialsSection: React.FC = () => {
           <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
           {/* Slider Container */}
-          <AutoMarquee>
+          <AutoMarquee ariaLabel="Customer testimonials" direction="left">
             {/* Render reviews twice for seamless loop */}
             {[...reviews, ...reviews].map((review, index) => (
               <div
@@ -292,141 +293,3 @@ const TestimonialsSection: React.FC = () => {
 };
 
 export default TestimonialsSection;
-
-// Lightweight marquee that auto-scrolls left-to-right and resumes after pause
-const AutoMarquee: React.FC<{ children: React.ReactNode; speedPxPerSec?: number; resumeAfterMs?: number }> = ({ children, speedPxPerSec = 40, resumeAfterMs = 2500 }) => {
-  const viewportRef = useRef<HTMLDivElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const setWidthRef = useRef<number>(0);
-  const offsetRef = useRef<number>(0);
-  const rafRef = useRef<number | null>(null);
-  const lastTsRef = useRef<number>(0);
-  const pausedUntilRef = useRef<number>(0);
-  const [prefersReduced, setPrefersReduced] = React.useState<boolean>(false);
-
-  // Detect prefers-reduced-motion on mount and watch for changes
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return;
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const handle = () => setPrefersReduced(Boolean(mq.matches));
-    handle();
-    try {
-      mq.addEventListener ? mq.addEventListener('change', handle) : mq.addListener(handle);
-    } catch (e) {
-      // ignore
-    }
-    return () => {
-      try {
-        mq.removeEventListener ? mq.removeEventListener('change', handle) : mq.removeListener(handle);
-      } catch (e) {
-        // ignore
-      }
-    };
-  }, []);
-
-  // If user prefers reduced motion, render a static, accessible scroller instead of animated marquee
-  if (prefersReduced) {
-    return (
-      <div className="overflow-x-auto py-8" aria-roledescription="carousel" aria-label="Customer testimonials">
-        <div className="flex gap-6 items-stretch px-2">
-          {children}
-        </div>
-      </div>
-    );
-  }
-
-  // Start the animation loop
-  useEffect(() => {
-    const viewport = viewportRef.current;
-    const track = trackRef.current;
-    if (!viewport || !track) return;
-
-    const recalc = () => {
-      // Width of a single set (track contains two identical sets)
-      const full = track.scrollWidth;
-      setWidthRef.current = full / 2;
-      // Initialize offset so content moves right (from left to right)
-      offsetRef.current = -setWidthRef.current;
-      applyTransform();
-    };
-
-    const applyTransform = () => {
-      const x = offsetRef.current;
-      track.style.transform = `translate3d(${x}px, 0, 0)`;
-    };
-
-    const onResize = () => {
-      recalc();
-    };
-
-    const step = (ts: number) => {
-      if (!trackRef.current) return;
-      if (!lastTsRef.current) lastTsRef.current = ts;
-      const dt = Math.max(0, Math.min(0.05, (ts - lastTsRef.current) / 1000)); // clamp to 50ms
-      lastTsRef.current = ts;
-
-      const now = performance.now();
-      const paused = now < pausedUntilRef.current;
-      const speed = speedPxPerSec;
-
-      if (!paused && setWidthRef.current > 0 && speed > 0) {
-        offsetRef.current += speed * dt; // move right
-        if (offsetRef.current >= 0) {
-          // wrap back seamlessly
-          offsetRef.current -= setWidthRef.current;
-        }
-        applyTransform();
-      }
-
-      rafRef.current = requestAnimationFrame(step);
-    };
-
-    recalc();
-    window.addEventListener('resize', onResize);
-    rafRef.current = requestAnimationFrame(step);
-
-    return () => {
-      window.removeEventListener('resize', onResize);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [speedPxPerSec]);
-
-  // Pause on interaction; resume automatically after resumeAfterMs
-  useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-
-    const bumpPause = () => {
-      pausedUntilRef.current = performance.now() + resumeAfterMs;
-    };
-
-    const onPointerEnter = () => bumpPause();
-    const onPointerDown = () => bumpPause();
-    const onTouchStart = () => bumpPause();
-    const onWheel = () => bumpPause();
-    const onFocusIn = () => bumpPause();
-
-    viewport.addEventListener('pointerenter', onPointerEnter);
-    viewport.addEventListener('pointerdown', onPointerDown);
-    viewport.addEventListener('touchstart', onTouchStart, { passive: true });
-    viewport.addEventListener('wheel', onWheel, { passive: true });
-    viewport.addEventListener('focusin', onFocusIn);
-
-    return () => {
-      viewport.removeEventListener('pointerenter', onPointerEnter);
-      viewport.removeEventListener('pointerdown', onPointerDown);
-      viewport.removeEventListener('touchstart', onTouchStart as any);
-      viewport.removeEventListener('wheel', onWheel as any);
-      viewport.removeEventListener('focusin', onFocusIn);
-    };
-  }, [resumeAfterMs]);
-
-  return (
-    <div ref={viewportRef} className="overflow-hidden py-8 select-none" aria-roledescription="carousel" aria-label="Customer testimonials (auto scrolling)">
-      <div ref={trackRef} className="flex gap-6 items-stretch will-change-transform">
-        {children}
-        {children}
-      </div>
-    </div>
-  );
-};

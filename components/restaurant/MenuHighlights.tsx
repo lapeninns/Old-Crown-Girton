@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useContent } from '@/hooks/useContent';
 import DishCard from './DishCard';
 import Link from 'next/link';
+import { AutoMarquee } from './AutoMarquee';
 
 // Featured dishes using only high-quality real dish images
 const featuredDishes = [
@@ -81,14 +82,19 @@ export default function MenuHighlights() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {dishesToDisplay.map((dish, index) => (
-            <DishCard
-              key={dish.title}
-              {...dish}
-              delay={index * 0.1}
-            />
-          ))}
+        {/* Horizontal infinite marquee of 6 cards */}
+        <div className="relative">
+          {/* Gradient masks */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-brand-50 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-brand-50 to-transparent z-10 pointer-events-none"></div>
+
+          <AutoMarquee ariaLabel="Signature dishes" speedPxPerSec={38} direction="right">
+            {dishesToDisplay.map((dish) => (
+              <div key={dish.title} className="flex-shrink-0 w-[82vw] max-w-[22rem] sm:w-72 md:w-80">
+                <DishCard {...dish} />
+              </div>
+            ))}
+          </AutoMarquee>
         </div>
 
         <motion.div

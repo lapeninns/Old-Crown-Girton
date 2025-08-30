@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { v } from '@/components/variants';
+import { navMotion } from '@/lib/motion/variants';
 import { useParsedData } from '@/hooks/useParsedData';
 import { useContent } from '@/hooks/useContent';
 import { NavDataSchema, NavDataParsed } from '@/lib/schemas';
@@ -136,18 +137,8 @@ export default function Navbar() {
         {isOpen && (
           <>
             {/* Scrim */}
-            <motion.div
-              {...v.fade}
-              className="fixed inset-0 bg-black/20 md:hidden"
-              onClick={() => setIsOpen(false)}
-            />
-            <motion.div
-              variants={prefersReduced ? (v.fade as any) : v.scaleIn}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50"
-            >
+            <motion.div {...(prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } } : navMotion.mobileDrawer.backdrop)} className="fixed inset-0 bg-black/20 md:hidden" onClick={() => setIsOpen(false)} />
+            <motion.div {...(prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } } : navMotion.mobileDrawer.panel)} className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {loading && <div className="px-3 py-2 text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</div>}
                 {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
