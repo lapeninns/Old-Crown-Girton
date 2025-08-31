@@ -1,0 +1,33 @@
+name: Images Governance
+
+on:
+  pull_request:
+    paths:
+      - 'src/assets/images/**'
+      - 'public/images/**'
+      - 'public/logos/**'
+      - 'scripts/**'
+      - 'next.config.js'
+      - 'tsconfig.json'
+
+jobs:
+  validate-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Install
+        run: npm ci
+      - name: Lint image names
+        run: node scripts/lint-image-names.js --strict
+      - name: Generate responsive variants + blur
+        run: node scripts/generate-responsive.js src/assets/images
+      - name: Optimize images (sharp/svgo)
+        run: npm run images:optimize
+      - name: Check image budgets
+        run: node scripts/check-image-budgets.js --hero-max-kb=200 --page-max-kb=700 --file-max-kb=800

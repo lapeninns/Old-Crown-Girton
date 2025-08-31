@@ -78,9 +78,14 @@ export default function MenuItemCard({
   const spiceLevel = spiceTag ? parseInt(spiceTag.split('-')[1]) : null;
 
   // Generate image URL only if images are enabled
-  const imageUrl = MENU_ITEM_IMAGES_ENABLED && !imageError && item.name
-    ? `/images/menu/${section}/${item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.jpg`
-    : null;
+  // Prefer item.image if present in data; fallback to a dishes slug under /images/dishes (rewritten to /dishes)
+  const imageUrl = (() => {
+    if (!MENU_ITEM_IMAGES_ENABLED || imageError || !item?.name) return null;
+    const fromData = (item as any).image as string | undefined;
+    if (fromData && typeof fromData === 'string') return fromData;
+    const slug = item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    return `/images/dishes/${slug}.jpg`;
+  })();
 
   // Highlight search terms if provided
   const highlightText = (text: string) => {

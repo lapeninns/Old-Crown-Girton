@@ -54,7 +54,7 @@ export default function NavbarStatic() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="/logos/OldCrownLogo.png"
+                src="/images/brand/OldCrownLogo.png"
                 alt={content?.global?.accessibility?.altTexts?.logo || 'Old Crown Girton Logo'}
                 width={32}
                 height={32}

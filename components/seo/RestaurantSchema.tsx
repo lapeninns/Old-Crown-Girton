@@ -2,6 +2,10 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import imgExteriorGarden from '@cimages/Slideshow/exterior/the-old-crown-pub-exterior-and-beer-garden.jpeg';
+import imgCarPark from '@cimages/Slideshow/exterior/large-gravel-car-park-at-the-old-crown-pub.jpeg';
+import imgInteriorDining from '@cimages/Slideshow/interior/the-old-crown-pub-restaurant-interior-dining.jpg';
+import imgGardenPicnic from '@cimages/Slideshow/garden/family-friendly-pub-garden-with-picnic-tables.jpeg';
 import { getRestaurantIdentity, getContactInfo, getHours, getMenu, getTestimonials } from '@/lib/restaurantData';
 
 // Schema.org types for restaurant
@@ -192,7 +196,7 @@ const MENU_ITEMS = {
       name: "Chicken Chilli",
       description: "Tender chicken pieces in a spicy tomato-based sauce with peppers and onions",
       price: "8.95",
-      image: "/images/dishes/CrispyHotWings.jpeg"
+      image: "/images/food/CrispyHotWings.jpeg"
     },
     {
       name: "Vegetable Samosa",
@@ -229,6 +233,15 @@ const MENU_ITEMS = {
 };
 
 export const useRestaurantSchema = () => {
+  const absoluteUrl = (p: string) => {
+    try {
+      const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.co.uk';
+      return new URL(p, base).toString();
+    } catch {
+      return p;
+    }
+  };
+
   // Generate main restaurant schema
   const generateRestaurantSchema = (): RestaurantSchema => {
     const data = buildBaseData();
@@ -282,12 +295,12 @@ export const useRestaurantSchema = () => {
       currenciesAccepted: 'GBP',
       hasMenu: 'https://oldcrowngirton.co.uk/menu',
       image: [
-        '/images/slideshow/exterior-deck-umbrellas.jpg',
-        '/images/slideshow/interior-buddha-wall.jpg',
-        '/images/slideshow/beer-garden-long-view-benches.jpg',
-        '/images/slideshow/car-park-gravel-wide.jpg'
+        absoluteUrl(typeof imgExteriorGarden === 'string' ? imgExteriorGarden : (imgExteriorGarden as any)),
+        absoluteUrl(typeof imgInteriorDining === 'string' ? imgInteriorDining : (imgInteriorDining as any)),
+        absoluteUrl(typeof imgGardenPicnic === 'string' ? imgGardenPicnic : (imgGardenPicnic as any)),
+        absoluteUrl(typeof imgCarPark === 'string' ? imgCarPark : (imgCarPark as any)),
       ],
-      logo: '/logos/old-crown-logo.png',
+      logo: absoluteUrl('/images/brand/Oldcrowngirtonlogo.png'),
       sameAs: [
         'https://www.facebook.com/oldcrowngirton',
         'https://www.instagram.com/oldcrowngirton'

@@ -19,19 +19,19 @@
 - **SEO Keywords**: historic thatched pub, authentic Nepalese, business lunch
 - **Copy Focus**: England's largest thatched pub, authentic Nepalese restaurant
 
-#### **Slide 3**: [comfy-bar-lounge-with-armchairs-and-tv.jpg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/interior/comfy-bar-lounge-with-armchairs-and-tv.jpg) ✅
+#### **Slide 3**: [comfy-bar-lounge-with-armchairs-and-tv.jpeg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/interior/comfy-bar-lounge-with-armchairs-and-tv.jpeg) ✅
 - **Content**: "Your Local Sports & Social Hub"  
 - **Target**: Cambridge Student + Local Community
 - **SEO Keywords**: live sport pub, craft beer, student friendly
 - **Copy Focus**: Big screens, Nepalese bar snacks, Cambridge city centre
 
-#### **Slide 6**: [modern-restaurant-decor-the-old-crown-pub.jpg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/interior/modern-restaurant-decor-the-old-crown-pub.jpg) ✅
+#### **Slide 6**: [stylish-pub-restaurant-dining-area-interior.jpeg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/interior/stylish-pub-restaurant-dining-area-interior.jpeg) ✅
 - **Content**: "Contemporary Comfort in Historic Setting"
 - **Target**: Silicon Fen Professional + Sophisticated Diners  
 - **SEO Keywords**: business dining, premium comfort, gastropub Cambridge
 - **Copy Focus**: Business meetings, special celebrations, finest Nepalese cuisine
 
-#### **Slide 9**: [stylish-pub-restaurant-dining-area-interior.jpg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/interior/stylish-pub-restaurant-dining-area-interior.jpg) ✅ **NEW!**
+#### **Slide 9**: [premier-league-sky-tv-sports.jpeg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/interior/premier-league-sky-tv-sports.jpeg) ✅ **NEW!**
 - **Content**: "Stylish Dining Excellence"
 - **Target**: Sophisticated Diners + Date Night Couples
 - **SEO Keywords**: elevated pub dining, elegant atmosphere, date night perfect
@@ -57,7 +57,7 @@
 - **SEO Keywords**: outdoor dining, event venue, garden terrace
 - **Copy Focus**: Summer dining, corporate events, Nepalese BBQ
 
-#### **Slide 7**: [sunny-pub-garden-patio-seating-wellingborough.jpg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/garden/sunny-pub-garden-patio-seating-wellingborough.jpg) ✅ **NEW!**
+#### **Slide 7**: [sunny-pub-garden-patio-seating-wellingborough-terrace.jpeg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/garden/sunny-pub-garden-patio-seating-wellingborough-terrace.jpeg) ✅ **NEW!**
 - **Content**: "Sun-Soaked Garden Retreat"
 - **Target**: Weekend Relaxation Seekers + Summer Diners
 - **SEO Keywords**: summer dining, patio seating, weekend relaxation
@@ -71,13 +71,13 @@
 
 ### **🏢 EXTERIOR IMAGES (2 slides)**
 
-#### **Slide 4**: [the-old-crown-pub-exterior-and-beer-garden.jpg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/exterior/the-old-crown-pub-exterior-and-beer-garden.jpg) ✅
+#### **Slide 4**: [the-old-crown-pub-exterior-and-beer-garden.jpeg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/exterior/the-old-crown-pub-exterior-and-beer-garden.jpeg) ✅
 - **Content**: "England's Largest Thatched Pub"
 - **Target**: Curious Tourist + Heritage Enthusiasts
 - **SEO Keywords**: largest thatched pub England, historic pubs Cambridge
 - **Copy Focus**: 16th-century building, authentic English heritage, Himalayan flavors
 
-#### **Slide 8**: [large-gravel-car-park-at-the-old-crown-pub.jpg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/exterior/large-gravel-car-park-at-the-old-crown-pub.jpg) ✅ **NEW!**
+#### **Slide 8**: [large-gravel-car-park-at-the-old-crown-pub.jpeg](file:///Users/amankumarshrestha/Downloads/Restaurant_BP/public/images/slideshow/exterior/large-gravel-car-park-at-the-old-crown-pub.jpeg) ✅ **NEW!**
 - **Content**: "Convenient Free Parking"
 - **Target**: Families + Business Clients + Convenience Seekers
 - **SEO Keywords**: free parking, family friendly, accessible

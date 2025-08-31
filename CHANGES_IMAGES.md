@@ -1,48 +1,40 @@
-Images moved and slideshow updated
-=================================
+Images reorganized and slideshow updated
+=======================================
 
-What I changed
---------------
+What changed
+------------
 
-- Added the new interior images (from your `images/` attachment) to `public/images/slideshow/`:
-  - `InteriorView.jpeg`
-  - `InteriorView1.jpeg`
-  - `InteriorView2.jpeg`
-- Replaced `public/restaurant-interior.jpg` with your `InteriorViewBar.jpeg` so the `AboutSection` uses the new bar interior.
-- Updated `components/slideshow/slides.ts` to use three slideshow images from `public/images/slideshow/`.
+- Adopted categorized structure for venue photos under `public/images/slideshow/{interior,garden,exterior}`.
+- Updated `components/slideshow/slides.ts` to statically import images from `src/assets/images/components/Slideshow/...` and use them in the slideshow.
+- Centralized canonical public paths in `src/lib/images.ts` for reuse across blog and features.
 
-Files touched
--------------
+Canonical filenames
+-------------------
 
-- `public/images/slideshow/InteriorView.jpeg` (copied)
-- `public/images/slideshow/InteriorView1.jpeg` (copied)
-- `public/images/slideshow/InteriorView2.jpeg` (copied)
-- `public/restaurant-interior.jpg` (replaced)
-- `components/slideshow/slides.ts` (updated to reference new images)
-
-How the images are used
------------------------
-
-- Slideshow (homepage): uses `/images/slideshow/InteriorView.jpeg`, `/images/slideshow/InteriorView1.jpeg`, `/images/slideshow/InteriorView2.jpeg` (3 slides)
-- About section (homepage): uses `/restaurant-interior.jpg` (now the provided bar interior image)
+- interior:
+  - the-old-crown-pub-restaurant-interior-dining.jpg
+  - stylish-pub-restaurant-dining-area-interior.jpeg
+  - comfy-bar-lounge-with-armchairs-and-tv.jpeg
+  - cosy-pub-bar-area-with-games-machine.jpeg
+  - premier-league-sky-tv-sports.jpeg
+- garden:
+  - family-friendly-pub-garden-with-picnic-tables.jpeg
+  - spacious-beer-garden-and-outdoor-seating.jpeg
+  - sunny-pub-garden-patio-seating-wellingborough-terrace.jpeg
+  - childrens-wooden-play-area-with-slide-in-pub-garden.jpeg
+- exterior:
+  - the-old-crown-pub-exterior-and-beer-garden.jpeg
+  - large-gravel-car-park-at-the-old-crown-pub.jpeg
 
 How to preview locally
 ----------------------
 
-1. Install dependencies if needed:
-
-   npm install
-
-2. Run dev server:
-
-   npm run dev
-
-3. Open `http://localhost:3000` and verify the slideshow and About section images.
+1. `npm install`
+2. `npm run dev`
+3. Open `http://localhost:3000` and verify the slideshow and hero images.
 
 Notes
 -----
 
-- I ran the test suite (`npm test`) — tests reported no failures.
-- A full production build (`npm run build`) failed due to unrelated TypeScript/webpack issues in API route files (duplicate variable name `environment` and downlevel-iteration settings). Those are not caused by the image updates. If you want, I can fix the build issues as a follow-up.
-
-If you want different images used, or different ordering/alt text, tell me which filenames to use and I will update `components/slideshow/slides.ts` accordingly.
+- Blog pages read canonical URLs from `src/lib/images.ts`.
+- Schema images use static imports and are exported as absolute URLs.

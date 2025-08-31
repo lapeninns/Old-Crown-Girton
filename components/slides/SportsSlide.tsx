@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import sportsImage from '@cimages/Slideshow/interior/premier-league-sky-tv-sports.jpeg';
 import Link from 'next/link';
 import React from 'react';
 
@@ -11,7 +12,7 @@ export const SportsSlide: React.FC = () => {
     >
       <figure className="relative w-full h-[420px] sm:h-[520px]">
         <Image
-          src="/images/slideshow/interior/premier-league-sky-tv-sports.jpeg"
+          src={sportsImage}
           alt="Crowd watching live Premier League football on a big screen inside a Girton pub"
           fill
           sizes="(max-width: 640px) 100vw, 50vw"

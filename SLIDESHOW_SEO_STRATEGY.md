@@ -7,18 +7,18 @@
 public/images/slideshow/
 ├── interior/
 │   ├── the-old-crown-pub-restaurant-interior-dining.jpg
-│   ├── stylish-pub-restaurant-dining-area-interior.jpg
-│   ├── modern-restaurant-decor-the-old-crown-pub.jpg
-│   ├── comfy-bar-lounge-with-armchairs-and-tv.jpg
-│   └── cosy-pub-bar-area-with-games-machine.jpg
+│   ├── stylish-pub-restaurant-dining-area-interior.jpeg
+│   ├── comfy-bar-lounge-with-armchairs-and-tv.jpeg
+│   ├── cosy-pub-bar-area-with-games-machine.jpeg
+│   └── premier-league-sky-tv-sports.jpeg
 ├── exterior/
-│   ├── the-old-crown-pub-exterior-and-beer-garden.jpg
-│   └── large-gravel-car-park-at-the-old-crown-pub.jpg
+│   ├── the-old-crown-pub-exterior-and-beer-garden.jpeg
+│   └── large-gravel-car-park-at-the-old-crown-pub.jpeg
 └── garden/
-    ├── sunny-pub-garden-patio-seating-wellingborough.jpg
-    ├── family-friendly-pub-garden-with-picnic-tables.jpg
-    ├── spacious-beer-garden-and-outdoor-seating.jpg
-    └── childrens-wooden-play-area-with-slide-in-pub-garden.jpg
+    ├── sunny-pub-garden-patio-seating-wellingborough-terrace.jpeg
+    ├── family-friendly-pub-garden-with-picnic-tables.jpeg
+    ├── spacious-beer-garden-and-outdoor-seating.jpeg
+    └── childrens-wooden-play-area-with-slide-in-pub-garden.jpeg
 ```
 
 ## SEO-Optimized Slideshow Content Strategy
@@ -46,7 +46,7 @@ public/images/slideshow/
 - **Badges:** ["Dog Friendly", "Children's Play Area", "Family Dining"]
 
 ### Slide 3: Sports & Social Hub
-**Image:** `comfy-bar-lounge-with-armchairs-and-tv.jpg`
+**Image:** `comfy-bar-lounge-with-armchairs-and-tv.jpeg`
 **SEO Keywords:** pubs showing football Cambridge, live sport pub, Cambridge University pub
 **Target Persona:** Cambridge Student + Local Community
 
@@ -57,7 +57,7 @@ public/images/slideshow/
 - **Badges:** ["Live Sport", "Craft Beer", "Student Friendly"]
 
 ### Slide 4: Exterior Heritage Appeal
-**Image:** `the-old-crown-pub-exterior-and-beer-garden.jpg`
+**Image:** `the-old-crown-pub-exterior-and-beer-garden.jpeg`
 **SEO Keywords:** largest thatched pub England, historic pubs Cambridge, country pubs near Cambridge
 **Target Persona:** Curious Tourist + Heritage Enthusiasts
 
@@ -68,7 +68,7 @@ public/images/slideshow/
 - **Badges:** ["16th Century Heritage", "Largest Thatched Roof", "Historic Landmark"]
 
 ### Slide 5: Outdoor Dining Excellence
-**Image:** `spacious-beer-garden-and-outdoor-seating.jpg`
+**Image:** `spacious-beer-garden-and-outdoor-seating.jpeg`
 **SEO Keywords:** pub terrace Cambridge, outdoor dining Girton, summer dining Cambridge
 **Target Persona:** All Personas - Universal Appeal
 
@@ -79,7 +79,7 @@ public/images/slideshow/
 - **Badges:** ["Outdoor Dining", "Event Venue", "Garden Terrace"]
 
 ### Slide 6: Modern Interior Sophistication
-**Image:** `modern-restaurant-decor-the-old-crown-pub.jpg`
+**Image:** `stylish-pub-restaurant-dining-area-interior.jpeg`
 **SEO Keywords:** gastropub Cambridge, business lunch Cambridge, quality dining Girton
 **Target Persona:** Silicon Fen Professional + Sophisticated Diners
 

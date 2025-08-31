@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { variants as mv } from '@/lib/motion/variants';
 import Image from 'next/image';
+import heroBg from '@cimages/Slideshow/OldCrownGirtonBuilding.png';
 import { getContactInfo } from '@/lib/restaurantData';
 import { useParsedData } from '@/hooks/useParsedData';
 import { useContent } from '@/hooks/useContent';
@@ -60,7 +61,7 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/OldCrownGirtonBuilding.png"
+          src={heroBg}
           alt={altText}
           fill
           className="object-cover"

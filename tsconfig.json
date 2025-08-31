@@ -19,9 +19,22 @@
     "isolatedModules": true,
     "noImplicitAny": true,
     "jsx": "preserve",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@images/*": [
+        "src/assets/images/*"
+      ],
+      "@cimages/*": [
+        "src/assets/images/components/*"
+      ],
+      "@pimages/*": [
+        "src/assets/images/pages/*"
+      ],
+      "@simages/*": [
+        "src/assets/images/shared/*"
       ]
     },
     "plugins": [

@@ -7,21 +7,23 @@
 The following images from @OldCrownAssets must be placed in the specified directories:
 
 #### Interior Images Directory: `/public/images/slideshow/interior/`
-- **the-old-crown-pub-restaurant-interior-dining.jpg** → Used in Slide 1 (Historic Interior)
-- **stylish-pub-restaurant-dining-area-interior.jpg** → Backup/future use
-- **modern-restaurant-decor-the-old-crown-pub.jpg** → Used in Slide 6 (Modern Sophistication)
-- **comfy-bar-lounge-with-armchairs-and-tv.jpg** → Used in Slide 3 (Sports Hub)
-- **cosy-pub-bar-area-with-games-machine.jpg** → Backup/future use
+- the-old-crown-pub-restaurant-interior-dining.jpg
+- stylish-pub-restaurant-dining-area-interior.jpeg
+- comfy-bar-lounge-with-armchairs-and-tv.jpeg
+- cosy-pub-bar-area-with-games-machine.jpeg
+- premier-league-sky-tv-sports.jpeg
 
 #### Exterior Images Directory: `/public/images/slideshow/exterior/`
-- **the-old-crown-pub-exterior-and-beer-garden.jpg** → Used in Slide 4 (Historic Exterior)
-- **large-gravel-car-park-at-the-old-crown-pub.jpg** → Future use (practical info)
+- the-old-crown-pub-exterior-and-beer-garden.jpeg
+- large-gravel-car-park-at-the-old-crown-pub.jpeg
 
 #### Garden Images Directory: `/public/images/slideshow/garden/`
-- **sunny-pub-garden-patio-seating-wellingborough.jpg** → Backup/seasonal content
-- **family-friendly-pub-garden-with-picnic-tables.jpg** → Used in Slide 2 (Family Garden)
-- **spacious-beer-garden-and-outdoor-seating.jpg** → Used in Slide 5 (Al Fresco Dining)
-- **childrens-wooden-play-area-with-slide-in-pub-garden.jpg** → Future family content
+- sunny-pub-garden-patio-seating-wellingborough-terrace.jpeg
+- family-friendly-pub-garden-with-picnic-tables.jpeg
+- spacious-beer-garden-and-outdoor-seating.jpeg
+- childrens-wooden-play-area-with-slide-in-pub-garden.jpeg
+
+See `docs/IMAGES_README.md` for the canonical set and usage guidelines. The slideshow imports these via static imports or the central registry.
 
 ### 2. SEO Optimization Applied
 

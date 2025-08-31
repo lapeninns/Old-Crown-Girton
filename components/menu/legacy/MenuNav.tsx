@@ -64,7 +64,7 @@ export default function MenuNav({ sections }: Props) {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/logos/OldCrownLogo.png"
+                src="/images/brand/OldCrownLogo.png"
                 alt="Old Crown Girton Logo"
                 width={60}
                 height={45}

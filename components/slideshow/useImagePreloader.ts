@@ -45,6 +45,11 @@ export function useImagePreloader(
   const buildOptimizedUrl = (rawSrc: string) => {
     // Approximate width selection similar to Next's logic for sizes="100vw"
     try {
+      // If src is already a built/static asset or data URL, skip Next image proxying
+      if (!rawSrc) return rawSrc;
+      if (rawSrc.startsWith('/_next/') || rawSrc.startsWith('data:') || rawSrc.startsWith('blob:') || /^https?:\/\//.test(rawSrc)) {
+        return rawSrc;
+      }
       const vw = Math.max(1, Math.floor(window.innerWidth || 1080));
       const dpr = Math.min(3, Math.max(1, Math.round((window.devicePixelRatio || 1) * 100) / 100));
       const target = Math.ceil(vw * dpr);
