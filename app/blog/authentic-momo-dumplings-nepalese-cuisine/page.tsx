@@ -15,7 +15,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Authentic Momo Dumplings Cambridge | Best Nepalese Restaurant",
     description: "Experience authentic Nepalese momo dumplings and traditional Himalayan cuisine at Cambridge's most unique restaurant.",
-    url: "https://oldcrowngirton.co.uk/blog/authentic-momo-dumplings-nepalese-cuisine",
+    url: "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine",
     type: "article",
   },
 });
@@ -93,10 +93,10 @@ export default function MomoDumplingsPage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/authentic-momo-dumplings-nepalese-cuisine#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/authentic-momo-dumplings-nepalese-cuisine",
+          "url": "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -109,7 +109,7 @@ export default function MomoDumplingsPage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -122,7 +122,7 @@ export default function MomoDumplingsPage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/authentic-momo-dumplings-nepalese-cuisine"
+            "@id": "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine"
           },
           "image": {
             "@type": "ImageObject",
@@ -137,7 +137,7 @@ export default function MomoDumplingsPage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

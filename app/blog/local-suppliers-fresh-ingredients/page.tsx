@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Local Suppliers & Fresh Ingredients at Old Crown Girton",
     description: "Discover our commitment to local sourcing and fresh ingredients. Supporting Cambridgeshire suppliers while delivering exceptional flavors.",
-    url: "https://oldcrowngirton.co.uk/blog/local-suppliers-fresh-ingredients",
+    url: "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients",
     type: "article",
   },
 });
@@ -170,10 +170,10 @@ export default function LocalSuppliersPage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/local-suppliers-fresh-ingredients#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/local-suppliers-fresh-ingredients",
+          "url": "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -186,7 +186,7 @@ export default function LocalSuppliersPage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -199,7 +199,7 @@ export default function LocalSuppliersPage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/local-suppliers-fresh-ingredients"
+            "@id": "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients"
           },
           "image": {
             "@type": "ImageObject",
@@ -214,7 +214,7 @@ export default function LocalSuppliersPage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

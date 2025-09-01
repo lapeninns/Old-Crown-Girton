@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Student Guide to Old Crown Girton | Best Cambridge University Pub",
     description: "The ultimate student guide to affordable dining and great atmosphere at Cambridge's most unique pub near Girton College.",
-    url: "https://oldcrowngirton.co.uk/blog/student-guide-cambridge-university",
+    url: "https://oldcrowngirton.com/blog/student-guide-cambridge-university",
     type: "article",
   },
 });
@@ -92,10 +92,10 @@ export default function StudentGuideePage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/student-guide-cambridge-university#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/student-guide-cambridge-university#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/student-guide-cambridge-university",
+          "url": "https://oldcrowngirton.com/blog/student-guide-cambridge-university",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -108,7 +108,7 @@ export default function StudentGuideePage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -121,7 +121,7 @@ export default function StudentGuideePage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/student-guide-cambridge-university"
+            "@id": "https://oldcrowngirton.com/blog/student-guide-cambridge-university"
           },
           "image": {
             "@type": "ImageObject",
@@ -136,7 +136,7 @@ export default function StudentGuideePage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

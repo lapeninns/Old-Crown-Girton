@@ -1,7 +1,11 @@
+import React, { Suspense } from 'react';
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn, BouncyEmoji, MotionLinkButton } from "@/components/animations/MotionWrappers";
+import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorFallback from '@/components/ErrorFallback';
+import PageSkeleton from '@/components/PageSkeleton';
 
-export default function EventsPage() {
+const EventsPageContent = () => {
   return (
     <RestaurantLayout>
       <div className="min-h-screen bg-brand-50">
@@ -240,5 +244,15 @@ export default function EventsPage() {
         </div>
       </div>
     </RestaurantLayout>
+  );
+}
+
+export default function EventsPage() {
+  return (
+    <ErrorBoundary fallback={<ErrorFallback />}>
+      <Suspense fallback={<PageSkeleton />}>
+        <EventsPageContent />
+      </Suspense>
+    </ErrorBoundary>
   );
 }

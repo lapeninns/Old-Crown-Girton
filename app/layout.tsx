@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Metadata } from 'next';
 import ClientLayout from '@/components/LayoutClient';
+import { LoadingProvider } from '@/contexts/LoadingContext';
+import GlobalLoadingIndicator from '@/components/GlobalLoadingIndicator';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -45,7 +47,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: QUEUE_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: FALLBACK_SCRIPT }} />
 
-        <ClientLayout>{children}</ClientLayout>
+        <LoadingProvider>
+          <GlobalLoadingIndicator />
+          <ClientLayout>{children}</ClientLayout>
+        </LoadingProvider>
       </body>
     </html>
   );

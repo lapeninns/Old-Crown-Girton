@@ -11,7 +11,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Terms of Service | Old Crown Girton",
     description: "Terms of service for Old Crown Girton covering restaurant bookings, table reservations and dining policies.",
-    url: "https://oldcrowngirton.co.uk/tos",
+    url: "https://oldcrowngirton.com/tos",
   },
 });
 
@@ -29,10 +29,10 @@ const TOS = () => {
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "@id": "https://oldcrowngirton.co.uk/tos#webpage",
+          "@id": "https://oldcrowngirton.com/tos#webpage",
           "name": "Terms of Service - Old Crown Girton",
           "description": "Terms of service and conditions for Old Crown Girton restaurant bookings, reservations and dining services.",
-          "url": "https://oldcrowngirton.co.uk/tos",
+          "url": "https://oldcrowngirton.com/tos",
           "isPartOf": {
             "@type": "WebSite",
             "name": "Old Crown Girton",

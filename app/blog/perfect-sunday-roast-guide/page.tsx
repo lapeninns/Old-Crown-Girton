@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Sunday Roast in Cambridge: Where to Go + Alternatives",
     description: "We don't serve a traditional Sunday roast — explore Cambridge options and our comforting Sunday alternatives.",
-    url: "https://oldcrowngirton.co.uk/blog/perfect-sunday-roast-guide",
+    url: "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide",
     type: "article",
   },
 });
@@ -74,10 +74,10 @@ export default function SundayRoastGuidePage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/perfect-sunday-roast-guide#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/perfect-sunday-roast-guide",
+          "url": "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -90,7 +90,7 @@ export default function SundayRoastGuidePage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -103,7 +103,7 @@ export default function SundayRoastGuidePage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/perfect-sunday-roast-guide"
+            "@id": "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide"
           },
           "image": {
             "@type": "ImageObject",
@@ -118,7 +118,7 @@ export default function SundayRoastGuidePage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

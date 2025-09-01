@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "The Journey of Nepalese Cuisine to Girton Village",
     description: "Discover how authentic Nepalese flavors found their home in Cambridge's historic thatched pub, creating a unique dining experience.",
-    url: "https://oldcrowngirton.co.uk/blog/nepalese-cuisine-journey",
+    url: "https://oldcrowngirton.com/blog/nepalese-cuisine-journey",
     type: "article",
   },
 });
@@ -67,10 +67,10 @@ export default function BlogPostPage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/nepalese-cuisine-journey#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/nepalese-cuisine-journey",
+          "url": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -83,7 +83,7 @@ export default function BlogPostPage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -96,7 +96,7 @@ export default function BlogPostPage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/nepalese-cuisine-journey"
+            "@id": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey"
           },
           "image": {
             "@type": "ImageObject",
@@ -111,7 +111,7 @@ export default function BlogPostPage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": {
             "@type": "Thing",
@@ -122,10 +122,10 @@ export default function BlogPostPage() {
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "@id": "https://oldcrowngirton.co.uk/blog/nepalese-cuisine-journey#webpage",
+          "@id": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey#webpage",
           "name": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/nepalese-cuisine-journey",
+          "url": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey",
           "isPartOf": {
             "@type": "WebSite",
             "name": "Old Crown Girton",

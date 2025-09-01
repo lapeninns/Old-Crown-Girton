@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "England's Largest Thatched Pub | Historic Old Crown Girton",
     description: "Explore the remarkable history of Old Crown Girton, England's largest thatched pub, from medieval origins to modern Nepalese cuisine.",
-    url: "https://oldcrowngirton.co.uk/blog/largest-thatched-pub-history",
+    url: "https://oldcrowngirton.com/blog/largest-thatched-pub-history",
     type: "article",
   },
 });
@@ -136,10 +136,10 @@ export default function ThatchedPubHistoryPage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/largest-thatched-pub-history#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/largest-thatched-pub-history#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/largest-thatched-pub-history",
+          "url": "https://oldcrowngirton.com/blog/largest-thatched-pub-history",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -152,7 +152,7 @@ export default function ThatchedPubHistoryPage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -165,7 +165,7 @@ export default function ThatchedPubHistoryPage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/largest-thatched-pub-history"
+            "@id": "https://oldcrowngirton.com/blog/largest-thatched-pub-history"
           },
           "image": {
             "@type": "ImageObject",
@@ -180,7 +180,7 @@ export default function ThatchedPubHistoryPage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

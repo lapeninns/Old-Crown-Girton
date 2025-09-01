@@ -15,7 +15,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Business Lunch Cambridge | Corporate Dining at Old Crown Girton",
     description: "Experience Cambridge's ideal business lunch venue with quality cuisine, professional atmosphere, and convenient location.",
-    url: "https://oldcrowngirton.co.uk/blog/business-lunch-cambridge-guide",
+    url: "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide",
     type: "article",
   },
 });
@@ -78,10 +78,10 @@ export default function BusinessLunchGuidePage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/business-lunch-cambridge-guide#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/business-lunch-cambridge-guide",
+          "url": "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -94,7 +94,7 @@ export default function BusinessLunchGuidePage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -107,7 +107,7 @@ export default function BusinessLunchGuidePage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/business-lunch-cambridge-guide"
+            "@id": "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide"
           },
           "image": {
             "@type": "ImageObject",
@@ -122,7 +122,7 @@ export default function BusinessLunchGuidePage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

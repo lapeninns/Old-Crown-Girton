@@ -293,7 +293,7 @@ export const useRestaurantSchema = () => {
       priceRange: '££',
       paymentAccepted: data.paymentMethods,
       currenciesAccepted: 'GBP',
-      hasMenu: 'https://oldcrowngirton.co.uk/menu',
+      hasMenu: 'https://oldcrowngirton.com/menu',
       image: [
         absoluteUrl(typeof imgExteriorGarden === 'string' ? imgExteriorGarden : (imgExteriorGarden as any)),
         absoluteUrl(typeof imgInteriorDining === 'string' ? imgInteriorDining : (imgInteriorDining as any)),

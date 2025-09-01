@@ -87,11 +87,11 @@ export function generateRestaurantSchema(): RestaurantSchema {
       reviewCount: testimonials.length.toString()
     },
     image: [
-      "https://oldcrowngirton.co.uk/images/restaurant-exterior.jpg",
-      "https://oldcrowngirton.co.uk/images/restaurant-interior.jpg",
-      "https://oldcrowngirton.co.uk/images/food-display.jpg"
+      "https://oldcrowngirton.com/images/restaurant-exterior.jpg",
+      "https://oldcrowngirton.com/images/restaurant-interior.jpg",
+      "https://oldcrowngirton.com/images/food-display.jpg"
     ],
-    menu: "https://oldcrowngirton.co.uk/menu",
+    menu: "https://oldcrowngirton.com/menu",
     reservationsPolicy: "ReservationsRequired",
     paymentAccepted: features.payment_methods || [
       "Cash",

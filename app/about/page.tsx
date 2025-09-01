@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import React, { Suspense } from 'react';
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import { SchemaInjector } from "@/components/seo/RestaurantSchema";
@@ -6,6 +7,9 @@ import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import { getContactInfo } from "@/lib/restaurantData";
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import dynamic from 'next/dynamic';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorFallback from '@/components/ErrorFallback';
+import PageSkeleton from '@/components/PageSkeleton';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -16,7 +20,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "About Old Crown Girton - Historic Thatched Pub & Nepalese Kitchen",
     description: "Discover England's largest thatched pub in Girton serving authentic Nepalese cuisine and British pub classics.",
-    url: "https://oldcrowngirton.co.uk/about",
+    url: "https://oldcrowngirton.com/about",
   },
 });
 
@@ -24,7 +28,7 @@ export const metadata = getSEOTags({
 const StoryTimelineSection = dynamic(() => import("@/components/restaurant/sections/StoryTimelineSection"));
 const AboutCTASection = dynamic(() => import("@/components/restaurant/sections/AboutCTASection"));
 
-export default async function AboutPage() {
+const AboutPageContent = async () => {
   const m = await getMarketingSmart();
   const content = await getContentSmart();
   
@@ -35,6 +39,7 @@ export default async function AboutPage() {
   const aboutContent = content.pages.about;
   const contact = getContactInfo();
   const postcode = contact?.address.postcode || "CB3 0QQ";
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
@@ -48,8 +53,8 @@ export default async function AboutPage() {
           // ... existing schema markup remains the same
         ])}
         <SchemaInjector type="breadcrumb" data={[
-          { name: 'Home', url: 'https://oldcrowngirton.co.uk/' },
-          { name: 'About', url: 'https://oldcrowngirton.co.uk/about' }
+          { name: 'Home', url: 'https://oldcrowngirton.com/' },
+          { name: 'About', url: 'https://oldcrowngirton.com/about' }
         ]} page="about" />
         
         {/* Hero Section with motion animation */}
@@ -100,5 +105,15 @@ export default async function AboutPage() {
         </main>
       </RestaurantLayout>
     </>
+  );
+}
+
+export default function AboutPage() {
+  return (
+    <ErrorBoundary fallback={<ErrorFallback />}>
+      <Suspense fallback={<PageSkeleton />}>
+        <AboutPageContent />
+      </Suspense>
+    </ErrorBoundary>
   );
 }

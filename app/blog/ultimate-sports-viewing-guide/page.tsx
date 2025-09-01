@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Watch Live Sports at Old Crown Girton | Best Sports Pub Cambridge",
     description: "Experience live sports in Cambridge's most atmospheric sports pub. Crystal-clear screens, great food, and unbeatable match-day atmosphere.",
-    url: "https://oldcrowngirton.co.uk/blog/ultimate-sports-viewing-guide",
+    url: "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide",
     type: "article",
   },
 });
@@ -181,10 +181,10 @@ export default function SportsViewingGuidePage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/ultimate-sports-viewing-guide#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/ultimate-sports-viewing-guide",
+          "url": "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -197,7 +197,7 @@ export default function SportsViewingGuidePage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -210,7 +210,7 @@ export default function SportsViewingGuidePage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/ultimate-sports-viewing-guide"
+            "@id": "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide"
           },
           "image": {
             "@type": "ImageObject",
@@ -225,7 +225,7 @@ export default function SportsViewingGuidePage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

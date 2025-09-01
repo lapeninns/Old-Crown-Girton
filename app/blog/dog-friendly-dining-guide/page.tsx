@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Dog-Friendly Dining at Old Crown Girton | Cambridge's Best Pet-Welcome Pub",
     description: "Discover Cambridge's most welcoming dog-friendly pub restaurant with spacious terrace, water bowls, and staff who love meeting furry customers.",
-    url: "https://oldcrowngirton.co.uk/blog/dog-friendly-dining-guide",
+    url: "https://oldcrowngirton.com/blog/dog-friendly-dining-guide",
     type: "article",
   },
 });
@@ -110,10 +110,10 @@ export default function DogFriendlyDiningPage() {
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": "https://oldcrowngirton.co.uk/blog/dog-friendly-dining-guide#blogposting",
+          "@id": "https://oldcrowngirton.com/blog/dog-friendly-dining-guide#blogposting",
           "headline": post.title,
           "description": post.excerpt,
-          "url": "https://oldcrowngirton.co.uk/blog/dog-friendly-dining-guide",
+          "url": "https://oldcrowngirton.com/blog/dog-friendly-dining-guide",
           "datePublished": post.publishedDate,
           "dateModified": post.modifiedDate,
           "author": {
@@ -126,7 +126,7 @@ export default function DogFriendlyDiningPage() {
             "name": "Old Crown Girton",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://oldcrowngirton.co.uk/icon.png"
+              "url": "https://oldcrowngirton.com/icon.png"
             },
             "address": {
               "@type": "PostalAddress",
@@ -139,7 +139,7 @@ export default function DogFriendlyDiningPage() {
           },
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/blog/dog-friendly-dining-guide"
+            "@id": "https://oldcrowngirton.com/blog/dog-friendly-dining-guide"
           },
           "image": {
             "@type": "ImageObject",
@@ -154,7 +154,7 @@ export default function DogFriendlyDiningPage() {
           "isPartOf": {
             "@type": "Blog",
             "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.co.uk/blog"
+            "url": "https://oldcrowngirton.com/blog"
           },
           "about": [
             {

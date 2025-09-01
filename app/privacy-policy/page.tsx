@@ -12,7 +12,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Privacy Policy | Old Crown Girton",
     description: "Privacy policy for Old Crown Girton outlining data handling for restaurant bookings, enquiries and website usage.",
-    url: "https://oldcrowngirton.co.uk/privacy-policy",
+    url: "https://oldcrowngirton.com/privacy-policy",
   },
 });
 
