@@ -210,8 +210,23 @@ async function fetchMenuFromApiServer(endpoint?: string, env: AppEnv = resolveEn
     if (typeof window === 'undefined') {
       try {
         const cfg = await getConfigData(env);
+        
+        // Validate baseUrl is a string
+        if (cfg.api.baseUrl && typeof cfg.api.baseUrl !== 'string') {
+          console.error('Invalid baseUrl type:', typeof cfg.api.baseUrl, cfg.api.baseUrl);
+          throw new Error(`Invalid baseUrl type: expected string, got ${typeof cfg.api.baseUrl}`);
+        }
+        
         url = cfg.api.menuEndpoint || `${cfg.api.baseUrl ?? ''}/api/menu`;
-      } catch {
+        
+        // Final URL validation
+        if (url.includes('[object ')) {
+          console.error('Invalid URL contains serialized object:', url, 'Config:', cfg.api);
+          throw new Error(`Invalid URL contains serialized object: ${url}`);
+        }
+        
+      } catch (error) {
+        console.warn('Config loading failed for menu API, using fallback URL:', error);
         // If config lookup fails, fall back to local API path
         url = '/api/menu';
       }
@@ -219,7 +234,14 @@ async function fetchMenuFromApiServer(endpoint?: string, env: AppEnv = resolveEn
       url = '/api/menu';
     }
   }
-  return fetchJsonValidatedServer<Menu>(url!, MenuSchema, { cache: 'no-store' });
+  
+  // Final safety check
+  if (typeof url !== 'string' || url.includes('[object ')) {
+    console.error('Invalid URL before fetch:', url);
+    throw new Error(`Invalid URL: ${url}`);
+  }
+  
+  return fetchJsonValidatedServer<Menu>(url, MenuSchema, { cache: 'no-store' });
 }
 
 // Server-side fetch functions for smart loaders
@@ -248,8 +270,22 @@ export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Mar
   try {
     const cfg = await getConfigData(env);
     const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
+    
+    // Validate baseUrl is a string
+    if (cfg.api?.baseUrl && typeof cfg.api.baseUrl !== 'string') {
+      console.error('Invalid baseUrl type in marketing loader:', typeof cfg.api.baseUrl, cfg.api.baseUrl);
+      throw new Error(`Invalid baseUrl type: expected string, got ${typeof cfg.api.baseUrl}`);
+    }
+    
     const endpoint = cfg.api?.marketingEndpoint || cfg.api?.baseUrl ? `${cfg.api.baseUrl}/api/marketing` : undefined;
-    if (cmsOn) {
+    
+    if (cmsOn && endpoint) {
+      // Final URL validation
+      if (endpoint.includes('[object ')) {
+        console.error('Invalid marketing endpoint contains serialized object:', endpoint, 'Config:', cfg.api);
+        throw new Error(`Invalid endpoint contains serialized object: ${endpoint}`);
+      }
+      
       try {
         const url = endpoint ?? '/api/marketing';
         return await fetchMarketingFromApiServer(url);
@@ -274,9 +310,22 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
     try {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
+      
+      // Validate baseUrl is a string
+      if (cfg.api?.baseUrl && typeof cfg.api.baseUrl !== 'string') {
+        console.error('Invalid baseUrl type in content loader:', typeof cfg.api.baseUrl, cfg.api.baseUrl);
+        throw new Error(`Invalid baseUrl type: expected string, got ${typeof cfg.api.baseUrl}`);
+      }
+      
       const endpoint = cfg.api?.contentEndpoint || cfg.api?.baseUrl ? `${cfg.api.baseUrl}/api/content` : undefined;
       
       if (cmsOn && endpoint) {
+        // Final URL validation
+        if (endpoint.includes('[object ')) {
+          console.error('Invalid content endpoint contains serialized object:', endpoint, 'Config:', cfg.api);
+          throw new Error(`Invalid endpoint contains serialized object: ${endpoint}`);
+        }
+        
         try {
           // Try API first
           const apiContent = await fetchContentFromApiServer(endpoint);
@@ -316,8 +365,22 @@ export async function getRestaurantSmart(env: AppEnv = resolveEnv()): Promise<Re
     try {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
+      
+      // Validate baseUrl is a string
+      if (cfg.api?.baseUrl && typeof cfg.api.baseUrl !== 'string') {
+        console.error('Invalid baseUrl type in restaurant loader:', typeof cfg.api.baseUrl, cfg.api.baseUrl);
+        throw new Error(`Invalid baseUrl type: expected string, got ${typeof cfg.api.baseUrl}`);
+      }
+      
       const endpoint = cfg.api?.restaurantEndpoint || cfg.api?.baseUrl ? `${cfg.api.baseUrl}/api/restaurant` : undefined;
-      if (cmsOn) {
+      
+      if (cmsOn && endpoint) {
+        // Final URL validation
+        if (endpoint.includes('[object ')) {
+          console.error('Invalid restaurant endpoint contains serialized object:', endpoint, 'Config:', cfg.api);
+          throw new Error(`Invalid endpoint contains serialized object: ${endpoint}`);
+        }
+        
         try {
           const url = endpoint ?? '/api/restaurant';
           return await fetchRestaurantFromApiServer(url);
@@ -383,10 +446,77 @@ export async function preloadCriticalContent(env: AppEnv = resolveEnv()): Promis
       createCacheKey('menu', env),
       () => getMenuData(env),
       { priority: 'normal' }
+    ),
+    globalCache.preload(
+      createCacheKey('restaurant', env),
+      () => getRestaurantInfo(env),
+      { priority: 'normal' }
     )
   ];
   
   await Promise.allSettled(preloadPromises);
+}
+
+/**
+ * Health check for modular content system
+ */
+export async function checkContentSystemHealth(env: AppEnv = resolveEnv()): Promise<{
+  status: 'healthy' | 'degraded' | 'error';
+  details: Record<string, any>;
+}> {
+  const results: Record<string, any> = {};
+  
+  try {
+    // Test content loading
+    const contentStart = Date.now();
+    const content = await getContentSmart(env);
+    results.content = {
+      status: 'ok',
+      loadTime: Date.now() - contentStart,
+      hasPages: Object.keys(content.pages || {}).length > 0
+    };
+  } catch (error) {
+    results.content = { status: 'error', error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+  
+  try {
+    // Test cache performance
+    const cacheStats = getCacheStats();
+    results.cache = {
+      status: cacheStats.hitRate > 0.7 ? 'ok' : 'degraded',
+      hitRate: cacheStats.hitRate,
+      size: cacheStats.cacheSize
+    };
+  } catch (error) {
+    results.cache = { status: 'error', error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+  
+  try {
+    // Test config loading
+    const config = await getConfigData(env);
+    results.config = {
+      status: 'ok',
+      cmsEnabled: config.cms?.enabled || false,
+      environment: env
+    };
+  } catch (error) {
+    results.config = { status: 'error', error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+  
+  // Determine overall health
+  const errorCount = Object.values(results).filter(r => r.status === 'error').length;
+  const degradedCount = Object.values(results).filter(r => r.status === 'degraded').length;
+  
+  let status: 'healthy' | 'degraded' | 'error';
+  if (errorCount > 0) {
+    status = 'error';
+  } else if (degradedCount > 0) {
+    status = 'degraded';
+  } else {
+    status = 'healthy';
+  }
+  
+  return { status, details: results };
 }
 
 /**

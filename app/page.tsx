@@ -1,4 +1,3 @@
-import React, { Suspense } from 'react';
 import RestaurantLayout from "@/components/restaurant/Layout";
 import Showcase from '@/components/slideshow/Showcase';
 import dynamic from 'next/dynamic';
@@ -15,9 +14,6 @@ const TakeawayBanner = dynamic(() => import("@/components/restaurant/TakeawayBan
 const LocationSection = dynamic(() => import("@/components/restaurant/LocationSection"));
 import Link from "next/link";
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import ErrorFallback from '@/components/ErrorFallback';
-import PageSkeleton from '@/components/PageSkeleton';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -28,11 +24,11 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Old Crown Girton - Historic Thatched Pub & Nepalese Restaurant",
     description: "Historic thatched pub in Girton serving authentic Nepalese cuisine & British pub classics. Family & dog friendly. Voted #1 restaurant in Girton.",
-    url: "https://oldcrowngirton.com/",
+    url: "https://oldcrowngirton.co.uk/",
   },
 });
 
-const PageContent = async () => {
+export default async function Page() {
   // Load content data
   const m = await getMarketingSmart();
   const content = await getContentSmart();
@@ -63,16 +59,16 @@ const PageContent = async () => {
           "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics",
           "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://oldcrowngirton.com/menu",
+            "target": "https://oldcrowngirton.co.uk/menu",
             "query-input": "required name=search_term_string"
           }
         },
         {
           "@context": "https://schema.org",
           "@type": "Restaurant",
-          "@id": "https://oldcrowngirton.com/#restaurant",
+          "@id": "https://oldcrowngirton.co.uk/#restaurant",
           "name": "Old Crown Girton",
-          "image": "https://oldcrowngirton.com/opengraph-image.png",
+          "image": "https://oldcrowngirton.co.uk/opengraph-image.png",
           "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Family and dog friendly venue voted #1 restaurant in Girton.",
           "address": {
             "@type": "PostalAddress",
@@ -119,7 +115,7 @@ const PageContent = async () => {
               "closes": "22:00"
             }
           ],
-          "hasMenu": "https://oldcrowngirton.com/menu",
+          "hasMenu": "https://oldcrowngirton.co.uk/menu",
           "sameAs": [
             "https://www.facebook.com/oldcrowngirton",
             "https://www.instagram.com/theoldcrowngirton"
@@ -188,15 +184,5 @@ const PageContent = async () => {
         </main>
       </RestaurantLayout>
     </>
-  );
-}
-
-export default function Page() {
-  return (
-    <ErrorBoundary fallback={<ErrorFallback />}>
-      <Suspense fallback={<PageSkeleton />}>
-        <PageContent />
-      </Suspense>
-    </ErrorBoundary>
   );
 }

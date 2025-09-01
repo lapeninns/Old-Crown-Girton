@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import { headers } from 'next/headers';
 import { z } from 'zod';
 
 // Security and validation

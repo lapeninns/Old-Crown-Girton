@@ -1,13 +1,15 @@
 /**
- * Service Worker for Modular Content System
+ * Enhanced Service Worker for Old Crown Restaurant
  * 
  * Provides advanced caching strategies, offline support, and performance optimizations
- * for the modular content system in production.
+ * with restaurant-specific optimizations and background sync capabilities.
  */
 
-const CACHE_NAME = 'modular-content-v1';
-const CONTENT_CACHE_NAME = 'content-modules-v1';
-const STATIC_CACHE_NAME = 'static-resources-v1';
+const CACHE_NAME = 'old-crown-v2';
+const CONTENT_CACHE_NAME = 'old-crown-content-v2';
+const STATIC_CACHE_NAME = 'old-crown-static-v2';
+const IMAGE_CACHE_NAME = 'old-crown-images-v2';
+const API_CACHE_NAME = 'old-crown-api-v2';
 
 // Cache strategies by content type
 const CACHE_STRATEGIES = {
@@ -291,6 +293,18 @@ self.addEventListener('message', (event) => {
       preloadContent(payload.modules);
       break;
       
+    case 'CACHE_URLS':
+      cacheUrls(payload.urls).then(() => {
+        if (event.ports[0]) {
+          event.ports[0].postMessage({ success: true });
+        }
+      }).catch((error) => {
+        if (event.ports[0]) {
+          event.ports[0].postMessage({ error: error.message });
+        }
+      });
+      break;
+      
     case 'CACHE_CLEAR':
       clearContentCache(payload.pattern);
       break;
@@ -298,6 +312,30 @@ self.addEventListener('message', (event) => {
     case 'CACHE_STATS':
       getCacheStats().then((stats) => {
         event.ports[0].postMessage(stats);
+      });
+      break;
+      
+    case 'GET_CACHE_STATUS':
+      getCacheStatus().then((status) => {
+        if (event.ports[0]) {
+          event.ports[0].postMessage(status);
+        }
+      }).catch((error) => {
+        if (event.ports[0]) {
+          event.ports[0].postMessage({ error: error.message });
+        }
+      });
+      break;
+      
+    case 'CLEAR_CACHE':
+      clearCacheByNames(payload.cacheNames).then(() => {
+        if (event.ports[0]) {
+          event.ports[0].postMessage({ success: true });
+        }
+      }).catch((error) => {
+        if (event.ports[0]) {
+          event.ports[0].postMessage({ error: error.message });
+        }
       });
       break;
   }
@@ -322,6 +360,94 @@ async function preloadContent(modules) {
   });
   
   await Promise.allSettled(preloadPromises);
+}
+
+/**
+ * Cache specific URLs
+ */
+async function cacheUrls(urls) {
+  if (!Array.isArray(urls)) {
+    console.warn('cacheUrls: urls must be an array, got:', typeof urls);
+    return;
+  }
+  
+  const cache = await caches.open(API_CACHE_NAME);
+  
+  const cachePromises = urls.map(async (url) => {
+    if (typeof url !== 'string') {
+      console.warn('cacheUrls: invalid URL type:', typeof url, url);
+      return;
+    }
+    
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        await cache.put(url, response.clone());
+        console.log(`Cached: ${url}`);
+      } else {
+        console.warn(`Failed to cache ${url}: ${response.status}`);
+      }
+    } catch (error) {
+      console.warn(`Failed to cache ${url}:`, error);
+    }
+  });
+  
+  await Promise.allSettled(cachePromises);
+}
+
+/**
+ * Get comprehensive cache status
+ */
+async function getCacheStatus() {
+  const cacheNames = [CACHE_NAME, CONTENT_CACHE_NAME, STATIC_CACHE_NAME, IMAGE_CACHE_NAME, API_CACHE_NAME];
+  const caches = {};
+  let totalEntries = 0;
+  
+  for (const cacheName of cacheNames) {
+    try {
+      const cache = await self.caches.open(cacheName);
+      const keys = await cache.keys();
+      const urls = keys.map(request => request.url);
+      
+      caches[cacheName] = {
+        entries: keys.length,
+        urls: urls
+      };
+      totalEntries += keys.length;
+    } catch (error) {
+      caches[cacheName] = {
+        entries: 0,
+        urls: [],
+        error: error.message
+      };
+    }
+  }
+  
+  return {
+    caches,
+    timestamp: new Date().toISOString(),
+    version: CACHE_NAME,
+    totalEntries
+  };
+}
+
+/**
+ * Clear caches by name
+ */
+async function clearCacheByNames(cacheNames = []) {
+  if (cacheNames.length === 0) {
+    // Clear all caches
+    cacheNames = [CACHE_NAME, CONTENT_CACHE_NAME, STATIC_CACHE_NAME, IMAGE_CACHE_NAME, API_CACHE_NAME];
+  }
+  
+  for (const cacheName of cacheNames) {
+    try {
+      await self.caches.delete(cacheName);
+      console.log(`Cleared cache: ${cacheName}`);
+    } catch (error) {
+      console.warn(`Failed to clear cache ${cacheName}:`, error);
+    }
+  }
 }
 
 /**

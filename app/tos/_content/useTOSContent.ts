@@ -43,7 +43,7 @@ export function useTOSContent(): TOSContent | null {
           meta: {
             effectiveDate: "10 August 2025",
             title: "Terms of Service",
-            contactEmail: "legal@oldcrowngirton.co.uk",
+            contactEmail: "oldcrown@lapeninns.com",
             businessName: "The Old Crown Girton"
           },
           introduction: "These Terms govern your use of this website.",

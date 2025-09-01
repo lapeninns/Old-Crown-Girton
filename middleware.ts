@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getProductionConfig, createProductionHeaders } from './src/lib/config/production';
+import { getProductionConfig } from './src/lib/config/production';
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import { cdnOptimizationMiddleware } from './src/lib/cdnStrategy';
 
 export async function middleware(request: NextRequest) {
   const res = NextResponse.next();
@@ -18,6 +19,12 @@ export async function middleware(request: NextRequest) {
     } catch (err) {
       console.warn('Supabase middleware skipped:', err?.message || err);
     }
+  }
+
+  // Apply CDN optimization middleware first
+  const cdnResponse = cdnOptimizationMiddleware(request);
+  if (cdnResponse !== NextResponse.next()) {
+    return cdnResponse;
   }
 
   const config = getProductionConfig();

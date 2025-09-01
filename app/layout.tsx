@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import ClientLayout from '@/components/LayoutClient';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import GlobalLoadingIndicator from '@/components/GlobalLoadingIndicator';
+import ServiceWorkerProvider from '@/components/ServiceWorkerProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -48,8 +49,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: FALLBACK_SCRIPT }} />
 
         <LoadingProvider>
-          <GlobalLoadingIndicator />
-          <ClientLayout>{children}</ClientLayout>
+          <ServiceWorkerProvider>
+            <GlobalLoadingIndicator />
+            <ClientLayout>{children}</ClientLayout>
+          </ServiceWorkerProvider>
         </LoadingProvider>
       </body>
     </html>

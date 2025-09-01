@@ -37,7 +37,7 @@ interface HomeContent {
 }
 
 export function useHomeContent(): HomeContent | null {
-  const { data: content, loading, error } = useContent();
+  const { data: content, loading } = useContent();
   const [homeContent, setHomeContent] = useState<HomeContent | null>(null);
 
   useEffect(() => {

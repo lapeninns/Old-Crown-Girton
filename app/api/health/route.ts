@@ -41,7 +41,7 @@ interface SystemHealthStatus {
   recommendations: string[];
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   const env = resolveEnv();
   const startTime = Date.now();
   const checks: SystemHealthStatus['checks'] = {

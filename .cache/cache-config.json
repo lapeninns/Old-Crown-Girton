@@ -1,0 +1,70 @@
+{
+  "environment": "development",
+  "isPeakHour": false,
+  "contentTTL": {
+    "restaurant": 604800,
+    "menu": 155520,
+    "hours": 64800,
+    "blog": 21600,
+    "events": 12960,
+    "slideshow": 362880,
+    "testimonials": 604800,
+    "about": 604800,
+    "images": 604800
+  },
+  "cacheStrategies": {
+    "restaurant": "cache-first",
+    "menu": "stale-while-revalidate",
+    "hours": "stale-while-revalidate",
+    "blog": "network-first",
+    "events": "network-first",
+    "slideshow": "stale-while-revalidate",
+    "testimonials": "stale-while-revalidate",
+    "about": "stale-while-revalidate",
+    "images": "stale-while-revalidate"
+  },
+  "dependencies": {
+    "restaurant": {
+      "preloadWith": [
+        "menu",
+        "hours"
+      ]
+    },
+    "menu": {
+      "preloadWith": [
+        "restaurant"
+      ]
+    },
+    "hours": {
+      "preloadWith": [
+        "restaurant",
+        "contact"
+      ]
+    },
+    "blog": {
+      "preloadWith": [
+        "events"
+      ]
+    },
+    "events": {
+      "preloadWith": [
+        "hours"
+      ]
+    },
+    "slideshow": {
+      "preloadWith": [
+        "testimonials"
+      ]
+    },
+    "testimonials": {
+      "preloadWith": []
+    },
+    "about": {
+      "preloadWith": []
+    },
+    "images": {
+      "preloadWith": []
+    }
+  },
+  "generated": "2025-09-01T16:40:35.317Z"
+}

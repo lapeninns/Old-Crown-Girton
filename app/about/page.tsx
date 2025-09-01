@@ -34,7 +34,6 @@ export default async function AboutPage() {
   // About page content
   const aboutContent = content.pages.about;
   const contact = getContactInfo();
-  const postcode = contact?.address.postcode || "CB3 0QQ";
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `

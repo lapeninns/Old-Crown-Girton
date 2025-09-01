@@ -39,7 +39,7 @@ export function usePrivacyContent(): PrivacyContent | null {
           meta: {
             effectiveDate: "10 August 2025",
             title: "Privacy Policy",
-            contactEmail: "privacy@oldcrowngirton.co.uk"
+            contactEmail: "oldcrown@lapeninns.com"
           },
           introduction: "We respect your privacy and handle personal information responsibly.",
           sections: {}

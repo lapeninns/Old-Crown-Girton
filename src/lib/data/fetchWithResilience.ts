@@ -4,46 +4,54 @@ export interface ResilientOptions {
   baseBackoffMs?: number; // base delay for backoff
 }
 
+const defaultRetryConfig: Required<ResilientOptions> = {
+  tries: 3,
+  timeoutMs: 10000,
+  baseBackoffMs: 100
+};
+
 /**
  * Resilient fetch with timeout, retries (429/5xx aware), and exponential backoff with jitter.
  * Suitable for client-side hooks; preserves Response for caller to parse.
  */
 export async function fetchWithResilience(
-  url: string,
-  init: RequestInit = {},
-  { tries = 3, timeoutMs = 15000, baseBackoffMs = 400 }: ResilientOptions = {}
+  url: string | URL,
+  init?: RequestInit,
+  retryConfig?: ResilientOptions
 ): Promise<Response> {
-  let attempt = 0;
-  let lastErr: any;
+  // Validate URL to prevent [object Object] issues
+  if (typeof url === 'object' && !(url instanceof URL)) {
+    console.error('fetchWithResilience: Invalid URL object passed:', url);
+    throw new Error(`Invalid URL object: ${JSON.stringify(url)}`);
+  }
+  
+  if (typeof url === 'string' && url.includes('[object ')) {
+    console.error('fetchWithResilience: Serialized object found in URL:', url);
+    throw new Error(`Invalid URL contains serialized object: ${url}`);
+  }
 
-  while (attempt < tries) {
+  const config = { ...defaultRetryConfig, ...retryConfig };
+  let lastError: Error;
+
+  for (let attempt = 0; attempt < config.tries; attempt++) {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const timeout = setTimeout(() => controller.abort(), config.timeoutMs);
+
     try {
-      const res = await fetch(url, { ...init, signal: init.signal ?? controller.signal });
-      // Retry on 429 or 5xx
-      if (res.status === 429 || (res.status >= 500 && res.status < 600)) {
-        const retryAfterHeader = res.headers.get('retry-after');
-        const retryAfter = retryAfterHeader ? Number(retryAfterHeader) * (retryAfterHeader.includes(':') ? 0 : 1000) : undefined;
-        const backoff = retryAfter || Math.pow(2, attempt) * baseBackoffMs + Math.random() * 100;
-        await new Promise((r) => setTimeout(r, backoff));
-      } else if (!res.ok) {
-        // Non-retriable http errors
-        return res;
-      } else {
-        return res;
+      const res = await fetch(url, { ...init, signal: init?.signal ?? controller.signal });
+      clearTimeout(timeout);
+      return res;
+    } catch (error) {
+      clearTimeout(timeout);
+      lastError = error as Error;
+      
+      if (attempt < config.tries - 1) {
+        const backoff = config.baseBackoffMs * Math.pow(2, attempt);
+        await new Promise((resolve) => setTimeout(resolve, backoff));
       }
-    } catch (e) {
-      lastErr = e;
-      // Network/abort: backoff then retry if attempts remain
-      if (attempt === tries - 1) break;
-      const backoff = Math.pow(2, attempt) * baseBackoffMs + Math.random() * 100;
-      await new Promise((r) => setTimeout(r, backoff));
-    } finally {
-      clearTimeout(timer);
-      attempt++;
     }
   }
-  throw lastErr || new Error('Exhausted retries');
+
+  throw lastError!;
 }
 

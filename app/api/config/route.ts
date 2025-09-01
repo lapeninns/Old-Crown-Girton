@@ -8,7 +8,6 @@ import {
 } from '@/src/lib/data/api/standardizedResponse';
 
 // Environment-specific revalidation
-const env = resolveEnv();
 const isProd = process.env.NODE_ENV === 'production';
 export const revalidate = isProd ? 1800 : 120; // 30min prod, 2min dev
 
