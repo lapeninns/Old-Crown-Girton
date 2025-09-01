@@ -1,13 +1,9 @@
-import React, { Suspense } from 'react';
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from 'next/link';
 import { Images } from '@/src/lib/images';
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import { BlogHero, BlogFeatured, BlogGrid, BlogCategories } from './_components';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import ErrorFallback from '@/components/ErrorFallback';
-import PageSkeleton from '@/components/PageSkeleton';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -18,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Blog | Old Crown Girton - Local Stories & Community News",
     description: "Discover stories from Old Crown Girton: Nepalese cuisine recipes, Girton village history, local events coverage, and community news.",
-    url: "https://oldcrowngirton.com/blog",
+    url: "https://oldcrowngirton.co.uk/blog",
   },
 });
 
@@ -140,7 +136,7 @@ const categories = [
   { name: "Dog-Friendly", count: 1, slug: "dog-friendly" }
 ];
 
-const BlogPageContent = () => {
+export default function BlogPage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
@@ -240,15 +236,5 @@ const BlogPageContent = () => {
         </main>
       </RestaurantLayout>
     </>
-  );
-}
-
-export default function BlogPage() {
-  return (
-    <ErrorBoundary fallback={<ErrorFallback />}>
-      <Suspense fallback={<PageSkeleton />}>
-        <BlogPageContent />
-      </Suspense>
-    </ErrorBoundary>
   );
 }

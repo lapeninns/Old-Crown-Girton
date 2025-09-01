@@ -1,12 +1,8 @@
-import React, { Suspense } from 'react';
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getContentSmart } from '@/src/lib/data/server-loader';
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import dynamic from 'next/dynamic';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import ErrorFallback from '@/components/ErrorFallback';
-import PageSkeleton from '@/components/PageSkeleton';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -17,7 +13,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Contact Old Crown Girton - Book Table | Directions",
     description: "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223277217.",
-    url: "https://oldcrowngirton.com/contact",
+    url: "https://oldcrowngirton.co.uk/contact",
   },
 });
 
@@ -28,7 +24,7 @@ const ContactFeaturesSection = dynamic(() => import("@/components/restaurant/sec
 const SocialMediaSection = dynamic(() => import("@/components/restaurant/sections/SocialMediaSection"));
 const InteractiveMap = dynamic(() => import("@/components/restaurant/InteractiveMap"));
 
-const ContactPageContent = async () => {
+export default async function ContactPage() {
   const content = await getContentSmart();
   const contactContent = content.pages.contact;
   return (
@@ -104,15 +100,5 @@ const ContactPageContent = async () => {
         </main>
       </RestaurantLayout>
     </>
-  );
-}
-
-export default function ContactPage() {
-  return (
-    <ErrorBoundary fallback={<ErrorFallback />}>
-      <Suspense fallback={<PageSkeleton />}>
-        <ContactPageContent />
-      </Suspense>
-    </ErrorBoundary>
   );
 }
