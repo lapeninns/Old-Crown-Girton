@@ -56,9 +56,9 @@ export default function NavbarStatic() {
               <Image
                 src="/images/brand/OldCrownLogo.png"
                 alt={content?.global?.accessibility?.altTexts?.logo || 'Old Crown Girton Logo'}
-                width={32}
-                height={32}
-                className="h-8 w-8"
+                width={60}
+                height={45}
+                className="h-8 w-auto"
                 priority
               />
               <span className="text-xl font-semibold text-brand-800">OLD CROWN</span>

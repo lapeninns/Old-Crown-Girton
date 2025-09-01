@@ -191,7 +191,9 @@ export async function getContentDataOptimized(env: AppEnv = resolveEnv()): Promi
 
 // Internal server-side fetch function with validation
 async function fetchJsonValidatedServer<T>(url: string, schema: ZodTypeAny, init?: any): Promise<T> {
-  const res = await fetch(url, { ...init, headers: { 'accept': 'application/json', ...(init?.headers || {}) } });
+  // Use fetchWithResilience server-side for consistent retry/timeouts
+  const { fetchWithResilience } = await import('./fetchWithResilience');
+  const res = await fetchWithResilience(url, { ...init, headers: { 'accept': 'application/json', ...(init?.headers || {}) } }, { tries: 2, timeoutMs: 3000, baseBackoffMs: 200 });
   if (!res.ok) {
     throw new Error(`Fetch failed ${res.status} ${res.statusText} for ${url}`);
   }

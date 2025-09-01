@@ -2,12 +2,13 @@
 import RestaurantHoursCard from './RestaurantHoursCard';
 import InteractiveMap from './InteractiveMap';
 import { getContactInfo } from '@/lib/restaurantData';
+import EmojiIcon from '@/components/common/EmojiIcon';
 
 export default function LocationSection() {
   const contact = getContactInfo();
 
   return (
-    <section className="py-16 bg-brand-50">
+    <section className="bg-brand-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground-strong mb-4">
@@ -25,7 +26,7 @@ export default function LocationSection() {
             {/* Address */}
             <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
               <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
-                <span className="text-accent">📍</span>
+                <EmojiIcon emoji="📍" className="text-accent" />
                 Address
               </h3>
               <p className="text-foreground">
@@ -39,7 +40,7 @@ export default function LocationSection() {
             {/* Contact Details */}
             <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
               <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
-                <span className="text-accent">📞</span>
+                <EmojiIcon emoji="📞" className="text-accent" />
                 Contact
               </h3>
               <div className="space-y-2 text-foreground">

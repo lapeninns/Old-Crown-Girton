@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface SimpleHoursData {
   kitchen: Record<string, string>;
@@ -15,7 +16,7 @@ export default function SimpleFooterHours() {
   useEffect(() => {
     const fetchHours = async () => {
       try {
-        const response = await fetch('/api/restaurant');
+  const response = await fetchWithResilience('/api/restaurant');
         if (!response.ok) throw new Error('Failed to fetch');
         
         const data = await response.json();

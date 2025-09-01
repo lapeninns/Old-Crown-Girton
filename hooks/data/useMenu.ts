@@ -2,6 +2,7 @@
 
 import useSWR, { type SWRConfiguration } from 'swr';
 import { MenuSchema, type Menu } from '@/src/lib/data/schemas';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 // Standardized hook result interface
 export interface UseMenuResult {
@@ -27,11 +28,11 @@ export interface UseMenuOptions extends SWRConfiguration<Menu, Error> {
 
 // Standardized fetcher with enhanced error handling
 const menuFetcher = async (url: string): Promise<Menu> => {
-  const response = await fetch(url, { 
-    headers: { 
+  const response = await fetchWithResilience(url, {
+    headers: {
       'Accept': 'application/json',
       'Cache-Control': 'no-cache'
-    } 
+    }
   });
   
   if (!response.ok) {

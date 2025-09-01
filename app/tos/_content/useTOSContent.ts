@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface TOSContent {
   meta: {
@@ -27,7 +28,7 @@ export function useTOSContent(): TOSContent | null {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/api/tos-content');
+  const response = await fetchWithResilience('/api/tos-content');
         if (response.ok) {
           const data = await response.json();
           setContent(processContent(data));

@@ -99,10 +99,10 @@ export async function getContentSmart(env: AppEnv = resolveEnv()): Promise<Conte
       if (cmsOn && endpoint) {
         try {
           // Try API first
-          const response = await fetch(endpoint, { 
-            cache: 'no-store',
-            signal: AbortSignal.timeout(3000) // 3 second timeout
-          });
+          const { fetchWithResilience } = await import('./fetchWithResilience');
+          const response = await fetchWithResilience(endpoint, { 
+            cache: 'no-store'
+          }, { tries: 2, timeoutMs: 3000, baseBackoffMs: 200 });
           if (response.ok) {
             const content = await response.json();
             return ContentSchema.parse(content);
@@ -304,10 +304,10 @@ export async function getMenuSmart(priorityCategory?: string, env: AppEnv = reso
     const endpoint = cfg.api?.menuEndpoint;
     if (cmsOn && endpoint) {
       try {
-        const response = await fetch(endpoint, { 
-          cache: 'no-store',
-          signal: AbortSignal.timeout(3000) // 3 second timeout
-        });
+        const { fetchWithResilience } = await import('./fetchWithResilience');
+        const response = await fetchWithResilience(endpoint, { 
+          cache: 'no-store'
+        }, { tries: 2, timeoutMs: 3000, baseBackoffMs: 200 });
         if (response.ok) {
           const menu = await response.json();
           return MenuSchema.parse(menu);
@@ -334,10 +334,10 @@ export async function getMarketingSmart(env: AppEnv = resolveEnv()): Promise<Mar
     if (cmsOn) {
       try {
         const url = endpoint ?? '/api/marketing';
-        const response = await fetch(url, { 
-          cache: 'no-store',
-          signal: AbortSignal.timeout(3000) // 3 second timeout
-        });
+        const { fetchWithResilience } = await import('./fetchWithResilience');
+        const response = await fetchWithResilience(url, { 
+          cache: 'no-store'
+        }, { tries: 2, timeoutMs: 3000, baseBackoffMs: 200 });
         if (response.ok) {
           const marketing = await response.json();
           return MarketingSchema.parse(marketing);
@@ -360,10 +360,10 @@ export async function getRestaurantSmart(env: AppEnv = resolveEnv()): Promise<Re
     if (cmsOn) {
       try {
         const url = endpoint ?? '/api/restaurant';
-        const response = await fetch(url, { 
-          cache: 'no-store',
-          signal: AbortSignal.timeout(3000) // 3 second timeout
-        });
+        const { fetchWithResilience } = await import('./fetchWithResilience');
+        const response = await fetchWithResilience(url, { 
+          cache: 'no-store'
+        }, { tries: 2, timeoutMs: 3000, baseBackoffMs: 200 });
         if (response.ok) {
           const restaurant = await response.json();
           return RestaurantSchema.parse(restaurant);

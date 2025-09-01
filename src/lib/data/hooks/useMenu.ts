@@ -1,6 +1,7 @@
 "use client";
 import useSWR, { type SWRConfiguration } from 'swr';
 import { MenuSchema, type Menu } from '../schemas';
+import { fetchWithResilience } from '../fetchWithResilience';
 import type { StandardizedApiResponse } from '../api/standardizedResponse';
 
 interface EnhancedMenuHookOptions extends SWRConfiguration<Menu, Error> {
@@ -62,29 +63,13 @@ const createEnhancedFetcher = (options: EnhancedMenuHookOptions = {}) => {
     let retryCount = 0;
     
     const attemptFetch = async (): Promise<Response> => {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-      
-      try {
-        const response = await fetch(url, {
-          headers: { 
-            accept: 'application/json',
-            'cache-control': options.enableStaleWhileRevalidate ? 'stale-while-revalidate=300' : 'no-cache'
-          },
-          signal: controller.signal
-        });
-        
-        clearTimeout(timeout);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      // Delegate to centralized resilient fetch
+      return fetchWithResilience(url, {
+        headers: {
+          accept: 'application/json',
+          'cache-control': options.enableStaleWhileRevalidate ? 'stale-while-revalidate=300' : 'no-cache'
         }
-        
-        return response;
-      } catch (error) {
-        clearTimeout(timeout);
-        throw error;
-      }
+      }, { tries: maxRetries + 1, timeoutMs: 10000, baseBackoffMs: 300 });
     };
     
     // Retry logic with exponential backoff

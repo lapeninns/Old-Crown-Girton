@@ -115,10 +115,10 @@ export class ContentMigrationAdapter {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-      this.loadLegacyContent()
-        .then(setData)
-        .catch(setError)
-        .finally(() => setIsLoading(false));
+    this.loadLegacyContent()
+      .then(setData)
+      .catch(setError)
+      .finally(() => setIsLoading(false));
     }, []);
 
     return {
@@ -286,8 +286,9 @@ export class ContentMigrationAdapter {
    */
   private async loadLegacyContent(): Promise<LegacyContentData> {
     // This would load from your original content.json
-    const response = await fetch('/config/content.json');
-    return response.json();
+  const { fetchWithResilience } = await import('../data/fetchWithResilience');
+  const response = await fetchWithResilience('/config/content.json');
+  return response.json();
   }
 
   /**
@@ -324,11 +325,12 @@ export class ContentMigrationAdapter {
   /**
    * Report content differences for analysis
    */
-  private reportContentDifferences(comparison: any, page?: string) {
+  private async reportContentDifferences(comparison: any, page?: string) {
     // In production, this would send to your analytics/monitoring service
     if (getProductionConfig().monitoring.analytics) {
       // Send to analytics endpoint
-      fetch('/api/analytics/content-migration', {
+      const { fetchWithResilience } = await import('../data/fetchWithResilience');
+      await fetchWithResilience('/api/analytics/content-migration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

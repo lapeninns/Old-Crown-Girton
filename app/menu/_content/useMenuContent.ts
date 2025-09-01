@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface MenuContent {
   meta: {
@@ -56,7 +57,7 @@ export function useMenuContent(): MenuContent | null {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/api/menu-content');
+  const response = await fetchWithResilience('/api/menu-content');
         if (response.ok) {
           const data = await response.json();
           setContent(data);

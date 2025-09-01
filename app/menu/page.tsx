@@ -4,12 +4,13 @@ import Link from "next/link";
 import { Metadata } from 'next';
 import { getMarketingSmart, getMenuSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import MenuHero from './_components/MenuHero';
+import { FadeIn } from '@/components/animations/MotionWrappers';
 import dynamic from 'next/dynamic';
 // Dynamic imports for Menu page sections - optimized for performance
 const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
 	ssr: true,
 	loading: () => (
-		<div className="min-h-96 bg-surface-base flex items-center justify-center">
+		<div className="min-h-96 bg-white flex items-center justify-center">
 			<div className="text-lg text-neutral-500">Loading menu...</div>
 		</div>
 	)
@@ -129,57 +130,71 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 			` }} />
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 			<RestaurantLayout>
-				{/* Hero Section (component) */}
-				<MenuHero />
+				{/* Hero Section with motion animation */}
+				<section aria-label="Menu introduction">
+					<MenuHero />
+				</section>
 
-				{/* Optimized Interactive menu with pre-loaded data */}
-				<MenuInteractive 
-					sections={optimizedMenu?.sections || []} 
-					defaultSelected={defaultSection}
-					preloadedData={true}
-				/>
+				{/* Main menu content with progressive disclosure */}
+				<main className="space-y-16">
+					<FadeIn>
+						<section aria-labelledby="interactive-menu-heading">
+							<MenuInteractive 
+								sections={optimizedMenu?.sections || []} 
+								defaultSelected={defaultSection}
+								preloadedData={true}
+							/>
+						</section>
+					</FadeIn>
 
-				{/* Dietary Information & FAQ with enhanced features */}
-				<MenuInformationSection 
-					faqItems={[
-						...content.components.faq.items,
-						{
-							question: "How do I search and filter the menu?",
-							answer: "Use the search bar to find specific dishes, or click 'Search & Filter' to apply dietary filters (Vegetarian, Vegan, Gluten Free, Spicy) and set price ranges. You can also browse by menu section."
-						},
-						{
-							question: "Can I see nutrition information for menu items?",
-							answer: "Yes! Click 'Nutrition' on any menu item to view detailed nutritional information, allergen warnings, and key ingredients. Please inform our staff of any allergies when ordering."
-						}
-					]} 
-				/>
+					<FadeIn>
+						<section aria-labelledby="dietary-info-heading">
+							<MenuInformationSection 
+								faqItems={[
+									...content.components.faq.items,
+									{
+										question: "How do I search and filter the menu?",
+										answer: "Use the search bar to find specific dishes, or click 'Search & Filter' to apply dietary filters (Vegetarian, Vegan, Gluten Free, Spicy) and set price ranges. You can also browse by menu section."
+									},
+									{
+										question: "Can I see nutrition information for menu items?",
+										answer: "Yes! Click 'Nutrition' on any menu item to view detailed nutritional information, allergen warnings, and key ingredients. Please inform our staff of any allergies when ordering."
+									}
+								]} 
+							/>
+						</section>
+					</FadeIn>
 
-				{/* Enhanced Call to Action */}
-				<MenuCTASection 
-					title="Experience Our Interactive Menu"
-					description="Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway orders."
-					buttons={[
-						{
-							text: labelBookOnline,
-							href: "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
-							variant: "primary",
-							external: true
-						},
-						{
-							text: labelOrderTakeaway,
-							href: "tel:01223276027",
-							variant: "secondary",
-							external: false
-						},
-						{
-							text: "Learn Our Story",
-							href: "/about",
-							variant: "tertiary",
-							external: false
-						}
-					]}
-					allergenNotice={`${menuContent.sections.allergenNotice} Use our enhanced filters to find items suitable for your dietary requirements.`}
-				/>
+					<FadeIn>
+						<section aria-labelledby="menu-cta-heading">
+							<MenuCTASection 
+								title="Experience Our Interactive Menu"
+								description="Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway orders."
+								buttons={[
+									{
+										text: labelBookOnline,
+										href: "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+										variant: "primary",
+										external: true
+									},
+									{
+										text: labelOrderTakeaway,
+										href: "tel:01223276027",
+										variant: "secondary",
+										external: false
+									},
+									{
+										text: "Learn Our Story",
+										href: "/about",
+										variant: "tertiary",
+										external: false
+									}
+								]}
+								allergenNotice={`${menuContent.sections.allergenNotice} Use our enhanced filters to find items suitable for your dietary requirements.`}
+							/>
+						</section>
+					</FadeIn>
+				</main>
 			</RestaurantLayout>
 		</>
 	);

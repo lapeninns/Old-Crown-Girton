@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
+import SlideCTAButton from './SlideCTAButton';
 
 const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; preloaded?: boolean; visualOnly?: boolean }> = ({ slide, slideIndex, active, preloaded, visualOnly = false }) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(!!preloaded);
@@ -22,12 +23,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
       case 0: // A: Book Online + Call for Takeaway
         return {
           primaryButton: {
-            text: '🍽️ Book Online',
+            variant: 'book' as const,
             href: slide.ctas?.bookUrl,
             className: `${baseBtn} bg-accent hover:bg-accent/90`
           },
           secondaryButton: {
-            text: '📞 Call for Takeaway',
+            variant: 'call-takeaway' as const,
             href: slide.ctas?.callTel,
             className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           }
@@ -35,12 +36,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
       case 1: // B: Call for Takeaway + Call for Booking
         return {
           primaryButton: {
-            text: '📞 Call for Takeaway',
+            variant: 'call-takeaway' as const,
             href: slide.ctas?.callTel,
             className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           },
           secondaryButton: {
-            text: '📞 Call for Booking',
+            variant: 'call-booking' as const,
             href: slide.ctas?.callTel,
             className: `${baseBtn} bg-accent hover:bg-accent/90`
           }
@@ -48,12 +49,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
       case 2: // C: Call for Booking + Book Online
         return {
           primaryButton: {
-            text: '📞 Call for Booking',
+            variant: 'call-booking' as const,
             href: slide.ctas?.callTel,
             className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           },
           secondaryButton: {
-            text: '🍽️ Book Online',
+            variant: 'book' as const,
             href: slide.ctas?.bookUrl,
             className: `${baseBtn} bg-accent hover:bg-accent/90`
           }
@@ -62,12 +63,12 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
         // Fallback (should never reach here)
         return {
           primaryButton: {
-            text: '🍽️ Book Online',
+            variant: 'book' as const,
             href: slide.ctas?.bookUrl,
             className: `${baseBtn} bg-accent hover:bg-accent/90`
           },
           secondaryButton: {
-            text: '📞 Call for Takeaway',
+            variant: 'call-takeaway' as const,
             href: slide.ctas?.callTel,
             className: `${baseBtn} bg-crimson-600 hover:bg-crimson-700`
           }
@@ -96,17 +97,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
             priority={slideIndex === 0}
             className={`object-cover transform xxs:scale-100 sm:scale-110 object-center transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             sizes="100vw"
-            onLoadingComplete={(img: any) => {
-              try {
-                if (img && typeof img.decode === 'function') {
-                  img.decode().then(() => setImageLoaded(true)).catch(() => setImageLoaded(true));
-                } else {
-                  setImageLoaded(true);
-                }
-              } catch {
-                setImageLoaded(true);
-              }
-            }}
+            onLoad={() => setImageLoaded(true)}
             onError={() => setImageError(true)}
           />
         )}
@@ -134,24 +125,18 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
 
           <div className="flex flex-col sm:flex-row gap-2 xs:gap-3 sm:gap-4 justify-center items-center max-w-full overflow-hidden px-2 sm:px-0">
             {primaryButton.href && (
-              <a 
-                target={primaryButton.text.includes('Book Online') ? '_blank' : undefined} 
-                rel={primaryButton.text.includes('Book Online') ? 'noopener noreferrer' : undefined} 
-                href={primaryButton.href} 
+              <SlideCTAButton
+                variant={primaryButton.variant}
+                href={primaryButton.href}
                 className={`${primaryButton.className} text-white font-bold py-2 px-4 xs:py-2.5 xs:px-5 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-lg text-sm xs:text-base sm:text-lg shadow-lg w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
-              >
-                {primaryButton.text}
-              </a>
+              />
             )}
             {secondaryButton.href && (
-              <a 
-                target={secondaryButton.text.includes('Book Online') ? '_blank' : undefined} 
-                rel={secondaryButton.text.includes('Book Online') ? 'noopener noreferrer' : undefined} 
-                href={secondaryButton.href} 
+              <SlideCTAButton
+                variant={secondaryButton.variant}
+                href={secondaryButton.href}
                 className={`${secondaryButton.className} text-white font-bold py-2 px-4 xs:py-2.5 xs:px-5 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-lg text-sm xs:text-base sm:text-lg shadow-lg w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
-              >
-                {secondaryButton.text}
-              </a>
+              />
             )}
           </div>
         </div>

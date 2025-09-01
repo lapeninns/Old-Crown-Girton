@@ -87,6 +87,13 @@ export default function RegularEventsSection({
                   <meta itemProp="endDate" content={event.endDate} />
                 )}
                 
+                {/* Visible date/time for users (also included as schema meta above) */}
+                {event.startDate && (
+                  <p className="text-sm text-brand-500 mb-1">
+                    {formatEventDate(event.startDate, event.endDate)}
+                  </p>
+                )}
+
                 <p className="text-sm font-medium text-accent-500" itemProp="eventSchedule">
                   {event.frequency}
                 </p>
@@ -97,4 +104,22 @@ export default function RegularEventsSection({
       }).filter(Boolean)}
     </motion.div>
   );
+}
+
+// Helper: format ISO date/time into human readable string
+function formatEventDate(start?: string, end?: string) {
+  if (!start) return '';
+  try {
+    const s = new Date(start);
+    const parts = s.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const time = s.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    if (end) {
+      const e = new Date(end);
+      const endTime = e.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      return `${parts} • ${time}–${endTime}`;
+    }
+    return `${parts} • ${time}`;
+  } catch {
+    return start;
+  }
 }

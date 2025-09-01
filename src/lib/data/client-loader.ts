@@ -20,10 +20,11 @@ import {
 import { globalCache, createCacheKey } from "./cache";
 import { resolveEnv, type AppEnv } from "./env";
 import type { ZodTypeAny } from "zod";
+import { fetchWithResilience } from './fetchWithResilience';
 
 // Client-safe fetch function with validation
 async function fetchJsonValidated<T>(url: string, schema: ZodTypeAny, init?: RequestInit): Promise<T> {
-  const res = await fetch(url, { 
+  const res = await fetchWithResilience(url, { 
     ...init, 
     headers: { 
       'accept': 'application/json', 

@@ -42,7 +42,7 @@ async function main() {
   }
   const sharp = await ensureSharp();
 
-  const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+  const sizes = [16, 32, 48, 64, 72, 96, 128, 144, 152, 192, 384, 512];
   fs.mkdirSync(out, { recursive: true });
 
   for (const size of sizes) {

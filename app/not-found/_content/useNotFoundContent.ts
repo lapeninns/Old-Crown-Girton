@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface NotFoundContent {
   meta: {
@@ -29,7 +30,7 @@ export function useNotFoundContent(): NotFoundContent | null {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/api/not-found-content');
+  const response = await fetchWithResilience('/api/not-found-content');
         if (response.ok) {
           const data = await response.json();
           setContent(data);

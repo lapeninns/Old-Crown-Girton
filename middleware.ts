@@ -1,12 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getProductionConfig, createProductionHeaders } from './src/lib/config/production';
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+  const res = NextResponse.next();
+
+  // Supabase auth middleware
+  const hasSupabaseEnv = Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)
+  );
+
+  if (hasSupabaseEnv) {
+    try {
+      const supabase = createMiddlewareClient({ req: request, res });
+      await supabase.auth.getSession();
+    } catch (err) {
+      console.warn('Supabase middleware skipped:', err?.message || err);
+    }
+  }
+
   const config = getProductionConfig();
   const { pathname } = request.nextUrl;
   
-  // Only apply to content API routes
-  if (!pathname.startsWith('/api/content/')) {
+  // Apply to all API routes under /api/*
+  if (!pathname.startsWith('/api/')) {
     return NextResponse.next();
   }
   
@@ -31,15 +49,15 @@ export function middleware(request: NextRequest) {
     response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   }
   
-  // CORS configuration
-  if (config.allowedOrigins.length > 0) {
-    const origin = request.headers.get('origin');
-    if (origin && (config.allowedOrigins.includes('*') || config.allowedOrigins.includes(origin))) {
-      response.headers.set('Access-Control-Allow-Origin', origin);
-      response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
-      response.headers.set('Access-Control-Allow-Headers', 'Content-Type, X-Environment, X-Content-Version');
-      response.headers.set('Access-Control-Max-Age', '86400');
-    }
+  // CORS configuration for API routes (centralized)
+  const origin = request.headers.get('origin');
+  if (config.allowedOrigins.length > 0 && origin && (config.allowedOrigins.includes('*') || config.allowedOrigins.includes(origin))) {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, X-Environment, X-Content-Version, Authorization');
+    response.headers.set('Access-Control-Max-Age', '86400');
+    // Expose useful headers to the browser
+    response.headers.set('Access-Control-Expose-Headers', 'etag,last-modified,x-request-id,x-load-time,x-cached,x-source');
   }
   
   // Performance headers
@@ -52,11 +70,11 @@ export function middleware(request: NextRequest) {
     response.headers.set('Vary', 'Accept-Encoding');
   }
   
+  // If this is a preflight request, respond here centrally to avoid having to add
+  // OPTIONS handlers to every API route. Return 204 No Content.
+  if (request.method === 'OPTIONS') {
+    return new NextResponse(null, { status: 204, headers: response.headers });
+  }
+
   return response;
 }
-
-export const config = {
-  matcher: [
-    '/api/content/:path*',
-  ],
-};

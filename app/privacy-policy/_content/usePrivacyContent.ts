@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface PrivacyContent {
   meta: {
@@ -23,7 +24,7 @@ export function usePrivacyContent(): PrivacyContent | null {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/api/privacy-content');
+  const response = await fetchWithResilience('/api/privacy-content');
         if (response.ok) {
           const data = await response.json();
           setContent(data);

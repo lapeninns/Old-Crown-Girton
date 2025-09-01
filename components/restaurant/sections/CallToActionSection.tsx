@@ -46,61 +46,63 @@ export default function CallToActionSection({
    * Get button styling based on variant using design system tokens
    */
   const getButtonClasses = (variant: CTAButton['variant']): string => {
-    const baseClasses = 'font-bold py-3 px-6 rounded-lg text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-offset-2';
+    const baseClasses = 'font-bold py-4 px-8 rounded-lg text-base focus:outline-none focus:ring-4 focus:ring-offset-2 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105';
     
     switch (variant) {
       case 'accent':
-        return `${baseClasses} bg-accent-600 hover:bg-accent-700 text-neutral-50 focus:ring-accent-500`;
+        return `${baseClasses} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 focus:ring-brand-300`;
       case 'brand':
-        return `${baseClasses} bg-brand-700 hover:bg-brand-800 text-white focus:ring-brand-500`;
+        return `${baseClasses} bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 focus:ring-white/30`;
       case 'crimson':
-        return `${baseClasses} bg-crimson-700 hover:bg-crimson-800 text-white focus:ring-crimson-500`;
+        return `${baseClasses} bg-white hover:bg-neutral-50 text-crimson-700 border-2 border-crimson-200 focus:ring-crimson-300`;
       default:
-        return `${baseClasses} bg-accent-600 hover:bg-accent-700 text-neutral-50 focus:ring-accent-500`;
+        return `${baseClasses} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 focus:ring-brand-300`;
     }
-  };
+  };  return (
+    <section className={`bg-white py-16 ${className}`}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
+          <div className="text-center">
+            <h2 className="font-display font-bold text-white mb-4 h2 drop-shadow-lg text-3xl md:text-4xl">
+              🎉 {headline}
+            </h2>
+            <p className="text-neutral-100 mb-8 text-lg max-w-2xl mx-auto leading-relaxed">
+              {description}
+            </p>
+            
+            <div className="flex flex-wrap gap-4 justify-center">
+              {buttons.map((button, index) => {
+                const isExternal = button.external || button.href.startsWith('http');
+                const buttonProps = isExternal 
+                  ? {
+                      target: '_blank' as const,
+                      rel: 'noopener noreferrer' as const,
+                      'aria-label': `${button.text} (opens in new tab)`
+                    }
+                  : {
+                      'aria-label': button.text
+                    };
 
-  return (
-    <section className={`py-16 bg-accent/10 ${className}`}>
-      <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="font-display font-bold text-brand-700 mb-4 h2">
-            {headline}
-          </h2>
-          <p className="text-brand-600 mb-6 text-body">
-            {description}
-          </p>
-          
-          <div className="flex flex-wrap gap-4 justify-center">
-            {buttons.map((button, index) => {
-              const isExternal = button.external || button.href.startsWith('http');
-              const buttonProps = isExternal 
-                ? {
-                    target: '_blank' as const,
-                    rel: 'noopener noreferrer' as const,
-                    'aria-label': `${button.text} (opens in new tab)`
-                  }
-                : {
-                    'aria-label': button.text
-                  };
-
-              return (
-                <div key={button.key || button.text || index}>
-                  <a
-                    href={button.href}
-                    className={getButtonClasses(button.variant)}
-                    {...buttonProps}
-                  >
-                    {button.text}
-                    {isExternal && (
-                      <span className="ml-1 text-xs" aria-hidden="true">
-                        ↗
-                      </span>
-                    )}
-                  </a>
-                </div>
-              );
-            })}
+                return (
+                  <div key={button.key || button.text || index}>
+                    <a
+                      href={button.href}
+                      className={`${getButtonClasses(button.variant)}`}
+                      {...buttonProps}
+                    >
+                      {button.text}
+                      {isExternal && (
+                        <span className="ml-1 text-xs" aria-hidden="true">
+                          ↗
+                        </span>
+                      )}
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
           </div>
+        </div>
       </div>
     </section>
   );

@@ -22,8 +22,11 @@ const ServiceWorkerManager = (): null => {
       const criticalPages = ['/menu', '/about', '/contact', '/events'];
       
       criticalPages.forEach(page => {
-        fetch(page).catch(() => {
-          // Silently fail - this is just prefetching
+        import('../../src/lib/data/fetchWithResilience').then(({ fetchWithResilience }) => {
+          fetchWithResilience(page).catch(() => {});
+        }).catch(() => {
+          // Fallback to native fetch if helper not available
+          fetch(page).catch(() => {});
         });
       });
     }

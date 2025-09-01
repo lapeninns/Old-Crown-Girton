@@ -176,16 +176,15 @@ const TestimonialsSection: React.FC = () => {
   };
 
   return (
-  <section className="relative w-full py-16 overflow-hidden bg-brand-50">
-      {/* Floating Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[5%] left-[5%] w-10 h-10 md:w-16 md:h-16 rounded-full bg-brand-200/30 animate-pulse"></div>
-        <div className="absolute top-[60%] right-[10%] w-16 h-16 md:w-24 md:h-24 rounded-full bg-accent-200/20 animate-pulse delay-1000"></div>
-        <div className="absolute bottom-[15%] left-[70%] w-8 h-8 md:w-12 md:h-12 rounded-full bg-brand-300/25 animate-pulse delay-2000"></div>
-        <div className="absolute top-[25%] left-[80%] w-12 h-12 md:w-20 md:h-20 rounded-full bg-accent-300/15 animate-pulse delay-500"></div>
-      </div>
+    <section className="bg-brand-100 py-16" id="testimonials-heading" aria-labelledby="testimonials-heading">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Floating Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-10 -left-10 w-20 h-20 bg-brand-200 rounded-full opacity-20"></div>
+          <div className="absolute top-1/2 -right-5 w-16 h-16 bg-accent-200 rounded-full opacity-30"></div>
+          <div className="absolute -bottom-5 left-1/4 w-12 h-12 bg-brand-300 rounded-full opacity-25"></div>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-700 mb-4 font-display">

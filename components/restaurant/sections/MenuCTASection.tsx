@@ -47,63 +47,68 @@ export default function MenuCTASection({
   }
 
   const getButtonClasses = (variant: string) => {
+    const base = 'transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105';
     switch (variant) {
       case 'primary':
-        return 'bg-accent hover:bg-accent-700 text-white';
+        return `${base} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200`;
       case 'secondary':
-        return 'bg-crimson-600 hover:bg-crimson-800 text-white';
+        return `${base} bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20`;
       case 'tertiary':
-        return 'bg-white hover:bg-neutral-100 text-stout-700';
+        return `${base} bg-white hover:bg-neutral-50 text-brand-700 border-2 border-brand-200`;
       default:
-        return 'bg-accent hover:bg-accent-700 text-white';
+        return `${base} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200`;
     }
   };
 
   return (
-    <motion.section className={`py-16 bg-stout-700 text-white ${className}`} variants={mv.fadeUp} initial="hidden" animate="visible">
-      <div className="max-w-4xl mx-auto text-center px-4">
-        <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-          {title}
-        </h2>
-        
-        <p className="text-xl text-neutral-200 mb-8">
-          {description}
-        </p>
-        
-        <div className="flex flex-wrap gap-4 justify-center">
-          {buttons.map((button, index) => {
-            const ButtonComponent = button.external ? 'a' : Link;
-            const buttonProps = button.external 
-              ? { 
-                  href: button.href,
-                  target: '_blank',
-                  rel: 'noopener noreferrer'
-                }
-              : { href: button.href };
+    <motion.section className={`py-16 bg-white ${className}`} variants={mv.fadeUp} initial="hidden" animate="visible">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-white drop-shadow-lg">
+              🍽️ {title}
+            </h2>
+            
+            <p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
+              {description}
+            </p>
+            
+            <div className="flex flex-wrap gap-4 justify-center mb-6">
+              {buttons.map((button, index) => {
+                const ButtonComponent = button.external ? 'a' : Link;
+                const buttonProps = button.external 
+                  ? { 
+                      href: button.href,
+                      target: '_blank',
+                      rel: 'noopener noreferrer'
+                    }
+                  : { href: button.href };
 
-            return (
-              <motion.div key={index} whileHover={mv.button.hover} whileTap={mv.button.tap}>
-                <ButtonComponent
-                  {...buttonProps}
-                  className={`${getButtonClasses(button.variant)} font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block`}
-                >
-                  {button.text}
-                  {button.external && (
-                    <span className="ml-2 text-sm" aria-hidden="true">
-                      ↗
-                    </span>
-                  )}
-                </ButtonComponent>
-              </motion.div>
-            );
-          })}
-        </div>
+                return (
+                  <motion.div key={index} whileHover={mv.button.hover} whileTap={mv.button.tap}>
+                    <ButtonComponent
+                      {...buttonProps}
+                      className={`${getButtonClasses(button.variant)} font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block`}
+                    >
+                      {button.text}
+                      {button.external && (
+                        <span className="ml-2 text-sm" aria-hidden="true">
+                          ↗
+                        </span>
+                      )}
+                    </ButtonComponent>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-        {allergenNotice && (
-          <div className="mt-8 text-sm text-neutral-300">
-            <p className="text-neutral-300">{allergenNotice}</p>
+            {allergenNotice && (
+              <div className="text-sm text-white/80 bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                <p>{allergenNotice}</p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </motion.section>
   );

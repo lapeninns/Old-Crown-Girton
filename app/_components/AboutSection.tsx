@@ -8,18 +8,18 @@ export default function AboutSection() {
   
   if (!content) {
     return (
-      <section className="py-16 bg-neutral-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="bg-white py-16" id="about-heading" aria-labelledby="about-heading">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <div className="h-10 bg-gray-200 rounded w-3/4 mb-6"></div>
+              <div className="h-10 bg-gray-200 rounded w-3/4 mb-6 animate-pulse"></div>
               <div className="space-y-4">
-                <div className="h-4 bg-gray-200 rounded w-full"></div>
-                <div className="h-4 bg-gray-200 rounded w-full"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
               </div>
             </div>
-            <div className="h-96 bg-gray-200 rounded-xl"></div>
+            <div className="h-96 bg-gray-200 rounded-xl animate-pulse"></div>
           </div>
         </div>
       </section>
@@ -29,29 +29,29 @@ export default function AboutSection() {
   const { aboutSection } = content;
   
   return (
-    <section className="py-16 bg-neutral-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="bg-white py-16" id="about-heading" aria-labelledby="about-heading">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Content */}
           <div>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-6">
               {aboutSection.title.split(aboutSection.titleAccent)[0]}
-              <span className="text-accent">{aboutSection.titleAccent}</span>
+              <span className="text-accent-600">{aboutSection.titleAccent}</span>
               {aboutSection.title.split(aboutSection.titleAccent)[1]}
             </h2>
             
-            <div className="prose prose-lg text-brand-600 space-y-4">
+            <div className="prose prose-lg text-brand-700 space-y-4">
               {aboutSection.description.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
 
             {/* Awards Section */}
-            <div className="mt-8 p-6 bg-brand-50 rounded-lg">
+            <div className="mt-8 p-6 bg-brand-100 rounded-lg border border-brand-200">
               <h3 className="text-xl font-display font-bold text-stout-700 mb-4">
                 {aboutSection.features.title}
               </h3>
-              <ul className="list-disc pl-5 text-sm text-brand-600 space-y-1">
+              <ul className="list-disc pl-5 text-sm text-brand-700 space-y-2">
                 {aboutSection.features.items.map((item, index) => (
                   <li key={index}>{item}</li>
                 ))}

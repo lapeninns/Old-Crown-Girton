@@ -238,15 +238,20 @@ export class PerformanceCacheManager {
 
     const warmupPromises = this.config.warmupUrls.map(async (url) => {
       try {
-        const response = await fetch(url, { 
+        const { fetchWithResilience } = await import('./fetchWithResilience');
+        const response = await fetchWithResilience(url, {
           method: 'HEAD',
-          cache: 'no-store' 
+          cache: 'no-store'
         });
         
         if (response.ok) {
           // Preload this content
           const key = this.urlToKey(url);
-          await this.preload(key, () => fetch(url).then(r => r.json()), {
+          await this.preload(key, async () => {
+            const { fetchWithResilience } = await import('./fetchWithResilience');
+            const r = await fetchWithResilience(url);
+            return r.json();
+          }, {
             priority: 'normal'
           });
         }

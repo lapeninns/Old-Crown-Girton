@@ -11,6 +11,7 @@
 
 "use client";
 import React, { useState, useEffect } from 'react';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { useContent } from '@/hooks/data';
@@ -70,8 +71,8 @@ const PerformanceDashboard: React.FC = () => {
       try {
         setLoading(true);
         const [metricsResponse, healthResponse] = await Promise.all([
-          fetch('/api/performance/metrics'),
-          fetch('/api/health')
+          fetchWithResilience('/api/performance/metrics'),
+          fetchWithResilience('/api/health')
         ]);
 
         if (metricsResponse.ok) {
@@ -104,7 +105,7 @@ const PerformanceDashboard: React.FC = () => {
 
   const handleOptimizeCache = async () => {
     try {
-      const response = await fetch('/api/health', {
+      const response = await fetchWithResilience('/api/health', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'cache-optimize' })
@@ -122,7 +123,7 @@ const PerformanceDashboard: React.FC = () => {
 
   const handleWarmCache = async () => {
     try {
-      const response = await fetch('/api/health', {
+      const response = await fetchWithResilience('/api/health', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'cache-warm' })

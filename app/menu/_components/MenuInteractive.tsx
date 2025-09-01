@@ -26,6 +26,7 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
   const [isHydrated, setIsHydrated] = useState(preloadedData); // Start hydrated if data is preloaded
   const [filteredSections, setFilteredSections] = useState<Menu['sections']>(sections);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterSummary, setFilterSummary] = useState<string>('');
   const [showSearch, setShowSearch] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(64); // Default to 64px
   const contentRef = useRef<HTMLDivElement>(null);
@@ -158,9 +159,10 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
   }, [selected]);
 
   // Handle filter changes from search component
-  const handleFilterChange = useCallback((newFilteredSections: Menu['sections'], newSearchTerm: string) => {
+  const handleFilterChange = useCallback((newFilteredSections: Menu['sections'], newSearchTerm: string, meta?: { summary?: string }) => {
     setFilteredSections(newFilteredSections);
     setSearchTerm(newSearchTerm);
+    if (meta?.summary !== undefined) setFilterSummary(meta.summary);
     
     // If searching/filtering, clear section selection to show all results
     if (newSearchTerm || newFilteredSections.length !== sections.length) {
@@ -288,6 +290,13 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
               })}
             </nav>
           </div>
+          {/* Applied filters summary row (visible when search panel collapsed) */}
+          {!showSearch && (searchTerm || filteredSections.length !== sections.length) && (
+            <div className="mt-2 text-xs text-brand-700">
+              <span className="font-semibold">Applied:</span>{' '}
+              <span className="text-brand-600">{filterSummary || 'filters active'}</span>
+            </div>
+          )}
         </div>
       </section>
 

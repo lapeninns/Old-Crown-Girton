@@ -80,29 +80,31 @@ export interface UseModularContentOptions extends SWRConfiguration {
 }
 
 // Content fetchers
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
+
 const manifestFetcher = async (): Promise<ContentManifest> => {
-  const response = await fetch('/api/content/manifest', {
+  const response = await fetchWithResilience('/api/content/manifest', {
     headers: { 'Accept': 'application/json' }
   });
-  
+
   if (!response.ok) {
     throw new Error(`Manifest fetch failed: ${response.status}`);
   }
-  
+
   return response.json();
 };
 
 const moduleFetcher = async (moduleId: string): Promise<ContentModule> => {
   const startTime = performance.now();
   
-  const response = await fetch(`/api/content/modules/${moduleId}`, {
+  const response = await fetchWithResilience(`/api/content/modules/${moduleId}`, {
     headers: { 'Accept': 'application/json' }
   });
-  
+
   if (!response.ok) {
     throw new Error(`Module ${moduleId} fetch failed: ${response.status}`);
   }
-  
+
   const data = await response.json();
   const loadTime = performance.now() - startTime;
   

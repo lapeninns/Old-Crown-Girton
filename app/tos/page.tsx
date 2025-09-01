@@ -60,8 +60,10 @@ const TOS = () => {
           }
         }
       ])}
-      <TOSHero />
-      <TOSContent />
+      <div className="min-h-screen bg-brand-50">
+        <TOSHero />
+        <TOSContent />
+      </div>
     </RestaurantLayout>
     </>
   );

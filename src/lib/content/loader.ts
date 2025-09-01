@@ -89,16 +89,17 @@ export class ContentLoader {
    */
   async initialize(): Promise<void> {
     try {
-      const response = await fetch(`${this.baseUrl}/manifest?env=${this.environment}`, {
+      const { fetchWithResilience } = await import('../data/fetchWithResilience');
+      const response = await fetchWithResilience(`${this.baseUrl}/manifest?env=${this.environment}`, {
         headers: {
           'x-environment': this.environment,
         },
-      });
-      
+      }, { tries: 2, timeoutMs: 5000 });
+
       if (!response.ok) {
         throw new Error(`Failed to load manifest: ${response.status}`);
       }
-      
+
       this.manifest = await response.json();
     } catch (error) {
       console.error('Failed to initialize content loader:', error);
@@ -329,11 +330,12 @@ export class ContentLoader {
     const startTime = performance.now();
 
     try {
-      const response = await fetch(`${this.baseUrl}/modules/${moduleId}?env=${this.environment}`, {
+      const { fetchWithResilience } = await import('../data/fetchWithResilience');
+      const response = await fetchWithResilience(`${this.baseUrl}/modules/${moduleId}?env=${this.environment}`, {
         headers: {
           'x-environment': this.environment,
         },
-      });
+      }, { tries: 2, timeoutMs: 5000 });
 
       if (!response.ok) {
         throw new Error(`Failed to fetch module ${moduleId}: ${response.status}`);

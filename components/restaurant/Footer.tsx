@@ -3,6 +3,7 @@ import { getRestaurantIdentity, getContactInfo, getSocialMedia } from '@/lib/res
 import { getContentSmart } from '@/src/lib/data/server-loader';
 import AllergenNotice from './AllergenNotice';
 import SimpleFooterHours from '@/components/simple/SimpleFooterHours';
+import EmojiIcon from '@/components/common/EmojiIcon';
 
 export default async function Footer() {
   const identity = getRestaurantIdentity();
@@ -24,9 +25,9 @@ export default async function Footer() {
               {identity.description} - {identity.tagline}
             </p>
             <div className="space-y-2 text-sm">
-              <p>📍 {contact?.address.street}, {contact?.address.area}, {contact?.address.city} {contact?.address.postcode}</p>
-              <p>📞 {contact?.phone.display}</p>
-              <p>📧 {contact?.email.primary}</p>
+              <p><EmojiIcon emoji="📍" className="mr-1" /> {contact?.address.street}, {contact?.address.area}, {contact?.address.city} {contact?.address.postcode}</p>
+              <p><EmojiIcon emoji="📞" className="mr-1" /> {contact?.phone.display}</p>
+              <p><EmojiIcon emoji="📧" className="mr-1" /> {contact?.email.primary}</p>
             </div>
           </div>
 

@@ -46,7 +46,7 @@ export default function MenuInformationSection({
     }));
 
   return (
-    <section className={`py-16 bg-brand-50/20 ${className}`}>
+    <section className={`py-16 bg-brand-50 ${className}`}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-display font-bold text-stout-700 text-center mb-12">
           {title}

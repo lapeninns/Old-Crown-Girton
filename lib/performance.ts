@@ -53,15 +53,25 @@ function sendToAnalytics(metric: WebVital): void {
   if (navigator.sendBeacon) {
     navigator.sendBeacon(VITALS_URL, body);
   } else {
-    fetch(VITALS_URL, {
-      body,
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      keepalive: true,
+  import('../src/lib/data/fetchWithResilience').then(({ fetchWithResilience }) => {
+      fetchWithResilience(VITALS_URL, {
+        body,
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        keepalive: true,
+      }).catch(() => {});
     }).catch(() => {
-      // Silent failure for analytics
+      // Fetch helper not available; attempt direct fetch as fallback
+      fetch(VITALS_URL, {
+        body,
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        keepalive: true,
+      }).catch(() => {});
     });
   }
 }
@@ -81,20 +91,29 @@ function sendComponentAnalytics(metric: { name: string; value: number; component
   });
 
   // Use sendBeacon for reliability, fallback to fetch
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon('/api/analytics', body);
-  } else {
-    fetch('/api/analytics', {
-      body,
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      keepalive: true,
-    }).catch(() => {
-      // Silent failure for analytics
-    });
-  }
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/analytics', body);
+    } else {
+  import('../src/lib/data/fetchWithResilience').then(({ fetchWithResilience }) => {
+        fetchWithResilience('/api/analytics', {
+          body,
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          keepalive: true,
+        }).catch(() => {});
+      }).catch(() => {
+        fetch('/api/analytics', {
+          body,
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          keepalive: true,
+        }).catch(() => {});
+      });
+    }
 }
 
 /**

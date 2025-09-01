@@ -61,7 +61,7 @@ export default function EventsContactSection({
         {/* Use Cases Grid */}
         <div className="bg-neutral-100 rounded-lg p-6 mb-6">
           <h3 className="font-bold text-brand-700 mb-3">
-            Sample Use Cases:
+            Events? We host all kinds of private events, including:
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-brand-600">

@@ -2,6 +2,7 @@
 
 import useSWR, { type SWRConfiguration } from 'swr';
 import { ContentSchema, type Content } from '@/src/lib/data/schemas';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 import { useModularContent } from './useModularContent';
 
 // Feature flag to enable modular content system
@@ -26,11 +27,11 @@ export interface UseContentOptions extends SWRConfiguration<Content, Error> {
 
 // Standardized fetcher
 const contentFetcher = async (url: string): Promise<Content> => {
-  const response = await fetch(url, { 
-    headers: { 
+  const response = await fetchWithResilience(url, {
+    headers: {
       'Accept': 'application/json',
       'Cache-Control': 'no-cache'
-    } 
+    }
   });
   
   if (!response.ok) {

@@ -168,6 +168,9 @@ export const EventSchema = z.object({
   description: z.string(),
   frequency: z.string(),
   icon: z.string().optional(),
+  // Optional ISO dates for specific scheduled events
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
 });
 
 export const FormValidationSchema = z.object({
@@ -260,6 +263,8 @@ export const ContentSchema = z.object({
     events: z.object({
       hero: HeroSchema,
       regularEvents: z.array(EventSchema),
+      // Lightweight SEO-oriented events list (e.g. "Birthday / anniversary")
+      seoEvents: z.array(z.string()).optional(),
       contact: z.object({
         title: z.string(),
         description: z.string(),

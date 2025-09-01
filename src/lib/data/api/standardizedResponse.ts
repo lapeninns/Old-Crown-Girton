@@ -169,6 +169,15 @@ export class StandardizedApiResponseBuilder {
     headers['x-request-id'] = response.meta.requestId || 'unknown';
     headers['x-source'] = response.meta.source;
     headers['x-cached'] = response.meta.cached.toString();
+    // Expose useful headers to browsers for programmatic access
+    headers['access-control-expose-headers'] = [
+      'etag',
+      'last-modified',
+      'x-request-id',
+      'x-load-time',
+      'x-cached',
+      'x-source',
+    ].join(', ');
 
     // Vary header for cache optimization
     headers['vary'] = 'Accept, Accept-Encoding, Authorization';
@@ -194,6 +203,11 @@ export class StandardizedApiResponseBuilder {
       hash = hash & hash; // Convert to 32-bit integer
     }
     return `"${Math.abs(hash).toString(16)}"`;
+  }
+
+  // Public helper to compute an ETag without exposing internals in route handlers
+  static getETagFor(data: any, timestamp: string): string {
+    return this.generateETag(data, timestamp);
   }
 }
 

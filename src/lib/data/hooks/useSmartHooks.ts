@@ -22,6 +22,7 @@ import {
   type Marketing, 
   type Content 
 } from '../schemas';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 // Common hook configuration
 export interface SmartHookOptions<T> extends SWRConfiguration<T, Error> {
@@ -101,7 +102,7 @@ export function createSmartFetcher<T>(
       const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
       
       try {
-        const response = await fetch(url, {
+        const response = await fetchWithResilience(url, {
           headers: { 
             accept: 'application/json',
             'x-resource-type': resourceName,
@@ -406,8 +407,8 @@ export function useAllRestaurantData(options: SmartHookOptions<any> = {}) {
 
 // Health monitoring hook
 export function useSystemHealth() {
-  return useSWR('/api/health', async (url) => {
-    const response = await fetch(url);
+    return useSWR('/api/health', async (url) => {
+    const response = await fetchWithResilience(url);
     if (!response.ok) throw new Error('Health check failed');
     return response.json();
   }, {

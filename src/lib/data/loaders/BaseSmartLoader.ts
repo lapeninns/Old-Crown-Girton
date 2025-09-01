@@ -267,34 +267,8 @@ export abstract class BaseSmartLoader<T> {
     config: SmartLoadConfig,
     init?: RequestInit
   ): Promise<Response> {
-    let lastError: Error;
-    
-    for (let attempt = 0; attempt <= (config.maxRetries || 3); attempt++) {
-      try {
-        const response = await fetch(url, {
-          ...init,
-          headers: {
-            'accept': 'application/json',
-            'cache-control': 'no-store',
-            ...(init?.headers || {})
-          }
-        });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        return response;
-      } catch (error) {
-        lastError = error instanceof Error ? error : new Error(`Request failed: ${error}`);
-        
-        if (attempt < (config.maxRetries || 3)) {
-          const delay = (config.retryDelay || 1000) * Math.pow(2, attempt); // Exponential backoff
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
-      }
-    }
-    
-    throw lastError!;
+    // Delegate to fetchWithResilience for consistent retry/backoff/timeouts
+    const { fetchWithResilience } = await import('../fetchWithResilience');
+    return fetchWithResilience(url, { ...init, headers: { 'accept': 'application/json', 'cache-control': 'no-store', ...(init?.headers || {}) } }, { tries: (config.maxRetries || 3) + 1, timeoutMs: 5000, baseBackoffMs: config.retryDelay || 1000 });
   }
 }

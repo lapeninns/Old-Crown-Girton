@@ -2,6 +2,7 @@
 
 import useSWR, { type SWRConfiguration } from 'swr';
 import { ConfigSchema, type AppConfig } from '@/src/lib/data/schemas';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 // Standardized hook result interface
 export interface UseConfigResult {
@@ -27,11 +28,11 @@ export interface UseConfigOptions extends SWRConfiguration<AppConfig, Error> {
 
 // Standardized fetcher
 const configFetcher = async (url: string): Promise<AppConfig> => {
-  const response = await fetch(url, { 
-    headers: { 
+  const response = await fetchWithResilience(url, {
+    headers: {
       'Accept': 'application/json',
       'Cache-Control': 'no-cache'
-    } 
+    }
   });
   
   if (!response.ok) {

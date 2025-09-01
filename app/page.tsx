@@ -2,6 +2,8 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import Showcase from '@/components/slideshow/Showcase';
 import dynamic from 'next/dynamic';
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+// Motion wrappers for consistent animations
+import { FadeIn } from '@/components/animations/MotionWrappers';
 // Dynamic non-LCP sections
 import AboutSection from './_components/AboutSection';
 import MenuHighlights from './_components/MenuHighlights';
@@ -127,19 +129,59 @@ export default async function Page() {
         }
       ` }} />
       <RestaurantLayout>
-  {/* Slideshow (replaces static hero for now) */}
-  <Showcase />
-        <TestimonialsSection />
-        <AboutSection />
-        <MenuHighlights />
-        <QuickLinksSection links={quickLinks} />
-        <TakeawayBanner />
-        <LocationSection />
-        <CallToActionSection 
-          headline={ctaSection?.headline || "Ready to Experience Girton's Thatched Nepalese Pub?"}
-          description={ctaSection?.description || "Reserve a table, explore the menu or plan an event – we'd love to host you."}
-          buttons={ctaButtons}
-        />
+        {/* Hero Section: Slideshow with semantic markup */}
+        <section aria-label="Restaurant showcase">
+          <Showcase />
+        </section>
+        
+        {/* Main Content Sections with progressive animation */}
+        <main>
+          <FadeIn>
+            <section aria-labelledby="testimonials-heading">
+              <TestimonialsSection />
+            </section>
+          </FadeIn>
+          
+          <FadeIn>
+            <section aria-labelledby="about-heading">
+              <AboutSection />
+            </section>
+          </FadeIn>
+          
+          <FadeIn>
+            <section aria-labelledby="menu-highlights-heading">
+              <MenuHighlights />
+            </section>
+          </FadeIn>
+          
+          <FadeIn>
+            <section aria-labelledby="quick-links-heading">
+              <QuickLinksSection links={quickLinks} />
+            </section>
+          </FadeIn>
+          
+          <FadeIn>
+            <section aria-label="Takeaway information">
+              <TakeawayBanner />
+            </section>
+          </FadeIn>
+          
+          <FadeIn>
+            <section aria-labelledby="location-heading">
+              <LocationSection />
+            </section>
+          </FadeIn>
+          
+          <FadeIn>
+            <section aria-labelledby="cta-heading">
+              <CallToActionSection 
+                headline={ctaSection?.headline || "Ready to Experience Girton's Thatched Nepalese Pub?"}
+                description={ctaSection?.description || "Reserve a table, explore the menu or plan an event – we'd love to host you."}
+                buttons={ctaButtons}
+              />
+            </section>
+          </FadeIn>
+        </main>
       </RestaurantLayout>
     </>
   );

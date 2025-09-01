@@ -2,6 +2,7 @@
 
 import useSWR, { type SWRConfiguration } from 'swr';
 import { MarketingSchema, type Marketing } from '@/src/lib/data/schemas';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 // Standardized hook result interface
 export interface UseMarketingResult {
@@ -26,11 +27,11 @@ export interface UseMarketingOptions extends SWRConfiguration<Marketing, Error> 
 
 // Standardized fetcher
 const marketingFetcher = async (url: string): Promise<Marketing> => {
-  const response = await fetch(url, { 
-    headers: { 
+  const response = await fetchWithResilience(url, {
+    headers: {
       'Accept': 'application/json',
-      'Cache-Control': 'no-cache'
-    } 
+      'Cache-Control': 'no-cache',
+    },
   });
   
   if (!response.ok) {

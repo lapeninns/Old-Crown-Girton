@@ -2,6 +2,7 @@
 
 import useSWR, { type SWRConfiguration } from 'swr';
 import { RestaurantSchema, type Restaurant } from '@/src/lib/data/schemas';
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 // Standardized hook result interface
 export interface UseRestaurantResult {
@@ -26,11 +27,11 @@ export interface UseRestaurantOptions extends SWRConfiguration<Restaurant, Error
 
 // Standardized fetcher
 const restaurantFetcher = async (url: string): Promise<Restaurant> => {
-  const response = await fetch(url, { 
-    headers: { 
+  const response = await fetchWithResilience(url, {
+    headers: {
       'Accept': 'application/json',
-      'Cache-Control': 'no-cache'
-    } 
+      'Cache-Control': 'no-cache',
+    },
   });
   
   if (!response.ok) {

@@ -40,7 +40,7 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
   const itemVariant = prefersReduced ? mv.fadeIn : mv.fadeUp;
 
   return (
-    <section className={`py-12 bg-surface-base lazy-section ${className}`}>
+    <section className={`bg-white py-12 lazy-section ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="grid gap-8 md:grid-cols-3" variants={mv.staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}>
           {links.map((link, index) => {

@@ -1,6 +1,7 @@
 // Universal client-side JSON loader with runtime base URL resolution
 // Works in Next.js client components (and Vite if ported)
 
+import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 const normalize = (s: string) => s.replace(/\/+$/, "");
 const join = (a: string, b: string) => `${normalize(a)}/${b.replace(/^\/+/, "")}`;
 
@@ -46,7 +47,7 @@ async function fetchWithRetry(url: string, init: any, retries: number, delay: nu
   // e.g. retries=2 => attempts 0,1,2 (3 total)
   for (;;) { // eslint-disable-line no-constant-condition
     try {
-      return await fetch(url, init);
+      return fetchWithResilience(url, init, { tries: retries + 1, timeoutMs: 15000, baseBackoffMs: delay });
     } catch (e) {
       if (attempt >= retries) throw e;
       const wait = delay * Math.pow(2, attempt) + Math.random() * 100;
@@ -58,7 +59,9 @@ async function fetchWithRetry(url: string, init: any, retries: number, delay: nu
 
 export async function fetchJSON<T>(path: string, opts: FetchOptions = {}): Promise<T> {
   const { strategy, retries, retryDelayMs, ttlMs, force } = { ...DEFAULT_OPTS, ...opts };
-  const url = join(getDataBase(), path);
+  // Preserve absolute URLs and root-relative paths (e.g. /api/*) to avoid accidental prefixing
+  const isAbsolute = /^(https?:)?\//.test(path); // starts with http(s):// or /
+  const url = isAbsolute ? path : join(getDataBase(), path);
   let entry = cache.get(url) as CacheEntry<T> | undefined;
   if (!entry) {
     entry = {};

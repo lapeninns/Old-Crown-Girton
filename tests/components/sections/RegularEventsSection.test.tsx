@@ -18,10 +18,21 @@ jest.mock('framer-motion', () => ({
       <p className={className} itemProp={itemProp} {...props}>{children}</p>
     )
   }
+ ,
+  useReducedMotion: () => false
 }));
 
 describe('RegularEventsSection', () => {
-  const mockEvents = [
+  type TestEvent = {
+    title?: string;
+    description?: string;
+    frequency?: string;
+    icon?: string;
+    startDate?: string;
+    endDate?: string | undefined;
+  };
+
+  const mockEvents: TestEvent[] = [
     {
       title: 'Weekly Pub Quiz',
       description: 'Community teams, students & locals — general knowledge + themed rounds.',
@@ -29,7 +40,7 @@ describe('RegularEventsSection', () => {
       icon: '🧠',
       startDate: '2025-08-14T20:00:00+01:00',
       endDate: undefined
-    },
+    } as TestEvent,
     {
       title: 'Curry & Community Night',
       description: 'Celebrate our Nepalese kitchen: featured dish & mild family option.',
@@ -37,14 +48,14 @@ describe('RegularEventsSection', () => {
       icon: '🌶️',
       startDate: '2025-08-15T19:00:00+01:00',
       endDate: '2025-08-15T22:00:00+01:00'
-    },
+    } as TestEvent,
     {
       title: 'Live Sports Highlights',
       description: 'Key football & rugby fixtures on screen – garden when weather allows.',
       frequency: 'Major fixtures schedule',
       icon: '⚽',
       startDate: '2025-08-16T15:00:00+01:00'
-    }
+    } as TestEvent
   ];
 
   it('renders all events correctly', () => {
@@ -102,10 +113,14 @@ describe('RegularEventsSection', () => {
     const endDateMetas = document.querySelectorAll('meta[itemProp="endDate"]');
     expect(endDateMetas.length).toBe(1);
     expect(endDateMetas[0]).toHaveAttribute('content', '2025-08-15T22:00:00+01:00');
+    
+  // Visible formatted dates should be present
+  expect(screen.getByText(/14 Aug 2025/)).toBeInTheDocument();
+  expect(screen.getByText(/15 Aug 2025/)).toBeInTheDocument();
   });
 
   it('filters out events with missing required properties', () => {
-    const eventsWithMissing = [
+  const eventsWithMissing: TestEvent[] = [
       {
         title: 'Complete Event',
         description: 'Complete description',
@@ -160,7 +175,7 @@ describe('RegularEventsSection', () => {
   });
 
   it('handles events without icons gracefully', () => {
-    const eventsWithoutIcons = mockEvents.map(event => ({ ...event, icon: undefined }));
+  const eventsWithoutIcons = mockEvents.map((event: TestEvent): TestEvent => ({ ...event, icon: undefined }));
     
     render(<RegularEventsSection events={eventsWithoutIcons} />);
     

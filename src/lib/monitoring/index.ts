@@ -459,7 +459,8 @@ export class MonitoringService {
       headers['Authorization'] = `Bearer ${apiKey}`;
     }
 
-    const response = await fetch(endpoint, {
+    const { fetchWithResilience } = await import('../data/fetchWithResilience');
+    const response = await fetchWithResilience(endpoint, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -654,7 +655,8 @@ export function initializeMonitoring(): void {
     setInterval(async () => {
       try {
         const startTime = Date.now();
-        const response = await fetch('/health');
+  const { fetchWithResilience } = await import('../data/fetchWithResilience');
+  const response = await fetchWithResilience('/health');
         const duration = Date.now() - startTime;
         
         monitoring.recordMetric('health.check.duration', duration, {}, 'ms');
