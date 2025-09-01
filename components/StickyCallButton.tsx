@@ -23,9 +23,10 @@ interface StickyCallButtonProps {
  * respects safe area insets, accessible via keyboard, reduced-motion friendly.
  */
 export default function StickyCallButton({ phone }: StickyCallButtonProps) {
-	const [showNudge, setShowNudge] = useState(false);
-	const [hideForFooter, setHideForFooter] = useState(false);
-	const [hideForModal, setHideForModal] = useState(false);
+	// Tooltip (nudge) removed
+	// Restore: always show sticky button
+	const hideForFooter = false;
+	const hideForModal = false;
 	const [crispOffset, setCrispOffset] = useState(false);
 	// Button rotation state: 0 = directions, 1 = call, 2 = booking
 	const [currentButtonIndex, setCurrentButtonIndex] = useState(0);
@@ -40,24 +41,13 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	// Routes where FAB should not appear (can't early return before hooks; decide later)
 	const excludedRoutes = ["/admin", "/dashboard", "/signin"]; // add more as needed
 
-	// Gentle attention nudge after 6s (once per session)
-	useEffect(() => {
-		const seen = sessionStorage.getItem("_fab_seen");
-		if (!seen) {
-			const t = setTimeout(() => {
-				setShowNudge(true);
-				sessionStorage.setItem("_fab_seen", "1");
-				setTimeout(() => setShowNudge(false), 4000);
-			}, 6000);
-			return () => clearTimeout(t);
-		}
-	}, []);
+	// Tooltip (nudge) effect removed
 
-	// Button rotation: automatically cycle through buttons every 3 seconds
+	// Button rotation: automatically cycle through buttons every 4 seconds (slightly longer for better UX)
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentButtonIndex((prevIndex) => (prevIndex + 1) % 3);
-		}, 3000);
+		}, 4000);
 		return () => clearInterval(interval);
 	}, []);
 
@@ -66,30 +56,10 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	// No menu to close anymore
 
 	// Detect footer intersection to auto-hide (avoid overlap & distraction at conversion zone)
-	useEffect(() => {
-		const footer = document.querySelector("footer");
-		if (!footer || !('IntersectionObserver' in window)) return;
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => setHideForFooter(entry.isIntersecting));
-			},
-			{ rootMargin: "0px 0px -40% 0px", threshold: [0, 0.01] }
-		);
-		observer.observe(footer);
-		return () => observer.disconnect();
-	}, []);
+	// Disabled auto-hide for footer intersection
 
 	// Listen for booking modal open/close events
-	useEffect(() => {
-		const openHandler = () => setHideForModal(true);
-		const closeHandler = () => setHideForModal(false);
-		window.addEventListener("booking-modal-open", openHandler);
-		window.addEventListener("booking-modal-close", closeHandler);
-		return () => {
-			window.removeEventListener("booking-modal-open", openHandler);
-			window.removeEventListener("booking-modal-close", closeHandler);
-		};
-	}, []);
+	// Disabled auto-hide for booking modal
 
 	// Detect Crisp widget presence to adjust offset (avoid overlap)
 	useEffect(() => {
@@ -117,23 +87,26 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 		window.dispatchEvent(new CustomEvent("fab-analytics", { detail: { action, ...meta } }));
 	};
 
-	const hidden = hideForFooter || hideForModal;
+	const hidden = false;
 	// removed preview/confirmation state — Directions now opens app immediately
 
 	if (excludedRoutes.some((r) => pathname?.startsWith(r))) return null;
 	return (
 			<div
-				className={`fixed z-[55] pointer-events-none print:hidden transition-opacity duration-300 ${hidden ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+				className={`fixed z-[55] pointer-events-none print:hidden transition-all duration-500 ease-out ${hidden ? "opacity-0 pointer-events-none transform translate-y-4" : "opacity-100 transform translate-y-0"}`}
 				style={{
 					paddingBottom: "env(safe-area-inset-bottom)",
-					right: '1rem',
-					bottom: crispOffset ? "7.5rem" : "1rem",
+					right: '1.25rem',
+					bottom: crispOffset ? "7.5rem" : "1.25rem",
 				}}
 				aria-live="polite"
 				aria-hidden={hidden}
 			>
+				{/* Glass morphism backdrop */}
+				<div className="absolute inset-0 bg-gradient-to-t from-neutral-900/5 via-transparent to-transparent rounded-full blur-xl" />
+				
 				{/* Show only the currently active button in rotation */}
-				<div className={`relative pointer-events-auto flex flex-col items-end gap-3`}>
+				<div className={`relative pointer-events-auto flex flex-col items-end gap-4`}>
 					<AnimatePresence mode="wait">
 						{currentButtonIndex === 0 && (
 							<motion.div
@@ -161,7 +134,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 											href={href}
 											aria-label="Get directions"
 											data-testid="directions-sticky"
-											className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-brand-700 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/40 hover:brightness-95 active:scale-95 transition"
+											className="group relative inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-gradient-to-br from-secondary-500 to-secondary-600 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary-300 hover:from-secondary-600 hover:to-secondary-700 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300"
 											onClick={(e) => {
 												// Attempt native maps on iOS immediately
 												if (isiOS) {
@@ -179,7 +152,19 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 												track('directions_click', { href });
 											}}
 										>
-											<span aria-hidden className="text-lg">🧭</span>
+											{/* Subtle rotating animation for the compass */}
+											<motion.span 
+												aria-hidden 
+												className="text-xl relative z-10"
+												animate={{ rotate: [0, 5, -5, 0] }}
+												transition={{ 
+													duration: 3,
+													repeat: Infinity,
+													ease: "easeInOut"
+												}}
+											>
+												🧭
+											</motion.span>
 											<span className="sr-only">Directions</span>
 										</a>
 									);
@@ -198,21 +183,34 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 								<motion.a
 									href={formatTelHref(restaurantPhone)}
 									aria-label={btnLabelCall}
-									className={`group relative flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-accent text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 hover:brightness-105 active:scale-95 transition`}
+									className="group relative flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-gradient-to-br from-crimson-500 to-crimson-600 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-crimson-300 hover:from-crimson-600 hover:to-crimson-700 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
 									data-analytics-event="fab_call_click"
 									onClick={() => track("call_click", { phone: restaurantPhone })}
 								>
+									{/* Animated background pulse effect */}
+									<motion.div
+										className="absolute inset-0 rounded-full bg-gradient-to-br from-crimson-400 to-crimson-500 opacity-30"
+										animate={{ 
+											scale: [1, 1.2, 1],
+											opacity: [0.3, 0.1, 0.3]
+										}}
+										transition={{ 
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut"
+										}}
+									/>
+									
 									<motion.span
 										initial={{ scale: 0.4, opacity: 0, rotate: -90 }}
 										animate={{ scale: 1, opacity: 1, rotate: 0 }}
 										transition={{ type: "spring", stiffness: 400, damping: 30 }}
-										className="text-2xl"
+										className="text-2xl relative z-10"
 										aria-hidden
 									>
 										📞
 									</motion.span>
 									<span className="sr-only">{btnLabelCall}</span>
-									<span className="absolute inset-0 rounded-full animate-pulse-slow bg-accent/30 pointer-events-none mix-blend-overlay" aria-hidden />
 								</motion.a>
 							</motion.div>
 						)}
@@ -233,32 +231,20 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 									rel="noopener noreferrer"
 									aria-label="Book a table (opens in new tab)"
 									data-testid="booking-sticky"
-									className="inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-lg bg-brand-700 text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/40 hover:brightness-95 active:scale-95 transition"
+									className="group relative inline-flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 shadow-xl bg-gradient-to-br from-accent-500 to-accent-600 text-neutral-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-300 hover:from-accent-600 hover:to-accent-700 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
 									onClick={() => track('book_click', { href: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640' })}
 								>
-									<span aria-hidden className="text-lg">📅</span>
+									{/* Subtle shimmer effect for premium booking action */}
+									<div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+									
+									<span aria-hidden className="text-xl relative z-10 font-semibold">📅</span>
 									<span className="sr-only">Book</span>
 								</a>
 							</motion.div>
 						)}
 					</AnimatePresence>
 					
-					{/* Nudge tooltip - positioned relative to active button */}
-					<AnimatePresence>
-						{showNudge && (
-							<motion.div
-								initial={{ opacity: 0, y: 6 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: 6 }}
-								className="absolute right-20 bottom-1 hidden sm:block"
-							>
-								<div className="bg-stout-800 text-white text-xs font-medium px-3 py-2 rounded-lg shadow-lg max-w-[140px] leading-snug">
-									Tap to call us
-									<div className="absolute -right-2 top-3 w-3 h-3 rotate-45 bg-stout-800" />
-								</div>
-							</motion.div>
-						)}
-					</AnimatePresence>
+					{/* Tooltip removed as requested */}
 				</div>
 			</div>
 	);

@@ -128,14 +128,9 @@ const CrispChat = (): null => {
 const ClientLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname() || '';
   const isNoMotion = (
-    pathname === '/' ||
-    pathname === '/menu' ||
-    pathname === '/about' ||
-    pathname === '/events' ||
-    pathname === '/contact' ||
-    pathname === '/tos' ||
-    pathname === '/privacy-policy' ||
-    pathname.startsWith('/blog')
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/dashboard') ||
+    pathname.startsWith('/signin')
   );
   return (
     <>
