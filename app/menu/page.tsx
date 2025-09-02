@@ -15,7 +15,6 @@ const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
 		</div>
 	)
 });
-const MenuInformationSection = dynamic(() => import("@/components/restaurant/sections/MenuInformationSection"));
 const MenuCTASection = dynamic(() => import("@/components/restaurant/sections/MenuCTASection"));
 
 export const metadata: Metadata = {
@@ -147,21 +146,34 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 						</section>
 					</FadeIn>
 
+
+
 					<FadeIn>
-						<section aria-labelledby="dietary-info-heading">
-							<MenuInformationSection 
-								faqItems={[
-									...content.components.faq.items,
-									{
-										question: "How do I search and filter the menu?",
-										answer: "Use the search bar to find specific dishes, or click 'Search & Filter' to apply dietary filters (Vegetarian, Vegan, Gluten Free, Spicy) and set price ranges. You can also browse by menu section."
-									},
-									{
-										question: "Can I see nutrition information for menu items?",
-										answer: "Yes! Click 'Nutrition' on any menu item to view detailed nutritional information, allergen warnings, and key ingredients. Please inform our staff of any allergies when ordering."
-									}
-								]} 
-							/>
+						<section aria-labelledby="menu-info-cta-heading">
+							<div className="py-16 bg-brand-50">
+								<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+									<h2 id="menu-info-cta-heading" className="text-3xl font-display font-bold text-stout-700 mb-6">
+										Need Dietary Information?
+									</h2>
+									<p className="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
+										Find comprehensive allergen information, dietary requirements, and food safety details to help you make informed choices.
+									</p>
+									<Link 
+										href="/menu-information"
+										className="inline-flex items-center justify-center px-8 py-4 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+									>
+										View Menu Information & Dietary Requirements
+										<svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+										</svg>
+									</Link>
+									<div className="mt-6 flex flex-wrap justify-center gap-4 text-sm text-neutral-500">
+										<span className="bg-white px-3 py-1 rounded-full">14 Allergen Information</span>
+										<span className="bg-white px-3 py-1 rounded-full">Dietary Options</span>
+										<span className="bg-white px-3 py-1 rounded-full">Natasha's Law Compliant</span>
+									</div>
+								</div>
+							</div>
 						</section>
 					</FadeIn>
 
