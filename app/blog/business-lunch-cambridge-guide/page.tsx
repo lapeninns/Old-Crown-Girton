@@ -111,7 +111,7 @@ export default function BusinessLunchGuidePage() {
           },
           "image": {
             "@type": "ImageObject",
-            "url": `https://oldcrowngirton.co.uk${post.image}`,
+            "url": `https://oldcrowngirton.com/${post.image}`,
             "width": 1200,
             "height": 630
           },

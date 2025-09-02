@@ -15,7 +15,7 @@ const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
 		</div>
 	)
 });
-const MenuCTASection = dynamic(() => import("@/components/restaurant/sections/MenuCTASection"));
+// Dynamic imports for Menu page sections - optimized for performance
 
 export const metadata: Metadata = {
 	title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
 		description: 'Discover our interactive menu with search and dietary filters, combining authentic Nepalese cuisine with traditional British pub favorites at Girton\'s historic thatched pub',
-		url: 'https://oldcrowngirton.co.uk/menu',
+		url: 'https://oldcrowngirton.com//menu',
 		siteName: 'The Old Crown Girton',
 		locale: 'en_GB',
 		type: 'website',
@@ -74,7 +74,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'Menu',
-		'@id': 'https://oldcrowngirton.co.uk/menu#menu',
+		'@id': 'https://oldcrowngirton.com//menu#menu',
 		name: menuContent.hero.title,
 		description: `${menuContent.sections.description} Browse with advanced search and filtering.`,
 		inLanguage: 'en-GB',
@@ -149,8 +149,9 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 
 
 					<FadeIn>
-						<section aria-labelledby="menu-info-cta-heading">
-							<div className="py-16 bg-brand-50">
+						<section aria-labelledby="menu-info-cta-heading" className="bg-brand-50">
+							{/* Dietary Information CTA */}
+							<div className="py-12 pb-8">
 								<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 									<h2 id="menu-info-cta-heading" className="text-3xl font-display font-bold text-stout-700 mb-6">
 										Need Dietary Information?
@@ -174,36 +175,51 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 									</div>
 								</div>
 							</div>
-						</section>
-					</FadeIn>
+							
+							{/* Main CTA Section - seamlessly integrated */}
+							<div className="pt-8 pb-16">
+								<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+									<div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
+										<div className="text-center">
+											<h3 className="text-3xl md:text-4xl font-display font-bold mb-6 text-white drop-shadow-lg">
+												🍽️ Experience Our Interactive Menu
+											</h3>
+											
+											<p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
+												Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway orders.
+											</p>
+											
+											<div className="flex flex-wrap gap-4 justify-center mb-6">
+												<Link
+													href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+													target="_blank"
+													rel="noopener noreferrer"
+													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+												>
+													{labelBookOnline}
+													<span className="ml-2 text-sm" aria-hidden="true">↗</span>
+												</Link>
+												<Link
+													href="tel:01223276027"
+													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+												>
+													{labelOrderTakeaway}
+												</Link>
+												<Link
+													href="/about"
+													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-700 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+												>
+													Learn Our Story
+												</Link>
+											</div>
 
-					<FadeIn>
-						<section aria-labelledby="menu-cta-heading">
-							<MenuCTASection 
-								title="Experience Our Interactive Menu"
-								description="Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway orders."
-								buttons={[
-									{
-										text: labelBookOnline,
-										href: "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
-										variant: "primary",
-										external: true
-									},
-									{
-										text: labelOrderTakeaway,
-										href: "tel:01223276027",
-										variant: "secondary",
-										external: false
-									},
-									{
-										text: "Learn Our Story",
-										href: "/about",
-										variant: "tertiary",
-										external: false
-									}
-								]}
-								allergenNotice={`${menuContent.sections.allergenNotice} Use our enhanced filters to find items suitable for your dietary requirements.`}
-							/>
+											<div className="text-sm text-white/80 bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+												<p>{menuContent.sections.allergenNotice} Use our enhanced filters to find items suitable for your dietary requirements.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</section>
 					</FadeIn>
 				</main>

@@ -235,7 +235,7 @@ const MENU_ITEMS = {
 export const useRestaurantSchema = () => {
   const absoluteUrl = (p: string) => {
     try {
-      const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.co.uk';
+      const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.com/';
       return new URL(p, base).toString();
     } catch {
       return p;
@@ -267,7 +267,7 @@ export const useRestaurantSchema = () => {
       name: data.identity.name,
       alternateName: data.identity.tagline,
       description: data.identity.description,
-      url: 'https://oldcrowngirton.co.uk',
+      url: 'https://oldcrowngirton.com/',
       telephone: data.contact?.phone.primary,
       email: data.contact?.email.primary,
       address: {
@@ -434,7 +434,7 @@ export const useRestaurantSchema = () => {
       organizer: {
         '@type': 'Organization',
         name: data.identity.name,
-        url: 'https://oldcrowngirton.co.uk'
+        url: 'https://oldcrowngirton.com/'
       },
       offers: eventData.offers ? {
         '@type': 'Offer',

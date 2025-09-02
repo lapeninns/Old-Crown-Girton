@@ -11,7 +11,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Privacy Policy | Old Crown Girton",
     description: "Privacy policy for Old Crown Girton outlining data handling for restaurant bookings, enquiries and website usage.",
-    url: "https://oldcrowngirton.co.uk/privacy-policy",
+    url: "https://oldcrowngirton.com//privacy-policy",
   },
 });
 
@@ -29,14 +29,14 @@ export default function PrivacyPolicy() {
           {
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "@id": "https://oldcrowngirton.co.uk/privacy-policy#webpage",
+            "@id": "https://oldcrowngirton.com//privacy-policy#webpage",
             "name": "Privacy Policy - Old Crown Girton",
             "description": "Privacy policy and data protection information for Old Crown Girton restaurant bookings, enquiries and website usage.",
-            "url": "https://oldcrowngirton.co.uk/privacy-policy",
+            "url": "https://oldcrowngirton.com//privacy-policy",
             "isPartOf": {
               "@type": "WebSite",
               "name": "Old Crown Girton",
-              "url": "https://oldcrowngirton.co.uk"
+              "url": "https://oldcrowngirton.com/"
             },
             "about": {
               "@type": "LocalBusiness",

@@ -333,7 +333,7 @@ export const getTestimonials = (): any[] => [];
 export const getEvents = (): any[] => [];
 export const getGallery = (): any => ({ hero: { main: { src: "", alt: "", caption: "" }, secondary: [] }, categories: { dishes: [], restaurant: [], events: [] } });
 export const getSEO = (): any => ({ title: "Old Crown Girton", description: "Historic thatched pub and Nepalese restaurant", keywords: [], og: { title: "", description: "", image: "", url: "" }, schema: {} });
-export const getSocialMedia = (): any => ({ facebook: { url: "", handle: "" }, instagram: { url: "", handle: "" }, twitter: { url: "", handle: "" }, website: "https://oldcrowngirton.co.uk" });
+export const getSocialMedia = (): any => ({ facebook: { url: "", handle: "" }, instagram: { url: "", handle: "" }, twitter: { url: "", handle: "" }, website: "https://oldcrowngirton.com/" });
 export const getDeliveryInfo = (): any => ({ available: true, radius_miles: 5, minimum_order: { amount: 15, display: "£15.00" }, delivery_fee: { amount: 2.50, display: "£2.50" }, free_delivery_threshold: { amount: 25, display: "£25.00" }, estimated_time: "30-45 minutes", partners: [], coverage_areas: [] });
 export const getFeatures = (): any => ({ services: {}, dining: {}, accessibility: {}, amenities: {}, payment_methods: ["Cash", "Card"] });
 

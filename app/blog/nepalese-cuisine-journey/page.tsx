@@ -100,7 +100,7 @@ export default function BlogPostPage() {
           },
           "image": {
             "@type": "ImageObject",
-            "url": `https://oldcrowngirton.co.uk${post.image}`,
+            "url": `https://oldcrowngirton.com/${post.image}`,
             "width": 1200,
             "height": 630
           },
@@ -129,7 +129,7 @@ export default function BlogPostPage() {
           "isPartOf": {
             "@type": "WebSite",
             "name": "Old Crown Girton",
-            "url": "https://oldcrowngirton.co.uk"
+            "url": "https://oldcrowngirton.com/"
           },
           "about": {
             "@type": "LocalBusiness",

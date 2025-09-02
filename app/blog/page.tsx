@@ -14,7 +14,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Blog | Old Crown Girton - Local Stories & Community News",
     description: "Discover stories from Old Crown Girton: Nepalese cuisine recipes, Girton village history, local events coverage, and community news.",
-    url: "https://oldcrowngirton.co.uk/blog",
+    url: "https://oldcrowngirton.com//blog",
   },
 });
 

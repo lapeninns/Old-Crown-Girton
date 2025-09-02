@@ -7,7 +7,7 @@ import ServiceWorkerProvider from '@/components/ServiceWorkerProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.co.uk'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.com/'),
   title: 'The Old Crown Girton | Historic Thatched Pub & Nepalese Restaurant',
   description: 'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223277217',
   manifest: '/manifest.json',

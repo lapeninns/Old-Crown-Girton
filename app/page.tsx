@@ -24,7 +24,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Old Crown Girton - Historic Thatched Pub & Nepalese Restaurant",
     description: "Historic thatched pub in Girton serving authentic Nepalese cuisine & British pub classics. Family & dog friendly. Voted #1 restaurant in Girton.",
-    url: "https://oldcrowngirton.co.uk/",
+    url: "https://oldcrowngirton.com//",
   },
 });
 
@@ -55,20 +55,20 @@ export default async function Page() {
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "Old Crown Girton",
-          "url": "https://oldcrowngirton.co.uk",
+          "url": "https://oldcrowngirton.com/",
           "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics",
           "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://oldcrowngirton.co.uk/menu",
+            "target": "https://oldcrowngirton.com//menu",
             "query-input": "required name=search_term_string"
           }
         },
         {
           "@context": "https://schema.org",
           "@type": "Restaurant",
-          "@id": "https://oldcrowngirton.co.uk/#restaurant",
+          "@id": "https://oldcrowngirton.com//#restaurant",
           "name": "Old Crown Girton",
-          "image": "https://oldcrowngirton.co.uk/opengraph-image.png",
+          "image": "https://oldcrowngirton.com//opengraph-image.png",
           "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Family and dog friendly venue voted #1 restaurant in Girton.",
           "address": {
             "@type": "PostalAddress",
@@ -83,7 +83,7 @@ export default async function Page() {
             "latitude": 52.2462,
             "longitude": 0.0731
           },
-          "url": "https://oldcrowngirton.co.uk",
+          "url": "https://oldcrowngirton.com/",
           "telephone": "+441223276027",
           "priceRange": "££",
           "servesCuisine": ["Nepalese", "British", "Pub food"],
@@ -115,7 +115,7 @@ export default async function Page() {
               "closes": "22:00"
             }
           ],
-          "hasMenu": "https://oldcrowngirton.co.uk/menu",
+          "hasMenu": "https://oldcrowngirton.com//menu",
           "sameAs": [
             "https://www.facebook.com/oldcrowngirton",
             "https://www.instagram.com/theoldcrowngirton"

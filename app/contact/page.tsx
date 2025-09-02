@@ -13,7 +13,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Contact Old Crown Girton - Book Table | Directions",
     description: "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223277217.",
-    url: "https://oldcrowngirton.co.uk/contact",
+    url: "https://oldcrowngirton.com//contact",
   },
 });
 
