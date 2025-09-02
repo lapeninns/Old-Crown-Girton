@@ -32,7 +32,10 @@ class ServiceWorkerManager {
    */
   async register(): Promise<boolean> {
     if (!this.isSupported) {
-      console.log('[SWM] Service worker not supported');
+      // Only log in development
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[SWM] Service worker not supported');
+      }
       return false;
     }
 
@@ -42,16 +45,22 @@ class ServiceWorkerManager {
         updateViaCache: 'none' // Always check for updates
       });
 
-      console.log('[SWM] Service worker registered:', this.registration.scope);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[SWM] Service worker registered:', this.registration.scope);
+      }
 
       // Handle updates
       this.registration.addEventListener('updatefound', () => {
         const newWorker = this.registration!.installing;
         if (newWorker) {
-          console.log('[SWM] New service worker installing...');
+          if (process.env.NODE_ENV === 'development') {
+            console.log('[SWM] New service worker installing...');
+          }
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('[SWM] New service worker installed, prompting update');
+              if (process.env.NODE_ENV === 'development') {
+                console.log('[SWM] New service worker installed, prompting update');
+              }
               this.emit('update-available');
             }
           });

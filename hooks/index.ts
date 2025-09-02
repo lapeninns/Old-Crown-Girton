@@ -12,7 +12,7 @@ export * from './utils';
 
 // Legacy hooks (to be deprecated)
 // These will be removed in future versions
-export { useData, useSmartData } from './useData';
+export { useData } from './useData';
 export { useParsedData } from './useParsedData';
 
 // Note: The following hooks have been moved and reorganized:
