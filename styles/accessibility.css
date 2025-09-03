@@ -237,10 +237,14 @@
   font-weight: 600;
   z-index: 1000;
   transition: top var(--accessibility-animation-duration) var(--accessibility-animation-easing);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .accessibility-skip-link:focus {
   top: 6px;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Screen reader only content */
