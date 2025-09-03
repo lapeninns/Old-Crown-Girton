@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bookingData from "@/config/restaurant.json"; // contains phone
-import { useMarketing } from "@/hooks/data";
+import { useParsedData } from "@/hooks/useParsedData";
+import { MarketingDataSchema, MarketingDataParsed } from "@/lib/schemas";
 import config from "@/config";
 import { usePathname } from "next/navigation";
 
@@ -34,7 +35,7 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 	const pathname = usePathname();
 
 	// Marketing copy (button labels) externalized
-	const { data: marketing } = useMarketing();
+	const { data: marketing } = useParsedData<MarketingDataParsed>("marketing.json", MarketingDataSchema);
 	const btnLabelCall = marketing?.buttons?.callUs || `Call ${restaurantPhone.replace(/\s+/g, " ")}`;
 
 	// Routes where FAB should not appear (can't early return before hooks; decide later)

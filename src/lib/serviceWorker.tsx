@@ -70,6 +70,48 @@ class ServiceWorkerManager {
         this.emit('controller-change');
       });
 
+      // Development-only: wrap window.fetch to detect accidental object URLs
+      // This helps catch and coerce places that call `fetch` with an object,
+      // which would otherwise resolve to '/[object Object]' and generate 404s.
+      try {
+        if (process.env.NODE_ENV !== 'production' && typeof window.fetch === 'function') {
+          const win = window as any;
+          if (!win.__fetchWrappedBySwManager) {
+            const origFetch = window.fetch.bind(window);
+            win.__fetchWrappedBySwManager = true;
+
+            window.fetch = async (resource: any, init?: any) => {
+              // Accept Request or URL objects as valid
+              const isRequest = resource instanceof Request;
+              const isURL = resource instanceof URL;
+
+              if (resource && typeof resource === 'object' && !isRequest && !isURL) {
+                // Log detailed context so we can trace the offender in dev
+                try {
+                  swLogger.error('fetch called with non-string resource; coercing to safe string to avoid [object Object] requests', { resource });
+                } catch (e) {
+                  // ignore logging failures
+                }
+
+                // Coerce to safe string fallback
+                try {
+                  const safe = String(resource);
+                  return origFetch(safe, init);
+                } catch (e) {
+                  // Fall back to original fetch call to surface the error
+                  return origFetch(resource, init);
+                }
+              }
+
+              return origFetch(resource, init);
+            };
+          }
+        }
+      } catch (e) {
+        // Non-fatal; continue without wrapping
+        swLogger.debug('Failed to wrap window.fetch for dev safety', e);
+      }
+
       return true;
     } catch (error) {
       swLogger.error('Service worker registration failed', error);

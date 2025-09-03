@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useContent } from '@/hooks/useContent';
 import DishCard from './DishCard';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import { AutoMarquee } from './AutoMarquee';
 import { Images } from '@/src/lib/images';
 

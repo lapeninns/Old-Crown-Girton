@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from '@/lib/debugLink';
 import Image from "next/image";
 import config from "@/config";
 import logo from "@/app/icon.png";

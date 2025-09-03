@@ -13,6 +13,9 @@ export function useParsedData<T>(path: string, schema: ZodSchema<T>) {
     setLoading(true);
     fetchJSON<T>(path)
       .then((d) => {
+        if (path === 'nav.json') {
+          console.log('Nav data loaded:', JSON.stringify(d, null, 2));
+        }
         const parsed = schema.safeParse(d);
         if (!parsed.success) throw new Error('Invalid schema for ' + path + ': ' + JSON.stringify(parsed.error.flatten()));
         if (alive) setData(parsed.data);

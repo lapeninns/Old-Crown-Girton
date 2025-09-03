@@ -7,8 +7,7 @@ export async function runPerformanceTests() {
 
   // Import performance test modules dynamically
   try {
-    // Use string literal to avoid TypeScript compile-time checking
-    const artillery = await import('artillery' as any);
+    const artillery = await import('artillery');
     console.log('Artillery performance tests completed');
   } catch (error) {
     console.warn('Artillery not available, skipping load tests');

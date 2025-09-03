@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import sportsImage from '@cimages/Slideshow/interior/premier-league-sky-tv-sports.jpeg';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import React from 'react';
 
 export const SportsSlide: React.FC = () => {

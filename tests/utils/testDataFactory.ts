@@ -25,7 +25,7 @@ export class TestDataFactory {
       name: faker.food.dish(),
       description: faker.food.description(),
       price: {
-        amount: faker.number.float({ min: 5, max: 50, fractionDigits: 2 }),
+        amount: faker.number.float({ min: 5, max: 50, precision: 0.01 }),
         currency: 'GBP'
       },
       category: faker.helpers.arrayElement(['Starters', 'Mains', 'Desserts', 'Drinks']),

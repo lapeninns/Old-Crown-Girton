@@ -1,6 +1,6 @@
 'use client';
 
-import Link from "next/link";
+import Link from '@/lib/debugLink';
 import ButtonSupport from "@/components/ButtonSupport";
 import { useNotFoundContent } from '../_content/useNotFoundContent';
 

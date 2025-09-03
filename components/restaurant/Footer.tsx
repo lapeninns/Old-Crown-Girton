@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import { getRestaurantIdentity, getContactInfo, getSocialMedia } from '@/lib/restaurantData';
 import { getContentSmart } from '@/src/lib/data/server-loader';
 import AllergenNotice from './AllergenNotice';

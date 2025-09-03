@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import Link from '@/lib/debugLink';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useContent } from "@/hooks/useContent";
 import config from "@/config";

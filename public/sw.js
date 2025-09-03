@@ -290,19 +290,44 @@ self.addEventListener('message', (event) => {
       break;
       
     case 'CACHE_PRELOAD':
-      preloadContent(payload.modules);
+      // Defensive: ensure modules is an array of strings/ids
+      try {
+        const modules = Array.isArray(payload && payload.modules) ? payload.modules : [];
+        preloadContent(modules);
+      } catch (e) {
+        console.warn('CACHE_PRELOAD: invalid payload.modules', payload && payload.modules);
+      }
       break;
       
     case 'CACHE_URLS':
-      cacheUrls(payload.urls).then(() => {
+      // Defensive: coerce URLs array and filter invalid entries
+      try {
+        const raw = payload && payload.urls;
+        const urls = Array.isArray(raw)
+          ? raw
+              .map((u) =>
+                typeof u === 'string' ? u : u && u.href ? String(u.href) : u ? String(u) : null
+              )
+              .filter(Boolean)
+          : [];
+
+        cacheUrls(urls)
+          .then(() => {
+            if (event.ports[0]) {
+              event.ports[0].postMessage({ success: true });
+            }
+          })
+          .catch((error) => {
+            if (event.ports[0]) {
+              event.ports[0].postMessage({ error: error.message });
+            }
+          });
+      } catch (e) {
+        console.warn('CACHE_URLS: invalid payload', payload);
         if (event.ports[0]) {
-          event.ports[0].postMessage({ success: true });
+          event.ports[0].postMessage({ error: 'invalid payload for CACHE_URLS' });
         }
-      }).catch((error) => {
-        if (event.ports[0]) {
-          event.ports[0].postMessage({ error: error.message });
-        }
-      });
+      }
       break;
       
     case 'CACHE_CLEAR':

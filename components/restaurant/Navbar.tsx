@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { v } from '@/components/variants';
@@ -50,7 +50,13 @@ export default function Navbar() {
   const contactLabel = content?.global?.ui?.buttons?.contact || 'Contact';
   
   // Filter out Home and Contact links since logo functions as home and we have Contact CTA button
-  const filteredLinks = navLinks.filter((link: any) => link.href !== '/' && link.href !== '/contact');
+  const filteredLinks = navLinks.filter((link: any) => {
+    const href = String(link.href);
+    if (typeof link.href === 'object') {
+      console.error('Object href detected in navbar:', link.href, link);
+    }
+    return href !== '/' && href !== '/contact';
+  });
 
   return (
     <nav 
@@ -92,8 +98,8 @@ export default function Navbar() {
             {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
             {filteredLinks.map((link: any) => (
               <Link
-                key={link.href}
-                href={link.href}
+                key={String(link.href)}
+                href={String(link.href)}
                 className="text-brand-600 hover:text-brand-800 transition-colors duration-300"
               >
                 {link.label}
@@ -145,8 +151,8 @@ export default function Navbar() {
                 <div className="flex flex-col space-y-4">
                   {filteredLinks.map((link: any) => (
                     <Link
-                      key={link.href}
-                      href={link.href}
+                      key={String(link.href)}
+                      href={String(link.href)}
                       className="text-brand-600 hover:text-brand-800 py-2 px-3"
                       onClick={() => setIsOpen(false)}
                     >

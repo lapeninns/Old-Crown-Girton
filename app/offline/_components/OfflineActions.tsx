@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from '@/lib/debugLink';
 import { useOfflineContent } from '../_content/useOfflineContent';
 
 export default function OfflineActions() {

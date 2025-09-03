@@ -1,6 +1,6 @@
 'use client';
 import DishCard from '@/components/restaurant/DishCard';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import { AutoMarquee } from '@/components/restaurant/AutoMarquee';
 import { Images } from '@/src/lib/images';
 

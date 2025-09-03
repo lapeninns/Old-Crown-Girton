@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from '@/lib/debugLink';
 
 export default function PrivacyHero() {
   return (
