@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface OfflineContent {
   meta: {
@@ -39,15 +38,9 @@ export function useOfflineContent(): OfflineContent | null {
   useEffect(() => {
     async function loadContent() {
       try {
-  const response = await fetchWithResilience('/api/offline-content');
-        if (response.ok) {
-          const data = await response.json();
-          setContent(data);
-        } else {
-          // Fallback to local import
-          const { default: fallbackContent } = await import('./offline-content.json');
-          setContent(fallbackContent);
-        }
+        // Load content directly from local file since API endpoint was removed
+        const { default: fallbackContent } = await import('./offline-content.json');
+        setContent(fallbackContent);
       } catch (error) {
         // Use inline fallback as last resort
         setContent({

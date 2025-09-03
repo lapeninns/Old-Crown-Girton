@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface NotFoundContent {
   meta: {
@@ -30,15 +29,9 @@ export function useNotFoundContent(): NotFoundContent | null {
   useEffect(() => {
     async function loadContent() {
       try {
-  const response = await fetchWithResilience('/api/not-found-content');
-        if (response.ok) {
-          const data = await response.json();
-          setContent(data);
-        } else {
-          // Fallback to local import
-          const { default: fallbackContent } = await import('./not-found-content.json');
-          setContent(fallbackContent);
-        }
+        // Load content directly from local file since API endpoint was removed
+        const { default: fallbackContent } = await import('./not-found-content.json');
+        setContent(fallbackContent);
       } catch (error) {
         // Use inline fallback as last resort
         setContent({

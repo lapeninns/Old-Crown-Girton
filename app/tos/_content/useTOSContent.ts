@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { fetchWithResilience } from '@/src/lib/data/fetchWithResilience';
 
 interface TOSContent {
   meta: {
@@ -28,15 +27,9 @@ export function useTOSContent(): TOSContent | null {
   useEffect(() => {
     async function loadContent() {
       try {
-  const response = await fetchWithResilience('/api/tos-content');
-        if (response.ok) {
-          const data = await response.json();
-          setContent(processContent(data));
-        } else {
-          // Fallback to local import
-          const { default: fallbackContent } = await import('./tos-content.json');
-          setContent(processContent(fallbackContent));
-        }
+        // Load content directly from local file since API endpoint was removed
+        const { default: fallbackContent } = await import('./tos-content.json');
+        setContent(processContent(fallbackContent));
       } catch (error) {
         // Use inline fallback as last resort
         setContent({
