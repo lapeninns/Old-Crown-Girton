@@ -53,6 +53,7 @@
     "node_modules",
     "test/setupVitestClient.ts",
     "test/setupVitestServer.ts",
-    "vitest.config.ts"
+    "vitest.config.ts",
+    "tests/**/*"
   ]
 }
