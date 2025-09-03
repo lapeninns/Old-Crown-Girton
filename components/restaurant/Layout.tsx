@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
-const Navbar = dynamic(() => import('./Navbar'));
-const NavbarStatic = dynamic(() => import('./NavbarStatic'));
+// Critical above-fold components should NOT be dynamic
+import Navbar from './Navbar';
+import NavbarStatic from './NavbarStatic';
 import Footer from './Footer';
 
 interface LayoutProps {

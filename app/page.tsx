@@ -1,55 +1,25 @@
-import RestaurantLayout from "@/components/restaurant/Layout";
-import Showcase from '@/components/slideshow/Showcase';
-import dynamic from 'next/dynamic';
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
-// Motion wrappers for consistent animations
-import { FadeIn } from '@/components/animations/MotionWrappers';
-// Dynamic non-LCP sections
-import AboutSection from './_components/AboutSection';
-import MenuHighlights from './_components/MenuHighlights';
-const QuickLinksSection = dynamic(() => import("@/components/restaurant/sections/QuickLinksSection"));
-const CallToActionSection = dynamic(() => import("@/components/restaurant/sections/CallToActionSection"));
-const TestimonialsSection = dynamic(() => import("@/components/restaurant/TestimonialsSection"));
-const TakeawayBanner = dynamic(() => import("@/components/restaurant/TakeawayBanner"));
-const LocationSection = dynamic(() => import("@/components/restaurant/LocationSection"));
 import Link from '@/lib/debugLink';
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
+import React from 'react';
+import dynamic from 'next/dynamic';
 
-// SEO Metadata
-export const metadata = getSEOTags({
-  title: "Old Crown Girton - Historic Thatched Pub & Nepalese Restaurant | Cambridge",
-  description: "Historic thatched pub in Girton serving authentic Nepalese cuisine & British pub classics. Family & dog friendly. Voted #1 restaurant in Girton. Book now!",
-  keywords: ["Girton pub", "Nepalese restaurant Cambridge", "historic thatched pub", "family friendly pub Cambridge", "dog friendly pub Girton", "Sunday roast Cambridge", "Old Crown Girton"],
-  canonicalUrlRelative: "/",
-  openGraph: {
-    title: "Old Crown Girton - Historic Thatched Pub & Nepalese Restaurant",
-    description: "Historic thatched pub in Girton serving authentic Nepalese cuisine & British pub classics. Family & dog friendly. Voted #1 restaurant in Girton.",
-    url: "https://oldcrowngirton.com//",
-  },
+// Simple dynamic import for client-side content with no loading fallback
+const ClientHomeContent = dynamic(() => import('@/components/ClientHomeContent'), {
+  ssr: false
 });
 
-export default async function Page() {
-  // Load content data
-  const m = await getMarketingSmart();
-  const content = await getContentSmart();
-  
-  const labels = m.buttons || {};
-  const labelViewMenu = labels.viewMenu || content.global.ui.buttons.viewMenu || 'View Menu';
-  const labelBookOnline = labels.bookOnline || content.global.ui.buttons.bookOnline || 'Book Online';
-  
-  // Home page content
-  const homeContent = content.pages.home;
-  const quickLinks = homeContent.sections.quickLinks || [];
-  const ctaSection = (homeContent.sections as any).cta;
-  
-  // Process CTA buttons with label fallbacks
-  const ctaButtons = ctaSection?.buttons?.map((button: any) => ({
-    ...button,
-    text: button.key && labels[button.key] ? labels[button.key] : button.text
-  })) || [];
-
+function HomePageContent({ 
+  quickLinks, 
+  ctaSection, 
+  ctaButtons 
+}: {
+  quickLinks: any[];
+  ctaSection: any;
+  ctaButtons: any[];
+}) {
   return (
-  <>
+    <>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -128,61 +98,40 @@ export default async function Page() {
           html:focus-within{scroll-behavior:auto!important}
         }
       ` }} />
-      <RestaurantLayout>
-        {/* Hero Section: Slideshow with semantic markup */}
-        <section aria-label="Restaurant showcase">
-          <Showcase />
-        </section>
-        
-        {/* Main Content Sections with progressive animation */}
-        <main>
-          <FadeIn>
-            <section aria-labelledby="testimonials-heading">
-              <TestimonialsSection />
-            </section>
-          </FadeIn>
-          
-          <FadeIn>
-            <section aria-labelledby="about-heading">
-              <AboutSection />
-            </section>
-          </FadeIn>
-          
-          <FadeIn>
-            <section aria-labelledby="menu-highlights-heading">
-              <MenuHighlights />
-            </section>
-          </FadeIn>
-          
-          <FadeIn>
-            <section aria-labelledby="quick-links-heading">
-              <QuickLinksSection links={quickLinks} />
-            </section>
-          </FadeIn>
-          
-          <FadeIn>
-            <section aria-label="Takeaway information">
-              <TakeawayBanner />
-            </section>
-          </FadeIn>
-          
-          <FadeIn>
-            <section aria-labelledby="location-heading">
-              <LocationSection />
-            </section>
-          </FadeIn>
-          
-          <FadeIn>
-            <section aria-labelledby="cta-heading">
-              <CallToActionSection 
-                headline={ctaSection?.headline || "Ready to Experience Girton's Thatched Nepalese Pub?"}
-                description={ctaSection?.description || "Reserve a table, explore the menu or plan an event – we'd love to host you."}
-                buttons={ctaButtons}
-              />
-            </section>
-          </FadeIn>
-        </main>
-      </RestaurantLayout>
+      <ClientHomeContent 
+        quickLinks={quickLinks}
+        ctaSection={ctaSection}
+        ctaButtons={ctaButtons}
+      />
     </>
+  );
+}
+
+export default async function Page() {
+  // Load content data server-side
+  const m = await getMarketingSmart();
+  const content = await getContentSmart();
+  
+  const labels = m.buttons || {};
+  const labelViewMenu = labels.viewMenu || content.global.ui.buttons.viewMenu || 'View Menu';
+  const labelBookOnline = labels.bookOnline || content.global.ui.buttons.bookOnline || 'Book Online';
+  
+  // Home page content
+  const homeContent = content.pages.home;
+  const quickLinks = homeContent.sections.quickLinks || [];
+  const ctaSection = (homeContent.sections as any).cta;
+  
+  // Process CTA buttons with label fallbacks
+  const ctaButtons = ctaSection?.buttons?.map((button: any) => ({
+    ...button,
+    text: button.key && labels[button.key] ? labels[button.key] : button.text
+  })) || [];
+
+  return (
+    <HomePageContent 
+      quickLinks={quickLinks}
+      ctaSection={ctaSection}
+      ctaButtons={ctaButtons}
+    />
   );
 }
