@@ -4,6 +4,8 @@ import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorFallback from '@/components/ErrorFallback';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -62,7 +64,8 @@ export default function BlogPostPage() {
           html:focus-within{scroll-behavior:auto!important}
         }
       ` }} />
-      <RestaurantLayout>
+      <ErrorBoundary fallback={<ErrorFallback />}>
+        <RestaurantLayout>
       {renderSchemaTags([
         {
           "@context": "https://schema.org",
@@ -260,7 +263,8 @@ export default function BlogPostPage() {
           </div>
         </main>
       </div>
-      </RestaurantLayout>
+        </RestaurantLayout>
+      </ErrorBoundary>
     </>
   );
 }

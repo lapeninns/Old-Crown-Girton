@@ -1,4 +1,6 @@
-import Link from '@/lib/debugLink';
+"use client";
+
+import { useState, useEffect } from 'react';
 
 interface Category {
   name: string;
@@ -9,22 +11,41 @@ interface Category {
 interface BlogCategoriesProps {
   categories: Category[];
   activeCategory?: string;
+  onCategoryChange?: (slug: string) => void;
 }
 
-export default function BlogCategories({ categories, activeCategory = 'all' }: BlogCategoriesProps) {
+export default function BlogCategories({ 
+  categories, 
+  activeCategory = 'all',
+  onCategoryChange 
+}: BlogCategoriesProps) {
+  const [selectedCategory, setSelectedCategory] = useState(activeCategory);
+
+  // Update local state when prop changes
+  useEffect(() => {
+    setSelectedCategory(activeCategory);
+  }, [activeCategory]);
+
+  const handleCategoryClick = (slug: string) => {
+    setSelectedCategory(slug);
+    onCategoryChange?.(slug);
+  };
+
   return (
     <div className="flex flex-wrap gap-2 justify-center">
       {categories.map((category) => {
-        const isActive = activeCategory === category.slug;
+        const isActive = selectedCategory === category.slug;
         return (
-          <Link
+          <button
             key={category.slug}
-            href={`/blog/${category.slug === 'all' ? '' : `category/${category.slug}`}`}
-            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium ${ 
+            onClick={() => handleCategoryClick(category.slug)}
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${ 
               isActive 
                 ? 'bg-brand-600 text-white shadow-md' 
-                : 'bg-white text-brand-600 border border-brand-200 hover:bg-brand-50'
+                : 'bg-white text-brand-600 border border-brand-200 hover:bg-brand-50 hover:shadow-sm'
             }`}
+            aria-label={`Filter posts by ${category.name}`}
+            type="button"
           >
             {category.name}
             <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
@@ -34,7 +55,7 @@ export default function BlogCategories({ categories, activeCategory = 'all' }: B
             }`}>
               {category.count}
             </span>
-          </Link>
+          </button>
         );
       })}
     </div>

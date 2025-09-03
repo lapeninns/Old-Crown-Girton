@@ -32,7 +32,7 @@ export default function MenuSections({
           .replace(/[^a-z0-9]+/g, '-');
         return sectionId === selectedId;
       })
-    : sections;
+    : sections; // Show all sections when selectedId is null/undefined
 
   // Early return if no sections to display
   if (!displaySections || displaySections.length === 0) {

@@ -3,7 +3,7 @@ import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import { Images } from '@/src/lib/images';
 import { FadeIn } from '@/components/animations/MotionWrappers';
-import { BlogHero, BlogFeatured, BlogGrid, BlogCategories } from './_components';
+import { BlogHero, BlogFeatured, FilterableBlogSection } from './_components';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -170,35 +170,7 @@ export default function BlogPage() {
           </FadeIn>
 
           <FadeIn>
-            <section className="py-12 bg-brand-100" aria-labelledby="blog-categories-heading">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 id="blog-categories-heading" className="sr-only">Blog Categories</h2>
-                <BlogCategories categories={categories} />
-              </div>
-            </section>
-          </FadeIn>
-
-          <FadeIn>
-            <section className="py-16 bg-brand-50" aria-labelledby="recent-posts-heading">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 id="recent-posts-heading" className="text-3xl font-display font-bold text-brand-700 mb-8 text-center">Recent Posts</h2>
-                <BlogGrid posts={blogPosts} />
-                
-                {/* View All Posts CTA */}
-                <div className="text-center mt-12">
-                  <Link 
-                    href="/blog/all"
-                    className="inline-flex items-center px-6 py-3 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors duration-200"
-                    aria-label="View all blog posts"
-                  >
-                    View All Posts
-                    <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </section>
+            <FilterableBlogSection posts={blogPosts} categories={categories} />
           </FadeIn>
 
           <FadeIn>

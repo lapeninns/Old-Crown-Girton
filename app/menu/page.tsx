@@ -64,11 +64,8 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 		}))
 	};
 	
-	// Determine default section (prioritize starters if available)
-	const starterSection = optimizedMenu.sections.find(s => 
-		s.id?.toLowerCase().includes('starter') || s.name?.toLowerCase().includes('starter')
-	);
-	const defaultSection = starterSection?.id || optimizedMenu.sections[0]?.id || null;
+	// Default to "All" (null) to show all menu sections initially
+	const defaultSection: string | null = null;
 
 	// Enhanced structured data with optimized menu
 	const structuredData = {
@@ -140,7 +137,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 						<section aria-labelledby="interactive-menu-heading">
 							<MenuInteractive 
 								sections={optimizedMenu?.sections || []} 
-								defaultSelected={defaultSection}
+								defaultSelected={null}
 								preloadedData={true}
 							/>
 						</section>
