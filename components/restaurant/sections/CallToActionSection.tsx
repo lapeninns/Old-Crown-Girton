@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 
 /**
  * Props interfaces for CallToActionSection component
@@ -85,7 +85,7 @@ export default function CallToActionSection({
 
                 return (
                   <div key={button.key || button.text || index}>
-                    <a
+                    <Link
                       href={button.href}
                       className={`${getButtonClasses(button.variant)}`}
                       {...buttonProps}
@@ -96,7 +96,7 @@ export default function CallToActionSection({
                           ↗
                         </span>
                       )}
-                    </a>
+                    </Link>
                   </div>
                 );
               })}

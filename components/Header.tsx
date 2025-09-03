@@ -8,7 +8,7 @@ import type { JSX } from "react";
 import { AnimatePresence } from '@/components/motion/DynamicMotion';
 import { navMotion } from '@/lib/motion/variants';
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import Link from '@/lib/debugLink';
 import Image from "next/image";
 import ButtonSignin from "./ButtonSignin";
 import logo from "@/public/images/brand/Oldcrowngirtonlogo.png";

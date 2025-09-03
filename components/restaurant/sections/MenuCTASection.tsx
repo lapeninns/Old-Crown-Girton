@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import { motion } from 'framer-motion';
 import { variants as mv } from '@/lib/motion/variants';
 

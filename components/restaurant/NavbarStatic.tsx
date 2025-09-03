@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import { useParsedData } from '@/hooks/useParsedData';
 import { useContent } from '@/hooks/useContent';
@@ -41,7 +41,13 @@ export default function NavbarStatic() {
   const ariaLabels = content?.global?.accessibility?.ariaLabels;
   const contactLabel = content?.global?.ui?.buttons?.contact || 'Contact';
 
-  const filteredLinks = navLinks.filter((link: any) => link.href !== '/' && link.href !== '/contact');
+  const filteredLinks = navLinks.filter((link: any) => {
+    const href = String(link.href);
+    if (typeof link.href === 'object') {
+      console.error('Object href detected in navbar static:', link.href, link);
+    }
+    return href !== '/' && href !== '/contact';
+  });
 
   return (
     <nav
@@ -69,7 +75,7 @@ export default function NavbarStatic() {
             {loading && <span className="text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</span>}
             {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
             {filteredLinks.map((link: any) => (
-              <Link key={link.href} href={link.href} className="text-brand-600 hover:text-brand-800">
+              <Link key={String(link.href)} href={String(link.href)} className="text-brand-600 hover:text-brand-800">
                 {link.label}
               </Link>
             ))}
@@ -111,8 +117,8 @@ export default function NavbarStatic() {
             <div className="flex flex-col space-y-4">
               {filteredLinks.map((link: any) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={String(link.href)}
+                  href={String(link.href)}
                   className="text-brand-600 hover:text-brand-800 py-2 px-3"
                   onClick={() => setIsOpen(false)}
                 >

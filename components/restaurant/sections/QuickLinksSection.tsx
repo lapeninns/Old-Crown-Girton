@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import { motion, useReducedMotion } from 'framer-motion';
 import { variants as mv } from '@/lib/motion/variants';
 
@@ -64,18 +64,14 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
                 <p className="text-brand-600 text-sm mb-4">
                   {link.description}
                 </p>
-                <div>
-                  <motion.a 
-                    href={link.link} 
-                    className="text-foreground-strong font-semibold hover:underline inline-block"
-                    aria-label={`${link.title}: ${link.linkText}`}
-                    whileHover={mv.button.hover}
-                    whileTap={mv.button.tap}
-                    transition={{ duration: 0.18 }}
-                  >
-                    {link.linkText}
-                  </motion.a>
-                </div>
+                <Link
+                  key={index}
+                  href={String(link.link)}
+                  className="text-foreground-strong font-semibold hover:underline inline-block"
+                  aria-label={`${link.title}: ${link.linkText}`}
+                >
+                  {link.linkText}
+                </Link>
               </motion.div>
             );
           })}

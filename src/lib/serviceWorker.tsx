@@ -6,6 +6,7 @@
 'use client';
 
 import React from 'react';
+import { swLogger } from '../../lib/logger';
 
 interface ServiceWorkerMessage {
   type: string;
@@ -32,7 +33,7 @@ class ServiceWorkerManager {
    */
   async register(): Promise<boolean> {
     if (!this.isSupported) {
-      console.log('[SWM] Service worker not supported');
+      swLogger.info('Service worker not supported');
       return false;
     }
 
@@ -42,16 +43,16 @@ class ServiceWorkerManager {
         updateViaCache: 'none' // Always check for updates
       });
 
-      console.log('[SWM] Service worker registered:', this.registration.scope);
+      swLogger.info('Service worker registered', { scope: this.registration.scope });
 
       // Handle updates
       this.registration.addEventListener('updatefound', () => {
         const newWorker = this.registration!.installing;
         if (newWorker) {
-          console.log('[SWM] New service worker installing...');
+          swLogger.info('New service worker installing');
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('[SWM] New service worker installed, prompting update');
+              swLogger.info('New service worker installed, prompting update');
               this.emit('update-available');
             }
           });
@@ -65,13 +66,55 @@ class ServiceWorkerManager {
 
       // Handle controller changes
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        console.log('[SWM] Service worker controller changed');
+        swLogger.info('Service worker controller changed');
         this.emit('controller-change');
       });
 
+      // Development-only: wrap window.fetch to detect accidental object URLs
+      // This helps catch and coerce places that call `fetch` with an object,
+      // which would otherwise resolve to '/[object Object]' and generate 404s.
+      try {
+        if (process.env.NODE_ENV !== 'production' && typeof window.fetch === 'function') {
+          const win = window as any;
+          if (!win.__fetchWrappedBySwManager) {
+            const origFetch = window.fetch.bind(window);
+            win.__fetchWrappedBySwManager = true;
+
+            window.fetch = async (resource: any, init?: any) => {
+              // Accept Request or URL objects as valid
+              const isRequest = resource instanceof Request;
+              const isURL = resource instanceof URL;
+
+              if (resource && typeof resource === 'object' && !isRequest && !isURL) {
+                // Log detailed context so we can trace the offender in dev
+                try {
+                  swLogger.error('fetch called with non-string resource; coercing to safe string to avoid [object Object] requests', { resource });
+                } catch (e) {
+                  // ignore logging failures
+                }
+
+                // Coerce to safe string fallback
+                try {
+                  const safe = String(resource);
+                  return origFetch(safe, init);
+                } catch (e) {
+                  // Fall back to original fetch call to surface the error
+                  return origFetch(resource, init);
+                }
+              }
+
+              return origFetch(resource, init);
+            };
+          }
+        }
+      } catch (e) {
+        // Non-fatal; continue without wrapping
+        swLogger.debug('Failed to wrap window.fetch for dev safety', e);
+      }
+
       return true;
     } catch (error) {
-      console.error('[SWM] Service worker registration failed:', error);
+      swLogger.error('Service worker registration failed', error);
       return false;
     }
   }
@@ -84,9 +127,9 @@ class ServiceWorkerManager {
 
     try {
       await this.registration.update();
-      console.log('[SWM] Service worker update check completed');
+      swLogger.info('Service worker update check completed');
     } catch (error) {
-      console.error('[SWM] Service worker update failed:', error);
+      swLogger.error('Service worker update failed', error);
     }
   }
 
@@ -135,7 +178,7 @@ class ServiceWorkerManager {
     try {
       return await this.sendMessage({ type: 'GET_CACHE_STATUS' });
     } catch (error) {
-      console.error('[SWM] Failed to get cache status:', error);
+      swLogger.error('Failed to get cache status', error);
       return null;
     }
   }
@@ -149,9 +192,9 @@ class ServiceWorkerManager {
         type: 'CLEAR_CACHE',
         payload: { cacheNames: cacheNames || [] }
       });
-      console.log('[SWM] Cache cleared');
+      swLogger.info('Cache cleared');
     } catch (error) {
-      console.error('[SWM] Failed to clear cache:', error);
+      swLogger.error('Failed to clear cache', error);
     }
   }
 
@@ -164,9 +207,9 @@ class ServiceWorkerManager {
         type: 'CACHE_URLS',
         payload: { urls }
       });
-      console.log('[SWM] URLs cached:', urls);
+      swLogger.info('URLs cached', { urls });
     } catch (error) {
-      console.error('[SWM] Failed to cache URLs:', error);
+      swLogger.error('Failed to cache URLs', error);
     }
   }
 
@@ -183,9 +226,9 @@ class ServiceWorkerManager {
 
     try {
       await this.cacheUrls(criticalUrls);
-      console.log('[SWM] Critical content preloaded');
+      swLogger.info('Critical content preloaded');
     } catch (error) {
-      console.error('[SWM] Failed to preload content:', error);
+      swLogger.error('Failed to preload content', error);
     }
   }
 
@@ -225,7 +268,7 @@ class ServiceWorkerManager {
   }
 
   private handleMessage(data: any): void {
-    console.log('[SWM] Received message:', data);
+    swLogger.debug('Received message', data);
 
     switch (data.type) {
       case 'SYNC_COMPLETE':
@@ -284,7 +327,7 @@ export function useServiceWorker() {
     // Listen for service worker events
     swManager.on('update-available', () => setUpdateAvailable(true));
     swManager.on('sync-complete', () => {
-      console.log('Background sync completed');
+      swLogger.info('Background sync completed');
     });
 
     return () => {
@@ -335,15 +378,15 @@ export async function initializeServiceWorker(): Promise<void> {
     const registered = await swManager.register();
     
     if (registered) {
-      console.log('✅ Service worker initialized successfully');
-      
+      swLogger.info('Service worker initialized successfully');
+
       // Preload critical content
       setTimeout(() => {
-        swManager.preloadContent().catch(console.error);
+        swManager.preloadContent().catch((error) => swLogger.error('Failed to preload content during initialization', error));
       }, 2000);
     }
   } catch (error) {
-    console.error('❌ Service worker initialization failed:', error);
+    swLogger.error('Service worker initialization failed', error);
   }
 }
 

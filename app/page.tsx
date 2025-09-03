@@ -12,7 +12,7 @@ const CallToActionSection = dynamic(() => import("@/components/restaurant/sectio
 const TestimonialsSection = dynamic(() => import("@/components/restaurant/TestimonialsSection"));
 const TakeawayBanner = dynamic(() => import("@/components/restaurant/TakeawayBanner"));
 const LocationSection = dynamic(() => import("@/components/restaurant/LocationSection"));
-import Link from "next/link";
+import Link from '@/lib/debugLink';
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 
 // SEO Metadata

@@ -75,7 +75,7 @@ export class ContentMigrationAdapter {
 
     // If modular system fails and fallback is enabled, use legacy
     if (modularResult.error && this.config.fallbackToLegacy) {
-      console.warn('Modular content failed, falling back to legacy:', modularResult.error);
+      appLogger.warn('Modular content failed, falling back to legacy', modularResult.error);
       return this.useLegacyContentFallback();
     }
 
@@ -249,13 +249,13 @@ export class ContentMigrationAdapter {
       const comparison = this.compareContentStructures(modularData, legacyData, page);
       
       if (comparison.differences.length > 0) {
-        console.warn('Content differences detected:', comparison);
-        
+        appLogger.warn('Content differences detected', comparison);
+
         // Report differences for analysis
         this.reportContentDifferences(comparison, page);
       }
     } catch (error) {
-      console.error('Failed to compare with legacy content:', error);
+      appLogger.error('Failed to compare with legacy content', error);
     }
   }
 
@@ -339,7 +339,7 @@ export class ContentMigrationAdapter {
           comparison,
           timestamp: Date.now(),
         }),
-      }).catch(console.error);
+      }).catch((error) => appLogger.error('Failed to report content differences', error));
     }
   }
 }
@@ -382,8 +382,8 @@ export class MigrationStrategyManager {
    * Execute migration phase
    */
   async executeMigrationPhase(phase: 'preparation' | 'gradual' | 'complete'): Promise<void> {
-    console.log(`🚀 Starting migration phase: ${phase}`);
-    
+    appLogger.info(`Starting migration phase: ${phase}`);
+
     switch (phase) {
       case 'preparation':
         await this.executePreparationPhase();
@@ -395,26 +395,24 @@ export class MigrationStrategyManager {
         await this.executeCompletePhase();
         break;
     }
-  }
-
-  private async executePreparationPhase(): Promise<void> {
+  }  private async executePreparationPhase(): Promise<void> {
     // Validate modular system
     // Preload critical modules
     // Set up monitoring
-    console.log('✅ Preparation phase completed');
+    appLogger.info('Preparation phase completed');
   }
 
   private async executeGradualPhase(): Promise<void> {
     // Implement feature flags
     // Monitor performance
     // Collect feedback
-    console.log('✅ Gradual phase initiated');
+    appLogger.info('Gradual phase initiated');
   }
 
   private async executeCompletePhase(): Promise<void> {
     // Switch all traffic to modular system
     // Remove legacy code paths
-    console.log('✅ Complete migration finished');
+    appLogger.info('Complete migration finished');
   }
 }
 
@@ -438,6 +436,8 @@ export function useAdaptiveContent(options: UseContentOptions = {}) {
   const adapter = getMigrationAdapter();
   return adapter.useAdaptiveContent(options);
 }
+
+import { appLogger } from '../../../lib/logger';
 
 // Type definitions
 interface UseContentOptions {

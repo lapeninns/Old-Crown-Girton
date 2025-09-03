@@ -95,7 +95,8 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
       if (targetSelected && targetSelected !== selected) {
         setSelected(targetSelected);
         if (typeof window !== 'undefined' && !currentHash) {
-          history.replaceState(null, '', window.location.pathname + window.location.search + `#${targetSelected}`);
+          const safeTarget = String(targetSelected).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          history.replaceState(null, '', window.location.pathname + window.location.search + `#${safeTarget}`);
         }
       }
       return;
@@ -121,7 +122,8 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
       
       if (defaultIdFromMenu) {
         setSelected(defaultIdFromMenu);
-        history.replaceState(null, '', window.location.pathname + window.location.search + `#${defaultIdFromMenu}`);
+        const safeDefaultId = String(defaultIdFromMenu).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        history.replaceState(null, '', window.location.pathname + window.location.search + `#${safeDefaultId}`);
       }
     }
   }, [sections, defaultSelected, preloadedData, selected]);
@@ -151,7 +153,8 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
     setSelected(newId);
     if (typeof window !== 'undefined') {
       if (newId) {
-        window.history.replaceState(null, '', window.location.pathname + window.location.search + `#${newId}`);
+        const safeNewId = String(newId).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        window.history.replaceState(null, '', window.location.pathname + window.location.search + `#${safeNewId}`);
       } else {
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
       }
