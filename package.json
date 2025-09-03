@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "postbuild": "next-sitemap",
+    "dev": "NODE_OPTIONS=\"--no-deprecation\" next dev",
+    "build": "NODE_OPTIONS=\"--no-deprecation\" next build",
+    "postbuild": "NODE_OPTIONS=\"--no-deprecation\" next-sitemap",
     "check:links": "node scripts/check-links.mjs http://localhost:3001",
     "build:clean": "npm run clean && npm run build",
     "clean": "rm -rf .next",

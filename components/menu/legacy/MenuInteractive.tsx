@@ -50,7 +50,8 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
       
       if (defaultIdFromMenu) {
         setSelected(defaultIdFromMenu);
-        history.replaceState(null, '', window.location.pathname + window.location.search + `#${defaultIdFromMenu}`);
+        const safeDefaultId = String(defaultIdFromMenu).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        history.replaceState(null, '', window.location.pathname + window.location.search + `#${safeDefaultId}`);
       }
     }
   }, []);
@@ -84,7 +85,8 @@ export default function MenuInteractive({ sections, defaultSelected }: Props) {
     // Update URL
     if (typeof window !== 'undefined') {
       if (newId) {
-        window.history.replaceState(null, '', window.location.pathname + window.location.search + `#${newId}`);
+        const safeNewId = String(newId).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        window.history.replaceState(null, '', window.location.pathname + window.location.search + `#${safeNewId}`);
       } else {
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
       }

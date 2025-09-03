@@ -21,6 +21,10 @@ const nextConfig = {
   
   // Advanced webpack configuration for maximum optimization
   webpack: (config, { isServer, dev }) => {
+    // Suppress punycode deprecation warnings
+    config.ignoreWarnings = [
+      { module: /node_modules/, message: /punycode/ },
+    ];
     // Enhanced code splitting configuration
     if (!isServer && !dev) {
       config.optimization.splitChunks = {

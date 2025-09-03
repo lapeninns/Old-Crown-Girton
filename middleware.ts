@@ -6,7 +6,7 @@ import { cdnOptimizationMiddleware } from './src/lib/cdnStrategy';
 export async function middleware(request: NextRequest) {
   const res = NextResponse.next();
 
-  // Supabase auth middleware
+  // Supabase auth middleware - only use in Node.js runtime
   const hasSupabaseEnv = Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
       (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)
@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
     try {
       const supabase = createMiddlewareClient({ req: request, res });
       await supabase.auth.getSession();
-    } catch (err) {
+    } catch (err: any) {
       console.warn('Supabase middleware skipped:', err?.message || err);
     }
   }
@@ -84,4 +84,12 @@ export async function middleware(request: NextRequest) {
   }
 
   return response;
+}
+
+// Configure middleware to run only on API routes to avoid Edge Runtime issues
+export const config = {
+  matcher: [
+    '/api/:path*',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 }
