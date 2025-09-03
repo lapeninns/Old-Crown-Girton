@@ -39,11 +39,6 @@ export default function ClientFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/reservations" className="hover:text-foreground-strong transition-colors">
-                  Reservations
-                </Link>
-              </li>
-              <li>
                 <Link href="/about" className="hover:text-foreground-strong transition-colors">
                   About Us
                 </Link>

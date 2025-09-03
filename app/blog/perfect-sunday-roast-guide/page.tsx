@@ -252,7 +252,9 @@ export default function SundayRoastGuidePage() {
               <h3 className="text-2xl font-bold mb-4">Craving a cosy Sunday lunch?</h3>
               <p className="text-brand-100 mb-6">We don't serve a traditional Sunday roast, but our Nepalese dishes and British pub classics make great Sunday roast alternatives.</p>
               <Link 
-                href="/book"
+                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50"
               >
                 Book a Table

@@ -359,7 +359,9 @@ export default function SportsViewingGuidePage() {
               <h3 className="text-2xl font-bold mb-4">Ready for Match Day?</h3>
               <p className="text-brand-100 mb-6">Join Cambridge's best sports viewing community. Book your table for the next big match and experience the atmosphere!</p>
               <Link 
-                href="/book"
+                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50"
               >
                 Book for Sports Viewing

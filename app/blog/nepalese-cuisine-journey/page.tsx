@@ -225,6 +225,20 @@ export default function BlogPostPage() {
               <p className="text-neutral-600">{post.author.bio}</p>
             </div>
 
+            {/* Call to Action */}
+            <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
+              <h3 className="text-2xl font-bold mb-4">Experience Authentic Nepalese Cuisine</h3>
+              <p className="text-brand-100 mb-6">Discover the unique flavors of Nepal in Cambridge's most historic setting. Book your table today and taste the authentic difference.</p>
+              <Link 
+                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50"
+              >
+                Book Your Table
+              </Link>
+            </div>
+
             {/* Navigation */}
             <div className="mt-12 flex justify-between items-center">
               <Link 

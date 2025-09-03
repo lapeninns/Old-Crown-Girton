@@ -280,7 +280,9 @@ export default function DogFriendlyDiningPage() {
               <h3 className="text-2xl font-bold mb-4">Ready to Dine with Your Dog?</h3>
               <p className="text-brand-100 mb-6">Experience Cambridge's most welcoming dog-friendly pub. Book your table and bring your four-legged family member along!</p>
               <Link 
-                href="/book"
+                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50"
               >
                 Book Your Table
