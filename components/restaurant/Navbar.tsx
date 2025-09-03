@@ -9,6 +9,7 @@ import { navMotion } from '@/lib/motion/variants';
 import { useParsedData } from '@/hooks/useParsedData';
 import { useContent } from '@/hooks/useContent';
 import { NavDataSchema, NavDataParsed } from '@/lib/schemas';
+import { sanitizeHref, createHrefKey, isValidHref, logHrefIssue } from '@/utils/href';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,11 +52,13 @@ export default function Navbar() {
   
   // Filter out Home and Contact links since logo functions as home and we have Contact CTA button
   const filteredLinks = navLinks.filter((link: any) => {
-    const href = String(link.href);
-    if (typeof link.href === 'object') {
-      console.error('Object href detected in navbar:', link.href, link);
+    if (!isValidHref(link.href)) {
+      logHrefIssue('Invalid href detected in navbar link', link.href, 'Navbar.filteredLinks');
+      return false;
     }
-    return href !== '/' && href !== '/contact';
+    
+    const safeHref = sanitizeHref(link.href);
+    return safeHref !== '/' && safeHref !== '/contact';
   });
 
   return (
@@ -96,10 +99,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             {loading && <span className="text-xs text-brand-600 animate-pulse">{uiLabels?.loading || 'Loading...'}</span>}
             {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
-            {filteredLinks.map((link: any) => (
+            {filteredLinks.map((link: any, index: number) => (
               <Link
-                key={String(link.href)}
-                href={String(link.href)}
+                key={createHrefKey(link.href, index)}
+                href={sanitizeHref(link.href)}
                 className="text-brand-600 hover:text-brand-800 transition-colors duration-300"
               >
                 {link.label}
@@ -149,10 +152,10 @@ export default function Navbar() {
                 {loading && <div className="px-3 py-2 text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</div>}
                 {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
                 <div className="flex flex-col space-y-4">
-                  {filteredLinks.map((link: any) => (
+                  {filteredLinks.map((link: any, index: number) => (
                     <Link
-                      key={String(link.href)}
-                      href={String(link.href)}
+                      key={createHrefKey(link.href, index)}
+                      href={sanitizeHref(link.href)}
                       className="text-brand-600 hover:text-brand-800 py-2 px-3"
                       onClick={() => setIsOpen(false)}
                     >

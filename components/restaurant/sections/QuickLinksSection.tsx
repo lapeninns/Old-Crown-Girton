@@ -2,6 +2,7 @@
 import Link from '@/lib/debugLink';
 import { motion, useReducedMotion } from 'framer-motion';
 import { variants as mv } from '@/lib/motion/variants';
+import { sanitizeHref, createHrefKey, isValidHref, logHrefIssue } from '@/utils/href';
 
 /**
  * Props interface for QuickLinksSection component
@@ -66,7 +67,7 @@ export default function QuickLinksSection({ links, className = '' }: QuickLinksS
                 </p>
                 <Link
                   key={index}
-                  href={String(link.link)}
+                  href={sanitizeHref(link.link)}
                   className="text-foreground-strong font-semibold hover:underline inline-block"
                   aria-label={`${link.title}: ${link.linkText}`}
                 >

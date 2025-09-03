@@ -76,7 +76,7 @@ export default function DebugLink({ href, children, ...props }: DebugLinkProps) 
     if (!href) return '/';
 
     // Anything else (number, boolean, function) => log once and fallback
-    const key = typeof href + ':' + String(href);
+    const key = typeof href + ':' + (typeof href === 'object' ? JSON.stringify(href) : String(href));
     if (!seenBadInputs.has(key)) {
       seenBadInputs.add(key);
       // eslint-disable-next-line no-console

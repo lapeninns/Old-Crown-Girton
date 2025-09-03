@@ -95,7 +95,10 @@ class ServiceWorkerManager {
 
                 // Coerce to safe string fallback
                 try {
-                  const safe = String(resource);
+                  const safe = typeof resource === 'string' ? resource : 
+                              (resource && typeof resource === 'object' && 'href' in resource && typeof resource.href === 'string') 
+                                ? resource.href 
+                                : String(resource);
                   return origFetch(safe, init);
                 } catch (e) {
                   // Fall back to original fetch call to surface the error
