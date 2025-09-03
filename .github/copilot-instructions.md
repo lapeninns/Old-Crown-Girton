@@ -39,6 +39,7 @@ Common pitfalls and rules for edits
 - Keep migration adapters intact (`src/lib/migration/adapter.ts`) when introducing breaking changes — they preserve backwards compatibility with older pages/tests.
 - Avoid editing `app/layout.tsx` scripts that inject pre-hydration behavior unless tests require it; these scripts work around non-hydrated interactions in Playwright tests.
 - Dynamic imports for optional dependencies: Use `import('package' as any)` for packages that may not have TypeScript definitions (e.g., `artillery` in performance tests). This prevents build failures when optional dev dependencies aren't properly typed.
+- Test directory exclusion: The `tests/` directory is excluded from TypeScript compilation via `tsconfig.json` to prevent build failures from test-specific dependencies like `artillery`. Keep test files separate from production code.
 
 Examples (copy/paste friendly)
 - Use menu hook in client component (pattern):
