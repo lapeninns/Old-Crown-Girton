@@ -1,6 +1,6 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 import { Images } from '@/src/lib/images';
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import { BlogHero, BlogFeatured, BlogGrid, BlogCategories } from './_components';

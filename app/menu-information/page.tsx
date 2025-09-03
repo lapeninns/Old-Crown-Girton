@@ -2,7 +2,7 @@ import { getSEOTags, renderSchemaTags } from "@/libs/seo";
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import MenuInfoCollapse from '@/components/menu/MenuInfoCollapse';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 
 export const metadata = getSEOTags({
   title: "Menu Information & Dietary Requirements | Old Crown Girton - Allergens, Dietary Options & Food Safety",

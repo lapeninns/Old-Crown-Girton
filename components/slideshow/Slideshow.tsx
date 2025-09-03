@@ -25,7 +25,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
 
   // Preload next images to avoid visible loading on navigation
   const { loaded, waitFor } = useImagePreloader(
-    slides.map((s) => s.image),
+    slides.map((s) => typeof s.image === 'string' ? s.image : (s.image as any)?.src || ''),
     index,
     { ahead: 2, behind: 1 }
   );
@@ -53,7 +53,8 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   const requestAdvance = async (direction: 1 | -1) => {
     if (transitioningRef.current) return;
     const next = (index + direction + slideCount) % slideCount;
-    const nextSrc = slides[next]?.image;
+    const nextImage = slides[next]?.image;
+    const nextSrc = typeof nextImage === 'string' ? nextImage : (nextImage as any)?.src || '';
     if (nextSrc && !loaded.has(nextSrc)) {
       const status = await waitFor(nextSrc, Math.max(1000, Math.min(6000, interval)));
       if (status === 'error') {

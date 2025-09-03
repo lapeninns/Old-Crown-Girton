@@ -2,6 +2,7 @@
 
 import React from "react";
 import EmojiIcon from "@/components/common/EmojiIcon";
+import Link from '@/lib/debugLink';
 
 type SlideCTAButtonProps = {
   href?: string;
@@ -52,17 +53,32 @@ export function SlideCTAButton({
   
   if (href) {
     const isBookOnline = variant === "book";
+    const isExternal = isBookOnline || href.startsWith('http') || href.startsWith('tel:');
+    
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          className={className}
+          aria-label={finalAriaLabel}
+          onClick={onClick}
+          target={isBookOnline ? "_blank" : undefined}
+          rel={isBookOnline ? "noopener noreferrer" : undefined}
+        >
+          {content}
+        </a>
+      );
+    }
+    
     return (
-      <a
+      <Link
         href={href}
         className={className}
         aria-label={finalAriaLabel}
         onClick={onClick}
-        target={isBookOnline ? "_blank" : undefined}
-        rel={isBookOnline ? "noopener noreferrer" : undefined}
       >
         {content}
-      </a>
+      </Link>
     );
   }
   

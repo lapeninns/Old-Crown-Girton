@@ -1,7 +1,7 @@
 import { getSEOTags, renderSchemaTags } from "@/libs/seo";
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn } from '@/components/animations/MotionWrappers';
-import Link from 'next/link';
+import Link from '@/lib/debugLink';
 
 export const metadata = getSEOTags({
   title: "Terms of Service | Old Crown Girton - Restaurant Booking & Service Conditions",

@@ -2,10 +2,21 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+// Helper function to extract src from image objects or return string as-is
+function extractImageSrc(src: string | any): string {
+  if (typeof src === 'string') return src;
+  if (src && typeof src === 'object' && src.src) return src.src;
+  if (src && typeof src === 'object') {
+    console.warn('[preload] Invalid image source object:', src);
+    return '';
+  }
+  return '';
+}
+
 // Preload next/prev images around the current index.
 // Returns a Set of srcs that have successfully loaded.
 export function useImagePreloader(
-  sources: string[],
+  sources: (string | any)[],
   currentIndex: number,
   options?: { ahead?: number; behind?: number }
 ) {
@@ -27,14 +38,17 @@ export function useImagePreloader(
     const n = sources.length;
     const wanted = new Set<string>();
     // include current
-    wanted.add(sources[currentIndex % n]);
+    const currentSrc = extractImageSrc(sources[currentIndex % n]);
+    if (currentSrc) wanted.add(currentSrc);
     // next ahead
     for (let i = 1; i <= ahead; i++) {
-      wanted.add(sources[(currentIndex + i) % n]);
+      const src = extractImageSrc(sources[(currentIndex + i) % n]);
+      if (src) wanted.add(src);
     }
     // previous behind
     for (let i = 1; i <= behind; i++) {
-      wanted.add(sources[(currentIndex - i + n) % n]);
+      const src = extractImageSrc(sources[(currentIndex - i + n) % n]);
+      if (src) wanted.add(src);
     }
     return Array.from(wanted);
   }, [sources, currentIndex, ahead, behind]);
@@ -116,7 +130,7 @@ export function useImagePreloader(
           markError();
         };
         img.decoding = "async";
-  setLoadingStates((prev) => new Map(prev).set(src, 'loading'));
+        setLoadingStates((prev) => new Map(prev).set(src, 'loading'));
         // Give hint to browser (supported in modern browsers)
         (img as any).fetchPriority = 'low';
         img.src = buildOptimizedUrl(src);
@@ -141,24 +155,25 @@ export function useImagePreloader(
     // We won't revoke anything here; browser cache handles memory.
   }, [windowSources, loaded, failed]);
 
-  const waitFor = (src: string, timeoutMs = 5000): Promise<'loaded' | 'error' | 'timeout'> => {
-    if (!src) return Promise.resolve('error');
-    if (loaded.has(src)) return Promise.resolve('loaded');
-    if (failed.has(src)) return Promise.resolve('error');
+  const waitFor = (src: string | any, timeoutMs = 5000): Promise<'loaded' | 'error' | 'timeout'> => {
+    const normalizedSrc = extractImageSrc(src);
+    if (!normalizedSrc) return Promise.resolve('error');
+    if (loaded.has(normalizedSrc)) return Promise.resolve('loaded');
+    if (failed.has(normalizedSrc)) return Promise.resolve('error');
 
     return new Promise((resolve) => {
       const timer = setTimeout(() => {
         // Give up waiting; do not clear listeners so it can still resolve later for others
         resolve('timeout');
       }, timeoutMs);
-      const arr = listenersRef.current.get(src) || [];
+      const arr = listenersRef.current.get(normalizedSrc) || [];
       arr.push((status) => {
         clearTimeout(timer);
-        if (status === 'loaded') setLoadingStates((prev) => new Map(prev).set(src, 'loaded'));
-        if (status === 'error') setLoadingStates((prev) => new Map(prev).set(src, 'error'));
+        if (status === 'loaded') setLoadingStates((prev) => new Map(prev).set(normalizedSrc, 'loaded'));
+        if (status === 'error') setLoadingStates((prev) => new Map(prev).set(normalizedSrc, 'error'));
         resolve(status);
       });
-      listenersRef.current.set(src, arr);
+      listenersRef.current.set(normalizedSrc, arr);
     });
   };
 
