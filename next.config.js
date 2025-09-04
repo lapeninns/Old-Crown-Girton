@@ -30,19 +30,19 @@ const nextConfig = {
       config.optimization.splitChunks = {
         chunks: 'all',
         cacheGroups: {
-          // Framework code (React, Next.js)
+          // Framework code (React, Next.js) - higher priority
           framework: {
             name: 'framework',
             test: /[\/]node_modules[\/](react|react-dom|next)[\/]/,
-            priority: 40,
+            priority: 50,
             enforce: true,
             reuseExistingChunk: true,
           },
-          // Heavy animation libraries
+          // Heavy animation libraries - separate chunk
           animations: {
             name: 'animations',
             test: /[\/]node_modules[\/](framer-motion|react-spring|lottie-react)[\/]/,
-            priority: 35,
+            priority: 45,
             enforce: true,
             reuseExistingChunk: true,
           },
@@ -50,7 +50,7 @@ const nextConfig = {
           ui: {
             name: 'ui-libs',
             test: /[\/]node_modules[\/](@headlessui|lucide-react|react-hot-toast)[\/]/,
-            priority: 30,
+            priority: 40,
             enforce: true,
             reuseExistingChunk: true,
           },
@@ -58,7 +58,24 @@ const nextConfig = {
           libs: {
             name: 'libs',
             test: /[\/]node_modules[\/](axios|form-data|zod)[\/]/,
-            priority: 25,
+            priority: 35,
+            enforce: true,
+            reuseExistingChunk: true,
+          },
+          // Restaurant-specific components (large chunks identified)
+          restaurant: {
+            name: 'restaurant',
+            test: /[\/]components[\/]restaurant[\/]/,
+            priority: 30,
+            minChunks: 2,
+            enforce: true,
+            reuseExistingChunk: true,
+          },
+          // Slideshow components (189KB chunk identified)
+          slideshow: {
+            name: 'slideshow', 
+            test: /[\/]components[\/]slideshow[\/]/,
+            priority: 28,
             enforce: true,
             reuseExistingChunk: true,
           },
@@ -67,22 +84,22 @@ const nextConfig = {
             name: 'common',
             minChunks: 2,
             chunks: 'all',
-            priority: 20,
+            priority: 25,
             enforce: true,
             reuseExistingChunk: true,
           },
           // Default group for other vendors
           default: {
             minChunks: 1,
-            priority: 10,
+            priority: 20,
             reuseExistingChunk: true,
           },
         },
-        // Optimize chunk size limits
-        maxInitialRequests: 4,    // Reduced from default 5
-        maxAsyncRequests: 8,      // Increased for better splitting
-        minSize: 20000,           // 20KB minimum chunk size
-        maxSize: 100000,          // 100KB maximum chunk size
+        // Optimize chunk size limits for mobile
+        maxInitialRequests: 3,    // Reduced for mobile performance
+        maxAsyncRequests: 6,      // Reduced for mobile
+        minSize: 15000,           // 15KB minimum chunk size (reduced for mobile)
+        maxSize: 80000,           // 80KB maximum chunk size (reduced for mobile)
       };
 
       // Tree shaking optimization
@@ -101,7 +118,7 @@ const nextConfig = {
     return config;
   },
 
-  // Image optimization
+  // Image optimization with mobile-first approach
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -114,11 +131,15 @@ const nextConfig = {
         hostname: 'd1wkquwg5s1b04.cloudfront.net',
       },
     ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Mobile-optimized device sizes - smaller sizes first for mobile-first loading
+    deviceSizes: [480, 640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Mobile performance optimizations
+    loader: 'default',
+    unoptimized: false,
   },
 
   // Compression and caching

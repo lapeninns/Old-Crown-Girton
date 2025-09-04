@@ -9,9 +9,31 @@ import SlideshowDebugger from './SlideshowDebugger';
 
 const TRANSITION_MS = 400;
 
+// Mobile performance optimization - detect device capabilities
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    || window.innerWidth < 768;
+};
+
+// Network-aware configuration
+const getOptimalConfig = () => {
+  const isMobile = isMobileDevice();
+  const connection = (navigator as any)?.connection;
+  const isSlowNetwork = connection?.effectiveType && ['slow-2g', '2g', '3g'].includes(connection.effectiveType);
+  
+  return {
+    preloadCount: isMobile || isSlowNetwork ? 1 : 2, // Reduce preloading on mobile/slow networks
+    autoplayInterval: isMobile ? 6000 : 5000, // Slower autoplay on mobile to reduce resource usage
+    enableTouchOptimization: isMobile,
+    reduceAnimations: isSlowNetwork || (connection?.saveData)
+  };
+};
+
 const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolean }> = ({ slides = defaultSlides, interval = 5000, autoplay = true }) => {
   const slideCount = slides.length;
   const prefersReduced = useReducedMotion();
+  const config = getOptimalConfig();
   const [index, setIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [showPrev, setShowPrev] = useState(false);
@@ -21,13 +43,14 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   const mouseStartX = useRef<number | null>(null);
   const mouseEndX = useRef<number | null>(null);
   const isDragging = useRef(false);
-  const minSwipeDistance = 50;
+  const minSwipeDistance = config.enableTouchOptimization ? 30 : 50; // Smaller threshold for mobile
+  const actualInterval = config.autoplayInterval || interval;
 
-  // Preload next images to avoid visible loading on navigation
+  // Mobile-optimized preloader - reduced preload count for performance
   const { loaded, waitFor } = useImagePreloader(
     slides.map((s) => typeof s.image === 'string' ? s.image : (s.image as any)?.src || ''),
     index,
-    { ahead: 2, behind: 1 }
+    { ahead: config.preloadCount, behind: config.preloadCount > 1 ? 1 : 0 }
   );
 
   // Request an advance with crossfade; waits until the target image is decoded
@@ -64,19 +87,25 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
     startTransitionTo(next);
   };
 
-  // Autoplay that waits for the next image to be ready
+  // Mobile-optimized autoplay with network awareness
   useEffect(() => {
     if (!autoplay || slideCount <= 1) return;
+    
+    // Skip autoplay on very slow networks to save bandwidth
+    if (config.reduceAnimations) {
+      return;
+    }
+    
     let cancelled = false;
     const timer = setTimeout(async () => {
       if (cancelled) return;
       await requestAdvance(1);
-    }, interval);
+    }, actualInterval);
     return () => {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [autoplay, interval, slideCount, index, loaded]);
+  }, [autoplay, actualInterval, slideCount, index, loaded, config.reduceAnimations]);
 
   if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
 

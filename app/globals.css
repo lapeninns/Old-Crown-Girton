@@ -285,42 +285,102 @@ progress::-webkit-progress-value {
 }
 
 @layer base {
+  /* Mobile-first performance optimizations */
+  html {
+    font-family: var(--font-inter), Inter, sans-serif;
+    /* Improve text rendering on mobile */
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+  }
+  
+  /* Mobile-specific scroll optimizations */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Reduce animations on slow devices */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* Battery optimization - reduce animations on low battery */
+  @media (prefers-reduced-motion: no-preference) {
+    html:not([data-force-motion]) * {
+      animation-duration: 0.2s;
+      transition-duration: 0.2s;
+    }
+  }
+  
   .btn-gradient {
     @apply !bg-gradient !bg-[length:300%_300%] hover:saturate-[1.2] shadow duration-100 !border-0 !border-transparent !bg-transparent animate-shimmer disabled:!bg-none disabled:!bg-gray-500/30  !text-white;
   }
   .btn {
     @apply !capitalize;
-    /* Consistent hover effect across DaisyUI buttons; motion-safe gated */
-    @apply transition-transform duration-200 ease-out will-change-transform;
+    /* Mobile-optimized button interactions */
+    @apply transition-transform duration-150 ease-out will-change-transform;
+    /* Increase touch target size for mobile */
+    min-height: 44px;
+    min-width: 44px;
   }
 
   /* Mobile-first: keep subtle hover lift on non-touch, respect reduced motion */
   @media (hover: hover) and (pointer: fine) {
     @media (prefers-reduced-motion: no-preference) {
       .btn:not(:disabled):not(.btn-disabled):hover {
-        transform: translateY(-2px) scale(1.02);
+        transform: translateY(-1px) scale(1.01); /* Reduced for mobile performance */
       }
       .btn:not(:disabled):not(.btn-disabled):active {
-        transform: translateY(0) scale(0.98);
+        transform: translateY(0) scale(0.99);
       }
     }
   }
   
-  /* Font face declarations */
-  html {
-    font-family: var(--font-inter), Inter, sans-serif;
+  /* Mobile-specific touch optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    .btn:not(:disabled):not(.btn-disabled):active {
+      transform: scale(0.97);
+      transition-duration: 0.1s;
+    }
   }
   
+  /* Font face declarations */
   .font-display {
     font-family: var(--font-playfair), 'Playfair Display', serif;
+    /* Optimize font rendering for mobile */
+    font-display: swap;
   }
 
-  /* Accessible form defaults */
-  input, select, textarea { min-height: 44px; padding: 12px; font-size: max(16px, 1rem); }
-  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  /* Accessible form defaults with mobile optimization */
+  input, select, textarea { 
+    min-height: 44px; 
+    padding: 12px; 
+    font-size: max(16px, 1rem); /* Prevent zoom on iOS */
+    border-radius: 8px; /* Better touch targets */
+  }
+  .form-group { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.5rem; 
+  }
   @media (min-width: 768px) {
-    .form-row { display: flex; flex-direction: row; align-items: center; gap: 1rem; }
-    .form-label { flex: 0 0 120px; }
+    .form-row { 
+      display: flex; 
+      flex-direction: row; 
+      align-items: center; 
+      gap: 1rem; 
+    }
+    .form-label { 
+      flex: 0 0 120px; 
+    }
   }
 
   /* Blog-specific styles */

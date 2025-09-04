@@ -1,12 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import dynamic from 'next/dynamic';
 import bookingData from "@/config/restaurant.json"; // contains phone
 import { useParsedData } from "@/hooks/useParsedData";
 import { MarketingDataSchema, MarketingDataParsed } from "@/lib/schemas";
 import config from "@/config";
 import { usePathname } from "next/navigation";
+
+// Dynamic motion import to reduce bundle size
+const DynamicMotion = dynamic(() => import('@/lib/motion/DynamicMotion'), {
+  ssr: false,
+  loading: () => <div className="contents" /> // Invisible wrapper while loading
+});
 
 // Utility to sanitize phone number for tel: links
 const formatTelHref = (raw?: string) =>
@@ -107,7 +113,9 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 				
 				{/* Show only the currently active button in rotation */}
 				<div className={`relative pointer-events-auto flex flex-col items-end gap-4`}>
-					<AnimatePresence mode="wait">
+					<DynamicMotion>
+						{({ motion, AnimatePresence }) => (
+							<AnimatePresence mode="wait">
 						{currentButtonIndex === 0 && (
 							<motion.div
 								key="directions"
@@ -242,7 +250,9 @@ export default function StickyCallButton({ phone }: StickyCallButtonProps) {
 								</a>
 							</motion.div>
 						)}
-					</AnimatePresence>
+							</AnimatePresence>
+						)}
+					</DynamicMotion>
 					
 					{/* Tooltip removed as requested */}
 				</div>

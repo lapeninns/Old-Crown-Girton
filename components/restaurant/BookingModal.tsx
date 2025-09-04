@@ -2,10 +2,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { v } from '@/components/variants';
 import { useContent } from '@/hooks/useContent';
 import Button from './Button';
 import { accessibility } from '@/lib/motion/accessibility';
+import { variants } from '@/lib/motion/variants';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -71,17 +71,20 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         >
           {/* Backdrop */}
           <motion.div
-            {...v.fade}
+            variants={variants.fadeIn}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             className="absolute inset-0 bg-stout-900/70 backdrop-blur-sm"
             onClick={onClose}
           />
           
           {/* Modal */}
           <motion.div
-            variants={v.scaleIn}
-            initial="initial"
-            animate="animate"
-            exit="exit"
+            variants={variants.scaleIn}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             className="relative bg-neutral-50 rounded-2xl shadow-2xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto"
           >
             {/* Header */}

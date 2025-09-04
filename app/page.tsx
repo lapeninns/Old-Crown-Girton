@@ -4,9 +4,26 @@ import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-// Simple dynamic import for client-side content with no loading fallback
+// Optimized dynamic import with proper loading and mobile-first approach
 const ClientHomeContent = dynamic(() => import('@/components/ClientHomeContent'), {
-  ssr: false
+  ssr: false,
+  loading: () => (
+    <div className="min-h-screen bg-neutral-50">
+      {/* Mobile-optimized loading skeleton */}
+      <div className="animate-pulse">
+        {/* Header skeleton */}
+        <div className="h-16 bg-neutral-200"></div>
+        {/* Hero skeleton */}
+        <div className="h-64 sm:h-96 bg-gradient-to-r from-neutral-200 to-neutral-300"></div>
+        {/* Content skeleton */}
+        <div className="p-4 space-y-4">
+          <div className="h-8 bg-neutral-200 rounded w-3/4"></div>
+          <div className="h-4 bg-neutral-200 rounded"></div>
+          <div className="h-4 bg-neutral-200 rounded w-5/6"></div>
+        </div>
+      </div>
+    </div>
+  )
 });
 
 function HomePageContent({ 
