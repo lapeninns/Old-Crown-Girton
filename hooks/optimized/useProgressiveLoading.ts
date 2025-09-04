@@ -68,7 +68,7 @@ export function useProgressiveLoading<T>(
   }, []);
 
   // Safe setState wrapper - only update if still mounted
-  const safeSetState = useCallback((updater: (prev: ProgressiveLoadingState) => ProgressiveLoadingState | ProgressiveLoadingState) => {
+  const safeSetState = useCallback((updater: (prev: ProgressiveLoadingState) => ProgressiveLoadingState) => {
     if (mounted.current) {
       setState(updater);
     }
