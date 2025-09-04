@@ -68,20 +68,12 @@ module.exports = {
           700: 'var(--color-accent-700)',
           800: 'var(--color-accent-800)',
           900: 'var(--color-accent-900)',
-          950: 'var(--color-accent-950)',
         },
         secondary: {
-          50: 'var(--color-secondary-50)',
-          100: 'var(--color-secondary-100)',
-          200: 'var(--color-secondary-200)',
           300: 'var(--color-secondary-300)',
-          400: 'var(--color-secondary-400)',
           500: 'var(--color-secondary-500)', // Peacock Teal anchor
           600: 'var(--color-secondary-600)',
           700: 'var(--color-secondary-700)',
-          800: 'var(--color-secondary-800)',
-          900: 'var(--color-secondary-900)',
-          950: 'var(--color-secondary-950)',
         },
         crimson: {
           50: 'var(--color-crimson-50)',
@@ -93,22 +85,8 @@ module.exports = {
           600: 'var(--color-crimson-600)',
           700: 'var(--color-crimson-700)',
           800: 'var(--color-crimson-800)',
-          900: 'var(--color-crimson-900)',
-          950: 'var(--color-crimson-950)',
         },
-        chakra: {
-          50: 'var(--color-chakra-50)',
-          100: 'var(--color-chakra-100)',
-          200: 'var(--color-chakra-200)',
-          300: 'var(--color-chakra-300)',
-          400: 'var(--color-chakra-400)',
-          500: 'var(--color-chakra-500)', // Chakra Navy anchor
-          600: 'var(--color-chakra-600)',
-          700: 'var(--color-chakra-700)',
-          800: 'var(--color-chakra-800)',
-          900: 'var(--color-chakra-900)',
-          950: 'var(--color-chakra-950)',
-        },
+
         indiagreen: {
           50: 'var(--color-indiagreen-50)',
           100: 'var(--color-indiagreen-100)',
@@ -135,45 +113,9 @@ module.exports = {
           900: 'var(--color-marigold-900)',
           950: 'var(--color-marigold-950)',
         },
-        masala: {
-          50: 'var(--color-masala-50)',
-          100: 'var(--color-masala-100)',
-          200: 'var(--color-masala-200)',
-          300: 'var(--color-masala-300)',
-          400: 'var(--color-masala-400)',
-          500: 'var(--color-masala-500)', // Masala anchor
-          600: 'var(--color-masala-600)',
-          700: 'var(--color-masala-700)',
-          800: 'var(--color-masala-800)',
-          900: 'var(--color-masala-900)',
-          950: 'var(--color-masala-950)',
-        },
-        brass: {
-          50: 'var(--color-brass-50)',
-          100: 'var(--color-brass-100)',
-          200: 'var(--color-brass-200)',
-          300: 'var(--color-brass-300)',
-          400: 'var(--color-brass-400)',
-          500: 'var(--color-brass-500)', // Brass anchor
-          600: 'var(--color-brass-600)',
-          700: 'var(--color-brass-700)',
-          800: 'var(--color-brass-800)',
-          900: 'var(--color-brass-900)',
-          950: 'var(--color-brass-950)',
-        },
-        amberbeer: {
-          50: 'var(--color-amberbeer-50)',
-          100: 'var(--color-amberbeer-100)',
-          200: 'var(--color-amberbeer-200)',
-          300: 'var(--color-amberbeer-300)',
-          400: 'var(--color-amberbeer-400)',
-          500: 'var(--color-amberbeer-500)', // Amber Beer anchor
-          600: 'var(--color-amberbeer-600)',
-          700: 'var(--color-amberbeer-700)',
-          800: 'var(--color-amberbeer-800)',
-          900: 'var(--color-amberbeer-900)',
-          950: 'var(--color-amberbeer-950)',
-        },
+
+
+
         stout: {
           50: 'var(--color-stout-50)',
           100: 'var(--color-stout-100)',

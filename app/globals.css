@@ -139,17 +139,16 @@ body {
   --color-brand-50:#fdf6f5; --color-brand-100:#fbebe9; --color-brand-200:#f6d8d3; --color-brand-300:#f0c5bd; --color-brand-400:#e3a296; --color-brand-500:#B86B5E; --color-brand-600:#a65f53; --color-brand-700:#8c4f45; --color-brand-800:#724038; --color-brand-900:#5f352e; --color-brand-950:#321a17;
 
   /* Saffron */
-  --color-accent-50:#fffcf2; --color-accent-100:#fef8e0; --color-accent-200:#fcf0c2; --color-accent-300:#fae8a3; --color-accent-400:#f7d86a; --color-accent-500:#F4C430; --color-accent-600:#d8ac2a; --color-accent-700:#b08d22; --color-accent-800:#91721c; --color-accent-900:#7a6218; --color-accent-950:#43350c;
+  --color-accent-50:#fffcf2; --color-accent-100:#fef8e0; --color-accent-200:#fcf0c2; --color-accent-300:#fae8a3; --color-accent-400:#f7d86a; --color-accent-500:#F4C430; --color-accent-600:#d8ac2a; --color-accent-700:#b08d22; --color-accent-800:#91721c; --color-accent-900:#7a6218;
 
   /* Peacock Teal */
-  --color-secondary-50:#f0fafa; --color-secondary-100:#e0f2f2; --color-secondary-200:#b3dfdf; --color-secondary-300:#80cbcb; --color-secondary-400:#4db6ac; --color-secondary-500:#008080; --color-secondary-600:#006666; --color-secondary-700:#004d4d; --color-secondary-800:#003333; --color-secondary-900:#002626; --color-secondary-950:#001a1a;
+  --color-secondary-300:#80cbcb; --color-secondary-500:#008080; --color-secondary-600:#006666; --color-secondary-700:#004d4d;
 
   /* === Heritage Colors (flag-inspired, culturally resonant) === */
   /* Himalayan Crimson (Nepal flag crimson) */
-  --color-crimson-50:#fff5f7; --color-crimson-100:#ffe4e8; --color-crimson-200:#feb7c2; --color-crimson-300:#fd8a9b; --color-crimson-400:#f45c74; --color-crimson-500:#DC143C; --color-crimson-600:#b90f31; --color-crimson-700:#980c28; --color-crimson-800:#780a20; --color-crimson-900:#5f0819; --color-crimson-950:#33040d;
+  --color-crimson-50:#fff5f7; --color-crimson-100:#ffe4e8; --color-crimson-200:#feb7c2; --color-crimson-300:#fd8a9b; --color-crimson-400:#f45c74; --color-crimson-500:#DC143C; --color-crimson-600:#b90f31; --color-crimson-700:#980c28; --color-crimson-800:#780a20;
 
-  /* Chakra Navy (Ashoka Chakra navy) */
-  --color-chakra-50:#eaebf8; --color-chakra-100:#c3c6ec; --color-chakra-200:#8a90d9; --color-chakra-300:#565cc0; --color-chakra-400:#2a2ba6; --color-chakra-500:#06038D; --color-chakra-600:#04026f; --color-chakra-700:#030258; --color-chakra-800:#020241; --color-chakra-900:#01012d; --color-chakra-950:#000116;
+
 
   /* India Green (flag green) */
   --color-indiagreen-50:#edf7f1; --color-indiagreen-100:#d7efe1; --color-indiagreen-200:#a9dec3; --color-indiagreen-300:#7ecea6; --color-indiagreen-400:#43b57c; --color-indiagreen-500:#046A38; --color-indiagreen-600:#035c31; --color-indiagreen-700:#024a27; --color-indiagreen-800:#01381d; --color-indiagreen-900:#022e17; --color-indiagreen-950:#011b0e;
@@ -158,14 +157,11 @@ body {
   /* Marigold Deep (flower garlands, decor) */
   --color-marigold-50:#fff8e6; --color-marigold-100:#ffefc2; --color-marigold-200:#ffe18a; --color-marigold-300:#ffd24d; --color-marigold-400:#ffc21a; --color-marigold-500:#FFB000; --color-marigold-600:#db9300; --color-marigold-700:#b77700; --color-marigold-800:#935c00; --color-marigold-900:#784a00; --color-marigold-950:#3f2700;
 
-  /* Masala (warm spice brown) */
-  --color-masala-50:#faf5f2; --color-masala-100:#f1e3da; --color-masala-200:#ddc1ae; --color-masala-300:#c89e84; --color-masala-400:#a9725a; --color-masala-500:#6B3E26; --color-masala-600:#5c3521; --color-masala-700:#4a2a1a; --color-masala-800:#3a2115; --color-masala-900:#2e1a11; --color-masala-950:#1a0f0a;
 
-  /* Brass / Old Gold (hardware, typography, pub accents) */
-  --color-brass-50:#fffbeb; --color-brass-100:#fef3c7; --color-brass-200:#fde68a; --color-brass-300:#fcd34d; --color-brass-400:#fbbf24; --color-brass-500:#B8860B; --color-brass-600:#996f09; --color-brass-700:#7a5907; --color-brass-800:#5c4305; --color-brass-900:#453404; --color-brass-950:#231a02;
 
-  /* Beer Amber (lager glow) */
-  --color-amberbeer-50:#fff7eb; --color-amberbeer-100:#feecc7; --color-amberbeer-200:#fdd48a; --color-amberbeer-300:#fcb64d; --color-amberbeer-400:#f39b1a; --color-amberbeer-500:#D19000; --color-amberbeer-600:#b57800; --color-amberbeer-700:#955f00; --color-amberbeer-800:#764a00; --color-amberbeer-900:#5d3b00; --color-amberbeer-950:#2f1e00;
+
+
+
 
   /* Stout (dark, pub wood + porter) */
   --color-stout-50:#f6f4f2; --color-stout-100:#eae4de; --color-stout-200:#cdbfb6; --color-stout-300:#b09a8f; --color-stout-400:#8f7468; --color-stout-500:#4c3a2d; --color-stout-600:#3f3126; --color-stout-700:#33281f; --color-stout-800:#271f19; --color-stout-900:#1f1914; --color-stout-950:#120f0c;
@@ -195,7 +191,7 @@ body {
   --color-text-inverse: var(--color-neutral-100);
   --color-text-brand: var(--color-brand-700);
   --color-text-accent: var(--color-accent-700);
-  --color-text-heritage: var(--color-chakra-400);
+  --color-text-heritage: var(--color-crimson-600);
   --color-text-error: var(--color-error-700);
 
   /* On-color helpers for buttons/badges */
@@ -207,7 +203,7 @@ body {
   --color-border-default: var(--color-neutral-300);
   --color-border-emphasis: var(--color-neutral-400);
   --color-border-brand: var(--color-brand-300);
-  --color-border-heritage: var(--color-chakra-400);
+  --color-border-heritage: var(--color-crimson-400);
   --color-border-error: var(--color-error-500);
 
   --shadow-subtle: 0 1px 2px 0 var(--overlay-10);
@@ -216,12 +212,12 @@ body {
   --shadow-large: 0 10px 15px -3px var(--overlay-20), 0 4px 6px -4px var(--overlay-20);
   --shadow-brand: 0 6px 18px 0 color-mix(in srgb, var(--color-brand-500) 28%, transparent);
   --shadow-accent: 0 6px 18px 0 color-mix(in srgb, var(--color-accent-500) 28%, transparent);
-  --shadow-heritage: 0 6px 18px 0 color-mix(in srgb, var(--color-chakra-500) 28%, transparent);
+  --shadow-heritage: 0 6px 18px 0 color-mix(in srgb, var(--color-crimson-500) 28%, transparent);
 
   /* === Gradients for signage & CTAs === */
   --grad-saffron-brand: linear-gradient(135deg, var(--color-accent-400), var(--color-brand-500));
-  --grad-heritage: linear-gradient(135deg, var(--color-crimson-500), var(--color-chakra-500));
-  --grad-beer: linear-gradient(135deg, var(--color-amberbeer-400), var(--color-amberbeer-600));
+  --grad-heritage: linear-gradient(135deg, var(--color-crimson-500), var(--color-indiagreen-500));
+
 
   /* === Overlays === */
   --overlay-10: rgb(0 0 0 / 0.10);
@@ -271,7 +267,7 @@ html.dark {
   --color-text-inverse: var(--color-stout-900);
   --color-text-brand: var(--color-brand-200);
   --color-text-accent: var(--color-accent-200);
-  --color-text-heritage: var(--color-chakra-200);
+  --color-text-heritage: var(--color-crimson-200);
 
   --color-border-subtle: var(--color-stout-700);
   --color-border-default: var(--color-stout-600);

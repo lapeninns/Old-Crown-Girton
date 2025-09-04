@@ -4,8 +4,8 @@
  * Structure supports semantic tokens, grouped palettes, and light/dark themes.
  * 
  * Brand Colors: Terracotta (#B86B5E), Saffron (#F4C430), Peacock Teal (#008080)
- * Heritage Colors: Nepal Crimson (#DC143C), Chakra Navy (#06038D), India Green (#046A38)
- * Spice & Tavern: Marigold (#FFB000), Masala (#6B3E26), Brass (#B8860B), Amber Beer (#D19000), Stout (#4C3A2D), Cardamom (#7A8F49)
+ * Heritage Colors: Nepal Crimson (#DC143C), India Green (#046A38)
+ * Spice & Tavern: Marigold (#FFB000), Stout (#4C3A2D), Cardamom (#7A8F49)
  * Neutrals: Cream base (#F5F0E6), Dark base (#2B251F)
  */
 const base = {
@@ -39,17 +39,10 @@ const base = {
   },
 
   secondary: {
-    50: '#F0FFFE',
-    100: '#CCFFFE',
-    200: '#9AFFFE',
     300: '#5CFFFE',
-    400: '#22F5FA',
     500: '#008080', // Peacock Teal anchor
     600: '#006666',
     700: '#005252',
-    800: '#004242',
-    900: '#003737',
-    950: '#001D1D',
   },
 
   // Heritage Colors
@@ -63,23 +56,9 @@ const base = {
     600: '#C41E3A',
     700: '#A61E3A',
     800: '#881C37',
-    900: '#721C35',
-    950: '#3E0A19',
   },
 
-  chakra: {
-    50: '#EEF2FF',
-    100: '#E0E7FF',
-    200: '#C7D2FE',
-    300: '#A5B4FC',
-    400: '#818CF8',
-    500: '#06038D', // Chakra Navy anchor
-    600: '#5145CD',
-    700: '#4338CA',
-    800: '#3730A3',
-    900: '#312E81',
-    950: '#1E1B4B',
-  },
+
 
   indiagreen: {
     50: '#F0FDF4',
@@ -110,47 +89,11 @@ const base = {
     950: '#451A03',
   },
 
-  masala: {
-    50: '#FAF8F5',
-    100: '#F4F0E8',
-    200: '#E8DDD0',
-    300: '#D6C2A7',
-    400: '#C19E7A',
-    500: '#6B3E26', // Masala anchor
-    600: '#8B5A3C',
-    700: '#744831',
-    800: '#613C2A',
-    900: '#553427',
-    950: '#2E1B13',
-  },
 
-  brass: {
-    50: '#FEFCE8',
-    100: '#FEF9C3',
-    200: '#FEF08A',
-    300: '#FDE047',
-    400: '#FACC15',
-    500: '#B8860B', // Brass anchor
-    600: '#CA8A04',
-    700: '#A16207',
-    800: '#854D0E',
-    900: '#713F12',
-    950: '#422006',
-  },
 
-  amberbeer: {
-    50: '#FFFBEB',
-    100: '#FEF3C7',
-    200: '#FDE68A',
-    300: '#FCD34D',
-    400: '#FBBF24',
-    500: '#D19000', // Amber Beer anchor
-    600: '#D97706',
-    700: '#B45309',
-    800: '#92400E',
-    900: '#78350F',
-    950: '#451A03',
-  },
+
+
+
 
   stout: {
     50: '#F8F7F4',
@@ -232,24 +175,24 @@ const themes = {
   dark: {
     name: 'dark',
     colors: {
-      // Night Mode: Stout/charcoal surfaces, brass/marigold accents
+      // Night Mode: Stout/charcoal surfaces, marigold accents
       background: base.stout[900], // Dark stout for night pub mode
       surface: base.stout[800],
       text: base.neutral[50], // Light cream text
-      textMuted: base.brass[400], // Brass muted text
+      textMuted: base.neutral[400], // Neutral muted text
       border: base.stout[700],
 
       // Brand semantic - Night mode (Pub)
-      primary: base.brass[400], // Brass typography on dark
+      primary: base.accent[400], // Accent typography on dark
       primaryAccent: base.marigold[500], // Marigold accents
-      secondary: base.chakra[400], // Chakra navy for links
+      secondary: base.crimson[400], // Crimson for links
       accent: base.crimson[400], // Lighter crimson for night
 
       // States (night-adjusted)
       success: '#4ade80',
-      warning: base.amberbeer[400], // Amber beer for warnings
+      warning: base.marigold[400], // Marigold for warnings
       error: base.crimson[400],
-      info: base.chakra[400],
+      info: base.secondary[400],
     },
   },
 };
@@ -266,8 +209,8 @@ function cssVariablesForTheme(themeName = 'light') {
   
   // Add all color families with full 50-950 scales
   const colorFamilies = [
-    'brand', 'accent', 'secondary', 'crimson', 'chakra', 'indiagreen',
-    'marigold', 'masala', 'brass', 'amberbeer', 'stout', 'cardamom', 'neutral'
+    'brand', 'accent', 'secondary', 'crimson', 'indiagreen',
+    'marigold', 'stout', 'cardamom', 'neutral'
   ];
   
   colorFamilies.forEach(family => {
@@ -278,8 +221,7 @@ function cssVariablesForTheme(themeName = 'light') {
   
   // Add gradient tokens
   lines.push(`--grad-saffron-brand: linear-gradient(135deg, var(--color-accent-300), var(--color-brand-600));`);
-  lines.push(`--grad-heritage: linear-gradient(135deg, var(--color-crimson-500), var(--color-chakra-500));`);
-  lines.push(`--grad-beer: linear-gradient(135deg, var(--color-amberbeer-400), var(--color-stout-600));`);
+  lines.push(`--grad-heritage: linear-gradient(135deg, var(--color-crimson-500), var(--color-indiagreen-500));`);
   
   return lines.join('\n');
 }
