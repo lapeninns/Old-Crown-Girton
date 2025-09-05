@@ -31,13 +31,13 @@ export function ProgressiveHomePage() {
         <CriticalComponent 
           componentId="header"
           priority="high"
-          placeholder={<HeaderSkeleton />}
+          placeholder={<div className="h-16 bg-gray-200 animate-pulse" />}
         />
         
         <CriticalComponent 
           componentId="hero"
           priority="high"
-          placeholder={<HeroSkeleton />}
+          placeholder={<div className="h-96 bg-gray-200 animate-pulse" />}
         />
 
         {/* Adaptive image with device-optimized loading */}
@@ -48,14 +48,14 @@ export function ProgressiveHomePage() {
           height={1080}
           priority="high"
           className="w-full h-96 object-cover"
-          placeholder={<ImageSkeleton />}
+          placeholder={<div className="w-full h-96 bg-gray-200 animate-pulse" />}
         />
 
         {/* Important content - loads based on device capabilities */}
         <LazyComponent 
           componentId="menu-interactive"
           priority="normal"
-          placeholder={<MenuSkeleton />}
+          placeholder={<div className="h-64 bg-gray-200 animate-pulse" />}
         />
 
         {/* Secondary content - deferred on low-end devices */}
@@ -63,14 +63,14 @@ export function ProgressiveHomePage() {
           componentId="testimonials"
           priority="normal"
           defer={false}
-          placeholder={<TestimonialsSkeleton />}
+          placeholder={<div className="h-48 bg-gray-200 animate-pulse" />}
         />
 
         {/* Marketing content - loads in background on capable devices */}
         <LazyComponent 
           componentId="features"
           priority="low"
-          placeholder={<FeaturesSkeleton />}
+          placeholder={<div className="h-40 bg-gray-200 animate-pulse" />}
         />
 
         {/* Non-essential content - heavily optimized for device tier */}
@@ -78,123 +78,17 @@ export function ProgressiveHomePage() {
           componentId="slideshow"
           priority="low"
           defer={true}
-          placeholder={<SlideshowSkeleton />}
+          placeholder={<div className="h-64 bg-gray-200 animate-pulse" />}
         />
 
         {/* Footer - critical for navigation but can load later */}
         <LazyComponent 
           componentId="footer"
           priority="normal"
-          placeholder={<FooterSkeleton />}
+          placeholder={<div className="h-32 bg-gray-200 animate-pulse" />}
         />
       </div>
     </ProgressiveLoadingProvider>
-  );
-}
-
-/**
- * Skeleton Components for Loading States
- * These provide immediate visual feedback while content loads
- */
-
-function HeaderSkeleton() {
-  return (
-    <div className="animate-pulse bg-gray-200 h-16 w-full flex items-center justify-between px-4">
-      <div className="bg-gray-300 h-8 w-32 rounded"></div>
-      <div className="flex space-x-4">
-        <div className="bg-gray-300 h-6 w-16 rounded"></div>
-        <div className="bg-gray-300 h-6 w-16 rounded"></div>
-        <div className="bg-gray-300 h-6 w-16 rounded"></div>
-      </div>
-    </div>
-  );
-}
-
-function HeroSkeleton() {
-  return (
-    <div className="animate-pulse bg-gray-200 h-96 w-full flex flex-col items-center justify-center space-y-4">
-      <div className="bg-gray-300 h-12 w-64 rounded"></div>
-      <div className="bg-gray-300 h-6 w-96 rounded"></div>
-      <div className="bg-gray-300 h-10 w-32 rounded"></div>
-    </div>
-  );
-}
-
-function ImageSkeleton() {
-  return (
-    <div className="animate-pulse bg-gray-200 w-full h-96 flex items-center justify-center">
-      <div className="text-gray-400">
-        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-function MenuSkeleton() {
-  return (
-    <div className="animate-pulse space-y-4 p-6">
-      <div className="bg-gray-300 h-8 w-48 rounded mb-6"></div>
-      {[...Array(6)].map((_, i) => (
-        <div key={i} className="flex justify-between items-center p-4 border rounded">
-          <div className="flex-1 space-y-2">
-            <div className="bg-gray-300 h-6 w-32 rounded"></div>
-            <div className="bg-gray-300 h-4 w-48 rounded"></div>
-          </div>
-          <div className="bg-gray-300 h-6 w-16 rounded"></div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function TestimonialsSkeleton() {
-  return (
-    <div className="animate-pulse grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
-      {[...Array(3)].map((_, i) => (
-        <div key={i} className="space-y-3">
-          <div className="bg-gray-300 h-4 w-full rounded"></div>
-          <div className="bg-gray-300 h-4 w-5/6 rounded"></div>
-          <div className="bg-gray-300 h-4 w-4/6 rounded"></div>
-          <div className="flex items-center space-x-3 mt-4">
-            <div className="bg-gray-300 h-10 w-10 rounded-full"></div>
-            <div className="bg-gray-300 h-4 w-24 rounded"></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function FeaturesSkeleton() {
-  return (
-    <div className="animate-pulse grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-      {[...Array(6)].map((_, i) => (
-        <div key={i} className="space-y-3">
-          <div className="bg-gray-300 h-12 w-12 rounded"></div>
-          <div className="bg-gray-300 h-6 w-32 rounded"></div>
-          <div className="bg-gray-300 h-4 w-full rounded"></div>
-          <div className="bg-gray-300 h-4 w-5/6 rounded"></div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function SlideshowSkeleton() {
-  return (
-    <div className="animate-pulse bg-gray-200 h-64 w-full flex items-center justify-center">
-      <div className="text-gray-400">Slideshow loading...</div>
-    </div>
-  );
-}
-
-function FooterSkeleton() {
-  return (
-    <div className="animate-pulse bg-gray-200 h-32 w-full flex items-center justify-center">
-      <div className="text-gray-400">Footer loading...</div>
-    </div>
   );
 }
 

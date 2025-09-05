@@ -159,7 +159,7 @@ interface CLSContainerProps {
   dimensions: DimensionReservation;
   className?: string;
   loading?: boolean;
-  skeleton?: React.ReactNode;
+  placeholder?: React.ReactNode;
 }
 
 export function CLSContainer({
@@ -167,7 +167,7 @@ export function CLSContainer({
   dimensions,
   className = '',
   loading = false,
-  skeleton
+  placeholder
 }: CLSContainerProps) {
   const containerStyle: React.CSSProperties = {
     width: dimensions.width,
@@ -179,7 +179,7 @@ export function CLSContainer({
   if (loading) {
     return (
       <div className={`${className}`} style={containerStyle}>
-        {skeleton || <CLSSkeleton dimensions={dimensions} />}
+        {placeholder || <CLSPlaceholder dimensions={dimensions} />}
       </div>
     );
   }
@@ -192,19 +192,19 @@ export function CLSContainer({
 }
 
 /**
- * Generic skeleton component that maintains dimensions
+ * Generic placeholder component that maintains dimensions
  */
-interface CLSSkeletonProps {
+interface CLSPlaceholderProps {
   dimensions: DimensionReservation;
   variant?: 'rectangular' | 'circular' | 'text' | 'card';
   className?: string;
 }
 
-export function CLSSkeleton({
+export function CLSPlaceholder({
   dimensions,
   variant = 'rectangular',
   className = ''
-}: CLSSkeletonProps) {
+}: CLSPlaceholderProps) {
   const baseClasses = 'animate-pulse bg-gray-200';
   
   const variantClasses = {
@@ -452,7 +452,7 @@ export const CLSOptimizedLayouts = {
 export default {
   CLSImage,
   CLSContainer,
-  CLSSkeleton,
+  CLSPlaceholder,
   CLSDebugger,
   useCLSMeasurement,
   useFontOptimization,

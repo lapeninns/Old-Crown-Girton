@@ -49,11 +49,11 @@ const DietaryBadge = memoryMemo<DietaryBadgeProps>(({ type, label, className = '
 });
 
 /**
- * Progressive image skeleton component
+ * Progressive image placeholder component
  */
-const ImageSkeleton = memoryMemo(() => (
+const ImagePlaceholder = memoryMemo(() => (
   <div className="relative h-32 w-full bg-neutral-100 overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-r from-neutral-200 via-neutral-100 to-neutral-200 animate-shimmer bg-[length:200%_100%]" />
+    <div className="absolute inset-0 bg-gradient-to-r from-neutral-200 via-neutral-100 to-neutral-200 animate-pulse bg-[length:200%_100%]" />
     <div className="absolute inset-0 flex items-center justify-center">
       <svg className="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -137,13 +137,13 @@ const NetworkAwareImage = memoryMemo<{
 
   // Don't load images at all on very slow networks
   if (shouldDeferImages && priority === 'low') {
-    return <ImageSkeleton />;
+    return <ImagePlaceholder />;
   }
 
   if (!shouldLoad || hasError) {
     return (
       <div ref={imgRef}>
-        <ImageSkeleton />
+        <ImagePlaceholder />
       </div>
     );
   }
@@ -156,7 +156,7 @@ const NetworkAwareImage = memoryMemo<{
         width={400}
         height={128}
         className="w-full h-32 object-cover rounded-t-lg"
-        fallback={<ImageSkeleton />}
+        fallback={<ImagePlaceholder />}
         quality={isSlowNetwork ? 'low' : 'medium'}
         onError={handleError}
       />
@@ -325,6 +325,6 @@ const OptimizedMenuItemCard = memoryMemo<OptimizedMenuItemProps>(({
 OptimizedMenuItemCard.displayName = 'OptimizedMenuItemCard';
 NetworkAwareImage.displayName = 'NetworkAwareImage';
 DietaryBadge.displayName = 'DietaryBadge';
-ImageSkeleton.displayName = 'ImageSkeleton';
+ImagePlaceholder.displayName = 'ImagePlaceholder';
 
 export default OptimizedMenuItemCard;

@@ -34,7 +34,7 @@ export function withCLSOptimization<T extends object>(
           }
           
           /* Reserve space for loading states */
-          .loading-skeleton {
+          .loading-placeholder {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
@@ -170,10 +170,10 @@ export const CLSUtils = {
   `,
 
   /**
-   * Skeleton loading styles
+   * Loading placeholder styles
    */
-  skeletonCSS: `
-    .skeleton {
+  placeholderCSS: `
+    .loading-placeholder {
       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
       background-size: 200% 100%;
       animation: loading 1.5s infinite;
@@ -289,8 +289,8 @@ export function CLSTestPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                <div className="h-6 bg-gray-200 rounded skeleton"></div>
-                <div className="h-4 bg-gray-200 rounded skeleton w-3/4"></div>
+                <div className="h-6 bg-gray-200 rounded loading-placeholder"></div>
+                <div className="h-4 bg-gray-200 rounded loading-placeholder w-3/4"></div>
               </div>
             )}
           </div>

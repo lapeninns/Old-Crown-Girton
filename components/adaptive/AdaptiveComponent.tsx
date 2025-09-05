@@ -45,7 +45,6 @@ const COMPONENT_REGISTRY: ComponentRegistry = {
   'faq': () => import('../../components/FAQ'),
   
   // Layout components
-  'page-skeleton': () => import('../../components/PageSkeleton'),
   'client-home': () => import('../../components/ClientHomeContent')
 };
 
@@ -94,9 +93,9 @@ class ComponentErrorBoundary extends React.Component<
 }
 
 /**
- * Skeleton placeholder component
+ * Simple loading placeholder component
  */
-function SkeletonPlaceholder({ 
+function LoadingPlaceholder({ 
   className = '',
   height = '200px',
   variant = 'rectangular'
@@ -201,7 +200,7 @@ export function AdaptiveComponent({
 
   // Generate appropriate placeholder
   const defaultPlaceholder = placeholder || (
-    <SkeletonPlaceholder 
+    <LoadingPlaceholder 
       className="w-full"
       height={getPlaceholderHeight(componentId)}
     />

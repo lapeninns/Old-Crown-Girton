@@ -89,7 +89,7 @@ export function CLSOptimizedMenuSection() {
           {isLoaded ? (
             <MenuItems />
           ) : (
-            <MenuItemSkeletons />
+            <MenuItemPlaceholders />
           )}
         </CLSOptimizedLayouts.MenuGrid>
       </div>
@@ -152,9 +152,9 @@ function MenuItems() {
 }
 
 /**
- * Menu item skeletons with exact dimensions
+ * Menu item placeholders with exact dimensions
  */
-function MenuItemSkeletons() {
+function MenuItemPlaceholders() {
   return (
     <>
       {[...Array(6)].map((_, index) => (

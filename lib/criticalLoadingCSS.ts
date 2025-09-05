@@ -1,74 +1,25 @@
 /**
- * Critical CSS for Seamless Loading - Inline these styles in <head>
+ * Critical CSS for Loading States - Inline these styles in <head>
  * Ultra-minimal CSS for instant visual feedback
  */
 
 export const CRITICAL_LOADING_CSS = `
-/* Seamless loading foundation */
-.seamless-layout {
+/* Loading foundation */
+.loading-layout {
   min-height: 100vh;
   background-color: #f8f9fa;
 }
 
-/* Navbar skeleton - exact dimensions */
-.navbar-skeleton {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 64px;
-  background: #ffffff;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-}
-
-/* Hero skeleton - match Showcase dimensions */
-.hero-skeleton {
-  position: relative;
-  min-height: 60vh;
-  padding-top: 64px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
-/* Ultra-smooth skeleton animation with GPU acceleration */
+/* Basic loading animation */
 .animate-pulse {
-  animation: seamless-pulse 1.5s ease-in-out infinite;
+  animation: pulse 1.5s ease-in-out infinite;
   will-change: opacity;
   backface-visibility: hidden;
 }
 
-@keyframes seamless-pulse {
+@keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
-}
-
-@keyframes seamless-shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Enhanced shimmer effect for skeleton elements */
-.animate-shimmer {
-  position: relative;
-  overflow: hidden;
-}
-
-.animate-shimmer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  transform: translateX(-100%);
-  animation: seamless-shimmer 2s ease-in-out infinite;
-  will-change: transform;
 }
 
 /* Prevent layout shifts */
@@ -78,18 +29,18 @@ export const CRITICAL_LOADING_CSS = `
   padding: 0 1rem;
 }
 
-/* Enhanced seamless transitions with better timing */
-.seamless-transition {
+/* Enhanced transitions with better timing */
+.smooth-transition {
   transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity;
 }
 
-.seamless-transition-enter {
+.smooth-transition-enter {
   opacity: 0;
   transform: translateY(8px);
 }
 
-.seamless-transition-enter-active {
+.smooth-transition-enter-active {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 300ms ease-out, transform 300ms ease-out;
@@ -116,18 +67,14 @@ export const CRITICAL_LOADING_CSS = `
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse,
-  .seamless-transition {
+  .smooth-transition {
     animation: none !important;
     transition: none !important;
   }
 }
 
-/* Mobile-first responsive skeleton */
+/* Mobile-first responsive */
 @media (max-width: 768px) {
-  .hero-skeleton {
-    min-height: 50vh;
-  }
-  
   .content-container {
     padding: 0 0.75rem;
   }

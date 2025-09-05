@@ -21,7 +21,7 @@ const StickyCallButtonDynamic = dynamic(() => import('./StickyCallButton'), {
 const BookingModal = dynamic(() => import('./restaurant/BookingModal'), {
   ssr: false,
   loading: () => (
-    // Lightweight modal skeleton
+    // Lightweight modal placeholder
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-stout-900/70 backdrop-blur-sm" />
       <div className="relative bg-neutral-50 rounded-2xl shadow-2xl max-w-md w-full mx-4">

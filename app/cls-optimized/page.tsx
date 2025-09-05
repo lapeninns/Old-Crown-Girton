@@ -104,7 +104,7 @@ function CLSOptimizedHomepage() {
           {/* Menu grid with reserved space */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {isLoading ? (
-              // Skeleton placeholders with exact dimensions
+              // Loading placeholders with exact dimensions
               [...Array(3)].map((_, index) => (
                 <div 
                   key={index}

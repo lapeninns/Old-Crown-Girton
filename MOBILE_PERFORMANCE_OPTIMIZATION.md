@@ -83,7 +83,7 @@ Total Savings: ~17MB
 // ✅ Network-aware intersection observer loading
 const LazyLocationSection = dynamic(() => import('@/components/restaurant/LocationSection'), {
   ssr: false,
-  loading: () => <LocationSkeleton />
+  loading: () => <div className="h-64 bg-gray-200 animate-pulse" />
 });
 ```
 
@@ -303,7 +303,7 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
 - **Render-blocking resources**: Minimized through critical CSS
 
 #### **User Experience Improvements**
-- Faster perceived performance through skeleton loading
+- Faster perceived performance through loading placeholders
 - Progressive enhancement with intersection observers
 - Reduced battery drain through optimized animations
 - Better performance on low-end devices

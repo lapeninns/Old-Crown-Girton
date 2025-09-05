@@ -1,7 +1,6 @@
 "use client";
 
 import React, { Component, ErrorInfo, ReactNode, useState } from "react";
-import { CardSkeleton, TextSkeleton } from "../skeletons";
 
 // Enhanced Error Boundary with retry functionality
 interface EnhancedErrorBoundaryProps {
@@ -79,48 +78,16 @@ export class EnhancedErrorBoundary extends Component<EnhancedErrorBoundaryProps,
 
 // Suspense Fallback component with different loading types
 interface SuspenseFallbackProps {
-  type?: 'spinner' | 'skeleton' | 'text';
+  type?: 'spinner' | 'text';
   message?: string;
-  skeletonType?: 'card' | 'list' | 'menu' | 'page';
   className?: string;
 }
 
 export const SuspenseFallback: React.FC<SuspenseFallbackProps> = ({
   type = 'spinner',
   message = 'Loading...',
-  skeletonType = 'card',
   className = ''
 }) => {
-  if (type === 'skeleton') {
-    switch (skeletonType) {
-      case 'page':
-        return (
-          <div className={`p-4 ${className}`}>
-            <TextSkeleton count={1} className="w-1/4 mb-4" />
-            <CardSkeleton className="mb-4" />
-            <TextSkeleton count={5} />
-          </div>
-        );
-      case 'card':
-        return <CardSkeleton className={className} />;
-      case 'list':
-        return (
-          <div className={`space-y-2 ${className}`}>
-            <TextSkeleton count={3} />
-          </div>
-        );
-      case 'menu':
-        return (
-          <div className={`space-y-4 ${className}`}>
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-          </div>
-        );
-      default:
-        return <CardSkeleton className={className} />;
-    }
-  }
 
   if (type === 'text') {
     return (

@@ -27,7 +27,7 @@ Cumulative Layout Shift (CLS) measures visual stability. A good CLS score is und
 **File**: `components/optimization/CLSOptimizedComponents.tsx`
 - `CLSOptimizedHero` - Hero section with fixed dimensions
 - `CLSOptimizedMenuSection` - Menu with loading states
-- `CLSOptimizedTestimonials` - Testimonials with skeletons
+- `CLSOptimizedTestimonials` - Testimonials with loading placeholders
 - `CLSOptimizedHeader` - Fixed header component
 - `CLSOptimizedPage` - Complete page example
 
@@ -54,7 +54,7 @@ Cumulative Layout Shift (CLS) measures visual stability. A good CLS score is und
   dimensions={{ height: '320px', width: '100%' }}
   className="menu-item"
 >
-  {isLoaded ? <MenuContent /> : <Skeleton />}
+  {isLoaded ? <MenuContent /> : <div className="h-full bg-gray-200 animate-pulse" />}
 </CLSContainer>
 ```
 
@@ -84,10 +84,10 @@ const fontCSS = `
 
 ### 4. Loading States
 ```typescript
-// Skeleton placeholders with exact dimensions
+// Loading placeholders with exact dimensions
 {isLoading ? (
-  <div className="skeleton" style={{ height: '200px' }}>
-    {/* Skeleton content */}
+  <div className="bg-gray-200 animate-pulse" style={{ height: '200px' }}>
+    {/* Loading placeholder */}
   </div>
 ) : (
   <div style={{ height: '200px' }}>
@@ -133,7 +133,7 @@ import { CLSSafeImage } from './components/optimization/CLSIntegration';
 ```typescript
 // Reserve space for dynamic content
 <div style={{ minHeight: '200px' }}>
-  {isLoaded ? <DynamicContent /> : <LoadingSkeleton />}
+  {isLoaded ? <DynamicContent /> : <div className="h-full bg-gray-200 animate-pulse" />}
 </div>
 ```
 

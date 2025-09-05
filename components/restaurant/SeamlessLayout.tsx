@@ -1,9 +1,5 @@
 import React, { ReactNode, Suspense } from 'react';
 import { LoadingManagerProvider } from '@/hooks/useSeamlessLoading';
-import { 
-  NavbarSkeleton, 
-  SeamlessTransition 
-} from '@/components/skeletons/SeamlessSkeletons';
 import Navbar from './Navbar';
 import NavbarStatic from './NavbarStatic';
 import Footer from './Footer';
@@ -29,11 +25,11 @@ export default function SeamlessLayout({ children, noMotion = false }: SeamlessL
 function SeamlessLayoutContent({ children, noMotion }: SeamlessLayoutProps) {
   return (
     <div className="min-h-screen bg-neutral">
-      {/* Navbar with instant loading - no skeleton needed for static navbar */}
+      {/* Navbar with instant loading */}
       {noMotion ? (
         <NavbarStatic />
       ) : (
-        <Suspense fallback={<NavbarSkeleton />}>
+        <Suspense fallback={<div className="h-16 bg-gray-200 animate-pulse" />}>
           <Navbar />
         </Suspense>
       )}
