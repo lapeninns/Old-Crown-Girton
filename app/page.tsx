@@ -6,24 +6,7 @@ import dynamic from 'next/dynamic';
 
 // Optimized dynamic import with proper loading and mobile-first approach
 const ClientHomeContent = dynamic(() => import('@/components/ClientHomeContent'), {
-  ssr: false,
-  loading: () => (
-    <div className="min-h-screen bg-neutral-50">
-      {/* Mobile-optimized loading placeholders */}
-      <div className="animate-pulse">
-        {/* Header placeholder */}
-        <div className="h-16 bg-neutral-200"></div>
-        {/* Hero placeholder */}
-        <div className="h-64 sm:h-96 bg-gradient-to-r from-neutral-200 to-neutral-300"></div>
-        {/* Content placeholder */}
-        <div className="p-4 space-y-4">
-          <div className="h-8 bg-neutral-200 rounded w-3/4"></div>
-          <div className="h-4 bg-neutral-200 rounded"></div>
-          <div className="h-4 bg-neutral-200 rounded w-5/6"></div>
-        </div>
-      </div>
-    </div>
-  )
+  ssr: false
 });
 
 function HomePageContent({ 

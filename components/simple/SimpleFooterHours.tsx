@@ -35,10 +35,9 @@ export default function SimpleFooterHours() {
 
   if (loading) {
     return (
-      <div className="text-sm space-y-1 animate-pulse">
-        <div className="h-4 bg-neutral-600 rounded w-24 mb-2"></div>
-        <div className="h-3 bg-neutral-700 rounded w-32 mb-1"></div>
-        <div className="h-3 bg-neutral-700 rounded w-28"></div>
+      <div className="text-sm text-neutral-100">
+        <p className="font-medium">Hours</p>
+        <p>Loading…</p>
       </div>
     );
   }

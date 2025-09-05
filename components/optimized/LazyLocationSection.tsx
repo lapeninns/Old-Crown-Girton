@@ -5,24 +5,7 @@ import dynamic from 'next/dynamic';
 
 // Dynamic import for LocationSection with network-aware loading
 const LocationSection = dynamic(() => import('@/components/restaurant/LocationSection'), {
-  ssr: false,
-  loading: () => (
-    <section className="bg-brand-50 py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="h-12 bg-neutral-200 rounded w-48 mx-auto mb-4 animate-pulse"></div>
-          <div className="h-6 bg-neutral-200 rounded w-96 mx-auto animate-pulse"></div>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <div className="bg-neutral-200 p-6 rounded-xl h-32 animate-pulse"></div>
-            <div className="bg-neutral-200 p-6 rounded-xl h-32 animate-pulse"></div>
-          </div>
-          <div className="bg-neutral-200 rounded-xl h-96 animate-pulse"></div>
-        </div>
-      </div>
-    </section>
-  )
+  ssr: false
 });
 
 interface LazyLocationSectionProps {
@@ -117,34 +100,14 @@ export default function LazyLocationSection({
   return (
     <div ref={ref} data-section="location">
       {shouldLoad ? (
-        <Suspense fallback={
-          <section className="bg-brand-50 py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <div className="h-12 bg-neutral-200 rounded w-48 mx-auto mb-4 animate-pulse"></div>
-                <div className="h-6 bg-neutral-200 rounded w-96 mx-auto animate-pulse"></div>
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div className="space-y-8">
-                  <div className="bg-neutral-200 p-6 rounded-xl h-32 animate-pulse"></div>
-                  <div className="bg-neutral-200 p-6 rounded-xl h-32 animate-pulse"></div>
-                </div>
-                <div className="bg-neutral-200 rounded-xl h-96 animate-pulse"></div>
-              </div>
-            </div>
-          </section>
-        }>
+        <Suspense fallback={null}>
           <LocationSection />
         </Suspense>
       ) : (
+        // Static placeholder to preserve layout without animations
         <section className="bg-brand-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="h-96 flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <div className="w-12 h-12 border-4 border-brand-200 border-t-brand-500 rounded-full animate-spin mx-auto"></div>
-                <p className="text-brand-600 font-medium">Loading location information...</p>
-              </div>
-            </div>
+            <div className="h-96" />
           </div>
         </section>
       )}

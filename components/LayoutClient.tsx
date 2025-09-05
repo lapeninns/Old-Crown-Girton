@@ -20,21 +20,7 @@ const StickyCallButtonDynamic = dynamic(() => import('./StickyCallButton'), {
 
 const BookingModal = dynamic(() => import('./restaurant/BookingModal'), {
   ssr: false,
-  loading: () => (
-    // Lightweight modal placeholder
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-stout-900/70 backdrop-blur-sm" />
-      <div className="relative bg-neutral-50 rounded-2xl shadow-2xl max-w-md w-full mx-4">
-        <div className="p-6 animate-pulse">
-          <div className="h-6 bg-neutral-200 rounded w-3/4 mb-4"></div>
-          <div className="space-y-3">
-            <div className="h-4 bg-neutral-200 rounded"></div>
-            <div className="h-4 bg-neutral-200 rounded w-5/6"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+  loading: () => null // No loading skeleton
 });
 
 const BookingModalPortal = ({ disabled = false }: { disabled?: boolean }) => {

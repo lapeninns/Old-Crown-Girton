@@ -6,23 +6,8 @@ export default function AboutSection() {
   const content = useHomeContent();
   
   if (!content) {
-    return (
-      <section className="bg-white py-16" id="about-heading" aria-labelledby="about-heading">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className="h-10 bg-neutral-200 rounded w-3/4 mb-6 animate-pulse"></div>
-              <div className="space-y-3">
-                <div className="h-4 bg-neutral-200 rounded w-full animate-pulse"></div>
-                <div className="h-4 bg-neutral-200 rounded w-full animate-pulse"></div>
-                <div className="h-4 bg-neutral-200 rounded w-3/4 animate-pulse"></div>
-              </div>
-            </div>
-            <div className="h-96 bg-neutral-200 rounded-xl animate-pulse"></div>
-          </div>
-        </div>
-      </section>
-    );
+    // No loading animation or skeleton on home
+    return null;
   }
   
   const { aboutSection } = content;

@@ -82,7 +82,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
       <div className="absolute inset-0 z-0">
         {/* Placeholder backdrop while loading or on error */}
         {!imageLoaded && !imageError && (
-          <div className="absolute inset-0 bg-neutral-800 animate-pulse" aria-hidden="true" />
+          <div className="absolute inset-0 bg-neutral-800" aria-hidden="true" />
         )}
         {imageError && (
           <div className="absolute inset-0 bg-neutral-700 flex items-center justify-center text-neutral-200 text-sm" role="img" aria-label={`${altText} (failed to load)`}>

@@ -276,7 +276,7 @@ export function AdaptiveImage({
       >
         {placeholder || (
           <div 
-            className="animate-pulse bg-gray-200 rounded"
+            className="bg-transparent"
             style={{ width: width || '100%', height: height || '200px' }}
           />
         )}

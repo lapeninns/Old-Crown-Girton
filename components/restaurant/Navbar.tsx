@@ -97,7 +97,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation - Center-Right */}
           <div className="hidden md:flex items-center space-x-8">
-            {loading && <span className="text-xs text-brand-600 animate-pulse">{uiLabels?.loading || 'Loading...'}</span>}
+            {loading && <span className="text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</span>}
             {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
             {filteredLinks.map((link: any, index: number) => (
               <Link

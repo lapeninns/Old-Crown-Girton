@@ -162,10 +162,7 @@ export default function MobileOptimizedImage({
       
       {/* Loading placeholder */}
       {!imageLoaded && !imageError && (
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-200 via-neutral-100 to-neutral-200 animate-pulse bg-[length:200%_100%]">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-neutral-300 border-t-accent-500 rounded-full animate-spin"></div>
-          </div>
+        <div className="absolute inset-0 bg-transparent">
         </div>
       )}
     </div>
