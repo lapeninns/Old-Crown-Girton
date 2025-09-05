@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * CLS Integration Helper
  * Easy integration of CLS fixes into existing pages

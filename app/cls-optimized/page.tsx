@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * CLS-Optimized Homepage Example
  * Shows how to apply CLS fixes to your existing homepage
@@ -192,6 +194,3 @@ export default function HomePage() {
     </CLSMetricsProvider>
   );
 }
-
-// Export for easy integration
-export { CLSOptimizedHomepage, OptimizedHomepage };

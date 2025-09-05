@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * CLS Fix Implementation for Restaurant Website
  * Systematic approach to eliminate layout shifts

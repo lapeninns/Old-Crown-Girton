@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * CLS (Cumulative Layout Shift) Optimization System
  * Prevents layout shifts through dimension reservation and progressive loading
