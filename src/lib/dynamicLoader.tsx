@@ -59,7 +59,7 @@ export const DynamicModal = dynamic(
 );
 
 export const DynamicMenuHighlights = dynamic(
-  () => import('@/components/restaurant/MenuHighlights'),
+  () => import('@/app/_components/MenuHighlights'),
   { loading: LoadingSection }
 );
 

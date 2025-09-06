@@ -11,7 +11,7 @@ export default function LocationSection() {
     <section className="bg-brand-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground-strong mb-4">
+          <h2 id="location-heading" className="text-4xl md:text-5xl font-display font-bold text-foreground-strong mb-4">
             Find <span className="text-accent">Us</span>
           </h2>
           <p className="text-lg text-foreground max-w-2xl mx-auto">
@@ -46,8 +46,8 @@ export default function LocationSection() {
               <div className="space-y-2 text-foreground">
                 <p>
                   <strong>Phone:</strong> 
-                  <a href="tel:01223276027" className="text-accent hover:underline ml-2">
-                    {contact?.phone.display || '01223277217'}
+                  <a href="tel:01223276027" className="text-accent hover:underline ml-2" aria-label="Call Old Crown Girton at 01223276027">
+                    {contact?.phone.display || '01223276027'}
                   </a>
                 </p>
                 <p>

@@ -19,7 +19,8 @@ const TestimonialsSection = dynamic(() => import('@/components/restaurant/Testim
 const QuickLinksSection = dynamic(() => import('@/components/restaurant/sections/QuickLinksSection'));
 const CallToActionSection = dynamic(() => import('@/components/restaurant/sections/CallToActionSection'));
 const TakeawayBanner = dynamic(() => import('@/components/restaurant/TakeawayBanner'));
-const LocationSection = dynamic(() => import('@/components/optimized/LazyLocationSection'));
+// Render LocationSection directly to avoid placeholder swap-induced layout shifts
+import LocationSection from '@/components/restaurant/LocationSection';
 
 interface ClientHomeContentProps {
   quickLinks: any[];
@@ -79,11 +80,9 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
           </section>
         </Suspense>
         
-        <Suspense fallback={null}>
-          <section aria-labelledby="location-heading">
-            <LocationSection />
-          </section>
-        </Suspense>
+        <section aria-labelledby="location-heading">
+          <LocationSection />
+        </section>
         
         <Suspense fallback={null}>
           <section aria-labelledby="cta-heading">

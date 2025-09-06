@@ -24,8 +24,9 @@ export default function TakeawayBanner() {
             <a
               href="tel:01223276027"
               className="bg-accent-500 text-neutral-900 font-bold py-4 px-8 rounded-lg text-lg shadow-lg hover:bg-accent-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-300 transition-colors"
+              aria-label="Call to order takeaway at 01223276027"
             >
-              <EmojiIcon emoji="📞" className="mr-2" /> Call to Order: 01223277217
+              <EmojiIcon emoji="📞" className="mr-2" /> Call to Order: 01223276027
             </a>
           </div>
 

@@ -238,14 +238,15 @@ const TestimonialsSection: React.FC = () => {
           <AutoMarquee
             ariaLabel="Customer testimonials"
             direction="left"
+            speedPxPerSec={40}
             maxFlingSpeed={2400}
             minInertiaVelocity={20}
-            frictionPer60fps={0.99}
+            frictionPer60fps={0.97}
+            duplicates={2}
           >
-            {/* Render reviews twice for seamless loop */}
-            {[...reviews, ...reviews].map((review, index) => (
+            {reviews.map((review) => (
               <div
-                key={`${review.id}-${index}`}
+                key={review.id}
                 className={`
                   flex-shrink-0 w-72 md:w-80 bg-white rounded-2xl p-6 shadow-xl
                   ${review.platform === 'google' ? 'border-t-4 border-blue-500' : 'border-t-4 border-green-500'}

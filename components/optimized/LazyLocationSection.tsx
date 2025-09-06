@@ -105,9 +105,10 @@ export default function LazyLocationSection({
         </Suspense>
       ) : (
         // Static placeholder to preserve layout without animations
+        // Match the loaded map height to avoid layout shift (CLS)
         <section className="bg-brand-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="h-96" />
+            <div className="h-[600px]" />
           </div>
         </section>
       )}

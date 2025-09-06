@@ -73,7 +73,8 @@ export default function MenuHighlights() {
             direction="right"
             maxFlingSpeed={2400}
             minInertiaVelocity={20}
-            frictionPer60fps={0.99}
+            frictionPer60fps={0.97}
+            duplicates={2}
           >
             {featuredDishes.map((dish) => (
               <div key={dish.title} className="flex-shrink-0 w-72 md:w-80">

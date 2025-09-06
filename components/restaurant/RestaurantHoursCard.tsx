@@ -109,8 +109,8 @@ const RestaurantHoursCard: React.FC = () => {
           Restaurant & Bar Opening Time
         </h3>
         <p className="text-foreground">Please call us for current hours</p>
-        <a href="tel:01223276027" className="text-brand-600 hover:text-brand-700 hover:underline transition-colors duration-200">
-          01223277217
+        <a href="tel:01223276027" className="text-brand-600 hover:text-brand-700 hover:underline transition-colors duration-200" aria-label="Call Old Crown Girton at 01223276027">
+          01223276027
         </a>
       </div>
     );

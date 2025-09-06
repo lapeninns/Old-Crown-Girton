@@ -25,7 +25,7 @@ export default function ClientFooter() {
             <div className="space-y-2 text-sm">
               <p><EmojiIcon emoji="📍" className="mr-1" /> 89 High Street, Girton, Cambridge CB3 0QQ</p>
               <p><EmojiIcon emoji="📞" className="mr-1" /> 01223 276027</p>
-              <p><EmojiIcon emoji="📧" className="mr-1" /> info@oldcrowngirton.com</p>
+              <p><EmojiIcon emoji="📧" className="mr-1" /> oldcrown@lapeninns.com</p>
             </div>
           </div>
 
