@@ -4,7 +4,13 @@
  */
 
 import dynamic from 'next/dynamic';
-import { ComponentType } from 'react';
+import { ComponentType, useEffect, useRef, useState } from 'react';
+import { observe } from '@/src/lib/lazy/intersection';
+import LoadQueue from '@/src/lib/lazy/loadQueue';
+
+const LAZY_V2 = process.env.NEXT_PUBLIC_LAZY_V2 === 'true';
+
+const queue = new LoadQueue();
 
 // Loading components
 const LoadingSpinner = () => (
@@ -30,75 +36,85 @@ const LoadingSection = () => (
   </div>
 );
 
-// Dynamic loading options
-interface DynamicLoadOptions {
-  loading?: ComponentType;
-  ssr?: boolean;
-  priority?: 'high' | 'low';
+// Enhanced dynamic with queue
+export function createLazyDynamic(importFn: () => Promise<any>, options: { loading?: React.ComponentType; ssr?: boolean; rootMargin?: string } = {}) {
+  const { loading: LoadingComp = LoadingSection, ssr = true, rootMargin = '300px 0px' } = options;
+  return dynamic(importFn, { 
+    loading: function LazyWrapper({ error, isLoading, pastDelay, retry, timedOut, ...props }: { error?: Error; isLoading?: boolean; pastDelay?: boolean; retry?: () => void; timedOut?: boolean; }) {
+      const [Comp, setComp] = useState<React.ComponentType | null>(null);
+      const ref = useRef<HTMLDivElement>(null);
+      const unobserveRef = useRef<(() => void) | null>(null);
+
+      useEffect(() => {
+        if (isLoading && LAZY_V2 && ref.current) {
+          const callback = (entries: IntersectionObserverEntry[]) => {
+            if (entries[0].isIntersecting) {
+              queue.add(async () => {
+                const mod = await importFn();
+                setComp(() => mod.default);
+              });
+              unobserveRef.current?.();
+            }
+          };
+          const unobserve = observe(ref.current, callback, { rootMargin });
+          unobserveRef.current = unobserve;
+          return unobserve;
+        }
+      }, [isLoading]);
+
+      return Comp ? <Comp {...props} /> : <LoadingComp {...props} />;
+    },
+    ssr 
+  });
 }
 
-/**
- * Heavy Components - Loaded dynamically to improve initial bundle size
- */
-
 // Slideshow components (large bundle impact)
-export const DynamicSlideshow = dynamic(
+export const DynamicSlideshow = createLazyDynamic(
   () => import('@/components/slideshow/Slideshow'),
-  { loading: LoadingSection }
+  { loading: LoadingCard }
 );
 
-export const DynamicShowcase = dynamic(
-  () => import('@/components/slideshow/Showcase'),
-  { loading: () => <div className="w-full h-96 bg-neutral-200 animate-pulse rounded"></div> }
-);
-
-// Interactive components
-export const DynamicModal = dynamic(
+// Modal components (interaction-based)
+export const DynamicModal = createLazyDynamic(
   () => import('@/components/Modal'),
-  { loading: LoadingSpinner, ssr: false }
-);
-
-export const DynamicMenuHighlights = dynamic(
-  () => import('@/app/_components/MenuHighlights'),
-  { loading: LoadingSection }
+  { ssr: false, loading: LoadingSpinner }
 );
 
 // Form components (heavy with validation)
-export const DynamicCTA = dynamic(
+export const DynamicCTA = createLazyDynamic(
   () => import('@/components/CTA'),
   { loading: LoadingCard }
 );
 
 // Animation-heavy components
-export const DynamicTestimonials = dynamic(
+export const DynamicTestimonials = createLazyDynamic(
   () => import('@/components/restaurant/TestimonialsSection'),
   { loading: LoadingSection }
 );
 
-export const DynamicTestimonials11 = dynamic(
+export const DynamicTestimonials11 = createLazyDynamic(
   () => import('@/components/Testimonials11'),
   { loading: LoadingSection }
 );
 
-// FAQ Section
-export const DynamicFAQ = dynamic(
+export const DynamicFAQ = createLazyDynamic(
   () => import('@/components/FAQ'),
   { loading: LoadingSection }
 );
 
 // Analytics and tracking (client-side only)
-export const DynamicErrorBoundary = dynamic(
+export const DynamicErrorBoundary = createLazyDynamic(
   () => import('@/components/ErrorBoundary'),
   { ssr: false }
 );
 
 // Features components
-export const DynamicFeaturesGrid = dynamic(
+export const DynamicFeaturesGrid = createLazyDynamic(
   () => import('@/components/FeaturesGrid'),
   { loading: LoadingSection }
 );
 
-export const DynamicPricing = dynamic(
+export const DynamicPricing = createLazyDynamic(
   () => import('@/components/Pricing'),
   { loading: LoadingSection }
 );
@@ -107,11 +123,9 @@ export const DynamicPricing = dynamic(
  * Preload critical components for better UX
  */
 export const preloadCriticalComponents = () => {
-  if (typeof window !== 'undefined') {
-    // Preload slideshow on user interaction
-    const preloadSlideshow = () => {
-      import('@/components/slideshow/Slideshow');
-    };
+  if (typeof window !== 'undefined' && LAZY_V2) {
+    // Queue preloads to avoid herd
+    queue.add(() => import('@/components/slideshow/Slideshow').then(() => {}));
 
     // Preload modal on hover over CTA buttons
     const preloadModal = () => {
@@ -125,35 +139,7 @@ export const preloadCriticalComponents = () => {
       if (target.closest('[data-modal-trigger]')) {
         preloadModal();
       }
-      
-      if (target.closest('[data-slideshow-trigger]')) {
-        preloadSlideshow();
-      }
-    }, { once: true });
-
-    // Preload on scroll near components
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const element = entry.target as Element;
-            
-            if (element.hasAttribute('data-preload-testimonials')) {
-              import('@/components/restaurant/TestimonialsSection');
-            }
-            
-            if (element.hasAttribute('data-preload-faq')) {
-              import('@/components/FAQ');
-            }
-          }
-        });
-      },
-      { rootMargin: '200px' }
-    );
-
-    // Observe preload triggers
-    document.querySelectorAll('[data-preload-testimonials], [data-preload-faq]')
-      .forEach(el => observer.observe(el));
+    }, { passive: true });
   }
 };
 
@@ -169,3 +155,6 @@ export const getBundleInfo = () => {
     });
   }
 };
+
+// Legacy exports for backwards compatibility  
+export const DynamicTestimonialsV2 = DynamicTestimonials;

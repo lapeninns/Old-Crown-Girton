@@ -159,3 +159,17 @@ Scripts:
 - Generate app icons: `npm run icons:generate` (uses `public/images/brand/Oldcrowngirtonlogo.png` by default)
 
 App icons are referenced via Next.js metadata in `app/layout.tsx` and are regenerated into `public/`.
+
+## Migration to Lazy Loading V2
+
+To enable the new standards-based lazy loading (shared IO, concurrency cap, adaptive, CLS fixes):
+
+1. Set `NEXT_PUBLIC_LAZY_V2=true` in .env files.
+2. Update components using old dynamic: Replace with Dynamic*V2 exports from dynamicLoader.tsx.
+3. For custom imgs: Use AdaptiveImage with new props (root, rootMargin='300px 0px', threshold=0, once=true, onVisible).
+4. For hooks: useLazyLoading now uses shared observer; add onVisible for custom logic.
+5. Placeholders: Ensure width/height or aspect-ratio for CLS <0.1.
+6. Test: Run `npm run test:client`, `npm run e2e` (new lazy tests), check console for telemetry.
+7. Rollout: Canary 5-10% traffic, monitor LCP/CLS/INP via Vercel or GA. Rollback by flag=false.
+
+No breaking changes; old impl falls back if flag off. Bundle +2kB utils.

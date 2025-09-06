@@ -46,7 +46,7 @@ export function ProgressiveHomePage() {
           alt="Old Crown Girton Restaurant Interior"
           width={1920}
           height={1080}
-          priority="high"
+          priority={true}
           className="w-full h-96 object-cover"
           placeholder={<div className="w-full h-96 bg-gray-200 animate-pulse" />}
         />
@@ -181,7 +181,7 @@ export const AdaptiveImageGallery = ({ images }: { images: string[] }) => (
           key={src}
           src={src}
           alt={`Gallery image ${index + 1}`}
-          priority={index < 3 ? 'high' : 'normal'}
+          priority={index < 3}
           className="w-full h-64 object-cover rounded"
         />
       ))}

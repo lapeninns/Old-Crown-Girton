@@ -4,6 +4,7 @@ import ClientLayout from '@/components/LayoutClient';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import GlobalLoadingIndicator from '@/components/GlobalLoadingIndicator';
 import ServiceWorkerProvider from '@/components/ServiceWorkerProvider';
+import { PerformanceProvider } from '@/components/PerformanceProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -43,19 +44,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        {/* Skip link for keyboard users */}
-        <a href="#main-content" className="accessibility-skip-link">Skip to main content</a>
-        <script dangerouslySetInnerHTML={{ __html: QUEUE_SCRIPT }} />
-        <script dangerouslySetInnerHTML={{ __html: FALLBACK_SCRIPT }} />
+        <PerformanceProvider>
+          {/* Skip link for keyboard users */}
+          <a href="#main-content" className="accessibility-skip-link">Skip to main content</a>
+          <script dangerouslySetInnerHTML={{ __html: QUEUE_SCRIPT }} />
+          <script dangerouslySetInnerHTML={{ __html: FALLBACK_SCRIPT }} />
 
-        <LoadingProvider>
-          <ServiceWorkerProvider>
-            <GlobalLoadingIndicator />
-            <ClientLayout>{children}</ClientLayout>
-          </ServiceWorkerProvider>
-        </LoadingProvider>
+          <LoadingProvider>
+            <ServiceWorkerProvider>
+              <GlobalLoadingIndicator />
+              <ClientLayout>{children}</ClientLayout>
+            </ServiceWorkerProvider>
+          </LoadingProvider>
+        </PerformanceProvider>
       </body>
     </html>
   );
 }
- 
+

@@ -1,6 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CLS prevention for lazy placeholders */
+img[loading="lazy"]::before {
+  content: '';
+  display: block;
+  padding-bottom: calc(100% / (attr(width) / attr(height)));
+  /* Fallback for aspect-ratio */
+}
+
+img[loading="lazy"] {
+  contain-intrinsic-size: attr(width) px attr(height) px;
+}
 
 /* Accessibility and a11y helpers */
 @import '../styles/accessibility.css';
@@ -308,7 +322,8 @@ progress::-webkit-progress-value {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+      scroll-snap-type: none !important;
+      transform: none !important; /* Standard */
     }
   }
   
@@ -420,6 +435,7 @@ progress::-webkit-progress-value {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-clamp: 2; /* Standard if supported */
   }
   
   .line-clamp-3 {
@@ -427,6 +443,7 @@ progress::-webkit-progress-value {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-clamp: 3;
   }
   
   /* Custom scrollbar */
@@ -654,4 +671,13 @@ details[open] summary svg {
     outline: 3px solid #F4C430;
     outline-offset: 3px;
   }
+}
+
+/* CLS prevention for lazy placeholders */
+[style*="aspect-ratio"] {
+  contain-intrinsic-size: initial;
+}
+
+img[loading="lazy"] {
+  contain-intrinsic-size: attr(width) attr(height);
 }

@@ -1,0 +1,217 @@
+{
+  "config": {
+    "configFile": "/Users/amankumarshrestha/Downloads/Restaurant_BP/playwright.config.ts",
+    "rootDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop Chrome",
+        "name": "Desktop Chrome",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop Firefox",
+        "name": "Desktop Firefox",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop Safari",
+        "name": "Desktop Safari",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "iPhone 14 Pro (Light)",
+        "name": "iPhone 14 Pro (Light)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Pixel 7 (Dark)",
+        "name": "Pixel 7 (Dark)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "iPad (Landscape)",
+        "name": "iPad (Landscape)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop-sm (640px)",
+        "name": "Desktop-sm (640px)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop-md (768px)",
+        "name": "Desktop-md (768px)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop-lg (1024px)",
+        "name": "Desktop-lg (1024px)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop-xl (1280px)",
+        "name": "Desktop-xl (1280px)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Desktop-lg-dark (1024px)",
+        "name": "Desktop-lg-dark (1024px)",
+        "testDir": "/Users/amankumarshrestha/Downloads/Restaurant_BP/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 5,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "Error: Timed out waiting 120000ms from config.webServer.",
+      "stack": "Error: Timed out waiting 120000ms from config.webServer."
+    }
+  ],
+  "stats": {
+    "startTime": "2025-09-06T05:45:26.666Z",
+    "duration": 120379.213,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

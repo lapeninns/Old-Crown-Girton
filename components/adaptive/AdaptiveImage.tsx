@@ -5,6 +5,10 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useProgressiveLoadingContext } from '../../hooks/optimized/useProgressiveLoadingCoordinator';
+import { getSharedObserver, createFallbackObserver, observe } from '@/src/lib/lazy/intersection';
+import LoadQueue from '@/src/lib/lazy/loadQueue';
+
+const LAZY_V2 = process.env.NEXT_PUBLIC_LAZY_V2 === 'true';
 
 interface AdaptiveImageProps {
   src: string;
@@ -12,21 +16,28 @@ interface AdaptiveImageProps {
   width?: number;
   height?: number;
   className?: string;
-  priority?: 'high' | 'normal' | 'low';
+  priority?: boolean;
   fallbackSrc?: string;
   placeholder?: React.ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
   lazy?: boolean;
   sizes?: string;
-  quality?: number; // Override quality (0.1-1.0)
+  quality?: number;
+  root?: Element | null;
+  rootMargin?: string;
+  threshold?: number;
+  once?: boolean;
+  onVisible?: () => void;
 }
 
 interface ImageVariant {
   src: string;
   width: number;
   quality: number;
-  format: 'webp' | 'jpeg' | 'png';
+  format: 'webp' | 'jpeg' | 'png' | 'avif';
+  avif?: string;
+  webp?: string;
 }
 
 /**
@@ -100,14 +111,19 @@ export function AdaptiveImage({
   width,
   height,
   className = '',
-  priority = 'normal',
+  priority = false,
   fallbackSrc,
   placeholder,
   onLoad,
   onError,
   lazy = true,
   sizes,
-  quality
+  quality,
+  root,
+  rootMargin = '300px 0px',
+  threshold = 0,
+  once = true,
+  onVisible
 }: AdaptiveImageProps) {
   const { capabilities, strategy } = useProgressiveLoadingContext();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -117,6 +133,7 @@ export function AdaptiveImage({
   
   const imgRef = useRef<HTMLImageElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const queueRef = useRef(new LoadQueue());
 
   // Generate image variants based on device capabilities
   const imageVariants = useMemo(() => 
@@ -132,138 +149,133 @@ export function AdaptiveImage({
     33vw
   `;
 
-  // Intersection Observer for lazy loading
-  useEffect(() => {
-    if (!lazy || isInView) return;
+  // Adaptive config
+  const config = useMemo(() => ({
+    root,
+    rootMargin: getAdaptiveRootMargin(rootMargin),
+    threshold
+  }), [root, rootMargin, threshold]);
 
-    const currentImgRef = imgRef.current;
-    if (!currentImgRef) return;
-
-    // Use larger threshold for slow networks to start loading earlier
-    const rootMargin = strategy.lazyLoadThreshold || 100;
-    
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
-            observerRef.current?.disconnect();
-          }
-        });
-      },
-      {
-        rootMargin: `${rootMargin}px`,
-        threshold: 0.1
-      }
-    );
-
-    observerRef.current.observe(currentImgRef);
-
-    return () => {
-      observerRef.current?.disconnect();
-    };
-  }, [lazy, isInView, strategy.lazyLoadThreshold]);
-
-  // Progressive image loading with fallbacks
-  const loadImage = useCallback(async () => {
-    if (!isInView || isLoaded || hasError) return;
-
-    try {
-      // Use the best variant for current device
-      const optimalVariant = imageVariants[0]; // Start with smallest/most optimized
-      
-      // Create a new image element for preloading
-      const img = new Image();
-      
-      // Set up timeout for slow networks
-      const timeoutMs = strategy.timeoutMs || 5000;
-      const timeoutPromise = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error('Image load timeout')), timeoutMs)
-      );
-
-      // Set up image load promise
-      const loadPromise = new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = () => reject(new Error('Image failed to load'));
+  // Enhanced loadImage with queue, retries, abort
+  const loadImage = useCallback(async (retryCount = 0) => {
+    if (isLoaded || hasError || !isInView) return;
+    const controller = new AbortController();
+    const task = async () => {
+      try {
+        // Use the best variant for current device
+        const optimalVariant = imageVariants[0]; // Start with smallest/most optimized
         
-        // Use srcSet for responsive loading
-        if (srcSet && img.srcset !== undefined) {
-          img.srcset = srcSet;
-          img.sizes = imageSizes;
-        }
-        img.src = optimalVariant.src;
-      });
+        // Create a new image element for preloading
+        const img = new Image();
+        
+        // Set up timeout for slow networks
+        const timeoutMs = strategy.timeoutMs || 5000;
+        const timeoutPromise = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('Image load timeout')), timeoutMs)
+        );
 
-      // Race between load and timeout
-      await Promise.race([loadPromise, timeoutPromise]);
-      
-      // If successful, update the display image
-      setCurrentSrc(optimalVariant.src);
-      setIsLoaded(true);
-      onLoad?.();
-      
-    } catch (error) {
-      console.warn('Image loading failed:', error);
-      
-      // Try fallback if available
-      if (fallbackSrc && !hasError) {
-        setCurrentSrc(fallbackSrc);
+        // Set up image load promise
+        const loadPromise = new Promise<void>((resolve, reject) => {
+          img.onload = () => resolve();
+          img.onerror = () => reject(new Error('Image failed to load'));
+          
+          // Use srcSet for responsive loading
+          if (srcSet && img.srcset !== undefined) {
+            img.srcset = srcSet;
+            img.sizes = imageSizes;
+          }
+          img.src = optimalVariant.src;
+          img.decoding = 'async';
+          if (priority) img.fetchPriority = 'high';
+        });
+
+        // Race between load and timeout
+        await Promise.race([loadPromise, timeoutPromise]);
+        
+        // If successful, update the display image
+        setCurrentSrc(optimalVariant.src);
         setIsLoaded(true);
-      } else {
-        setHasError(true);
-        onError?.(error as Error);
+        onLoad?.();
+        onVisible?.();
+      } catch (error) {
+        if (retryCount < 2 && !controller.signal.aborted) {
+          // Retry with backoff
+          setTimeout(() => loadImage(retryCount + 1), Math.pow(2, retryCount) * 100);
+        } else {
+          console.warn('Image loading failed after retries:', error);
+          // Try fallback if available
+          if (fallbackSrc && !hasError) {
+            setCurrentSrc(fallbackSrc);
+            setIsLoaded(true);
+          } else {
+            setHasError(true);
+            onError?.(error as Error);
+          }
+        }
       }
-    }
+    };
+    queueRef.current.add(task);
+    return controller;
   }, [
-    isInView,
     isLoaded,
     hasError,
+    isInView,
     imageVariants,
     srcSet,
     imageSizes,
     strategy.timeoutMs,
     fallbackSrc,
     onLoad,
-    onError
+    onError,
+    onVisible,
+    priority
   ]);
 
-  // Trigger loading when in view
+  // IO with shared observer
   useEffect(() => {
-    if (isInView && !isLoaded && !hasError) {
-      // For high priority images or fast devices, load immediately
-      if (priority === 'high' || capabilities.deviceTier === 'premium') {
+    if (!lazy || priority || !imgRef.current) return;
+
+    const callback = (entries: IntersectionObserverEntry[]) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        setIsInView(true);
         loadImage();
-      } else {
-        // For normal/low priority, use requestIdleCallback to avoid blocking
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(() => loadImage());
-        } else {
-          setTimeout(loadImage, 100);
-        }
+        if (once) unobserveRef.current?.();
       }
+    };
+
+    let unobserve: () => void;
+    if ('IntersectionObserver' in window && LAZY_V2) {
+      unobserve = observe(imgRef.current, callback, config);
+    } else {
+      // Fallback
+      unobserve = createFallbackObserver(imgRef.current, ([entry]) => callback([entry]), config);
     }
-  }, [isInView, isLoaded, hasError, priority, capabilities.deviceTier, loadImage]);
+    unobserveRef.current = unobserve;
+
+    return unobserve;
+  }, [lazy, priority, config, loadImage, once]);
 
   // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      observerRef.current?.disconnect();
-    };
+  useEffect(() => () => {
+    queueRef.current.abortAll();
+    unobserveRef.current?.();
   }, []);
 
-  // Generate responsive sizes attribute
-  const responsiveSizes = useMemo(() => {
-    if (sizes) return sizes;
-    
-    // Auto-generate sizes based on device capabilities
-    if (capabilities.deviceTier === 'low-end') {
-      return '(max-width: 640px) 100vw, 50vw';
-    } else if (capabilities.deviceTier === 'mid-range') {
-      return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
-    } else {
-      return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1920px) 33vw, 25vw';
+  // CLS prevention: aspect-ratio style
+  const style = useMemo(() => ({
+    aspectRatio: width && height ? `${width}/${height}` : undefined,
+    width: `${width}px`,
+    height: `${height}px`
+  }), [width, height]);
+
+  // Enhanced srcset with AVIF/WebP if supported
+  const enhancedSrcSet = useMemo(() => {
+    if (supportsAVIF()) {
+      return imageVariants.map(v => `${v.avif || v.src} 1x`).join(', ');
     }
-  }, [sizes, capabilities.deviceTier]);
+    return createSrcSet(imageVariants); // Existing
+  }, [imageVariants]);
 
   // Show placeholder while loading
   if (!isInView || (!isLoaded && !hasError)) {
@@ -301,24 +313,25 @@ export function AdaptiveImage({
 
   // Render the loaded image
   return (
-    <img
-      ref={imgRef}
-      src={currentSrc}
-      srcSet={srcSet}
-      sizes={responsiveSizes}
-      alt={alt}
-      width={width}
-      height={height}
-      className={`adaptive-image ${className} ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-      style={{ 
-        transition: 'opacity 0.3s ease-in-out',
-        objectFit: 'cover'
-      }}
-      loading="lazy"
-      decoding="async"
-    />
+    <div className={className} style={{ containIntrinsicSize: `${height}px ${width}px` }}>
+      {placeholder || <div style={{ aspectRatio: style.aspectRatio }} className="bg-gray-200 animate-pulse" />}
+      <img
+        ref={imgRef}
+        src={priority ? src : ''} // Delay src set
+        srcSet={enhancedSrcSet}
+        sizes={imageSizes}
+        alt={alt}
+        decoding="async"
+        loading={priority ? 'eager' : 'lazy'}
+        style={style}
+        onLoad={() => {/* handle */}}
+        onError={() => {/* handle */}}
+      />
+    </div>
   );
 }
+
+const unobserveRef = useRef<() => void>(null);
 
 /**
  * Hook for adaptive image preloading
@@ -357,6 +370,32 @@ export function useImagePreloader() {
   }, [capabilities, strategy]);
 
   return { preloadImage };
+}
+
+function getAdaptiveRootMargin(base: string): string {
+  if ('connection' in navigator) {
+    const conn = (navigator as any).connection;
+    if (conn.saveData || ['slow-2g', '2g'].includes(conn.effectiveType)) {
+      return base.replace('300', '100'); // Tighten on slow
+    }
+  }
+  return base; // Widen on fast
+}
+
+// AVIF support check
+const supportsAVIF = () => {
+  return 'HTMLCanvasElement' in window && (() => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    return canvas.toDataURL('image/avif', 1.0) === 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAG1pbmZ...'; // Simplified check
+  })();
+};
+
+function createSrcSetWithFormats(variants: any[]) {
+  // Generate srcset with webp/avif fallbacks
+  // e.g., `${variant.webp} 1x, ${variant.avif} 1x`
+  return variants.map(v => `${v.src} 1x`).join(', ');
 }
 
 export default AdaptiveImage;

@@ -1,7 +1,12 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { useLoadingManager } from './useSeamlessLoading';
+import { getSharedObserver, createFallbackObserver, observe } from '@/src/lib/lazy/intersection';
+import LoadQueue from '@/src/lib/lazy/loadQueue';
+
+const LAZY_V2 = process.env.NEXT_PUBLIC_LAZY_V2 === 'true';
+const queue = new LoadQueue();
 
 interface ComponentLoadingOptions {
   /** Component identifier for tracking */
@@ -120,52 +125,63 @@ export function useLazyLoading(
     rootMargin?: string;
     triggerOnce?: boolean;
     enablePreloading?: boolean;
+    root?: Element | null;
+    onVisible?: () => void;
   } = {}
 ) {
   const {
-    threshold = 0.1,
-    rootMargin = '100px 0px',
+    threshold = 0, // Changed to 0 for instant
+    rootMargin = '300px 0px', // Adaptive default
     triggerOnce = true,
-    enablePreloading = true
+    enablePreloading = true,
+    root,
+    onVisible
   } = options;
   
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [isPreloading, setIsPreloading] = useState(false);
   const elementRef = useRef<Element | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const unobserveRef = useRef<() => void>();
+
+  // Adaptive margin
+  const adaptiveMargin = useMemo(() => getAdaptiveRootMargin(rootMargin), [rootMargin]);
+
+  const config = useMemo(() => ({ root, rootMargin: adaptiveMargin, threshold }), [root, adaptiveMargin, threshold]);
+
+  const callback = useCallback((entries: IntersectionObserverEntry[]) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      setIsIntersecting(true);
+      onVisible?.();
+      if (triggerOnce) {
+        unobserveRef.current?.();
+      }
+      if (enablePreloading && LAZY_V2) {
+        queue.add(() => new Promise(resolve => {
+          setIsPreloading(true);
+          setTimeout(() => {
+            setIsPreloading(false);
+            resolve();
+          }, 100);
+        }));
+      }
+    }
+  }, [triggerOnce, enablePreloading, onVisible]);
 
   useEffect(() => {
     const element = elementRef.current;
     if (!element) return;
 
-    // Create intersection observer with optimized settings
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        
-        if (entry.isIntersecting) {
-          setIsIntersecting(true);
-          
-          if (triggerOnce) {
-            observer.unobserve(element);
-          }
-        } else if (!triggerOnce) {
-          setIsIntersecting(false);
-        }
-      },
-      { 
-        threshold, 
-        rootMargin: enablePreloading ? rootMargin : '0px'
-      }
-    );
+    if ('IntersectionObserver' in window && LAZY_V2) {
+      const unobserve = observe(element, callback, config);
+      unobserveRef.current = unobserve;
+    } else {
+      const unobserve = createFallbackObserver(element, callback, config);
+      unobserveRef.current = unobserve;
+    }
 
-    observerRef.current = observer;
-    observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [threshold, rootMargin, triggerOnce, enablePreloading]);
+    return () => unobserveRef.current?.();
+  }, [config, callback]);
 
   const loading = useComponentLoading({
     componentId,
@@ -180,4 +196,15 @@ export function useLazyLoading(
     isIntersecting,
     isPreloading
   };
+}
+
+// Helper
+function getAdaptiveRootMargin(base: string): string {
+  if ('connection' in navigator) {
+    const conn = (navigator as any).connection;
+    if (conn.saveData || ['slow-2g', '2g'].includes(conn.effectiveType || '')) {
+      return base.replace(/300px/, '100px'); // Simple replace
+    }
+  }
+  return base;
 }
