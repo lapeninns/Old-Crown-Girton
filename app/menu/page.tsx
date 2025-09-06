@@ -116,6 +116,20 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 		})),
 	};
 
+	// Helper function to normalize IDs
+	function normalizeId(input?: string | number | null) {
+		return ((input || '') as string).toString().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+	}
+
+	// Find starters section and set as default
+	const startersSection = optimizedMenu?.sections?.find((section: any) => 
+		section.name?.toLowerCase().includes('starter') || 
+		section.name?.toLowerCase().includes('appetizer') ||
+		section.id?.toLowerCase().includes('starter')
+	);
+	
+	const defaultSelectedStarters = startersSection ? normalizeId(startersSection.id || startersSection.name) : null;
+
 	return (
 		<>
 			<style dangerouslySetInnerHTML={{ __html: `
@@ -137,7 +151,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 						<section aria-labelledby="interactive-menu-heading">
 							<MenuInteractive 
 								sections={optimizedMenu?.sections || []} 
-								defaultSelected={null}
+								defaultSelected={defaultSelectedStarters}
 								preloadedData={true}
 							/>
 						</section>

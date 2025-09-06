@@ -4,6 +4,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Anti-flicker loading system */
+.loading-phase-critical {
+  opacity: 1;
+  transform: translateY(0);
+  transition: none;
+}
+
+.loading-phase-above-fold {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.loading-phase-above-fold.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.loading-phase-below-fold {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.loading-phase-below-fold.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Prevent hydration flicker */
+.hydration-safe {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hydration-safe[data-hydrated="false"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /* CLS prevention for lazy placeholders */
 img[loading="lazy"]::before {
   content: '';
