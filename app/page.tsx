@@ -4,9 +4,36 @@ import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-// Optimized dynamic import with proper loading and mobile-first approach
+// Optimized dynamic import with SSR enabled and loading fallback
 const ClientHomeContent = dynamic(() => import('@/components/ClientHomeContent'), {
-  ssr: false
+  ssr: true,
+  loading: () => (
+    <div className="min-h-screen bg-neutral-50">
+      {/* Fixed navbar placeholder */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="h-8 bg-neutral-200 rounded w-32 animate-pulse"></div>
+          <div className="hidden md:flex space-x-6">
+            <div className="h-6 bg-neutral-200 rounded w-16 animate-pulse"></div>
+            <div className="h-6 bg-neutral-200 rounded w-16 animate-pulse"></div>
+            <div className="h-6 bg-neutral-200 rounded w-16 animate-pulse"></div>
+          </div>
+          <div className="h-8 bg-neutral-200 rounded w-24 animate-pulse"></div>
+        </div>
+      </div>
+      
+      {/* Main content placeholder */}
+      <main className="pt-16">
+        {/* Hero section placeholder */}
+        <div className="h-screen bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="h-12 bg-neutral-300 rounded w-96 mx-auto animate-pulse"></div>
+            <div className="h-6 bg-neutral-300 rounded w-64 mx-auto animate-pulse"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
 });
 
 function HomePageContent({ 

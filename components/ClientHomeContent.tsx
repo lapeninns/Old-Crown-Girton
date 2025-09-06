@@ -37,7 +37,7 @@ interface ClientHomeContentProps {
   ctaButtons: any[];
 }
 
-// Optimized progressive loading with better timing coordination
+// Optimized progressive loading with immediate display for SSR
 function ProgressiveSection({ 
   children, 
   delay = 0, 
@@ -51,86 +51,73 @@ function ProgressiveSection({
   placeholder?: React.ReactNode;
   priority?: boolean;
 }) {
-  const [shouldShow, setShouldShow] = useState(delay === 0 || priority);
-  const [isVisible, setIsVisible] = useState(false);
+  const [shouldShow, setShouldShow] = useState(priority || delay === 0);
+  const [isVisible, setIsVisible] = useState(priority || delay === 0);
 
   useEffect(() => {
-    // Always show priority components immediately
-    if (priority) {
+    // For SSR, show immediately if priority or no delay
+    if (priority || delay === 0) {
       setShouldShow(true);
       setIsVisible(true);
       return;
     }
 
-    // For non-priority components, use progressive timing
-    if (delay > 0) {
-      const timer = setTimeout(() => {
-        setShouldShow(true);
-        // Small additional delay for smooth transition
-        setTimeout(() => setIsVisible(true), 50);
-      }, delay);
-      return () => clearTimeout(timer);
-    } else {
+    // For non-priority components with delay, use progressive timing
+    const timer = setTimeout(() => {
       setShouldShow(true);
-      setIsVisible(true);
-    }
+      // Small additional delay for smooth transition
+      setTimeout(() => setIsVisible(true), 50);
+    }, delay);
+    
+    return () => clearTimeout(timer);
   }, [delay, priority]);
 
-  if (!shouldShow) {
-    return (
-      <div className={className}>
-        {placeholder || (
-          <div className="bg-neutral-50 animate-pulse rounded" style={{ minHeight: '100px' }} />
-        )}
-      </div>
-    );
-  }
-
+  // Always show content for SSR, use progressive loading only for enhancements
   return (
     <div 
       className={`${className} progressive-section ${isVisible ? 'progressive-section-loaded' : 'progressive-section-loading'}`}
+      data-priority={priority ? 'true' : 'false'}
     >
-      {children}
+      {shouldShow ? children : (placeholder || (
+        <div className="bg-neutral-50 animate-pulse rounded" style={{ minHeight: '100px' }} />
+      ))}
     </div>
   );
 }
 
 export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }: ClientHomeContentProps) {
-  const [isHydrated, setIsHydrated] = useState(false);
-  const [navbarLoaded, setNavbarLoaded] = useState(false);
-  const [criticalAssetsLoaded, setCriticalAssetsLoaded] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(true); // Start with true for SSR
+  const [navbarLoaded, setNavbarLoaded] = useState(true); // Start with true for immediate display
+  const [criticalAssetsLoaded, setCriticalAssetsLoaded] = useState(true); // Start with true
 
   useEffect(() => {
-    // Preload critical resources
+    // Preload critical resources in background
     const preloadCriticalAssets = () => {
       // Preload critical images or fonts if any
       const criticalImages: string[] = [
         // Add any critical hero images here
       ];
       
-      Promise.all(
-        criticalImages.map(src => {
-          return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = img.onerror = resolve;
-            img.src = src;
-          });
-        })
-      ).then(() => setCriticalAssetsLoaded(true));
+      if (criticalImages.length > 0) {
+        Promise.all(
+          criticalImages.map(src => {
+            return new Promise((resolve) => {
+              const img = new Image();
+              img.onload = img.onerror = resolve;
+              img.src = src;
+            });
+          })
+        ).then(() => setCriticalAssetsLoaded(true));
+      }
     };
 
-    setIsHydrated(true);
+    // Run preloading in background without blocking UI
     preloadCriticalAssets();
-    
-    // Navbar loads first, then trigger other components
-    setTimeout(() => setNavbarLoaded(true), 100);
   }, []);
 
-  // Optimized delay sequence - starts after navbar is ready and critical assets loaded
+  // Simplified delay sequence - no longer depends on hydration state
   const getDelay = (baseDelay: number) => {
-    if (!isHydrated) return 0;
-    const readyToLoad = navbarLoaded && criticalAssetsLoaded;
-    return readyToLoad ? baseDelay : baseDelay + 300;
+    return baseDelay; // Simplified - just use the base delay
   };
 
   return (
@@ -199,9 +186,9 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
           </section>
         </ProgressiveSection>
         
-        {/* Menu Highlights - loads 600ms after about starts */}
+        {/* Menu Highlights - loads 1200ms after showcase starts, giving about section more time */}
         <ProgressiveSection 
-          delay={getDelay(800)}
+          delay={getDelay(1200)}
           placeholder={
             <div className="h-96 bg-neutral-50">
               <div className="container mx-auto px-4 py-16 space-y-6">
@@ -222,7 +209,7 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
         
         {/* Below-fold content - loads progressively with longer intervals */}
         <ProgressiveSection 
-          delay={getDelay(1200)}
+          delay={getDelay(1600)}
           placeholder={<div className="h-64 bg-neutral-50 animate-pulse"></div>}
         >
           <section aria-labelledby="testimonials-heading">
@@ -233,7 +220,7 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
         </ProgressiveSection>
         
         <ProgressiveSection 
-          delay={getDelay(1600)}
+          delay={getDelay(2000)}
           placeholder={<div className="h-32 bg-neutral-50 animate-pulse"></div>}
         >
           <section aria-labelledby="quick-links-heading">
@@ -244,7 +231,7 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
         </ProgressiveSection>
         
         <ProgressiveSection 
-          delay={getDelay(2000)}
+          delay={getDelay(2400)}
           placeholder={<div className="h-24 bg-neutral-50 animate-pulse"></div>}
         >
           <section aria-label="Takeaway information">
@@ -256,7 +243,7 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
         
         {/* Location Section - includes maps, loads last of main content */}
         <ProgressiveSection 
-          delay={getDelay(2400)}
+          delay={getDelay(2800)}
           placeholder={
             <div className="h-96 bg-neutral-50 animate-pulse">
               <div className="container mx-auto px-4 py-16 space-y-6">
@@ -282,7 +269,7 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
         
         {/* Call to Action */}
         <ProgressiveSection 
-          delay={getDelay(2800)}
+          delay={getDelay(3200)}
           placeholder={<div className="h-48 bg-neutral-50 animate-pulse"></div>}
         >
           <section aria-labelledby="cta-heading">
@@ -299,7 +286,7 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
       
       {/* Footer - loads after all main content */}
       <ProgressiveSection 
-        delay={getDelay(3200)}
+        delay={getDelay(3600)}
         placeholder={<div className="h-64 bg-neutral-50 animate-pulse"></div>}
       >
         <ClientFooter />

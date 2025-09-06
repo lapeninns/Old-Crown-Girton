@@ -50,6 +50,13 @@
   transform: translateY(0);
 }
 
+/* Immediate display for SSR critical content */
+.progressive-section[data-priority="true"] {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: none !important;
+}
+
 /* Navbar coordination */
 .navbar-placeholder {
   height: 64px;
