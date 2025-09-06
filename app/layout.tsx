@@ -6,6 +6,7 @@ import GlobalLoadingIndicator from '@/components/GlobalLoadingIndicator';
 import ServiceWorkerProvider from '@/components/ServiceWorkerProvider';
 import { PerformanceProvider } from '@/components/PerformanceProvider';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.com/'),
@@ -57,8 +58,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </ServiceWorkerProvider>
           </LoadingProvider>
         </PerformanceProvider>
+        {/* Vercel Web Analytics */}
+        <Analytics />
       </body>
     </html>
   );
 }
-

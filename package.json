@@ -67,6 +67,7 @@
     "@headlessui/react": "^1.7.18",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/supabase-js": "^2.41.1",
+    "@vercel/analytics": "^1.5.0",
     "axios": "^1.6.8",
     "caniuse-lite": "^1.0.30001731",
     "client-only": "^0.0.1",
