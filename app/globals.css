@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Anti-flicker loading system */
+/* Anti-flicker loading system - Enhanced */
 .loading-phase-critical {
   opacity: 1;
   transform: translateY(0);
@@ -32,6 +32,48 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Progressive loading enhancements */
+.progressive-section {
+  will-change: opacity, transform;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  contain: layout; /* Prevent layout reflow */
+}
+
+.progressive-section-loading {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.progressive-section-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Navbar coordination */
+.navbar-placeholder {
+  height: 64px;
+  background-color: rgb(249 250 251);
+  border-bottom: 1px solid rgb(229 231 235);
+  contain: strict; /* Maximum containment for fixed elements */
+}
+
+/* Prevent layout shifts during loading */
+.section-placeholder {
+  display: block;
+  width: 100%;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  contain: paint; /* Prevent paint reflows */
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Custom typography and spacing */
 
 /* Prevent hydration flicker */
 .hydration-safe {
