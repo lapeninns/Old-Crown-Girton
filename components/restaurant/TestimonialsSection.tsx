@@ -239,9 +239,6 @@ const TestimonialsSection: React.FC = () => {
             ariaLabel="Customer testimonials"
             direction="left"
             speedPxPerSec={40}
-            maxFlingSpeed={2400}
-            minInertiaVelocity={20}
-            frictionPer60fps={0.97}
             duplicates={2}
           >
             {reviews.map((review) => (

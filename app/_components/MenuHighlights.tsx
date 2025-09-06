@@ -71,9 +71,6 @@ export default function MenuHighlights() {
             ariaLabel="Signature dishes"
             speedPxPerSec={38}
             direction="right"
-            maxFlingSpeed={2400}
-            minInertiaVelocity={20}
-            frictionPer60fps={0.97}
             duplicates={2}
           >
             {featuredDishes.map((dish) => (
