@@ -97,7 +97,6 @@ export default function Navbar() {
 
           {/* Desktop Navigation - Center-Right */}
           <div className="hidden md:flex items-center space-x-8">
-            {loading && <span className="text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</span>}
             {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
             {filteredLinks.map((link: any, index: number) => (
               <Link
@@ -149,7 +148,6 @@ export default function Navbar() {
             <motion.div {...(prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } } : navMotion.mobileDrawer.backdrop)} className="fixed inset-0 bg-black/20 md:hidden" onClick={() => setIsOpen(false)} />
             <motion.div {...(prefersReduced ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } } : navMotion.mobileDrawer.panel)} className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {loading && <div className="px-3 py-2 text-xs text-brand-600">{uiLabels?.loading || 'Loading...'}</div>}
                 {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
                 <div className="flex flex-col space-y-4">
                   {filteredLinks.map((link: any, index: number) => (

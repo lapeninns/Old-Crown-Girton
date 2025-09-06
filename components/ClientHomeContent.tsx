@@ -115,10 +115,8 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
     preloadCriticalAssets();
   }, []);
 
-  // Simplified delay sequence - no longer depends on hydration state
-  const getDelay = (baseDelay: number) => {
-    return baseDelay; // Simplified - just use the base delay
-  };
+  // Remove delays completely for snappier scrolling and rendering
+  const getDelay = (_baseDelay: number) => 0;
 
   return (
     <div className="min-h-screen bg-neutral">
@@ -168,9 +166,9 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
           </section>
         </ProgressiveSection>
         
-        {/* About Section - loads 400ms after showcase starts */}
+        {/* About Section - render immediately for snappier feel */}
         <ProgressiveSection 
-          delay={getDelay(400)}
+          delay={getDelay(0)}
           placeholder={
             <div className="h-96 bg-neutral-50">
               <div className="container mx-auto px-4 py-16 space-y-6">
