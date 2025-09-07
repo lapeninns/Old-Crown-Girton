@@ -7,6 +7,7 @@ import ServiceWorkerProvider from '@/components/ServiceWorkerProvider';
 import { PerformanceProvider } from '@/components/PerformanceProvider';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.com/'),
@@ -60,6 +61,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </PerformanceProvider>
         {/* Vercel Web Analytics */}
         <Analytics />
+        {/* Vercel Speed Insights */}
+        <SpeedInsights />
       </body>
     </html>
   );
