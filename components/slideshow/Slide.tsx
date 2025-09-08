@@ -102,7 +102,7 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
           />
         )}
         {/* Overlay for text contrast; ease in slightly after image loads to avoid "grey flash" perception */}
-        <div className={`absolute inset-0 bg-black/75 transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-70'}`} />
+  <div className={`absolute inset-0 bg-black/55 transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-80'}`} />
       </div>
 
       {!visualOnly && (
