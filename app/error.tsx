@@ -1,7 +1,7 @@
 "use client";
 
 import Link from '@/lib/debugLink';
-import ButtonSupport from "@/components/ButtonSupport";
+// ButtonSupport intentionally removed from this view
 
 // A simple error boundary to show a nice error page if something goes wrong (Error Boundary)
 // Users can contanct support, go to the main page or try to reset/refresh to fix the error
@@ -152,7 +152,6 @@ export default function Error({
             </svg>
             Refresh
           </button>
-          <ButtonSupport />
           <Link href="/" className="btn btn-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
