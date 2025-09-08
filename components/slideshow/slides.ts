@@ -14,10 +14,20 @@ import gardenPlayArea from '@cimages/Slideshow/garden/childrens-wooden-play-area
 import buildingThatched from '@cimages/Slideshow/OldCrownGirtonBuilding.png';
 import exteriorGarden from '@cimages/Slideshow/exterior/the-old-crown-pub-exterior-and-beer-garden.jpeg';
 import exteriorCarPark from '@cimages/Slideshow/exterior/large-gravel-car-park-at-the-old-crown-pub.jpeg';
-// Placeholder import removed; using `buildingThatched` as a fallback until a real image is provided.
-// import threePorsches from '@cimages/OldCrownGirton/three-porsches-front-of-old-crown-girton.jpg';
+import carMeetOutside from '@cimages/Slideshow/cars/car-meet-up.jpeg';
 
 export const slides = [
+  // New slide: car meet / road-trip moment — first-person copy, placed as slide 1
+  {
+    id: 'slide-0',
+    image: carMeetOutside,
+    alt: 'A trio of sports cars parked outside the thatched Old Crown Girton pub on a sunny day',
+    eyebrow: 'Road-Trip Welcome',
+    headline: 'A Perfect Stop for Road-Trip Meets',
+    copy: 'Pull up, park, and enjoy great food and drinks — our spacious forecourt and thatched backdrop make every car meet an easy, welcoming occasion.',
+    badges: ['Car Meets', 'Photo Moments', 'Friendly Welcome'],
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+  },
   // Interior Images - Historic Character & Atmosphere
   {
     id: 'slide-1',
@@ -29,18 +39,6 @@ export const slides = [
     badges: ['Historic Interior', 'Nepalese Cuisine', 'Family Dining'],
     ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
   },
-  // New slide: Car meet in front of the Old Crown Girton
-  {
-    id: 'slide-12',
-    image: buildingThatched, // fallback image; replace with `threePorsches` when available
-    alt: 'Three Porsche sports cars parked outside The Old Crown Girton thatched pub',
-    eyebrow: 'Car Meet at The Old Crown',
-    headline: 'Classic & Modern Cars Gather at Our Pub',
-    copy: 'Join us for motoring meetups and community events — great food, great company, and a perfect photo backdrop.',
-    badges: ['Car Meet', 'Community Events', 'Photo Spot'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
-  }
-  ,
   {
     id: 'slide-2',
     image: interiorComfyLounge,
