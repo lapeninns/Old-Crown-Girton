@@ -48,5 +48,21 @@ playwright-tests/
 # Ignore generated media and recordings from tests
 playwright-report/data/
 
-# Backup files
+# Ignore IDE-specific files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Ignore OS-specific files
+Thumbs.db
+*.swp
+*.lock
 *.bak
+*.tmp
+
+# Ignore build artifacts
+dist/
+
+# Ignore logs
+logs
+*.log
