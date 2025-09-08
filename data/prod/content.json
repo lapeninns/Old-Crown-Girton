@@ -126,7 +126,7 @@
         "title": "Book Your Event",
         "description": "Planning a private event? Get in touch to discuss your requirements.",
         "phone": "01223277217",
-        "email": "events@oldcrowngirton.co.uk"
+        "email": "events@oldcrowngirton.com"
       }
     },
     "menu": {
@@ -226,12 +226,12 @@
     "terms": {
       "title": "Terms of Service",
       "effectiveDate": "10 August 2025",
-      "contact": "legal@oldcrowngirton.co.uk"
+      "contact": "legal@oldcrowngirton.com"
     },
     "privacy": {
       "title": "Privacy Policy",
       "effectiveDate": "10 August 2025",
-      "contact": "privacy@oldcrowngirton.co.uk"
+      "contact": "privacy@oldcrowngirton.com"
     }
   },
   "debug": {

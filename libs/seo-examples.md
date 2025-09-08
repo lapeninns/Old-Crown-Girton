@@ -123,14 +123,14 @@ export default function BlogPost({ params }: BlogPostProps) {
       name: "The Old Crown Girton",
       logo: {
         "@type": "ImageObject",
-        url: "https://oldcrowngirton.co.uk/icon.png"
+        url: "https://oldcrowngirton.com/icon.png"
       }
     },
     datePublished: "2024-03-15",
     dateModified: "2024-03-15",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://oldcrowngirton.co.uk/blog/authentic-momo-dumplings-nepalese-cuisine"
+      "@id": "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine"
     }
   };
 
@@ -182,7 +182,7 @@ export default function EventsPage() {
       organizer: {
         "@type": "Organization",
         name: "The Old Crown Girton",
-        url: "https://oldcrowngirton.co.uk"
+        url: "https://oldcrowngirton.com"
       },
       offers: {
         "@type": "Offer",

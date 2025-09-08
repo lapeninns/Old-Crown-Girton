@@ -1,7 +1,7 @@
 // Enhanced robots.txt for restaurant SEO optimization
 import { MetadataRoute } from 'next'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.oldcrowngirton.co.uk';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.oldcrowngirton.com';
  
 export default function robots(): MetadataRoute.Robots {
   return {

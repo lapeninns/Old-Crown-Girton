@@ -15,7 +15,7 @@ function snapshot(): ConfigProps {
     appName: "Old Crown Girton",
     appDescription:
       "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Voted #1 restaurant in Girton on TripAdvisor.",
-    domainName: "oldcrowngirton.co.uk",
+    domainName: "oldcrowngirton.com",
     crisp: { id: "", onlyShowOnRoutes: ["/"] },
     stripe: {
       plans: [
@@ -32,8 +32,8 @@ function snapshot(): ConfigProps {
     aws: { bucket: undefined, bucketUrl: undefined, cdn: undefined },
     mailgun: {
       subdomain: "mg",
-      fromNoReply: `Old Crown <noreply@mg.oldcrowngirton.co.uk>`,
-      fromAdmin: `Old Crown <info@mg.oldcrowngirton.co.uk>`,
+      fromNoReply: `Old Crown <noreply@mg.oldcrowngirton.com>`,
+      fromAdmin: `Old Crown <info@mg.oldcrowngirton.com>`,
       supportEmail: "oldcrown@lapeninns.com",
       forwardRepliesTo: "oldcrown@lapeninns.com",
     },

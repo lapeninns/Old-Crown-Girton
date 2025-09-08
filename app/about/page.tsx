@@ -16,7 +16,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "About Old Crown Girton - Historic Thatched Pub & Nepalese Kitchen",
     description: "Discover England's largest thatched pub in Girton serving authentic Nepalese cuisine and British pub classics.",
-    url: "https://oldcrowngirton.co.uk/about",
+    url: "https://oldcrowngirton.com/about",
   },
 });
 
@@ -45,8 +45,8 @@ export default async function AboutPage() {
       <RestaurantLayout>
         {renderSchemaTags()}
         <SchemaInjector type="breadcrumb" data={[
-          { name: 'Home', url: 'https://oldcrowngirton.co.uk/' },
-          { name: 'About', url: 'https://oldcrowngirton.co.uk/about' }
+          { name: 'Home', url: 'https://oldcrowngirton.com/' },
+          { name: 'About', url: 'https://oldcrowngirton.com/about' }
         ]} page="about" />
         
         {/* Hero Section with motion animation */}

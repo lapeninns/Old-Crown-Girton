@@ -12,7 +12,7 @@ interface SitemapEntry {
   };
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.oldcrowngirton.co.uk';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.oldcrowngirton.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
