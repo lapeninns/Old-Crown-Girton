@@ -1,121 +1,166 @@
 import type { Metadata } from "next";
+import type { ReactElement } from "react";
 import config from "@/config";
 
-// These are all the SEO tags you can add to your pages.
-// It prefills data with default title/description/OG, etc.. and you can cusotmize it for each page.
-// It's already added in the root layout.js so you don't have to add it to every pages
-// But I recommend to set the canonical URL for each page (export const metadata = getSEOTags({canonicalUrlRelative: "/"});)
-// See https://shipfa.st/docs/features/seo
-export const getSEOTags = ({
-  title,
-  description,
-  keywords,
-  openGraph,
-  canonicalUrlRelative,
-  extraTags,
-}: Metadata & {
+/**
+ * Contract for getSEOTags inputs.
+ * We accept all Next.js Metadata fields and two helpers:
+ * - canonicalUrlRelative: relative path (e.g. "/about") that will be turned into the canonical alternate
+ * - extraTags: arbitrary extra metadata you may want to merge in
+ */
+type SEOTagOptions = Metadata & {
   canonicalUrlRelative?: string;
   extraTags?: Record<string, any>;
-} = {}) => {
-  return {
-    // up to 50 characters (what does your app do for the user?) > your main should be here
+};
+
+/**
+ * Build a Metadata object prefilled from `config` with sane defaults.
+ * Returns a value compatible with Next.js app router `metadata` export.
+ */
+export const getSEOTags = (opts: SEOTagOptions = {}): Metadata => {
+  const { title, description, keywords, openGraph, canonicalUrlRelative, extraTags } = opts;
+
+  const metadataBase = new URL(
+    process.env.NODE_ENV === "development" ? "http://localhost:3000/" : `https://${config.domainName}/`
+  );
+
+  // Normalize keywords: accept string | string[] | undefined
+  const normalizedKeywords: Metadata["keywords"] = Array.isArray(keywords)
+    ? keywords
+    : typeof keywords === "string"
+    ? keywords.split(",").map((k) => k.trim()).filter(Boolean)
+    : [config.appName];
+
+  const defaultOGUrl = `${metadataBase.origin}/`;
+
+  const metadata: Metadata = {
     title: title || config.appName,
-    // up to 160 characters (how does your app help the user?)
     description: description || config.appDescription,
-    // some keywords separated by commas. by default it will be your app name
-    keywords: keywords || [config.appName],
+    keywords: normalizedKeywords,
     applicationName: config.appName,
-    // set a base URL prefix for other fields that require a fully qualified URL (.e.g og:image: og:image: 'https://yourdomain.com/share.png' => '/share.png')
-    metadataBase: new URL(
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000/"
-        : `https://${config.domainName}/`
-    ),
+    metadataBase,
 
     openGraph: {
-      title: openGraph?.title || config.appName,
-      description: openGraph?.description || config.appDescription,
-      url: openGraph?.url || `https://${config.domainName}/`,
-      siteName: openGraph?.title || config.appName,
-      // If you add an opengraph-image.(jpg|jpeg|png|gif) image to the /app folder, you don't need the code below
-      // images: [
-      //   {
-      //     url: `https://${config.domainName}/share.png`,
-      //     width: 1200,
-      //     height: 660,
-      //   },
-      // ],
+      title: openGraph?.title || title || config.appName,
+      description: openGraph?.description || description || config.appDescription,
+      url: openGraph?.url || defaultOGUrl,
+      siteName: openGraph?.siteName || config.appName,
       locale: "en_US",
       type: "website",
+      ...(openGraph?.images ? { images: openGraph.images } : {}),
     },
 
     twitter: {
-      title: openGraph?.title || config.appName,
-      description: openGraph?.description || config.appDescription,
-      // If you add an twitter-image.(jpg|jpeg|png|gif) image to the /app folder, you don't need the code below
-      // images: [openGraph?.image || defaults.og.image],
+      title: openGraph?.title || title || config.appName,
+      description: openGraph?.description || description || config.appDescription,
       card: "summary_large_image",
-      creator: "@marc_louvion",
+      creator: "@lapeninns",
     },
 
-    // If a canonical URL is given, we add it. The metadataBase will turn the relative URL into a fully qualified URL
-    ...(canonicalUrlRelative && {
-      alternates: { canonical: canonicalUrlRelative },
-    }),
-
-    // If you want to add extra tags, you can pass them here
+    // Merge any additional tags (be careful not to clobber typed fields)
     ...extraTags,
   };
+
+  if (canonicalUrlRelative) {
+    // Next.js will resolve this relative canonical with metadataBase
+    metadata.alternates = { canonical: canonicalUrlRelative };
+  }
+
+  return metadata;
 };
 
-// Strctured Data for Rich Results on Google. Learn more: https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-// Find your type here (SoftwareApp, Book...): https://developers.google.com/search/docs/appearance/structured-data/search-gallery
-// Use this tool to check data is well structure: https://search.google.com/test/rich-results
-// You don't have to use this component, but it increase your chances of having a rich snippet on Google.
-// I recommend this one below to your /page.js for software apps: It tells Google your AppName is a Software, and it has a rating of 4.8/5 from 12 reviews.
-// Fill the fields with your own data
-// See https://shipfa.st/docs/features/seo
-export const renderSchemaTags = (schemas?: Array<Record<string, any>>) => {
-  // Default software schema (legacy compatibility)
-  const defaultSchema = {
-    "@context": "http://schema.org",
-    "@type": "SoftwareApplication",
+/**
+ * Render structured data scripts for Schema.org rich results.
+ * Pass an array of JSON-LD objects or let the helper render a sensible default.
+ */
+export const renderSchemaTags = (schemas?: Array<Record<string, any>>): ReactElement | null => {
+  const defaultSchema: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
     name: config.appName,
     description: config.appDescription,
-    image: `https://${config.domainName}/icon.png`,
+    image: `${config.domainName.startsWith("http") ? config.domainName : `https://${config.domainName}`}/icon.png`,
     url: `https://${config.domainName}/`,
-    author: {
-      "@type": "Person",
-      name: "Marc Lou",
+    telephone: "+44 1223 276027",
+    email: "oldcrown@lapeninns.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "89 High Street",
+      addressLocality: "Girton",
+      addressRegion: "Cambridgeshire",
+      postalCode: "CB3 0QQ",
+      addressCountry: "GB"
     },
-    datePublished: "2023-08-01",
-    applicationCategory: "EducationalApplication",
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "52.2434",
+      longitude: "0.0732"
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday"],
+        opens: "12:00",
+        closes: "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Tuesday"],
+        opens: "12:00",
+        closes: "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Wednesday"],
+        opens: "12:00",
+        closes: "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Thursday"],
+        opens: "12:00",
+        closes: "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Friday"],
+        opens: "12:00",
+        closes: "23:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday"],
+        opens: "12:00",
+        closes: "23:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Sunday"],
+        opens: "12:00",
+        closes: "22:00"
+      }
+    ],
+    servesCuisine: ["Nepalese", "British", "Pub Food"],
+    priceRange: "££",
+    acceptsReservations: true,
+    hasMenu: `https://${config.domainName}/menu`,
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "12",
-    },
-    offers: [
-      {
-        "@type": "Offer",
-        price: "9.00",
-        priceCurrency: "USD",
-      },
-    ],
+      ratingValue: "4.5",
+      reviewCount: "127"
+    }
   };
 
-  // Use provided schemas or fall back to default
   const schemasToRender = schemas && schemas.length > 0 ? schemas : [defaultSchema];
 
   return (
     <>
-      {schemasToRender.map((schema, index) => (
+      {schemasToRender.map((schema, i) => (
         <script
-          key={index}
+          key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schema),
-          }}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
     </>
