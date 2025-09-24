@@ -49,8 +49,74 @@ const getOptimalConfig = () => {
   };
 };
 
+const REQUIRED_SLIDE_IDS = new Set(['slide-ev-charging', 'slide-11']);
+
+const shuffleSlides = (slides: any[]) => {
+  const shuffled = [...slides];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+const collectSlides = (allSlides: any[]): { required: any[]; optional: any[] } => {
+  if (!Array.isArray(allSlides) || allSlides.length === 0) {
+    return { required: [], optional: [] };
+  }
+  const seen = new Set<string>();
+  const required: any[] = [];
+  const optional: any[] = [];
+
+  allSlides.forEach((slide) => {
+    if (!slide || !slide.id || seen.has(slide.id)) return;
+    seen.add(slide.id);
+    if (REQUIRED_SLIDE_IDS.has(slide.id)) {
+      required.push(slide);
+    } else {
+      optional.push(slide);
+    }
+  });
+
+  return { required, optional };
+};
+
+const selectSessionSlides = (allSlides: any[], targetCount = 5) => {
+  const { required, optional } = collectSlides(allSlides);
+  if (!required.length && !optional.length) return [];
+
+  const needed = Math.max(0, targetCount - required.length);
+  const randomizedOptional = shuffleSlides(optional);
+  const selectedOptional = randomizedOptional.slice(0, needed);
+
+  const combined = [...required, ...selectedOptional];
+
+  if (combined.length < targetCount) {
+    for (const slide of randomizedOptional) {
+      if (combined.length >= targetCount) break;
+      if (!combined.includes(slide)) combined.push(slide);
+    }
+  }
+
+  return shuffleSlides(combined).slice(0, targetCount);
+};
+
+const getDefaultSessionSlides = (allSlides: any[], targetCount = 5) => {
+  const { required, optional } = collectSlides(allSlides);
+  if (!required.length && !optional.length) return [];
+
+  const combined = [...required];
+  for (const slide of optional) {
+    if (combined.length >= targetCount) break;
+    combined.push(slide);
+  }
+
+  return combined.slice(0, targetCount);
+};
+
 const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolean }> = ({ slides = defaultSlides, interval = 5000, autoplay = true }) => {
-  const slideCount = slides.length;
+  const [sessionSlides, setSessionSlides] = useState(() => getDefaultSessionSlides(slides, 5));
+  const slideCount = sessionSlides.length;
   const prefersReduced = useReducedMotion();
   const config = getOptimalConfig();
   const [index, setIndex] = useState(0);
@@ -65,9 +131,22 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   const minSwipeDistance = config.enableTouchOptimization ? 30 : 50; // Smaller threshold for mobile
   const actualInterval = config.autoplayInterval || interval;
 
+  useEffect(() => {
+    const randomized = selectSessionSlides(slides, 5);
+    const newSlides = randomized.length ? randomized : getDefaultSessionSlides(slides, 5);
+    setSessionSlides((current) => {
+      if (current.length === newSlides.length && current.every((slide, idx) => slide?.id === newSlides[idx]?.id)) {
+        return current;
+      }
+      return newSlides;
+    });
+    setIndex(0);
+    setPrevIndex(null);
+  }, [slides]);
+
   // Mobile-optimized preloader - reduced preload count for performance
   const { loaded, waitFor } = useImagePreloader(
-    slides.map((s) => getPrimaryImageSrc(s.image)),
+    sessionSlides.map((s) => getPrimaryImageSrc(s.image)),
     index,
     { ahead: config.preloadCount, behind: config.preloadCount > 1 ? 1 : 0 }
   );
@@ -95,7 +174,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   const requestAdvance = async (direction: 1 | -1) => {
     if (transitioningRef.current) return;
     const next = (index + direction + slideCount) % slideCount;
-    const nextImage = slides[next]?.image;
+    const nextImage = sessionSlides[next]?.image;
     const nextSrc = getPrimaryImageSrc(nextImage);
     if (nextSrc && !loaded.has(nextSrc)) {
       const status = await waitFor(nextSrc, Math.max(1000, Math.min(6000, interval)));
@@ -109,22 +188,20 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   // Mobile-optimized autoplay with network awareness
   useEffect(() => {
     if (!autoplay || slideCount <= 1) return;
-    
-    // Skip autoplay on very slow networks to save bandwidth
-    if (config.reduceAnimations) {
-      return;
-    }
-    
+    if (prefersReduced) return;
+
+    const intervalMs = config.reduceAnimations ? Math.max(actualInterval, interval * 1.5) : actualInterval;
+
     let cancelled = false;
     const timer = setTimeout(async () => {
       if (cancelled) return;
       await requestAdvance(1);
-    }, actualInterval);
+    }, intervalMs);
     return () => {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [autoplay, actualInterval, slideCount, index, loaded, config.reduceAnimations]);
+  }, [autoplay, actualInterval, interval, slideCount, index, prefersReduced, config.reduceAnimations]);
 
   if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
 
@@ -221,21 +298,21 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
       {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
       <div className="slides-wrapper relative">
         {/* Current slide in normal flow to establish height */}
-        {slides[index] && (
-          <div key={`curr-${slides[index].id}`} className="relative z-0">
+        {sessionSlides[index] && (
+          <div key={`curr-${sessionSlides[index].id}`} className="relative z-0">
             <Slide
-              slide={slides[index]}
+              slide={sessionSlides[index]}
               slideIndex={index}
               active={true}
-              preloaded={loaded.has(getPrimaryImageSrc(slides[index].image))}
+              preloaded={loaded.has(getPrimaryImageSrc(sessionSlides[index].image))}
             />
           </div>
         )}
         {/* Previous slide (on top, fading out) */}
         <AnimatePresence>
-          {prevIndex !== null && slides[prevIndex] && (
+          {prevIndex !== null && sessionSlides[prevIndex] && (
             <motion.div
-              key={`prev-${slides[prevIndex].id}`}
+              key={`prev-${sessionSlides[prevIndex].id}`}
               className="absolute inset-0 z-10 pointer-events-none"
               initial={{ opacity: prefersReduced ? 1 : 1 }}
               animate={{ opacity: showPrev ? 1 : 0 }}
@@ -243,7 +320,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
               transition={{ duration: prefersReduced ? 0 : 0.3, ease: 'easeInOut' }}
             >
               <Slide
-                slide={slides[prevIndex]}
+                slide={sessionSlides[prevIndex]}
                 slideIndex={prevIndex}
                 active={false}
                 visualOnly
