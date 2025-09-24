@@ -293,7 +293,8 @@ const preloadCriticalImages = (): Promise<void[]> => {
     // Hero/slideshow images - first slide is critical
     '/images/slideshow/OldCrownGirtonBuilding.png',
     '/images/slideshow/interior/the-old-crown-pub-restaurant-interior-dining.jpg',
-    '/images/slideshow/garden/family-friendly-pub-garden-with-picnic-tables.jpeg'
+    '/images/slideshow/garden/family-friendly-pub-garden-with-picnic-tables.jpeg',
+    '/images/slideshow/cars/electric-vehicle-charging-bays.png'
     // Add other critical above-fold images
   ];
 

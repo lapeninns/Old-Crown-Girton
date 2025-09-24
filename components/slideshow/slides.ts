@@ -15,6 +15,7 @@ import buildingThatched from '@cimages/Slideshow/OldCrownGirtonBuilding.png';
 import exteriorGarden from '@cimages/Slideshow/exterior/the-old-crown-pub-exterior-and-beer-garden.jpeg';
 import exteriorCarPark from '@cimages/Slideshow/exterior/large-gravel-car-park-at-the-old-crown-pub.jpeg';
 import carMeetOutside from '@cimages/Slideshow/cars/car-meet-up.jpeg';
+import carChargingBays from '@cimages/Slideshow/cars/electric-vehicle-charging-bays.png';
 
 export const slides = [
   // New slide: car meet / road-trip moment — first-person copy, placed as slide 1
@@ -26,6 +27,16 @@ export const slides = [
     headline: 'A Perfect Stop for Road-Trip Meets',
     copy: 'Pull up, park, and enjoy great food and drinks — our spacious forecourt and thatched backdrop make every car meet an easy, welcoming occasion.',
     badges: ['Car Meets', 'Photo Moments', 'Friendly Welcome'],
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+  },
+  {
+    id: 'slide-ev-charging',
+    image: carChargingBays,
+    alt: 'Electric vehicles charging at dedicated bays outside the Old Crown Girton pub',
+    eyebrow: 'Charge & Dine',
+    headline: 'Plug In While You Unwind Inside',
+    copy: 'Top up your EV and your energy in one stop — enjoy dinner or a pint while our on-site chargers handle your car.',
+    badges: ['EV Charging', 'Road-Trip Ready', 'Free Parking'],
     ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
   },
   // Interior Images - Historic Character & Atmosphere
