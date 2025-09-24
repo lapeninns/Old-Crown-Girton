@@ -131,6 +131,16 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
   const minSwipeDistance = config.enableTouchOptimization ? 30 : 50; // Smaller threshold for mobile
   const actualInterval = config.autoplayInterval || interval;
 
+  const incomingInitial = prefersReduced ? { opacity: 0 } : { opacity: 0, x: 18 };
+  const incomingAnimate = prefersReduced ? { opacity: 1 } : { opacity: 1, x: 0 };
+  const incomingTransition = prefersReduced
+    ? { duration: 0.2, ease: 'linear' as const }
+    : { duration: 0.45, ease: [0.4, 0, 0.2, 1] as const };
+
+  const outgoingTransition = prefersReduced
+    ? { duration: 0.2, ease: 'linear' as const }
+    : { duration: 0.4, ease: [0.4, 0, 0.2, 1] as const };
+
   useEffect(() => {
     const randomized = selectSessionSlides(slides, 5);
     const newSlides = randomized.length ? randomized : getDefaultSessionSlides(slides, 5);
@@ -299,14 +309,20 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
       <div className="slides-wrapper relative">
         {/* Current slide in normal flow to establish height */}
         {sessionSlides[index] && (
-          <div key={`curr-${sessionSlides[index].id}`} className="relative z-0">
+          <motion.div
+            key={`curr-${sessionSlides[index].id}`}
+            className="relative z-0"
+            initial={incomingInitial}
+            animate={incomingAnimate}
+            transition={incomingTransition}
+          >
             <Slide
               slide={sessionSlides[index]}
               slideIndex={index}
               active={true}
               preloaded={loaded.has(getPrimaryImageSrc(sessionSlides[index].image))}
             />
-          </div>
+          </motion.div>
         )}
         {/* Previous slide (on top, fading out) */}
         <AnimatePresence>
@@ -314,10 +330,10 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
             <motion.div
               key={`prev-${sessionSlides[prevIndex].id}`}
               className="absolute inset-0 z-10 pointer-events-none"
-              initial={{ opacity: prefersReduced ? 1 : 1 }}
+              initial={{ opacity: 1 }}
               animate={{ opacity: showPrev ? 1 : 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: prefersReduced ? 0 : 0.3, ease: 'easeInOut' }}
+              transition={outgoingTransition}
             >
               <Slide
                 slide={sessionSlides[prevIndex]}

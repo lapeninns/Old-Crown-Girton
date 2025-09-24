@@ -4,3 +4,4 @@
 - [x] Adjust autoplay logic in `components/slideshow/Slideshow.tsx` to always advance after the configured delay.
 - [x] Lint updated slideshow files.
 - [x] Restrict each session to five slides including car park & EV charging, with other slides randomized.
+- [x] Implement smooth crossfade transition for active slide while keeping previous slide visible.

@@ -17,6 +17,8 @@ const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
 });
 // Dynamic imports for Menu page sections - optimized for performance
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
 	title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
 	description: 'Explore our searchable menu featuring authentic Nepalese cuisine, momo, dal bhat & curries, plus traditional British pub classics. Advanced search and dietary filters available. Takeaway available.',
@@ -64,9 +66,6 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 		}))
 	};
 	
-	// Default to "All" (null) to show all menu sections initially
-	const defaultSection: string | null = null;
-
 	// Enhanced structured data with optimized menu
 	const structuredData = {
 		'@context': 'https://schema.org',

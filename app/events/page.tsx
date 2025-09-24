@@ -66,7 +66,7 @@ export default function EventsPage() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <p className="text-brand-600 mb-6 leading-relaxed">
-                    Never miss a moment of the game at The Old Crown! We're proud to show a wide range of live sports on Sky TV across our screens, bringing you all the thrilling action from football, rugby, cricket, and more. Gather your mates, grab a refreshing pint from our selection of real ales, and immerse yourself in the electric atmosphere. Whether it's a tense derby or an international showdown, our pub is the perfect spot to cheer on your favourite team.
+                    Never miss a moment of the game at The Old Crown! We&apos;re proud to show a wide range of live sports on Sky TV across our screens, bringing you all the thrilling action from football, rugby, cricket, and more. Gather your mates, grab a refreshing pint from our selection of real ales, and immerse yourself in the electric atmosphere. Whether it&apos;s a tense derby or an international showdown, our pub is the perfect spot to cheer on your favourite team.
                   </p>
 
                   <div className="space-y-4">
@@ -106,7 +106,7 @@ export default function EventsPage() {
                 <div className="bg-accent-50 rounded-xl p-6 border border-accent-200">
                   <h4 className="font-bold text-brand-700 mb-4">📱 Stay Updated</h4>
                   <p className="text-brand-600 mb-4">
-                    Check our social media or call us for the latest fixtures and upcoming matches! Looking for a specific game? Give us a call, and we'll do our best to accommodate!
+                    Check our social media or call us for the latest fixtures and upcoming matches! Looking for a specific game? Give us a call, and we&apos;ll do our best to accommodate!
                   </p>
                   <div className="flex gap-3">
                     <a href="#" className="text-accent-600 hover:text-accent-700 font-medium">📘 Facebook</a>
@@ -132,7 +132,7 @@ export default function EventsPage() {
               </div>
 
               <p className="text-lg text-brand-600 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
-                Beyond sports, The Old Crown is a versatile and picturesque venue, ideal for celebrating life's special moments, hosting business gatherings, or bringing people together. Our unique setting, combined with exceptional food and service, ensures your event will be truly memorable.
+                Beyond sports, The Old Crown is a versatile and picturesque venue, ideal for celebrating life&apos;s special moments, hosting business gatherings, or bringing people together. Our unique setting, combined with exceptional food and service, ensures your event will be truly memorable.
               </p>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -140,8 +140,8 @@ export default function EventsPage() {
                   { icon: '🏛️', title: 'Thatched Historic Building', body: "Step into history! Our iconic, largest thatched pub in the country offers a stunning and memorable backdrop for photos and gatherings, adding a touch of unique British charm to any event." },
                   { icon: '🍛', title: 'Unique Nepalese + British Menus', body: 'Ditch the ordinary! Treat your guests to a standout culinary experience with our acclaimed authentic Nepalese cuisine alongside beloved British pub classics. We can tailor menus to suit your preferences and dietary needs.' },
                   { icon: '🌳', title: 'Large Garden & Terrace', body: 'Perfect for summer socials, family events, or simply enjoying the fresh air. Our expansive outdoor spaces and large beer garden provide a beautiful setting for mingling and relaxation.' },
-                  { icon: '🚗', title: 'Easy Parking & Quick Links', body: "Conveniently located just outside the city centre with ample free parking. We're easily accessible for guests coming from Cambridge and the surrounding villages." },
-                  { icon: '💰', title: 'No Heavy Deposit Required', body: "We believe in making event planning stress-free. For most bookings, you won't need a heavy deposit, making it easier to arrange your gathering." },
+                  { icon: '🚗', title: 'Easy Parking & Quick Links', body: "Conveniently located just outside the city centre with ample free parking. We&apos;re easily accessible for guests coming from Cambridge and the surrounding villages." },
+                  { icon: '💰', title: 'No Heavy Deposit Required', body: "We believe in making event planning stress-free. For most bookings, you won&apos;t need a heavy deposit, making it easier to arrange your gathering." },
                   { icon: '👨‍👩‍👧‍👦', title: 'Family-Friendly Venue', body: 'We welcome families with children and can provide a kids menu upon request, making us an ideal choice for family celebrations.' },
                 ].map((card) => (
                   <article key={card.title} className="bg-white rounded-xl p-6 shadow-lg transition-transform duration-300 hover:shadow-2xl focus-within:shadow-2xl">
@@ -197,7 +197,7 @@ export default function EventsPage() {
                   <div className="flex items-center gap-3 p-4 bg-brand-50 rounded-lg hover:bg-brand-100 transition-colors duration-200 border border-brand-200">
                     <span className="text-2xl" aria-hidden="true">🤝</span>
                     <div>
-                      <strong className="text-brand-700">Community Events:</strong> We love being a hub for Girton! Talk to us about hosting your local group's next meet-up or event.
+                      <strong className="text-brand-700">Community Events:</strong> We love being a hub for Girton! Talk to us about hosting your local group&apos;s next meet-up or event.
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-4 bg-brand-50 rounded-lg hover:bg-brand-100 transition-colors duration-200 border border-brand-200">
@@ -219,7 +219,7 @@ export default function EventsPage() {
                 <BouncyEmoji>🎈</BouncyEmoji> Ready to Plan Your Event?
               </h3>
               <p className="text-lg mb-8 max-w-2xl mx-auto text-white/95 leading-relaxed">
-                Our friendly team can't wait to help you create a truly special occasion! Reach out to check availability, discuss your ideas, or just say hello. We love making every event memorable.
+                Our friendly team can&apos;t wait to help you create a truly special occasion! Reach out to check availability, discuss your ideas, or just say hello. We love making every event memorable.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -227,7 +227,7 @@ export default function EventsPage() {
                   <span className="mr-2 inline-block" aria-hidden="true">📞</span> Book Your Event Now
                 </MotionLinkButton>
 
-                <MotionLinkButton href="/menu" ariaLabel="View our menus" className="inline-flex items-center justify-center px-8 py-4 bg-brand-100 text-brand-800 font-bold rounded-xl shadow-lg border-2 border-brand-200 hover:bg-brand-200 hover:border-brand-400 hover:text-brand-900 transition-transform duration-150 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-400">
+                <MotionLinkButton href="/menu#starters" ariaLabel="View our menus" className="inline-flex items-center justify-center px-8 py-4 bg-brand-100 text-brand-800 font-bold rounded-xl shadow-lg border-2 border-brand-200 hover:bg-brand-200 hover:border-brand-400 hover:text-brand-900 transition-transform duration-150 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-400">
                   <span className="mr-2 inline-block" aria-hidden="true">🍽️</span> View Our Menus
                 </MotionLinkButton>
 

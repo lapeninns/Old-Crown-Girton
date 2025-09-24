@@ -83,7 +83,7 @@ export default function MenuHighlights() {
 
         <div className="text-center">
           <Link
-            href="/menu"
+            href="/menu#starters"
             className="inline-block bg-brand-700 hover:bg-brand-800 text-white border-2 border-brand-600 font-bold py-4 px-8 rounded-lg text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-300 focus:ring-offset-2"
             aria-label="View full restaurant menu"
           >

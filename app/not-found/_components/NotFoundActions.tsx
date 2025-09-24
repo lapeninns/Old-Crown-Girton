@@ -10,9 +10,9 @@ export default function NotFoundActions() {
     return (
       <div className="flex flex-wrap gap-4 justify-center">
         <div className="animate-pulse flex gap-4">
-          <div className="h-8 w-20 bg-gray-200 rounded"></div>
-          <div className="h-8 w-20 bg-gray-200 rounded"></div>
-          <div className="h-8 w-20 bg-gray-200 rounded"></div>
+          <div className="h-8 w-20 bg-neutral-200 rounded"></div>
+          <div className="h-8 w-20 bg-neutral-200 rounded"></div>
+          <div className="h-8 w-20 bg-neutral-200 rounded"></div>
         </div>
       </div>
     );
@@ -36,7 +36,7 @@ export default function NotFoundActions() {
         {content.ui.buttons.home}
       </Link>
 
-  <Link href="/menu" className="btn btn-secondary btn-sm">
+  <Link href="/menu#starters" className="btn btn-secondary btn-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"

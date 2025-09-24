@@ -22,7 +22,7 @@ function normalizeId(input?: string | number | null) {
  * Enhanced with improved sticky navigation for all responsive devices
  */
 export default function MenuInteractive({ sections, defaultSelected, preloadedData = false }: Props) {
-  const [selected, setSelected] = useState<string | null>(null); // Start with "All" selected by default
+  const [selected, setSelected] = useState<string | null>(defaultSelected ?? null);
   const [isHydrated, setIsHydrated] = useState(preloadedData); // Start hydrated if data is preloaded
   const [filteredSections, setFilteredSections] = useState<Menu['sections']>(sections);
   const [searchTerm, setSearchTerm] = useState('');
@@ -81,32 +81,21 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
 
   // Optimized hydration effect for preloaded data
   useEffect(() => {
-    if (preloadedData) {
-      // Data is already optimized server-side, skip client-side processing
-      setIsHydrated(true);
-      
-      // Only use URL hash if present, otherwise stay with "All" (null)
-      const currentHash = typeof window !== 'undefined' && window.location.hash 
-        ? window.location.hash.replace('#', '') 
-        : null;
-      
-      if (currentHash && currentHash !== selected) {
-        setSelected(currentHash);
-      }
-      return;
-    }
-    
-    // Legacy hydration logic for non-preloaded data
+    const hash = typeof window !== 'undefined' && window.location.hash
+      ? window.location.hash.replace('#', '')
+      : null;
+
+    const target = hash || defaultSelected || null;
+
     setIsHydrated(true);
-    
-    // Only set from URL hash, don't use defaultSelected or auto-select a section
-    const currentHash = window.location.hash ? window.location.hash.replace('#', '') : null;
-    
-    if (currentHash) {
-      setSelected(currentHash);
+
+    if (target !== selected) {
+      setSelected(target);
+      if (typeof window !== 'undefined' && target) {
+        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${target}`);
+      }
     }
-    // Always start with "All" (null) - ignore defaultSelected prop
-  }, [sections, preloadedData, selected]);
+  }, [sections, preloadedData, defaultSelected, selected]);
 
   // Hash change listener - maintains existing pattern
   useEffect(() => {

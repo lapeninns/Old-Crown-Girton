@@ -145,6 +145,8 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
             alt={altText}
             fill
             priority={slideIndex === 0}
+            fetchPriority={slideIndex === 0 ? 'high' : 'auto'}
+            loading={slideIndex === 0 ? 'eager' : 'lazy'}
             className={`object-cover transform xxs:scale-100 sm:scale-110 object-center transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             sizes="100vw"
             onLoad={handleImageLoad}

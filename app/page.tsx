@@ -1,5 +1,6 @@
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
-import Link from '@/lib/debugLink';
+export const revalidate = 300;
+
+import { renderSchemaTags } from '@/libs/seo';
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -140,8 +141,6 @@ export default async function Page() {
   const content = await getContentSmart();
   
   const labels = m.buttons || {};
-  const labelViewMenu = labels.viewMenu || content.global.ui.buttons.viewMenu || 'View Menu';
-  const labelBookOnline = labels.bookOnline || content.global.ui.buttons.bookOnline || 'Book Online';
   
   // Home page content
   const homeContent = content.pages.home;

@@ -34,7 +34,7 @@ export default function ClientFooter() {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/menu" className="hover:text-foreground-strong transition-colors">
+                <Link href="/menu#starters" className="hover:text-foreground-strong transition-colors">
                   Menu
                 </Link>
               </li>

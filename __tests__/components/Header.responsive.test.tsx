@@ -17,7 +17,7 @@ const MockHeader = () => {
         
         {/* Desktop navigation */}
         <div className="hidden md:flex space-x-6">
-          <a href="/menu" className="hover:text-primary">Menu</a>
+          <a href="/menu#starters" className="hover:text-primary">Menu</a>
           <a href="/about" className="hover:text-primary">About</a>
           <a href="/contact" className="hover:text-primary">Contact</a>
         </div>
@@ -43,7 +43,7 @@ const MockHeader = () => {
         data-testid="mobile-menu" 
         className="hidden md:hidden bg-white border-t p-4"
       >
-        <a href="/menu" className="block py-2">Menu</a>
+        <a href="/menu#starters" className="block py-2">Menu</a>
         <a href="/about" className="block py-2">About</a>
         <a href="/contact" className="block py-2">Contact</a>
       </div>

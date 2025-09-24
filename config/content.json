@@ -14,7 +14,7 @@
       "header": {
         "links": [
           { "href": "/", "label": "Home" },
-          { "href": "/menu", "label": "Menu" },
+          { "href": "/menu#starters", "label": "Menu" },
           { "href": "/about", "label": "About" },
           { "href": "/events", "label": "Events" },
           { "href": "/contact", "label": "Contact" }
@@ -25,7 +25,7 @@
           {
             "title": "Quick Links",
             "links": [
-              { "href": "/menu", "label": "Menu" },
+              { "href": "/menu#starters", "label": "Menu" },
               { "href": "/about", "label": "About" },
               { "href": "/events", "label": "Events" },
               { "href": "/contact", "label": "Contact" }
@@ -201,7 +201,7 @@
           {
             "title": "Our Menu",
             "description": "Authentic Nepalese dishes alongside classic pub favorites.",
-            "link": "/menu",
+            "link": "/menu#starters",
             "linkText": "View Menu →"
           }
         ],
@@ -211,7 +211,7 @@
           "buttons": [
             {
               "text": "View Menu",
-              "href": "/menu",
+              "href": "/menu#starters",
               "variant": "accent",
               "key": "viewMenu"
             },
