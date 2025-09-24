@@ -219,8 +219,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 												href="/takeaway-menu"
 												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-50 hover:bg-brand-100 text-brand-800 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 focus-visible:ring-offset-2 inline-block"
 											>
-												Download Takeaway Menu (PDF)
-												<span className="ml-2" aria-hidden="true">⬇️</span>
+												Takeaway Menu
 											</Link>
 											<Link
 												href="/about"
