@@ -7,6 +7,25 @@ import { slides as defaultSlides } from './slides';
 import { useImagePreloader } from './useImagePreloader';
 import SlideshowDebugger from './SlideshowDebugger';
 
+const toSrcString = (src: any): string => {
+  if (!src) return '';
+  if (typeof src === 'string') return src;
+  if (typeof src === 'object' && typeof src.src === 'string') return src.src;
+  return '';
+};
+
+const getPrimaryImageSrc = (image: any): string => {
+  if (typeof image === 'object' && image !== null && 'primary' in image) {
+    return toSrcString(image.primary);
+  }
+
+  if (typeof image === 'string') {
+    return image.replace(/\.(png|jpe?g|webp)$/i, '.avif');
+  }
+
+  return toSrcString(image);
+};
+
 const TRANSITION_MS = 400;
 
 // Mobile performance optimization - detect device capabilities
@@ -48,7 +67,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
 
   // Mobile-optimized preloader - reduced preload count for performance
   const { loaded, waitFor } = useImagePreloader(
-    slides.map((s) => typeof s.image === 'string' ? s.image : (s.image as any)?.src || ''),
+    slides.map((s) => getPrimaryImageSrc(s.image)),
     index,
     { ahead: config.preloadCount, behind: config.preloadCount > 1 ? 1 : 0 }
   );
@@ -77,7 +96,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
     if (transitioningRef.current) return;
     const next = (index + direction + slideCount) % slideCount;
     const nextImage = slides[next]?.image;
-    const nextSrc = typeof nextImage === 'string' ? nextImage : (nextImage as any)?.src || '';
+    const nextSrc = getPrimaryImageSrc(nextImage);
     if (nextSrc && !loaded.has(nextSrc)) {
       const status = await waitFor(nextSrc, Math.max(1000, Math.min(6000, interval)));
       if (status === 'error') {
@@ -208,7 +227,7 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
               slide={slides[index]}
               slideIndex={index}
               active={true}
-              preloaded={loaded.has(slides[index].image)}
+              preloaded={loaded.has(getPrimaryImageSrc(slides[index].image))}
             />
           </div>
         )}

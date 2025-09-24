@@ -1,6 +1,16 @@
+import type { StaticImageData } from 'next/image';
+
+export type SlideImageSource =
+  | string
+  | StaticImageData
+  | {
+      primary: string | StaticImageData;
+      fallback?: string | StaticImageData;
+    };
+
 export type Slide = {
   id: string;
-  image: string;
+  image: SlideImageSource;
   alt?: string;
   eyebrow?: string;
   headline?: string;

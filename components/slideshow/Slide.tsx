@@ -1,14 +1,68 @@
 "use client";
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
 import SlideCTAButton from './SlideCTAButton';
 
+const toSrcString = (src: any): string | null => {
+  if (!src) return null;
+  if (typeof src === 'string') return src;
+  if (typeof src === 'object' && typeof src.src === 'string') return src.src;
+  return null;
+};
+
+const normalizeImage = (image: SlideType['image']) => {
+  if (typeof image === 'object' && image !== null && 'primary' in image) {
+    const primary = image.primary;
+    const fallback = image.fallback ?? image.primary;
+    return { primary, fallback };
+  }
+
+  if (typeof image === 'string') {
+    return {
+      primary: image.replace(/\.(png|jpe?g|webp)$/i, '.avif'),
+      fallback: image
+    };
+  }
+
+  return {
+    primary: image,
+    fallback: image
+  };
+};
+
 const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; preloaded?: boolean; visualOnly?: boolean }> = ({ slide, slideIndex, active, preloaded, visualOnly = false }) => {
+  const { primary, fallback } = useMemo(() => normalizeImage(slide.image), [slide.image]);
+  const [currentSrc, setCurrentSrc] = useState<any>(primary);
   const [imageLoaded, setImageLoaded] = useState<boolean>(!!preloaded);
   const [imageError, setImageError] = useState<boolean>(false);
+  const [hasTriedFallback, setHasTriedFallback] = useState(false);
   const altText = useMemo(() => slide.alt || 'Slideshow image', [slide.alt]);
+
+  useEffect(() => {
+    setCurrentSrc(primary);
+    setImageLoaded(!!preloaded);
+    setImageError(false);
+    setHasTriedFallback(false);
+  }, [primary, preloaded]);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+    setImageError(false);
+  };
+
+  const handleImageError = () => {
+    const fallbackSrc = fallback;
+    if (!hasTriedFallback && fallbackSrc && toSrcString(fallbackSrc) !== toSrcString(currentSrc)) {
+      setHasTriedFallback(true);
+      setImageLoaded(false);
+      setCurrentSrc(fallbackSrc);
+      return;
+    }
+
+    setImageError(true);
+  };
   
   // Dynamic button logic with ABC cycling pattern
   // A (slides 0, 3, 6...): Book Online + Call for Takeaway
@@ -91,14 +145,14 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
         )}
         {(active || visualOnly) && !imageError && (
           <Image
-            src={slide.image}
+            src={currentSrc}
             alt={altText}
             fill
             priority={slideIndex === 0}
             className={`object-cover transform xxs:scale-100 sm:scale-110 object-center transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             sizes="100vw"
-            onLoad={() => setImageLoaded(true)}
-            onError={() => setImageError(true)}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
           />
         )}
         {/* Overlay for text contrast; ease in slightly after image loads to avoid "grey flash" perception */}
