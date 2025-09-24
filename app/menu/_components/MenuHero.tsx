@@ -33,6 +33,12 @@ export default function MenuHero() {
         <h1 className="text-2xl md:text-3xl font-display font-bold text-white mb-3 leading-tight">{hero.title}</h1>
         <p className="text-base md:text-lg text-brand-100 mb-6 max-w-2xl mx-auto leading-relaxed">{hero.subtitle}</p>
         <div className="flex flex-wrap justify-center gap-3">
+          <a
+            href="/takeaway-menu"
+            className="bg-brand-50 hover:bg-brand-100 text-brand-800 border-2 border-brand-200 font-bold py-3 px-6 rounded-lg text-sm transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
+          >
+            Takeaway Menu
+          </a>
           <a 
             href={hero.buttons.bookOnline.url} 
             target={hero.buttons.bookOnline.target} 

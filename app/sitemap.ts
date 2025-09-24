@@ -35,6 +35,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+
+    // Christmas Menu landing page - seasonal priority
+    {
+      url: `${BASE_URL}/christmas-menu`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
     
     // About - medium priority, updated monthly
     {

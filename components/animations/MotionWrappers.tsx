@@ -56,14 +56,20 @@ export function BouncyEmoji({ children, className = "", style }: Props) {
 type LinkButtonProps = Props & {
   href: string;
   onClick?: () => void;
+  download?: string;
+  target?: string;
+  rel?: string;
 };
 
-export function MotionLinkButton({ children, className = "", href, onClick, ariaLabel }: LinkButtonProps) {
+export function MotionLinkButton({ children, className = "", href, onClick, ariaLabel, download, target, rel }: LinkButtonProps) {
   return (
     <motion.a
       href={href}
       role="button"
       onClick={onClick}
+      download={download}
+      target={target}
+      rel={rel}
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02 }}

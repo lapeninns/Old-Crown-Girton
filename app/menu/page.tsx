@@ -209,16 +209,23 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 													{labelBookOnline}
 													<span className="ml-2 text-sm" aria-hidden="true">↗</span>
 												</Link>
-												<Link
-													href="tel:01223276027"
-													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
-												>
-													{labelOrderTakeaway}
-												</Link>
-												<Link
-													href="/about"
-													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-700 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
-												>
+											<Link
+												href="tel:01223276027"
+												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+											>
+												{labelOrderTakeaway}
+											</Link>
+											<Link
+												href="/takeaway-menu"
+												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-50 hover:bg-brand-100 text-brand-800 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 focus-visible:ring-offset-2 inline-block"
+											>
+												Download Takeaway Menu (PDF)
+												<span className="ml-2" aria-hidden="true">⬇️</span>
+											</Link>
+											<Link
+												href="/about"
+												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-700 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+											>
 													Learn Our Story
 												</Link>
 											</div>

@@ -56,10 +56,13 @@ export default function Navbar() {
       logHrefIssue('Invalid href detected in navbar link', link.href, 'Navbar.filteredLinks');
       return false;
     }
-    
+
     const safeHref = sanitizeHref(link.href);
     return safeHref !== '/' && safeHref !== '/contact';
   });
+
+  const baseDesktopClasses = 'transition-colors duration-300 focus-visible:outline-none';
+  const baseMobileClasses = baseDesktopClasses;
 
   return (
     <nav 
@@ -98,15 +101,39 @@ export default function Navbar() {
           {/* Desktop Navigation - Center-Right */}
           <div className="hidden md:flex items-center space-x-8">
             {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
-            {filteredLinks.map((link: any, index: number) => (
-              <Link
-                key={createHrefKey(link.href, index)}
-                href={sanitizeHref(link.href)}
-                className="text-brand-600 hover:text-brand-800 transition-colors duration-300"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {filteredLinks.map((link: any, index: number) => {
+              const sanitizedHref = sanitizeHref(link.href);
+              const isChristmasLink = sanitizedHref === '/christmas-menu';
+              const desktopClassName = isChristmasLink
+                ? `group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-crimson-500 via-brand-600 to-cardamom-600 px-4 py-1.5 text-base font-semibold text-white shadow-lg transition-transform duration-300 hover:shadow-xl hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700 ${baseDesktopClasses}`
+                : `text-brand-600 hover:text-brand-800 focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 ${baseDesktopClasses}`;
+
+              return (
+                <Link
+                  key={createHrefKey(link.href, index)}
+                  href={sanitizedHref}
+                  className={desktopClassName}
+                >
+                  {isChristmasLink && (
+                    <span
+                      className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-lg"
+                      aria-hidden="true"
+                    >
+                      🎄
+                    </span>
+                  )}
+                  <span className={isChristmasLink ? 'relative' : undefined}>
+                    {link.label}
+                    {isChristmasLink && (
+                      <span
+                        className="pointer-events-none absolute inset-x-0 -bottom-1 h-px bg-white/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
 
           {/* Contact Button - Right */}
@@ -150,16 +177,32 @@ export default function Navbar() {
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
                 <div className="flex flex-col space-y-4">
-                  {filteredLinks.map((link: any, index: number) => (
-                    <Link
-                      key={createHrefKey(link.href, index)}
-                      href={sanitizeHref(link.href)}
-                      className="text-brand-600 hover:text-brand-800 py-2 px-3"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                  {filteredLinks.map((link: any, index: number) => {
+                    const sanitizedHref = sanitizeHref(link.href);
+                    const isChristmasLink = sanitizedHref === '/christmas-menu';
+                    const mobileClassName = isChristmasLink
+                      ? `group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-crimson-500 via-brand-600 to-cardamom-600 px-4 py-2 text-base font-semibold text-white shadow-lg transition-transform duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700 ${baseMobileClasses}`
+                      : `text-brand-600 hover:text-brand-800 py-2 px-3 focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 ${baseMobileClasses}`;
+
+                    return (
+                      <Link
+                        key={createHrefKey(link.href, index)}
+                        href={sanitizedHref}
+                        className={mobileClassName}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {isChristmasLink && (
+                          <span
+                            className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-lg"
+                            aria-hidden="true"
+                          >
+                            🎄
+                          </span>
+                        )}
+                        <span>{link.label}</span>
+                      </Link>
+                    );
+                  })}
                   <Link
                     href="/contact"
                     className="w-full px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800 transition-colors duration-300"
