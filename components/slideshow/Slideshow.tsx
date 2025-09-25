@@ -1,11 +1,22 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useId
+} from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Slide from './Slide';
 import { slides as defaultSlides } from './slides';
-import { useImagePreloader } from './useImagePreloader';
+import { useImagePreloader, PreloaderAssetEvent } from './useImagePreloader';
 import SlideshowDebugger from './SlideshowDebugger';
+import SlideshowSkeleton from './SlideshowSkeleton';
+import { useLiveAnnouncements } from './hooks/useLiveAnnouncements';
+import { useSlideNavigation } from './hooks/useSlideNavigation';
+import { useGestureHandling } from './hooks/useGestureHandling';
 
 const toSrcString = (src: any): string => {
   if (!src) return '';
@@ -28,24 +39,98 @@ const getPrimaryImageSrc = (image: any): string => {
 
 const TRANSITION_MS = 400;
 
-// Mobile performance optimization - detect device capabilities
-const isMobileDevice = () => {
-  if (typeof window === 'undefined') return false;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    || window.innerWidth < 768;
+type ConnectionInfo = {
+  effectiveType: string | null;
+  saveData: boolean;
+  downlink: number | null;
+  rtt: number | null;
 };
 
-// Network-aware configuration
-const getOptimalConfig = () => {
-  const isMobile = isMobileDevice();
+type PriorityWeights = Record<'current' | 'next' | 'previous' | 'ahead' | 'background', number>;
+
+interface SlideshowRuntimeConfig {
+  preloadCount: number;
+  behindCount: number;
+  autoplayInterval: number;
+  enableTouchOptimization: boolean;
+  reduceAnimations: boolean;
+  priorityWeights: PriorityWeights;
+  cacheSize: number;
+  connectionInfo: ConnectionInfo;
+}
+
+const DEFAULT_PRIORITY_WEIGHTS: PriorityWeights = {
+  current: 0,
+  next: 1,
+  previous: 2,
+  ahead: 3,
+  background: 4
+};
+
+const SLOW_NETWORK_PRIORITY_WEIGHTS: PriorityWeights = {
+  current: 0,
+  next: 1,
+  previous: 2,
+  ahead: 5,
+  background: 6
+};
+
+const SAVE_DATA_PRIORITY_WEIGHTS: PriorityWeights = {
+  current: 0,
+  next: 3,
+  previous: 4,
+  ahead: 6,
+  background: 7
+};
+
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    window.innerWidth < 768
+  );
+};
+
+const readConnectionInfo = (): ConnectionInfo => {
+  if (typeof navigator === 'undefined') {
+    return { effectiveType: null, saveData: false, downlink: null, rtt: null };
+  }
   const connection = (navigator as any)?.connection;
-  const isSlowNetwork = connection?.effectiveType && ['slow-2g', '2g', '3g'].includes(connection.effectiveType);
-  
+  if (!connection) {
+    return { effectiveType: null, saveData: false, downlink: null, rtt: null };
+  }
   return {
-    preloadCount: isMobile || isSlowNetwork ? 1 : 2, // Reduce preloading on mobile/slow networks
-    autoplayInterval: isMobile ? 6000 : 5000, // Slower autoplay on mobile to reduce resource usage
-    enableTouchOptimization: isMobile,
-    reduceAnimations: isSlowNetwork || (connection?.saveData)
+    effectiveType: connection.effectiveType ?? null,
+    saveData: Boolean(connection.saveData),
+    downlink: typeof connection.downlink === 'number' ? connection.downlink : null,
+    rtt: typeof connection.rtt === 'number' ? connection.rtt : null
+  };
+};
+
+const deriveRuntimeConfig = (connectionInfo: ConnectionInfo, mobile: boolean): SlideshowRuntimeConfig => {
+  const slowNetwork = Boolean(connectionInfo.effectiveType && ['slow-2g', '2g', '3g'].includes(connectionInfo.effectiveType));
+  const saveData = connectionInfo.saveData;
+
+  const preloadCount = saveData ? 0 : slowNetwork || mobile ? 1 : 2;
+  const behindCount = preloadCount > 1 ? 1 : 0;
+  const autoplayInterval = mobile ? 6000 : slowNetwork ? 6500 : 5000;
+  const reduceAnimations = saveData || slowNetwork;
+  const priorityWeights = saveData
+    ? SAVE_DATA_PRIORITY_WEIGHTS
+    : slowNetwork
+      ? SLOW_NETWORK_PRIORITY_WEIGHTS
+      : DEFAULT_PRIORITY_WEIGHTS;
+  const cacheSize = saveData ? 4 : slowNetwork ? 8 : 16;
+
+  return {
+    preloadCount,
+    behindCount,
+    autoplayInterval,
+    enableTouchOptimization: mobile,
+    reduceAnimations,
+    priorityWeights,
+    cacheSize,
+    connectionInfo
   };
 };
 
@@ -114,32 +199,153 @@ const getDefaultSessionSlides = (allSlides: any[], targetCount = 5) => {
   return combined.slice(0, targetCount);
 };
 
-const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolean }> = ({ slides = defaultSlides, interval = 5000, autoplay = true }) => {
+interface SlideshowProps {
+  slides?: any[];
+  interval?: number;
+  autoplay?: boolean;
+}
+
+const LOCAL_REDUCED_MOTION_KEY = 'slideshow:reduce-motion';
+
+const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval = 5000, autoplay = true }) => {
   const [sessionSlides, setSessionSlides] = useState(() => getDefaultSessionSlides(slides, 5));
   const slideCount = sessionSlides.length;
   const prefersReduced = useReducedMotion();
-  const config = getOptimalConfig();
+  const mobileDevice = useMemo(() => isMobileDevice(), []);
+  const [connectionInfo, setConnectionInfo] = useState<ConnectionInfo>(() => readConnectionInfo());
+  const config = useMemo(() => deriveRuntimeConfig(connectionInfo, mobileDevice), [connectionInfo, mobileDevice]);
   const [index, setIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [showPrev, setShowPrev] = useState(false);
   const transitioningRef = useRef(false);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
-  const mouseStartX = useRef<number | null>(null);
-  const mouseEndX = useRef<number | null>(null);
-  const isDragging = useRef(false);
-  const minSwipeDistance = config.enableTouchOptimization ? 30 : 50; // Smaller threshold for mobile
-  const actualInterval = config.autoplayInterval || interval;
+  const [isAutoplaying, setIsAutoplaying] = useState(() => autoplay && slideCount > 1);
+  const [hasInitialImageLoaded, setHasInitialImageLoaded] = useState(false);
+  const instructionsId = useId();
+  const announcedInitialRef = useRef(false);
+  const lastAnnouncedIndexRef = useRef(-1);
+  const pendingActionsRef = useRef<Array<{ type: 'advance'; direction: 1 | -1 } | { type: 'goto'; index: number }>>([]);
+  const processQueueRef = useRef<() => void>(() => {});
+  const performanceBufferRef = useRef<PreloaderAssetEvent[]>([]);
+  const performanceFlushTimerRef = useRef<number | null>(null);
 
-  const incomingInitial = prefersReduced ? { opacity: 0 } : { opacity: 0, x: 18 };
-  const incomingAnimate = prefersReduced ? { opacity: 1 } : { opacity: 1, x: 0 };
-  const incomingTransition = prefersReduced
-    ? { duration: 0.2, ease: 'linear' as const }
-    : { duration: 0.45, ease: [0.4, 0, 0.2, 1] as const };
+  const [userReducedMotion, setUserReducedMotion] = useState<boolean | null>(() => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const stored = window.localStorage.getItem(LOCAL_REDUCED_MOTION_KEY);
+      if (stored === null) return null;
+      return stored === 'true';
+    } catch (err) {
+      console.warn('Unable to read slideshow motion preference', err);
+      return null;
+    }
+  });
 
-  const outgoingTransition = prefersReduced
-    ? { duration: 0.2, ease: 'linear' as const }
-    : { duration: 0.4, ease: [0.4, 0, 0.2, 1] as const };
+  const effectiveReduceMotion = useMemo(() => {
+    if (userReducedMotion !== null) return userReducedMotion;
+    return prefersReduced || config.reduceAnimations;
+  }, [config.reduceAnimations, prefersReduced, userReducedMotion]);
+
+  useEffect(() => {
+    if (userReducedMotion === null) return;
+    try {
+      window.localStorage.setItem(LOCAL_REDUCED_MOTION_KEY, String(userReducedMotion));
+    } catch (err) {
+      console.warn('Unable to persist slideshow motion preference', err);
+    }
+  }, [userReducedMotion]);
+
+  useEffect(() => {
+    if (typeof navigator === 'undefined') return;
+    const connection = (navigator as any)?.connection;
+    if (!connection || typeof connection.addEventListener !== 'function') return;
+    const handleChange = () => setConnectionInfo(readConnectionInfo());
+    try {
+      connection.addEventListener('change', handleChange);
+    } catch (error) {
+      return;
+    }
+    return () => {
+      try {
+        connection.removeEventListener('change', handleChange);
+      } catch (error) {
+        // no-op
+      }
+    };
+  }, []);
+
+  const flushPerformanceMetrics = useCallback(() => {
+    if (!performanceBufferRef.current.length) return;
+    const events = performanceBufferRef.current.splice(0, performanceBufferRef.current.length);
+
+    if (process.env.NODE_ENV !== 'production') {
+      if (typeof console !== 'undefined' && typeof console.table === 'function') {
+        console.table(events.map((event) => ({
+          src: event.src,
+          status: event.status,
+          duration: Math.round(event.duration),
+          priority: event.priority,
+          bytes: event.bytes ?? 'unknown'
+        })));
+      }
+      return;
+    }
+
+    if (typeof navigator === 'undefined') return;
+    const payload = {
+      type: 'slideshow_asset_metrics',
+      events,
+      connection: config.connectionInfo,
+      url: typeof window !== 'undefined' ? window.location.pathname : undefined,
+      timestamp: Date.now()
+    };
+    const body = JSON.stringify(payload);
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/analytics', body);
+    } else {
+      fetch('/api/analytics', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body,
+        keepalive: true
+      }).catch(() => {});
+    }
+  }, [config.connectionInfo]);
+
+  const handleAssetEvent = useCallback((event: PreloaderAssetEvent) => {
+    if (event.status === 'loading') return;
+
+    performanceBufferRef.current.push(event);
+
+    if (performanceBufferRef.current.length >= 4) {
+      flushPerformanceMetrics();
+      if (performanceFlushTimerRef.current && typeof window !== 'undefined') {
+        window.clearTimeout(performanceFlushTimerRef.current);
+        performanceFlushTimerRef.current = null;
+      }
+      return;
+    }
+
+    if (performanceFlushTimerRef.current || typeof window === 'undefined') return;
+
+    performanceFlushTimerRef.current = window.setTimeout(() => {
+      flushPerformanceMetrics();
+      if (performanceFlushTimerRef.current) {
+        window.clearTimeout(performanceFlushTimerRef.current);
+        performanceFlushTimerRef.current = null;
+      }
+    }, 4000);
+  }, [flushPerformanceMetrics]);
+
+  useEffect(() => {
+    return () => {
+      if (performanceFlushTimerRef.current && typeof window !== 'undefined') {
+        window.clearTimeout(performanceFlushTimerRef.current);
+        performanceFlushTimerRef.current = null;
+      }
+      flushPerformanceMetrics();
+    };
+  }, [flushPerformanceMetrics]);
 
   useEffect(() => {
     const randomized = selectSessionSlides(slides, 5);
@@ -152,201 +358,343 @@ const Slideshow: React.FC<{ slides?: any[]; interval?: number; autoplay?: boolea
     });
     setIndex(0);
     setPrevIndex(null);
+    setHasInitialImageLoaded(false);
+    announcedInitialRef.current = false;
+    lastAnnouncedIndexRef.current = -1;
   }, [slides]);
 
-  // Mobile-optimized preloader - reduced preload count for performance
-  const { loaded, waitFor } = useImagePreloader(
-    sessionSlides.map((s) => getPrimaryImageSrc(s.image)),
-    index,
-    { ahead: config.preloadCount, behind: config.preloadCount > 1 ? 1 : 0 }
+  useEffect(() => {
+    setIsAutoplaying(autoplay && slideCount > 1);
+  }, [autoplay, slideCount]);
+
+  const primarySources = useMemo(() => sessionSlides.map((s) => getPrimaryImageSrc(s?.image)), [sessionSlides]);
+
+  const preloaderOptions = useMemo(
+    () => ({
+      ahead: config.preloadCount,
+      behind: config.behindCount,
+      background: config.preloadCount > 1 ? 1 : 0,
+      priorityWeights: config.priorityWeights,
+      maxCache: config.cacheSize,
+      onAssetEvent: handleAssetEvent
+    }),
+    [config.preloadCount, config.behindCount, config.priorityWeights, config.cacheSize, handleAssetEvent]
   );
 
-  // Request an advance with crossfade; waits until the target image is decoded
-  const startTransitionTo = (next: number) => {
-    if (transitioningRef.current) return;
-    transitioningRef.current = true;
-    setPrevIndex(index);
-    setShowPrev(true);
-    setIndex(next);
-    // Fade out prev on next frame to trigger CSS transition
-    if (typeof window !== 'undefined' && 'requestAnimationFrame' in window) {
-      requestAnimationFrame(() => setShowPrev(false));
-    } else {
-      setTimeout(() => setShowPrev(false), 0);
-    }
-    // Cleanup after transition
-    setTimeout(() => {
-      setPrevIndex(null);
-      transitioningRef.current = false;
-    }, TRANSITION_MS + 30);
-  };
+  const { loaded, waitFor } = useImagePreloader(primarySources, index, preloaderOptions);
 
-  const requestAdvance = async (direction: 1 | -1) => {
-    if (transitioningRef.current) return;
-    const next = (index + direction + slideCount) % slideCount;
-    const nextImage = sessionSlides[next]?.image;
-    const nextSrc = getPrimaryImageSrc(nextImage);
-    if (nextSrc && !loaded.has(nextSrc)) {
-      const status = await waitFor(nextSrc, Math.max(1000, Math.min(6000, interval)));
-      if (status === 'error') {
-        // proceed even if failed; avoids stalling
+  const { announce, liveRegionProps, currentMessage } = useLiveAnnouncements({ politeness: 'polite' });
+
+  const describeSlide = useCallback(
+    (idx: number) => {
+      const slide = sessionSlides[idx];
+      return slide?.headline ?? slide?.alt ?? '';
+    },
+    [sessionSlides]
+  );
+
+  const enqueueAction = useCallback(
+    (action: { type: 'advance'; direction: 1 | -1 } | { type: 'goto'; index: number }) => {
+      const queue = pendingActionsRef.current;
+      const last = queue[queue.length - 1];
+      if (last && last.type === action.type) {
+        if (last.type === 'advance' && action.type === 'advance' && last.direction === action.direction) {
+          return;
+        }
+        if (last.type === 'goto' && action.type === 'goto' && last.index === action.index) {
+          return;
+        }
+      }
+      let dropped = false;
+      if (queue.length >= 2) {
+        queue.shift();
+        dropped = true;
+      }
+      queue.push(action);
+      if (dropped) {
+        announce('Skipping oldest slideshow request to stay responsive.');
+      }
+    },
+    [announce]
+  );
+
+  const ensureImageReady = useCallback(
+    (target: number) => {
+      const nextImage = sessionSlides[target]?.image;
+      const nextSrc = getPrimaryImageSrc(nextImage);
+      if (nextSrc && !loaded.has(nextSrc)) {
+        waitFor(nextSrc, Math.max(1000, Math.min(6000, interval)))
+          .then((status) => {
+            if (status === 'error') {
+              console.warn('[slideshow] image failed to preload', nextSrc);
+            }
+          })
+          .catch((error) => {
+            console.warn('[slideshow] preload wait failed', error);
+          });
+      }
+    },
+    [interval, loaded, sessionSlides, waitFor]
+  );
+
+  const startTransitionTo = useCallback(
+    (next: number) => {
+      if (transitioningRef.current) return;
+      transitioningRef.current = true;
+      setPrevIndex(index);
+      setShowPrev(true);
+      setIndex(next);
+      if (typeof window !== 'undefined' && 'requestAnimationFrame' in window) {
+        requestAnimationFrame(() => setShowPrev(false));
+      } else {
+        setTimeout(() => setShowPrev(false), 0);
+      }
+      window.setTimeout(() => {
+        setPrevIndex(null);
+        transitioningRef.current = false;
+        processQueueRef.current();
+      }, TRANSITION_MS + 30);
+    },
+    [index]
+  );
+
+  const goToIndex = useCallback(
+    (target: number, options?: { immediate?: boolean }) => {
+      if (!slideCount) return false;
+      const normalized = ((target % slideCount) + slideCount) % slideCount;
+      if (normalized === index && !options?.immediate) return false;
+      if (transitioningRef.current && !options?.immediate) {
+        enqueueAction({ type: 'goto', index: normalized });
+        return false;
+      }
+      ensureImageReady(normalized);
+      startTransitionTo(normalized);
+      return true;
+    },
+    [enqueueAction, ensureImageReady, index, slideCount, startTransitionTo]
+  );
+
+  const requestAdvance = useCallback(
+    (direction: 1 | -1, options?: { immediate?: boolean }) => {
+      if (slideCount <= 1) return false;
+      if (transitioningRef.current && !options?.immediate) {
+        enqueueAction({ type: 'advance', direction });
+        return false;
+      }
+      const next = (index + direction + slideCount) % slideCount;
+      ensureImageReady(next);
+      startTransitionTo(next);
+      return true;
+    },
+    [enqueueAction, ensureImageReady, index, slideCount, startTransitionTo]
+  );
+
+  const processQueue = useCallback(() => {
+    while (pendingActionsRef.current.length) {
+      const action = pendingActionsRef.current.shift();
+      if (!action) break;
+      const executed = action.type === 'advance'
+        ? requestAdvance(action.direction, { immediate: true })
+        : goToIndex(action.index, { immediate: true });
+      if (executed) {
+        break;
       }
     }
-    startTransitionTo(next);
-  };
+  }, [goToIndex, requestAdvance]);
 
-  // Mobile-optimized autoplay with network awareness
   useEffect(() => {
-    if (!autoplay || slideCount <= 1) return;
-    if (prefersReduced) return;
+    processQueueRef.current = processQueue;
+  }, [processQueue]);
 
-    const intervalMs = config.reduceAnimations ? Math.max(actualInterval, interval * 1.5) : actualInterval;
+  useEffect(() => {
+    if (!slideCount) return;
+    const firstSrc = primarySources[0];
+    if (firstSrc && loaded.has(firstSrc)) {
+      setHasInitialImageLoaded(true);
+    }
+  }, [loaded, primarySources, slideCount]);
+
+  useEffect(() => {
+    if (!hasInitialImageLoaded || announcedInitialRef.current) return;
+    if (!slideCount) return;
+    announce(`Slide 1 of ${slideCount}: ${describeSlide(0)}`);
+    lastAnnouncedIndexRef.current = 0;
+    announcedInitialRef.current = true;
+  }, [announce, describeSlide, hasInitialImageLoaded, slideCount]);
+
+  useEffect(() => {
+    if (!hasInitialImageLoaded) return;
+    if (!slideCount) return;
+    if (index === lastAnnouncedIndexRef.current) return;
+    const message = `Slide ${index + 1} of ${slideCount}: ${describeSlide(index)}`;
+    announce(message);
+    lastAnnouncedIndexRef.current = index;
+  }, [announce, describeSlide, hasInitialImageLoaded, index, slideCount]);
+
+  useEffect(() => {
+    if (!isAutoplaying || slideCount <= 1) return;
+    if (effectiveReduceMotion) return;
+    const intervalMs = config.reduceAnimations ? Math.max(config.autoplayInterval, interval * 1.5) : config.autoplayInterval;
 
     let cancelled = false;
-    const timer = setTimeout(async () => {
+    const timer = window.setTimeout(() => {
       if (cancelled) return;
-      await requestAdvance(1);
+      requestAdvance(1);
     }, intervalMs);
+
     return () => {
       cancelled = true;
-      clearTimeout(timer);
+      window.clearTimeout(timer);
     };
-  }, [autoplay, actualInterval, interval, slideCount, index, prefersReduced, config.reduceAnimations]);
+  }, [config.autoplayInterval, config.reduceAnimations, effectiveReduceMotion, interval, isAutoplaying, requestAdvance, slideCount]);
 
-  if (!slideCount) return <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600">No slides available.</div>;
+  const navigation = useSlideNavigation({
+    slideCount,
+    currentIndex: index,
+    isAutoplaying,
+    onRequestAdvance: (direction) => {
+      requestAdvance(direction);
+    },
+    onRequestIndex: (targetIndex) => {
+      goToIndex(targetIndex);
+    },
+    onAutoplayChange: (nextValue) => setIsAutoplaying(nextValue && slideCount > 1),
+    announce
+  });
 
-  const goPrev = () => requestAdvance(-1);
-  const goNext = () => requestAdvance(1);
-
-  // Touch event handlers for swipe functionality
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchEndX.current = null;
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    
-    const distance = touchStartX.current - touchEndX.current;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe && slideCount > 1) {
-      goNext();
+  const minSwipeDistance = config.enableTouchOptimization ? 30 : 50;
+  const gesture = useGestureHandling({
+    minSwipeDistance,
+    onSwipeLeft: () => {
+      void requestAdvance(1);
+    },
+    onSwipeRight: () => {
+      void requestAdvance(-1);
     }
-    if (isRightSwipe && slideCount > 1) {
-      goPrev();
-    }
+  });
+
+  const toggleReducedMotion = () => {
+    setUserReducedMotion((prev) => {
+      if (prev === null) return !prefersReduced;
+      return !prev;
+    });
   };
 
-  // Mouse event handlers for desktop drag functionality
-  const handleMouseDown = (e: React.MouseEvent) => {
-    isDragging.current = true;
-    mouseStartX.current = e.clientX;
-    mouseEndX.current = null;
-  };
+  const incomingInitial = effectiveReduceMotion ? { opacity: 0 } : { opacity: 0, x: 18 };
+  const incomingAnimate = effectiveReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 };
+  const incomingTransition = effectiveReduceMotion
+    ? { duration: 0.2, ease: 'linear' as const }
+    : { duration: 0.45, ease: [0.4, 0, 0.2, 1] as const };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current) return;
-    mouseEndX.current = e.clientX;
-  };
+  const outgoingTransition = effectiveReduceMotion
+    ? { duration: 0.2, ease: 'linear' as const }
+    : { duration: 0.4, ease: [0.4, 0, 0.2, 1] as const };
 
-  const handleMouseUp = () => {
-    if (!isDragging.current || !mouseStartX.current || !mouseEndX.current) {
-      isDragging.current = false;
-      return;
-    }
-    
-    const distance = mouseStartX.current - mouseEndX.current;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
+  if (!slideCount) {
+    return (
+      <div className="w-full h-64 flex items-center justify-center bg-neutral-200 text-brand-600 rounded-2xl">
+        <span>No slides available.</span>
+      </div>
+    );
+  }
 
-    if (isLeftSwipe && slideCount > 1) {
-      goNext();
-    }
-    if (isRightSwipe && slideCount > 1) {
-      goPrev();
-    }
-    
-    isDragging.current = false;
-  };
+  const containerLabel = 'Featured experiences carousel';
 
-  const handleMouseLeave = () => {
-    isDragging.current = false;
-  };
+  const reducedMotionState = userReducedMotion ?? prefersReduced;
 
   return (
-    <motion.div
-      className="relative w-full touch-pan-y cursor-grab active:cursor-grabbing select-none"
-      role="region"
-      aria-label="Slideshow - Swipe to navigate"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      drag={prefersReduced ? false : "x"}
-      dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.2}
-      onDragEnd={(e, info) => {
-        const { offset, velocity } = info;
-        const swipe = Math.abs(offset.x) > 80 || Math.abs(velocity.x) > 300;
-        if (!swipe) return;
-        if (offset.x < 0) {
-          goNext();
-        } else {
-          goPrev();
-        }
-      }}
-    >
-      {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
-      <div className="slides-wrapper relative">
-        {/* Current slide in normal flow to establish height */}
-        {sessionSlides[index] && (
-          <motion.div
-            key={`curr-${sessionSlides[index].id}`}
-            className="relative z-0"
-            initial={incomingInitial}
-            animate={incomingAnimate}
-            transition={incomingTransition}
+    <div className="relative">
+      {!hasInitialImageLoaded && <SlideshowSkeleton />}
+      <motion.div
+        className={`relative w-full cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-3xl touch-pan-y ${
+          hasInitialImageLoaded ? '' : 'pointer-events-none opacity-0'
+        }`}
+        role="group"
+        aria-roledescription="carousel"
+        aria-label={containerLabel}
+        aria-describedby={instructionsId}
+        tabIndex={hasInitialImageLoaded ? 0 : -1}
+        style={{ touchAction: 'manipulation' }}
+        onKeyDown={navigation.handleKeyDown}
+        {...gesture.bindings}
+        drag={effectiveReduceMotion ? false : 'x'}
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
+        onDragEnd={(event, info) => {
+          const { offset, velocity } = info;
+          const swipe = Math.abs(offset.x) > 80 || Math.abs(velocity.x) > 300;
+          if (!swipe) return;
+          if (offset.x < 0) {
+            void requestAdvance(1);
+          } else {
+            void requestAdvance(-1);
+          }
+        }}
+      >
+        <p id={instructionsId} className="sr-only">
+          Use Left and Right arrow keys to navigate slides, Home or End to jump to first or last slide, Space to pause or resume autoplay, and Escape to stop autoplay.
+        </p>
+        <div {...liveRegionProps}>{currentMessage}</div>
+        <div className="absolute top-3 right-3 z-30 flex gap-2">
+          <button
+            type="button"
+            onClick={navigation.toggleAutoplay}
+            aria-pressed={isAutoplaying}
+            className="rounded-full bg-black/60 text-white text-xs px-3 py-1.5 shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
           >
-            <Slide
-              slide={sessionSlides[index]}
-              slideIndex={index}
-              active={true}
-              preloaded={loaded.has(getPrimaryImageSrc(sessionSlides[index].image))}
-            />
-          </motion.div>
-        )}
-        {/* Previous slide (on top, fading out) */}
-        <AnimatePresence>
-          {prevIndex !== null && sessionSlides[prevIndex] && (
+            {isAutoplaying ? 'Pause slideshow' : 'Play slideshow'}
+          </button>
+          <button
+            type="button"
+            onClick={toggleReducedMotion}
+            aria-pressed={Boolean(reducedMotionState)}
+            className="rounded-full bg-black/60 text-white text-xs px-3 py-1.5 shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+          >
+            {reducedMotionState ? 'Enable motion' : 'Reduce motion'}
+          </button>
+        </div>
+        {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
+        <div className="slides-wrapper relative">
+          {sessionSlides[index] && (
             <motion.div
-              key={`prev-${sessionSlides[prevIndex].id}`}
-              className="absolute inset-0 z-10 pointer-events-none"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: showPrev ? 1 : 0 }}
-              exit={{ opacity: 0 }}
-              transition={outgoingTransition}
+              key={`curr-${sessionSlides[index].id}`}
+              className="relative z-0"
+              initial={incomingInitial}
+              animate={incomingAnimate}
+              transition={incomingTransition}
             >
               <Slide
-                slide={sessionSlides[prevIndex]}
-                slideIndex={prevIndex}
-                active={false}
-                visualOnly
-                preloaded={true}
+                slide={sessionSlides[index]}
+                slideIndex={index}
+                active
+                preloaded={loaded.has(getPrimaryImageSrc(sessionSlides[index].image))}
+                announce={announce}
               />
             </motion.div>
           )}
-        </AnimatePresence>
-      </div>
-    </motion.div>
+          <AnimatePresence>
+            {prevIndex !== null && sessionSlides[prevIndex] && (
+              <motion.div
+                key={`prev-${sessionSlides[prevIndex].id}`}
+                className="absolute inset-0 z-10 pointer-events-none"
+                initial={{ opacity: 1 }}
+                animate={{ opacity: showPrev ? 1 : 0 }}
+                exit={{ opacity: 0 }}
+                transition={outgoingTransition}
+              >
+                <Slide
+                  slide={sessionSlides[prevIndex]}
+                  slideIndex={prevIndex}
+                  active={false}
+                  visualOnly
+                  preloaded
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

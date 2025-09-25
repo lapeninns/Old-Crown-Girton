@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
 import SlideCTAButton from './SlideCTAButton';
@@ -32,7 +32,20 @@ const normalizeImage = (image: SlideType['image']) => {
   };
 };
 
-const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; preloaded?: boolean; visualOnly?: boolean }> = ({ slide, slideIndex, active, preloaded, visualOnly = false }) => {
+/* eslint-disable no-unused-vars */
+type SlideAnnounceHandler = (message: string) => void;
+/* eslint-enable no-unused-vars */
+
+interface SlideProps {
+  slide: SlideType;
+  slideIndex: number;
+  active?: boolean;
+  preloaded?: boolean;
+  visualOnly?: boolean;
+  announce?: SlideAnnounceHandler;
+}
+
+const Slide: React.FC<SlideProps> = ({ slide, slideIndex, active, preloaded, visualOnly = false, announce }) => {
   const { primary, fallback } = useMemo(() => normalizeImage(slide.image), [slide.image]);
   const [currentSrc, setCurrentSrc] = useState<any>(primary);
   const [imageLoaded, setImageLoaded] = useState<boolean>(!!preloaded);
@@ -50,6 +63,9 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
   const handleImageLoad = () => {
     setImageLoaded(true);
     setImageError(false);
+    if (active && announce) {
+      announce(`${slide.headline ?? altText} image loaded`);
+    }
   };
 
   const handleImageError = () => {
@@ -62,7 +78,17 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
     }
 
     setImageError(true);
+    if (active && announce) {
+      announce(`${slide.headline ?? altText} image failed to load`);
+    }
   };
+
+  const handleRetry = useCallback(() => {
+    setImageError(false);
+    setHasTriedFallback(false);
+    setImageLoaded(false);
+    setCurrentSrc(fallback || primary);
+  }, [fallback, primary]);
   
   // Dynamic button logic with ABC cycling pattern
   // A (slides 0, 3, 6...): Book Online + Call for Takeaway
@@ -135,8 +161,15 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
     <section className="relative h-[52svh] sm:h-[58svh] md:h-[65svh] flex items-center justify-center overflow-hidden" aria-hidden={visualOnly || undefined}>
       <div className="absolute inset-0 z-0">
         {imageError && (
-          <div className="absolute inset-0 bg-neutral-700 flex items-center justify-center text-neutral-200 text-sm" role="img" aria-label={`${altText} (failed to load)`}>
-            Image failed to load
+          <div className="absolute inset-0 bg-neutral-900/80 flex flex-col gap-3 items-center justify-center text-neutral-200 text-sm px-4 text-center" role="alert">
+            <span aria-live="assertive">We couldn&apos;t load this slide image.</span>
+            <button
+              type="button"
+              onClick={handleRetry}
+              className="px-4 py-2 bg-white/20 rounded-lg border border-white/40 text-white hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            >
+              Retry
+            </button>
           </div>
         )}
         {(active || visualOnly) && !imageError && (
@@ -153,9 +186,20 @@ const Slide: React.FC<{ slide: SlideType; slideIndex: number; active?: boolean; 
             onError={handleImageError}
           />
         )}
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+            <span className="w-10 h-10 border-2 border-white/80 border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
         {/* Overlay for text contrast; ease in slightly after image loads to avoid "grey flash" perception */}
   <div className={`absolute inset-0 bg-black/55 transition-opacity duration-300 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-80'}`} />
       </div>
+
+      {!visualOnly && (
+      <span className="sr-only" role="status" aria-live="polite">
+        {imageLoaded ? 'Image loaded' : 'Image loading'}
+      </span>
+      )}
 
       {!visualOnly && (
       <div className="relative z-10 w-full max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 text-center">
