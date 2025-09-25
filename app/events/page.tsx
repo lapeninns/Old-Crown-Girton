@@ -47,6 +47,40 @@ export default function EventsPage() {
             </div>
           </section>
 
+          {/* Curry & Carols Highlight */}
+          <section className="mb-16" aria-labelledby="events-curry-carols-highlight-heading">
+            <FadeIn>
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 via-crimson-600 to-cardamom-700 p-8 md:p-12 text-white shadow-2xl border border-white/10">
+                <div className="absolute inset-0 bg-black/10" aria-hidden="true" />
+                <div className="relative space-y-6 text-center max-w-3xl mx-auto">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/30 rounded-full backdrop-blur text-sm font-semibold tracking-wide uppercase touch-manipulation">
+                    <span aria-hidden="true" role="img">🎄</span>
+                    Curry &amp; Carols Returns
+                  </span>
+                  <h2 id="events-curry-carols-highlight-heading" className="text-2xl md:text-4xl font-display font-bold leading-tight">
+                    Two magical evenings of Curry &amp; Carols this December
+                  </h2>
+                  <p className="text-base md:text-lg text-neutral-100 leading-relaxed">
+                    Join us on <strong>16 &amp; 17 December 2025</strong> for a £35 per guest Nepalese banquet, mulled pairings, and live carols under our thatched roof. Seats release soon—secure early access now.
+                  </p>
+                  <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <MotionLinkButton
+                      href="/events/curry-and-carols"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white text-brand-800 font-semibold shadow-lg hover:bg-brand-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-700 touch-manipulation"
+                      ariaLabel="Explore Curry and Carols event details"
+                    >
+                      <span aria-hidden="true" role="img">✨</span>
+                      Discover Curry &amp; Carols
+                    </MotionLinkButton>
+                  </div>
+                  <p className="text-sm text-neutral-100/90">
+                    <span className="font-semibold">£35 per guest</span> · Welcome drink · Live carols both nights
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
+          </section>
+
           {/* Live Sports Section */}
           <section className="mb-16">
             <FadeIn>
