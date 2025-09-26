@@ -13,7 +13,6 @@ import Slide from './Slide';
 import { slides as defaultSlides } from './slides';
 import { useImagePreloader, PreloaderAssetEvent } from './useImagePreloader';
 import SlideshowDebugger from './SlideshowDebugger';
-import SlideshowSkeleton from './SlideshowSkeleton';
 import { useLiveAnnouncements } from './hooks/useLiveAnnouncements';
 import { useSlideNavigation } from './hooks/useSlideNavigation';
 import { useGestureHandling } from './hooks/useGestureHandling';
@@ -218,7 +217,8 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [showPrev, setShowPrev] = useState(false);
   const transitioningRef = useRef(false);
-  const [isAutoplaying, setIsAutoplaying] = useState(() => autoplay && slideCount > 1);
+  const autoplayEnabled = autoplay && slideCount > 1;
+  const [isAutoplaying, setIsAutoplaying] = useState(() => autoplayEnabled);
   const [hasInitialImageLoaded, setHasInitialImageLoaded] = useState(false);
   const instructionsId = useId();
   const announcedInitialRef = useRef(false);
@@ -364,8 +364,8 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
   }, [slides]);
 
   useEffect(() => {
-    setIsAutoplaying(autoplay && slideCount > 1);
-  }, [autoplay, slideCount]);
+    setIsAutoplaying(autoplayEnabled);
+  }, [autoplayEnabled]);
 
   const primarySources = useMemo(() => sessionSlides.map((s) => getPrimaryImageSrc(s?.image)), [sessionSlides]);
 
@@ -532,6 +532,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
   }, [announce, describeSlide, hasInitialImageLoaded, index, slideCount]);
 
   useEffect(() => {
+    if (!autoplayEnabled) return;
     if (!isAutoplaying || slideCount <= 1) return;
     if (effectiveReduceMotion) return;
     const intervalMs = config.reduceAnimations ? Math.max(config.autoplayInterval, interval * 1.5) : config.autoplayInterval;
@@ -546,29 +547,37 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [config.autoplayInterval, config.reduceAnimations, effectiveReduceMotion, interval, isAutoplaying, requestAdvance, slideCount]);
+  }, [autoplayEnabled, config.autoplayInterval, config.reduceAnimations, effectiveReduceMotion, interval, isAutoplaying, requestAdvance, slideCount]);
 
   const navigation = useSlideNavigation({
     slideCount,
     currentIndex: index,
     isAutoplaying,
+    autoplayEnabled,
     onRequestAdvance: (direction) => {
       requestAdvance(direction);
     },
     onRequestIndex: (targetIndex) => {
       goToIndex(targetIndex);
     },
-    onAutoplayChange: (nextValue) => setIsAutoplaying(nextValue && slideCount > 1),
+    onAutoplayChange: (nextValue) => {
+      if (!autoplayEnabled) return;
+      setIsAutoplaying(nextValue && slideCount > 1);
+    },
     announce
   });
 
   const minSwipeDistance = config.enableTouchOptimization ? 30 : 50;
+  const allowGestureSwipe = effectiveReduceMotion;
+
   const gesture = useGestureHandling({
     minSwipeDistance,
     onSwipeLeft: () => {
+      if (!allowGestureSwipe) return;
       void requestAdvance(1);
     },
     onSwipeRight: () => {
+      if (!allowGestureSwipe) return;
       void requestAdvance(-1);
     }
   });
@@ -595,78 +604,86 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
 
   return (
     <div className="relative">
-      {!hasInitialImageLoaded && <SlideshowSkeleton />}
-      <motion.div
-        className={`relative w-full cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-3xl touch-pan-y ${
-          hasInitialImageLoaded ? '' : 'pointer-events-none opacity-0'
+      <div
+        className={`carousel w-full !block overflow-x-hidden snap-none scroll-auto ${
+          hasInitialImageLoaded ? '' : 'pointer-events-none'
         }`}
-        role="group"
-        aria-roledescription="carousel"
-        aria-label={containerLabel}
-        aria-describedby={instructionsId}
-        tabIndex={hasInitialImageLoaded ? 0 : -1}
-        style={{ touchAction: 'manipulation' }}
-        onKeyDown={navigation.handleKeyDown}
-        {...gesture.bindings}
-        drag={effectiveReduceMotion ? false : 'x'}
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.2}
-        onDragEnd={(event, info) => {
-          const { offset, velocity } = info;
-          const swipe = Math.abs(offset.x) > 80 || Math.abs(velocity.x) > 300;
-          if (!swipe) return;
-          if (offset.x < 0) {
-            void requestAdvance(1);
-          } else {
-            void requestAdvance(-1);
-          }
-        }}
       >
-        <p id={instructionsId} className="sr-only">
-          Use Left and Right arrow keys to navigate slides, Home or End to jump to first or last slide, Space to pause or resume autoplay, and Escape to stop autoplay.
-        </p>
-        <div {...liveRegionProps}>{currentMessage}</div>
-        {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
-        <div className="slides-wrapper relative">
-          {sessionSlides[index] && (
-            <motion.div
-              key={`curr-${sessionSlides[index].id}`}
-              className="relative z-0"
-              initial={incomingInitial}
-              animate={incomingAnimate}
-              transition={incomingTransition}
-            >
-              <Slide
-                slide={sessionSlides[index]}
-                slideIndex={index}
-                active
-                preloaded={loaded.has(getPrimaryImageSrc(sessionSlides[index].image))}
-                announce={announce}
-              />
-            </motion.div>
-          )}
-          <AnimatePresence>
-            {prevIndex !== null && sessionSlides[prevIndex] && (
-              <motion.div
-                key={`prev-${sessionSlides[prevIndex].id}`}
-                className="absolute inset-0 z-10 pointer-events-none"
-                initial={{ opacity: 1 }}
-                animate={{ opacity: showPrev ? 1 : 0 }}
-                exit={{ opacity: 0 }}
-                transition={outgoingTransition}
-              >
-                <Slide
-                  slide={sessionSlides[prevIndex]}
-                  slideIndex={prevIndex}
-                  active={false}
-                  visualOnly
-                  preloaded
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div className="carousel-item relative w-full !block">
+          <motion.div
+            className={`relative w-full cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 touch-pan-y ${
+              hasInitialImageLoaded ? '' : 'pointer-events-none'
+            }`}
+            role="group"
+            aria-roledescription="carousel"
+            aria-label={containerLabel}
+            aria-describedby={instructionsId}
+            tabIndex={hasInitialImageLoaded ? 0 : -1}
+            style={{ touchAction: 'manipulation' }}
+            onKeyDown={navigation.handleKeyDown}
+            {...gesture.bindings}
+            drag={effectiveReduceMotion ? false : 'x'}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(event, info) => {
+              const { offset, velocity } = info;
+              const swipe = Math.abs(offset.x) > 80 || Math.abs(velocity.x) > 300;
+              if (!swipe) return;
+              if (offset.x < 0) {
+                void requestAdvance(1);
+              } else {
+                void requestAdvance(-1);
+              }
+            }}
+            aria-current={hasInitialImageLoaded ? 'true' : undefined}
+          >
+            <p id={instructionsId} className="sr-only">
+              Use Left and Right arrow keys to navigate slides, Home or End to jump to the first or last slide, Space or Enter to pause or resume autoplay, and Escape to stop autoplay.
+            </p>
+            <div {...liveRegionProps}>{currentMessage}</div>
+            {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
+            <div className="slides-wrapper relative">
+              {sessionSlides[index] && (
+                <motion.div
+                  key={`curr-${sessionSlides[index].id}`}
+                  className="relative z-0"
+                  initial={incomingInitial}
+                  animate={incomingAnimate}
+                  transition={incomingTransition}
+                >
+                  <Slide
+                    slide={sessionSlides[index]}
+                    slideIndex={index}
+                    active
+                    preloaded={loaded.has(getPrimaryImageSrc(sessionSlides[index].image))}
+                    announce={announce}
+                  />
+                </motion.div>
+              )}
+              <AnimatePresence>
+                {prevIndex !== null && sessionSlides[prevIndex] && (
+                  <motion.div
+                    key={`prev-${sessionSlides[prevIndex].id}`}
+                    className="absolute inset-0 z-10 pointer-events-none"
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: showPrev ? 1 : 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={outgoingTransition}
+                  >
+                    <Slide
+                      slide={sessionSlides[prevIndex]}
+                      slideIndex={prevIndex}
+                      active={false}
+                      visualOnly
+                      preloaded
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

@@ -14,6 +14,7 @@ export interface SlideNavigationOptions {
   slideCount: number;
   currentIndex: number;
   isAutoplaying: boolean;
+  autoplayEnabled?: boolean;
   onRequestAdvance: AdvanceHandler;
   onRequestIndex: IndexHandler;
   onAutoplayChange: AutoplayHandler;
@@ -39,6 +40,7 @@ export function useSlideNavigation(options: SlideNavigationOptions): SlideNaviga
     slideCount,
     currentIndex: _currentIndex,
     isAutoplaying,
+    autoplayEnabled = true,
     onRequestAdvance,
     onRequestIndex,
     onAutoplayChange,
@@ -86,7 +88,7 @@ export function useSlideNavigation(options: SlideNavigationOptions): SlideNaviga
           break;
         case KEY_SPACE:
         case KEY_ENTER:
-          if (!shiftKey) {
+          if (!shiftKey && autoplayEnabled) {
             event.preventDefault();
             const nextValue = !isAutoplaying;
             onAutoplayChange(nextValue);
@@ -95,7 +97,7 @@ export function useSlideNavigation(options: SlideNavigationOptions): SlideNaviga
           }
           break;
         case KEY_ESCAPE:
-          if (isAutoplaying) {
+          if (autoplayEnabled && isAutoplaying) {
             event.preventDefault();
             onAutoplayChange(false);
             lastActionRef.current = "stop";
@@ -106,22 +108,23 @@ export function useSlideNavigation(options: SlideNavigationOptions): SlideNaviga
           break;
       }
     },
-    [announce, isAutoplaying, onAutoplayChange, onRequestAdvance, requestIndex, slideCount]
+    [announce, autoplayEnabled, isAutoplaying, onAutoplayChange, onRequestAdvance, requestIndex, slideCount]
   );
 
   const toggleAutoplay = useCallback(() => {
+    if (!autoplayEnabled) return;
     const nextValue = !isAutoplaying;
     onAutoplayChange(nextValue);
     lastActionRef.current = "toggle";
     announce(nextValue ? "Autoplay resumed" : "Autoplay paused");
-  }, [announce, isAutoplaying, onAutoplayChange]);
+  }, [announce, autoplayEnabled, isAutoplaying, onAutoplayChange]);
 
   const stopAutoplay = useCallback(() => {
-    if (!isAutoplaying) return;
+    if (!autoplayEnabled || !isAutoplaying) return;
     onAutoplayChange(false);
     lastActionRef.current = "stop";
     announce("Autoplay stopped");
-  }, [announce, isAutoplaying, onAutoplayChange]);
+  }, [announce, autoplayEnabled, isAutoplaying, onAutoplayChange]);
 
   return {
     handleKeyDown,

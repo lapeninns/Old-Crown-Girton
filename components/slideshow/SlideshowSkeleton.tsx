@@ -8,7 +8,7 @@ const SlideshowSkeleton: React.FC = () => {
   return (
     <section
       aria-label="Slideshow loading placeholder"
-      className="relative w-full h-[52svh] sm:h-[58svh] md:h-[65svh] overflow-hidden rounded-3xl bg-neutral-200"
+      className="relative w-full h-[52svh] sm:h-[58svh] md:h-[65svh] overflow-hidden bg-neutral-200"
       data-testid="slideshow-skeleton"
     >
       <div className={`absolute inset-0 ${shimmer}`}></div>
