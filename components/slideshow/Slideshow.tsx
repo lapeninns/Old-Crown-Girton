@@ -228,7 +228,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
   const performanceBufferRef = useRef<PreloaderAssetEvent[]>([]);
   const performanceFlushTimerRef = useRef<number | null>(null);
 
-  const [userReducedMotion, setUserReducedMotion] = useState<boolean | null>(() => {
+  const [userReducedMotion] = useState<boolean | null>(() => {
     if (typeof window === 'undefined') return null;
     try {
       const stored = window.localStorage.getItem(LOCAL_REDUCED_MOTION_KEY);
@@ -573,13 +573,6 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
     }
   });
 
-  const toggleReducedMotion = () => {
-    setUserReducedMotion((prev) => {
-      if (prev === null) return !prefersReduced;
-      return !prev;
-    });
-  };
-
   const incomingInitial = effectiveReduceMotion ? { opacity: 0 } : { opacity: 0, x: 18 };
   const incomingAnimate = effectiveReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 };
   const incomingTransition = effectiveReduceMotion
@@ -599,8 +592,6 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
   }
 
   const containerLabel = 'Featured experiences carousel';
-
-  const reducedMotionState = userReducedMotion ?? prefersReduced;
 
   return (
     <div className="relative">
@@ -635,24 +626,6 @@ const Slideshow: React.FC<SlideshowProps> = ({ slides = defaultSlides, interval 
           Use Left and Right arrow keys to navigate slides, Home or End to jump to first or last slide, Space to pause or resume autoplay, and Escape to stop autoplay.
         </p>
         <div {...liveRegionProps}>{currentMessage}</div>
-        <div className="absolute top-3 right-3 z-30 flex gap-2">
-          <button
-            type="button"
-            onClick={navigation.toggleAutoplay}
-            aria-pressed={isAutoplaying}
-            className="rounded-full bg-black/60 text-white text-xs px-3 py-1.5 shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-          >
-            {isAutoplaying ? 'Pause slideshow' : 'Play slideshow'}
-          </button>
-          <button
-            type="button"
-            onClick={toggleReducedMotion}
-            aria-pressed={Boolean(reducedMotionState)}
-            className="rounded-full bg-black/60 text-white text-xs px-3 py-1.5 shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-          >
-            {reducedMotionState ? 'Enable motion' : 'Reduce motion'}
-          </button>
-        </div>
         {process.env.NODE_ENV !== 'production' && <SlideshowDebugger />}
         <div className="slides-wrapper relative">
           {sessionSlides[index] && (
