@@ -17,7 +17,7 @@ const mockRestaurantData = {
     country: "United Kingdom"
   },
   contact: {
-    phone: "01223 276071",
+    phone: "+44 1223 277217",
     email: "oldcrown@lapeninns.com"
   },
   openingHours: {

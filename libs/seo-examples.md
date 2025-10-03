@@ -57,7 +57,7 @@ import { getSEOTags, renderSchemaTags } from "@/libs/seo";
 
 export const metadata = getSEOTags({
   title: "Contact & Reservations - Old Crown Girton",
-  description: "Book a table, get directions, or contact The Old Crown Girton. Call 01223 276027 for reservations.",
+  description: "Book a table, get directions, or contact The Old Crown Girton. Call +44 1223 277217 for reservations.",
   canonicalUrlRelative: "/contact"
 });
 

@@ -204,9 +204,9 @@ export const getRestaurantIdentity = () => ({
 
 export const getContactInfo = () => ({
   phone: {
-    primary: (restaurantTemplate as any)?.phone || "+44 1223 276027",
+    primary: (restaurantTemplate as any)?.phone || "+44 1223 277217",
     display: "01223277217",
-    whatsapp: (restaurantTemplate as any)?.phone || "+44 1223 276027"
+    whatsapp: (restaurantTemplate as any)?.phone || "+44 1223 277217"
   },
   email: {
     primary: (restaurantTemplate as any)?.email || "oldcrown@lapeninns.com",

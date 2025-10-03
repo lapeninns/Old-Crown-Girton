@@ -364,7 +364,7 @@ export function CLSOptimizedPage() {
               <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
               <p>High Street, Girton</p>
               <p>Cambridge CB3 0PU</p>
-              <p>01223 276777</p>
+              <p>+44 1223 277217</p>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Opening Hours</h3>

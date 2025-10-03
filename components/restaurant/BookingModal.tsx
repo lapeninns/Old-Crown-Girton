@@ -138,7 +138,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
-                    placeholder="01223 123456"
+                    placeholder="+44 1223 277217"
                   />
                 </div>
               </div>

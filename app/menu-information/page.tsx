@@ -293,7 +293,7 @@ const faqItems = [
         <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
           <h4 className="font-semibold text-indigo-800 mb-2">When Booking:</h4>
           <ul className="text-sm text-indigo-700 space-y-1">
-            <li>• Call us directly at <strong>01223 277217</strong> to discuss requirements</li>
+            <li>• Call us directly at <strong>+44 1223 277217</strong> to discuss requirements</li>
             <li>• Specify any severe allergies or medical dietary needs</li>
             <li>• Mention the number of people with dietary requirements</li>
             <li>• Ask about specific dishes or ingredients you're unsure about</li>
@@ -491,7 +491,7 @@ export default function MenuInformationPage() {
                 <p className="text-sm text-red-700">
                   <strong>Severe Allergies:</strong> If you have life-threatening allergies, please call us at{' '}
                   <Link href="tel:01223277217" className="font-medium underline hover:no-underline">
-                    01223 277217
+                    +44 1223 277217
                   </Link>{' '}
                   before visiting to discuss safety protocols.
                 </p>
@@ -572,7 +572,7 @@ export default function MenuInformationPage() {
                     <h3 className="font-semibold text-brand-700 mb-2">Call Us</h3>
                     <p className="text-neutral-600 mb-1">Speak directly with our team</p>
                     <Link href="tel:01223277217" className="text-lg font-bold text-brand-600 hover:text-brand-700">
-                      01223 277217
+                      +44 1223 277217
                     </Link>
                   </div>
                   <div className="text-center">

@@ -231,14 +231,14 @@ export default function PrivacyPolicy() {
                         <p>Email: <Link href="mailto:oldcrown@lapeninns.com" className="text-brand-600 hover:text-brand-700 underline">oldcrown@lapeninns.com</Link></p>
                           <p>Email: <Link href="mailto:oldcrown@lapeninns.com" className="text-brand-600 hover:text-brand-700 underline">oldcrown@lapeninns.com</Link></p>
                           <p>Email: <Link href="mailto:oldcrown@lapeninns.com" className="text-brand-600 hover:text-brand-700 underline">oldcrown@lapeninns.com</Link></p>
-                        <p>Phone: <Link href="tel:01223277217" className="text-brand-600 hover:text-brand-700 underline">01223 277217</Link></p>
+                        <p>Phone: <Link href="tel:01223277217" className="text-brand-600 hover:text-brand-700 underline">+44 1223 277217</Link></p>
                       </div>
                       <p className="text-sm leading-relaxed">
                         You also have the right to lodge a complaint with the Information Commissioner's Office (ICO), the UK supervisory authority for data protection issues:
                       </p>
                       <div className="text-sm space-y-1 mt-2">
                         <p><strong>ICO</strong> - <Link href="https://ico.org.uk" className="text-brand-600 hover:text-brand-700 underline" target="_blank" rel="noopener noreferrer">ico.org.uk</Link></p>
-                        <p>Phone: 0303 123 1113</p>
+                        <p>Phone: +44 1223 277217</p>
                       </div>
                     </div>
                   </section>

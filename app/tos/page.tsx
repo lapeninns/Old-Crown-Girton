@@ -201,7 +201,7 @@ export default function TOS() {
                         <p><strong>Old Crown Girton</strong></p>
                         <p>89 High Street, Girton, Cambridge CB3 0QQ</p>
                           <p>Email: <Link href="mailto:oldcrown@lapeninns.com" className="text-brand-600 hover:text-brand-700 underline">oldcrown@lapeninns.com</Link></p>
-                        <p>Phone: <Link href="tel:01223277217" className="text-brand-600 hover:text-brand-700 underline">01223 277217</Link></p>
+                        <p>Phone: <Link href="tel:01223277217" className="text-brand-600 hover:text-brand-700 underline">+44 1223 277217</Link></p>
                       </div>
                     </div>
                   </section>

@@ -81,7 +81,7 @@ export const renderSchemaTags = (schemas?: Array<Record<string, any>>): ReactEle
     description: config.appDescription,
     image: `${config.domainName.startsWith("http") ? config.domainName : `https://${config.domainName}`}/icon.png`,
     url: `https://${config.domainName}/`,
-    telephone: "+44 1223 276027",
+    telephone: "+44 1223 277217",
     email: "oldcrown@lapeninns.com",
     address: {
       "@type": "PostalAddress",
