@@ -44,7 +44,7 @@ export const slides = [
     headline: 'A Perfect Stop for Road-Trip Meets',
     copy: 'Pull up, park, and enjoy great food and drinks — our spacious forecourt and thatched backdrop make every car meet an easy, welcoming occasion.',
     badges: ['Car Meets', 'Photo Moments', 'Friendly Welcome'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-ev-charging',
@@ -57,7 +57,7 @@ export const slides = [
     headline: 'Plug In While You Unwind Inside',
     copy: 'Top up your EV and your energy in one stop — enjoy dinner or a pint while our on-site chargers handle your car.',
     badges: ['EV Charging', 'Road-Trip Ready', 'Free Parking'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   // Interior Images - Historic Character & Atmosphere
   {
@@ -71,7 +71,7 @@ export const slides = [
     headline: 'Authentic Nepalese Dining in a Characterful Setting',
     copy: 'Experience exceptional Nepalese cuisine in our cosy dining room — perfect for family meals and celebrations.',
     badges: ['Historic Interior', 'Nepalese Cuisine', 'Family Dining'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-2',
@@ -84,7 +84,7 @@ export const slides = [
     headline: 'Live Sports, Craft Beer & Community Spirit',
     copy: 'Watch the big games in comfort with friends — a welcoming atmosphere for locals and visitors alike.',
     badges: ['Live Sports', 'Craft Beer', 'Community Hub'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-3',
@@ -97,7 +97,7 @@ export const slides = [
     headline: 'Sophisticated Atmosphere for Special Occasions',
     copy: 'Traditional pub charm with contemporary comfort — ideal for date nights and celebrations.',
     badges: ['Elegant Interior', 'Special Occasions', 'Modern Comfort'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-4',
@@ -110,7 +110,7 @@ export const slides = [
     headline: 'Relaxed Bar Lounge for Every Occasion',
     copy: 'Grab a pint, catch up with friends, and settle into our welcoming atmosphere with traditional pub games.',
     badges: ['Relaxed Lounge', 'Great Atmosphere', 'Pub Games'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-4b',
@@ -123,7 +123,7 @@ export const slides = [
     headline: 'Catch Premier League & Major Matches Live',
     copy: 'Join us for Premier League, football, rugby and headline sporting events on our big screen — the best place to watch the match in Girton and Cambridge.',
     badges: ['Live Sports', 'Premier League', 'Big Screen'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   
   // Garden Images - Family-Friendly Outdoor Spaces
@@ -138,7 +138,7 @@ export const slides = [
     headline: 'Room to Unwind in Our Beer Garden',
     copy: 'Plenty of space for groups, families, and lazy weekend afternoons with traditional picnic table seating.',
     badges: ['Spacious Garden', 'Picnic Tables', 'Family Friendly'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-6',
@@ -151,7 +151,7 @@ export const slides = [
     headline: 'Outdoor Dining in Our Spacious Beer Garden',
     copy: 'Enjoy fresh air and great food in our expansive outdoor space — perfect for summer dining.',
     badges: ['Beer Garden', 'Outdoor Dining', 'Summer Seating'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-7',
@@ -164,7 +164,7 @@ export const slides = [
     headline: 'Al Fresco Dining on Our Sunny Terrace',
     copy: 'Relax with weekend lunches and summer drinks on our spacious, sun-drenched terrace.',
     badges: ['Sunny Terrace', 'Patio Seating', 'Summer Dining'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-8',
@@ -177,7 +177,7 @@ export const slides = [
     headline: 'Dedicated Children\'s Play Area for Family Fun',
     copy: 'Let the kids play safely while you relax. Our secure wooden play area keeps families smiling.',
     badges: ['Family Friendly', 'Safe Play', 'Kids Zone'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   
   // Exterior Images - Historic Building & Practical Information
@@ -192,7 +192,7 @@ export const slides = [
     headline: 'England\'s Largest Thatched Pub — A Cambridge Landmark',
     copy: 'Discover our remarkable thatched building — a unique setting minutes from Cambridge and Girton College.',
     badges: ['Largest Thatched Pub', 'Historic Landmark', 'Cambridge Icon'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-10',
@@ -205,7 +205,7 @@ export const slides = [
     headline: 'Traditional Pub Charm with Modern Amenities',
     copy: 'Beautiful exterior showcasing our historic character alongside our expansive garden facilities.',
     badges: ['Historic Exterior', 'Garden Views', 'Traditional Charm'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-11',
@@ -218,7 +218,7 @@ export const slides = [
     headline: 'No Parking Worries — Plenty of Space',
     copy: 'Unlike city centre, enjoy stress-free dining with our large, free car park.',
     badges: ['Free Parking', 'Easy Access', 'Stress-Free'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223276027' }
+    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
   }
 ];
 

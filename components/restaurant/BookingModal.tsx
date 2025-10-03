@@ -248,7 +248,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   {uiLabels?.callDirectly || 'Call us directly for immediate booking confirmation'}
                 </p>
                 <a
-                  href="tel:01223276027"
+                  href="tel:01223 277217"
                   className="text-accent font-semibold hover:underline"
                   aria-label="Open booking dialog"
                 >

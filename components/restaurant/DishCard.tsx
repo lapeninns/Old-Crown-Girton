@@ -69,7 +69,7 @@ export default function DishCard({
           {description}
         </p>
         <motion.a
-          href="tel:01223276027"
+          href="tel:01223 277217"
           className="block w-full text-center bg-accent text-white font-medium py-2 px-4 rounded-lg text-sm sm:text-base"
           {...v.button}
         >

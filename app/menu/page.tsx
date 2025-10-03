@@ -210,7 +210,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 													<span className="ml-2 text-sm" aria-hidden="true">↗</span>
 												</Link>
 											<Link
-												href="tel:01223276027"
+												href="tel:01223 277217"
 												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
 											>
 												{labelOrderTakeaway}

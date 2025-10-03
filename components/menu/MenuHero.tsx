@@ -16,7 +16,7 @@ export default function MenuHero({ labelBookOnline, labelOrderTakeaway }: Props)
           <a href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true" target="_blank" rel="noopener noreferrer" className="bg-accent text-white font-semibold py-2 px-4 rounded-md text-sm">
             {labelBookOnline}
           </a>
-          <a href="tel:01223276027" className="bg-crimson-500 text-white font-semibold py-2 px-4 rounded-md text-sm">
+          <a href="tel:01223 277217" className="bg-crimson-500 text-white font-semibold py-2 px-4 rounded-md text-sm">
             {labelOrderTakeaway}
           </a>
         </div>

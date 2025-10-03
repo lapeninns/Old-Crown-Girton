@@ -82,7 +82,7 @@ function HomePageContent({
             "longitude": 0.0731
           },
           "url": "https://oldcrowngirton.com/",
-          "telephone": "+441223276027",
+          "telephone": "+441223 277217",
           "priceRange": "££",
           "servesCuisine": ["Nepalese", "British", "Pub food"],
           "acceptsReservations": true,

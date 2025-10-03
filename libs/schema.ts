@@ -54,7 +54,7 @@ export function generateRestaurantSchema(): RestaurantSchema {
     name: identity.name,
     description: seo.description || identity.description,
     url: (seo as any)?.og?.url || "https://oldcrowngirton.com/",
-    telephone: contact?.phone.primary || "+441223276027",
+    telephone: contact?.phone.primary || "+441223 277217",
     email: contact?.email.primary || "oldcrown@lapeninns.com",
     address: {
       "@type": "PostalAddress",

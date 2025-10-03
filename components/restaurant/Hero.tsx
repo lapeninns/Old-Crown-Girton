@@ -105,7 +105,7 @@ export default function Hero() {
                 {primaryCTA}
               </motion.a>
             <motion.a
-              href={`tel:${contact?.phone.primary || '01223276027'}`}
+              href={`tel:${contact?.phone.primary || '01223 277217'}`}
               whileHover={mv.button.hover}
               whileTap={mv.button.tap}
               className="bg-crimson-600 hover:bg-crimson-700 text-neutral-50 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"

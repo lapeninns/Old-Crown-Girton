@@ -50,7 +50,7 @@ describe('ContactInfoSection', () => {
     render(<ContactInfoSection phone={mockPhone} location={mockLocation} />);
     
     const phoneLink = screen.getByRole('link', { name: '01223277217' });
-    expect(phoneLink).toHaveAttribute('href', 'tel:01223276027');
+    expect(phoneLink).toHaveAttribute('href', 'tel:01223 277217');
   });
 
   it('renders email link with correct href', () => {

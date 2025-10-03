@@ -114,7 +114,7 @@ export function useMenuContent(): MenuContent | null {
               },
               orderTakeaway: {
                 label: "Order Takeaway",
-                url: "tel:01223276027",
+                url: "tel:01223 277217",
                 style: "secondary"
               }
             }

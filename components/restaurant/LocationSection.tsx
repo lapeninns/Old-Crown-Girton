@@ -46,8 +46,8 @@ export default function LocationSection() {
               <div className="space-y-2 text-foreground">
                 <p>
                   <strong>Phone:</strong> 
-                  <a href="tel:01223276027" className="text-accent hover:underline ml-2" aria-label="Call Old Crown Girton at 01223276027">
-                    {contact?.phone.display || '01223276027'}
+                  <a href="tel:01223 277217" className="text-accent hover:underline ml-2" aria-label="Call Old Crown Girton at 01223 277217">
+                    {contact?.phone.display || '01223 277217'}
                   </a>
                 </p>
                 <p>

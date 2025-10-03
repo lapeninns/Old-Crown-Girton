@@ -39,7 +39,7 @@ describe('MenuCTASection', () => {
     },
     {
       text: 'Order Takeaway: 01223277217',
-      href: 'tel:01223276027',
+      href: 'tel:01223 277217',
       variant: 'secondary' as const,
       external: false
     },
