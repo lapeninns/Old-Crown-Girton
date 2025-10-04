@@ -1,13 +1,13 @@
 "use client";
 
-import Slideshow from './Slideshow';
+import DaisyUISlideshow from './DaisyUISlideshow';
 import ErrorBoundary from '../ErrorBoundary';
 import SlideshowFallback from './SlideshowFallback';
 
 const Showcase = () => {
   return (
     <ErrorBoundary fallback={<SlideshowFallback />}>
-      <Slideshow autoplay={true} interval={5000} />
+      <DaisyUISlideshow autoplay={true} interval={5000} />
     </ErrorBoundary>
   );
 };
