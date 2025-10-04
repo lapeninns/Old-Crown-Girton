@@ -34,6 +34,13 @@ export default function MenuHero() {
         <p className="text-base md:text-lg text-brand-100 mb-6 max-w-2xl mx-auto leading-relaxed">{hero.subtitle}</p>
         <div className="flex flex-wrap justify-center gap-3">
           <a
+            href="/wakes-menu"
+            className="bg-brand-100 hover:bg-brand-200 text-brand-900 border-2 border-brand-200 font-bold py-3 px-6 rounded-lg text-sm transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-300 focus-visible:ring-offset-2"
+            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'rgba(0,0,0,0)' }}
+          >
+            Wakes Menu
+          </a>
+          <a
             href="/takeaway-menu"
             className="bg-brand-50 hover:bg-brand-100 text-brand-800 border-2 border-brand-200 font-bold py-3 px-6 rounded-lg text-sm transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
           >

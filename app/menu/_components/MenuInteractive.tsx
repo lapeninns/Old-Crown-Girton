@@ -212,25 +212,6 @@ export default function MenuInteractive({ sections, defaultSelected, preloadedDa
           {/* Section Navigation with improved mobile support */}
           <div className="overflow-x-auto -mx-3 sm:-mx-4 px-3 sm:px-4 scrollbar-hide">
             <nav className="flex gap-2 sm:gap-3 whitespace-nowrap items-center pb-1" aria-label="Menu categories">
-              {/* All sections button with enhanced sticky behavior */}
-              <div 
-                className="flex-shrink-0 sticky left-0 z-40 pr-2 bg-white/95 backdrop-blur-md"
-              >
-                <button
-                  key="all"
-                  type="button"
-                  onClick={() => handleSectionChange(null)}
-                  className={`inline-block px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium ${
-                    selected === null ? 'bg-accent text-white shadow-sm' : 'bg-neutral-50 text-brand-700'
-                  }`}
-                  aria-pressed={selected === null}
-                >
-                  <span className="hidden sm:inline">All </span>
-                  <span className="sm:hidden">All </span>
-                  ({displaySections.reduce((total, section) => total + section.items.length, 0)})
-                </button>
-              </div>
-
               {/* Section buttons with enhanced responsive design */}
               {sections.map((section) => {
                 const idSeed = normalizeId(section?.id || section?.name);
