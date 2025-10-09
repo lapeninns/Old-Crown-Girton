@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
 import { slides as defaultSlides } from './slides';
@@ -194,6 +194,10 @@ const DaisyUISlideshow = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const autoplayTimerRef = useRef<number | null>(null);
+  const pointerActiveRef = useRef(false);
+  const activePointerIdRef = useRef<number | null>(null);
+  const resumeAutoplayTimeoutRef = useRef<number | null>(null);
+  const autoplayDirectionRef = useRef<1 | -1>(1);
 
   const totalSlides = sessionSlides.length;
 
@@ -212,13 +216,20 @@ const DaisyUISlideshow = ({
   }, []);
 
   const goToSlide = useCallback(
-    (index: number, behavior: ScrollBehaviorOption = 'smooth') => {
+    (index: number, behavior: ScrollBehaviorOption = 'smooth', directionHint?: 1 | -1 | null) => {
       if (!totalSlides) return;
       const normalized = ((index % totalSlides) + totalSlides) % totalSlides;
       setCurrentIndex((prev) => {
         if (prev === normalized) {
           scrollToSlide(normalized, behavior);
           return prev;
+        }
+        if (typeof directionHint === 'number') {
+          autoplayDirectionRef.current = directionHint;
+        } else if (normalized > prev) {
+          autoplayDirectionRef.current = 1;
+        } else if (normalized < prev) {
+          autoplayDirectionRef.current = -1;
         }
         scrollToSlide(normalized, behavior);
         return normalized;
@@ -228,27 +239,129 @@ const DaisyUISlideshow = ({
   );
 
   const advanceSlide = useCallback(
-    (direction: 1 | -1) => {
+    (direction?: 1 | -1) => {
       if (!totalSlides) return;
       setCurrentIndex((prev) => {
-        const next = (prev + direction + totalSlides) % totalSlides;
-        scrollToSlide(next);
-        return next;
+        const currentDirection = direction ?? autoplayDirectionRef.current;
+        let nextDirection = currentDirection;
+        let nextIndex = prev + currentDirection;
+
+        if (nextIndex >= totalSlides) {
+          nextDirection = -1;
+          nextIndex = totalSlides > 1 ? totalSlides - 2 : 0;
+        } else if (nextIndex < 0) {
+          nextDirection = 1;
+          nextIndex = totalSlides > 1 ? 1 : 0;
+        }
+
+        autoplayDirectionRef.current = nextDirection;
+        scrollToSlide(nextIndex);
+        return nextIndex;
       });
     },
     [scrollToSlide, totalSlides]
   );
+
+  const clearResumeAutoplayTimeout = useCallback(() => {
+    if (resumeAutoplayTimeoutRef.current) {
+      window.clearTimeout(resumeAutoplayTimeoutRef.current);
+      resumeAutoplayTimeoutRef.current = null;
+    }
+  }, []);
 
   const startAutoplay = useCallback(() => {
     stopAutoplay();
     if (!autoplay || totalSlides <= 1) {
       return;
     }
+    if (pointerActiveRef.current) {
+      return;
+    }
 
     autoplayTimerRef.current = window.setInterval(() => {
-      advanceSlide(1);
+      advanceSlide();
     }, interval);
   }, [advanceSlide, autoplay, interval, stopAutoplay, totalSlides]);
+
+  const scheduleAutoplayResume = useCallback(() => {
+    clearResumeAutoplayTimeout();
+    if (!autoplay || totalSlides <= 1) {
+      return;
+    }
+
+    resumeAutoplayTimeoutRef.current = window.setTimeout(() => {
+      resumeAutoplayTimeoutRef.current = null;
+      if (pointerActiveRef.current) {
+        return;
+      }
+      startAutoplay();
+    }, 500);
+  }, [autoplay, clearResumeAutoplayTimeout, startAutoplay, totalSlides]);
+
+  const syncCurrentIndexFromScroll = useCallback(() => {
+    if (!totalSlides) {
+      return;
+    }
+    const carousel = carouselRef.current;
+    if (!carousel) {
+      return;
+    }
+
+    const { clientWidth, scrollLeft } = carousel;
+    if (!clientWidth) {
+      return;
+    }
+
+    const rawIndex = scrollLeft / clientWidth;
+    const clampedIndex = Math.min(totalSlides - 1, Math.max(0, Math.round(rawIndex)));
+
+    setCurrentIndex((prev) => {
+      if (prev === clampedIndex) {
+        return prev;
+      }
+      if (clampedIndex > prev) {
+        autoplayDirectionRef.current = 1;
+      } else if (clampedIndex < prev) {
+        autoplayDirectionRef.current = -1;
+      }
+      requestAnimationFrame(() => {
+        scrollToSlide(clampedIndex, 'auto');
+      });
+      return clampedIndex;
+    });
+  }, [scrollToSlide, totalSlides]);
+
+  const handlePointerRelease = useCallback(
+    (event: PointerEvent) => {
+      if (activePointerIdRef.current !== event.pointerId) {
+        return;
+      }
+      pointerActiveRef.current = false;
+      activePointerIdRef.current = null;
+      window.removeEventListener('pointerup', handlePointerRelease);
+      window.removeEventListener('pointercancel', handlePointerRelease);
+      syncCurrentIndexFromScroll();
+      scheduleAutoplayResume();
+    },
+    [scheduleAutoplayResume, syncCurrentIndexFromScroll]
+  );
+
+  const handlePointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (pointerActiveRef.current) {
+        return;
+      }
+
+      pointerActiveRef.current = true;
+      activePointerIdRef.current = event.pointerId;
+      clearResumeAutoplayTimeout();
+      stopAutoplay();
+
+      window.addEventListener('pointerup', handlePointerRelease);
+      window.addEventListener('pointercancel', handlePointerRelease);
+    },
+    [clearResumeAutoplayTimeout, handlePointerRelease, stopAutoplay]
+  );
 
   useEffect(() => {
     startAutoplay();
@@ -275,6 +388,7 @@ const DaisyUISlideshow = ({
       }
       return nextSlides;
     });
+    autoplayDirectionRef.current = 1;
     setCurrentIndex(0);
     requestAnimationFrame(() => {
       scrollToSlide(0, 'auto');
@@ -287,6 +401,15 @@ const DaisyUISlideshow = ({
       scrollToSlide(currentIndex, 'auto');
     });
   }, [currentIndex, scrollToSlide, totalSlides]);
+
+  useEffect(() => {
+    return () => {
+      stopAutoplay();
+      clearResumeAutoplayTimeout();
+      window.removeEventListener('pointerup', handlePointerRelease);
+      window.removeEventListener('pointercancel', handlePointerRelease);
+    };
+  }, [clearResumeAutoplayTimeout, handlePointerRelease, stopAutoplay]);
 
   const handleMouseEnter = useCallback(() => {
     stopAutoplay();
@@ -307,7 +430,7 @@ const DaisyUISlideshow = ({
 
   return (
     <div
-      className="relative w-full h-[60svh] md:h-[65svh] lg:h-[70svh] overflow-hidden"
+      className="relative w-full h-[48svh] md:h-[52svh] lg:h-[56svh] overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       role="region"
@@ -315,6 +438,7 @@ const DaisyUISlideshow = ({
     >
       <div
         ref={carouselRef}
+        onPointerDown={handlePointerDown}
         className="carousel w-full h-full snap-x snap-mandatory overflow-x-auto scrollbar-hide"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
@@ -337,11 +461,11 @@ const DaisyUISlideshow = ({
                     className="object-cover"
                     quality={90}
                   />
-                  <div className="absolute inset-0 bg-black/30" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/40 backdrop-blur-[2px]" aria-hidden="true" />
                 </div>
               )}
               <div className="relative z-10 flex items-center justify-center w-full h-full px-6 sm:px-8">
-                <div className="max-w-4xl mx-auto text-center text-white">
+                <div className="max-w-4xl mx-auto text-center text-white px-6 py-6 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
                   {slide.eyebrow && (
                     <p className="text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.3em] text-accent-300 mb-3">
                       {slide.eyebrow}
@@ -401,7 +525,7 @@ const DaisyUISlideshow = ({
               type="button"
               onClick={() => {
                 stopAutoplay();
-                advanceSlide(-1);
+                goToSlide(currentIndex - 1, 'smooth', -1);
                 startAutoplay();
               }}
               className="btn btn-circle btn-ghost bg-black/35 hover:bg-black/55 text-white border-none"
@@ -413,7 +537,7 @@ const DaisyUISlideshow = ({
               type="button"
               onClick={() => {
                 stopAutoplay();
-                advanceSlide(1);
+                goToSlide(currentIndex + 1, 'smooth', 1);
                 startAutoplay();
               }}
               className="btn btn-circle btn-ghost bg-black/35 hover:bg-black/55 text-white border-none"
@@ -429,7 +553,13 @@ const DaisyUISlideshow = ({
                 type="button"
                 onClick={() => {
                   stopAutoplay();
-                  goToSlide(index);
+                  let direction: 1 | -1 | null = null;
+                  if (index > currentIndex) {
+                    direction = 1;
+                  } else if (index < currentIndex) {
+                    direction = -1;
+                  }
+                  goToSlide(index, 'smooth', direction);
                   startAutoplay();
                 }}
                 className={`h-3 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
