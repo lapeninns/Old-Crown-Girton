@@ -430,7 +430,7 @@ const DaisyUISlideshow = ({
 
   return (
     <div
-      className="relative w-full h-[48svh] md:h-[52svh] lg:h-[56svh] overflow-hidden"
+      className="relative w-full h-[57.6svh] md:h-[62.4svh] lg:h-[67.2svh] overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       role="region"
