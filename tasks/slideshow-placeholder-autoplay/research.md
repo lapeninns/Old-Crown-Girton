@@ -1,6 +1,0 @@
-# Research
-
-- **Current placeholder behavior**: In `components/slideshow/Slide.tsx:138` a placeholder `<div className="absolute inset-0 bg-neutral-800" />` renders whenever `imageLoaded` is false. After switching to AVIF-first, we reset `imageLoaded` to `false` each time the source updates, so the grey background appears briefly on every slide transition while the new image decodes.
-- **Previous-slide overlay**: `Slideshow.tsx` keeps the outgoing slide in an absolutely positioned layer that fades out via `AnimatePresence`. Once we remove the neutral placeholder the previous slide will continue to show during the transition, preventing a flash.
-- **Autoplay logic**: `Slideshow.tsx` already supports automatic advance (`autoplay` defaults to true and `Showcase` passes it). However, inside `useEffect` we skip autoplay entirely when `config.reduceAnimations` returns true, which happens on slow connections or when `navigator.connection.saveData` is set. This likely disables auto-swiping for some users.
-- **Configuration helpers**: `getOptimalConfig` controls preload count, interval, and `reduceAnimations` flag. To guarantee autoplay we can let the timer run even in the reduced-motion branch, perhaps using a longer interval to stay conservative.

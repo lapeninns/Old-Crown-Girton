@@ -1,6 +1,0 @@
-- [x] Catalog supporting modules
-- [x] Map architecture & flow
-- [x] Deep-dive state & interaction logic
-- [x] Assess performance & accessibility hooks
-- [x] Compile response matrix
-- [x] Verification & cross-checks
