@@ -124,7 +124,8 @@ const getInitialSessionSlides = (allSlides: SlideType[], targetCount = SESSION_S
   return getDefaultSessionSlides(allSlides, targetCount);
 };
 
-const CTA_BASE_CLASS = 'text-white font-bold rounded-xl shadow-xl shadow-black/25 ring-1 ring-white/10 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60';
+const CTA_BASE_CLASS =
+  'inline-flex items-center justify-center gap-2 text-white font-semibold rounded-xl shadow-xl shadow-black/25 ring-1 ring-white/10 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 min-h-[2.75rem] sm:min-h-[3rem] whitespace-normal';
 
 const getCTAConfig = (slide: SlideType, slideIndex: number) => {
   const type = slideIndex % 3;
@@ -430,7 +431,7 @@ const DaisyUISlideshow = ({
 
   return (
     <div
-      className="relative w-full h-[57.6svh] md:h-[62.4svh] lg:h-[67.2svh] overflow-hidden"
+      className="relative isolate w-full overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       role="region"
@@ -439,7 +440,7 @@ const DaisyUISlideshow = ({
       <div
         ref={carouselRef}
         onPointerDown={handlePointerDown}
-        className="carousel w-full h-full snap-x snap-mandatory overflow-x-auto scrollbar-hide"
+        className="carousel w-full snap-x snap-mandatory overflow-x-auto scrollbar-hide"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {sessionSlides.map((slide, index) => {
@@ -448,10 +449,10 @@ const DaisyUISlideshow = ({
           return (
             <div
               key={slide.id ?? index}
-              className="carousel-item relative w-full h-full snap-start"
+              className="carousel-item relative w-full snap-start"
             >
               {imageSrc && (
-                <div className="absolute inset-0 w-full h-full">
+                <div className="absolute inset-0 h-full w-full">
                   <Image
                     src={imageSrc}
                     alt={slide.alt || `Slide ${index + 1}`}
@@ -464,29 +465,29 @@ const DaisyUISlideshow = ({
                   <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/40 backdrop-blur-[2px]" aria-hidden="true" />
                 </div>
               )}
-              <div className="relative z-10 flex items-center justify-center w-full h-full px-6 sm:px-8">
-                <div className="max-w-4xl mx-auto text-center text-white px-6 py-6 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
+              <div className="relative z-10 w-full px-[clamp(1.25rem,4vw,4rem)] py-[clamp(2.75rem,7vw,5.75rem)]">
+                <div className="mx-auto flex w-full max-w-[min(70rem,94vw)] flex-col items-center gap-y-[clamp(0.875rem,2vw,2.25rem)] text-center text-white">
                   {slide.eyebrow && (
-                    <p className="text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.3em] text-accent-300 mb-3">
+                    <p className="text-[clamp(0.75rem,1.8vw,1.0625rem)] font-semibold uppercase tracking-[0.32em] text-accent-300">
                       {slide.eyebrow}
                     </p>
                   )}
                   {slide.headline && (
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-4">
+                    <h2 className="text-balance font-display text-[clamp(2.15rem,5vw,3.65rem)] font-bold leading-[1.08]">
                       {slide.headline}
                     </h2>
                   )}
                   {slide.copy && (
-                    <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
+                    <p className="mx-auto max-w-[65ch] text-pretty text-[clamp(1.05rem,2.4vw,1.45rem)] leading-relaxed text-white/90">
                       {slide.copy}
                     </p>
                   )}
                   {Array.isArray(slide.badges) && slide.badges.length > 0 && (
-                    <div className="flex flex-wrap justify-center gap-2 mb-6 sm:mb-8">
+                    <div className="flex w-full flex-wrap items-center justify-center gap-2.5 sm:gap-3">
                       {slide.badges.map((badge) => (
                         <span
                           key={badge}
-                          className="px-3 py-1 text-xs sm:text-sm bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
+                          className="rounded-full border border-white/30 bg-white/15 px-3.5 py-1.5 text-[clamp(0.75rem,1.6vw,0.9375rem)] font-medium text-white/95 backdrop-blur-sm"
                         >
                           {badge}
                         </span>
@@ -494,19 +495,19 @@ const DaisyUISlideshow = ({
                     </div>
                   )}
                   {slide.ctas && (
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 xl:gap-4 justify-center items-center max-w-full overflow-hidden px-2 sm:px-0">
+                    <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
                       {primaryButton.href && (
                         <SlideCTAButton
                           variant={primaryButton.variant}
                           href={primaryButton.href}
-                          className={`${primaryButton.className} text-sm xs:text-base sm:text-lg md:text-xl py-2.5 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
+                          className={`${primaryButton.className} w-full shrink-0 px-[clamp(1.5rem,3vw,3rem)] text-center text-sm xs:text-base sm:text-lg lg:text-xl sm:w-auto sm:max-w-[20rem]`}
                         />
                       )}
                       {secondaryButton.href && (
                         <SlideCTAButton
                           variant={secondaryButton.variant}
                           href={secondaryButton.href}
-                          className={`${secondaryButton.className} text-sm xs:text-base sm:text-lg md:text-xl py-2.5 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 w-full sm:w-auto max-w-full sm:max-w-xs truncate text-center`}
+                          className={`${secondaryButton.className} w-full shrink-0 px-[clamp(1.5rem,3vw,3rem)] text-center text-sm xs:text-base sm:text-lg lg:text-xl sm:w-auto sm:max-w-[20rem]`}
                         />
                       )}
                     </div>
@@ -528,7 +529,7 @@ const DaisyUISlideshow = ({
                 goToSlide(currentIndex - 1, 'smooth', -1);
                 startAutoplay();
               }}
-              className="btn btn-circle btn-ghost bg-black/35 hover:bg-black/55 text-white border-none"
+              className="btn btn-circle btn-ghost border-none bg-black/35 text-white hover:bg-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
               aria-label="Previous slide"
             >
               ❮
@@ -540,7 +541,7 @@ const DaisyUISlideshow = ({
                 goToSlide(currentIndex + 1, 'smooth', 1);
                 startAutoplay();
               }}
-              className="btn btn-circle btn-ghost bg-black/35 hover:bg-black/55 text-white border-none"
+              className="btn btn-circle btn-ghost border-none bg-black/35 text-white hover:bg-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
               aria-label="Next slide"
             >
               ❯
@@ -562,7 +563,7 @@ const DaisyUISlideshow = ({
                   goToSlide(index, 'smooth', direction);
                   startAutoplay();
                 }}
-                className={`h-3 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                className={`h-3 rounded-full px-2 py-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 ${
                   index === currentIndex ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80 w-3'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
