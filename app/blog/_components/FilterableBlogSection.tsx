@@ -50,7 +50,8 @@ export default function FilterableBlogSection({ posts, categories }: FilterableB
         'history': ['history & heritage', 'history', 'heritage'],
         'sports': ['sports & entertainment', 'sports', 'entertainment'],
         'local-sourcing': ['local sourcing', 'sourcing', 'local'],
-        'dog-friendly': ['dog-friendly', 'dog']
+        'dog-friendly': ['dog-friendly', 'dog'],
+        'press-media': ['press & media', 'press', 'media']
       };
       
       const keywords = categoryMappings[activeCategory] || [activeCategory];
@@ -77,7 +78,8 @@ export default function FilterableBlogSection({ posts, categories }: FilterableB
         'history': ['history & heritage', 'history', 'heritage'],
         'sports': ['sports & entertainment', 'sports', 'entertainment'],
         'local-sourcing': ['local sourcing', 'sourcing', 'local'],
-        'dog-friendly': ['dog-friendly', 'dog']
+        'dog-friendly': ['dog-friendly', 'dog'],
+        'press-media': ['press & media', 'press', 'media']
       };
       
       const keywords = categoryMappings[category.slug] || [category.slug];

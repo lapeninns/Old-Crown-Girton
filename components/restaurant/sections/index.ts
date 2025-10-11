@@ -6,6 +6,7 @@
 // Home page sections
 export { default as QuickLinksSection } from './QuickLinksSection';
 export { default as CallToActionSection } from './CallToActionSection';
+export { default as PressFeatureBanner } from './PressFeatureBanner';
 
 // About page sections
 export { default as StoryTimelineSection } from './StoryTimelineSection';

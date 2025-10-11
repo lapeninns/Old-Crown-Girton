@@ -9,6 +9,7 @@ import ClientFooter from '@/components/ClientFooter';
 import Showcase from '@/components/slideshow/Showcase';
 import AboutSection from '@/app/_components/AboutSection';
 import MenuHighlights from '@/app/_components/MenuHighlights';
+import PressFeatureBanner, { PressFeatureContent } from '@/components/restaurant/sections/PressFeatureBanner';
 
 // Below-fold components - load progressively with stable SSR
 const TestimonialsSection = dynamic(() => import('@/components/restaurant/TestimonialsSection'), {
@@ -35,6 +36,7 @@ interface ClientHomeContentProps {
   quickLinks: any[];
   ctaSection: any;
   ctaButtons: any[];
+  pressFeature?: PressFeatureContent | null;
 }
 
 // Optimized progressive loading with immediate display for SSR
@@ -85,7 +87,7 @@ function ProgressiveSection({
   );
 }
 
-export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }: ClientHomeContentProps) {
+export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons, pressFeature }: ClientHomeContentProps) {
   const [isHydrated, setIsHydrated] = useState(true); // Start with true for SSR
   const [navbarLoaded, setNavbarLoaded] = useState(true); // Start with true for immediate display
   const [criticalAssetsLoaded, setCriticalAssetsLoaded] = useState(true); // Start with true
@@ -165,6 +167,23 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons }
             <Showcase />
           </section>
         </ProgressiveSection>
+
+        {pressFeature && (
+          <ProgressiveSection 
+            delay={getDelay(150)}
+            placeholder={
+              <div className="bg-brand-700 py-10 md:py-12">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+                  <div className="h-4 w-32 bg-white/30 rounded section-placeholder"></div>
+                  <div className="h-8 w-3/4 bg-white/40 rounded section-placeholder"></div>
+                  <div className="h-4 w-full md:w-2/3 bg-white/30 rounded section-placeholder"></div>
+                </div>
+              </div>
+            }
+          >
+            <PressFeatureBanner content={pressFeature} />
+          </ProgressiveSection>
+        )}
         
         {/* About Section - render immediately for snappier feel */}
         <ProgressiveSection 

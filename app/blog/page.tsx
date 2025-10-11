@@ -35,6 +35,17 @@ const featuredPost = {
 
 const blogPosts = [
   {
+    id: "evening-standard-country-pub-of-the-week",
+    title: "Evening Standard Spotlights The Old Crown, Girton",
+    excerpt: "The Evening Standard names us Country Pub of the Week, celebrating our Nepalese cooking, village welcome, and ever-evolving menu.",
+    image: Images.blog.thatchedExterior,
+    category: "Press & Media",
+    author: "Old Crown Team",
+    publishedDate: "2024-12-19",
+    readTime: "2 min read",
+    slug: "evening-standard-country-pub-of-the-week"
+  },
+  {
     id: "business-lunch-cambridge-guide",
     title: "The Ultimate Business Lunch Destination in Cambridge",
     excerpt: "Discover why Old Crown Girton has become the go-to choice for professionals seeking the perfect balance of quality cuisine, professional atmosphere, and convenient location.",
@@ -126,6 +137,7 @@ const blogPosts = [
 
 const categories = [
   { name: "All Posts", count: 9, slug: "all" },
+  { name: "Press & Media", count: 1, slug: "press-media" },
   { name: "Food & Dining", count: 2, slug: "food-dining" },
   { name: "Nepalese Cuisine", count: 2, slug: "nepalese-cuisine" },
   { name: "Business Dining", count: 1, slug: "business-dining" },

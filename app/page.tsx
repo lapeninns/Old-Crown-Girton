@@ -37,14 +37,42 @@ const ClientHomeContent = dynamic(() => import('@/components/ClientHomeContent')
   )
 });
 
+type PressFeatureContent = {
+  label?: string;
+  eyebrow?: string;
+  title?: string;
+  summary?: string;
+  quote?: string;
+  quoteAttribution?: string;
+  cta?: {
+    text?: string;
+    href?: string;
+  };
+};
+
+const DEFAULT_PRESS_FEATURE: PressFeatureContent = {
+  label: "In the press",
+  eyebrow: "Country pub of the week",
+  title: "Evening Standard spotlights The Old Crown, Girton",
+  summary: "David Ellis praises our welcoming village pub, authentic Nepalese cooking, and ever-evolving menu in the Evening Standard's Country Pub of the Week column.",
+  quote: "The changes keep locals coming back.",
+  quoteAttribution: "David Ellis, Evening Standard",
+  cta: {
+    text: "Read the review",
+    href: "https://www.standard.co.uk/going-out/bars/old-crown-girton-hotel-pub-review-b1249473.html"
+  }
+};
+
 function HomePageContent({ 
   quickLinks, 
   ctaSection, 
-  ctaButtons 
+  ctaButtons,
+  pressFeature
 }: {
   quickLinks: any[];
   ctaSection: any;
   ctaButtons: any[];
+  pressFeature?: PressFeatureContent | null;
 }) {
   return (
     <>
@@ -130,6 +158,7 @@ function HomePageContent({
         quickLinks={quickLinks}
         ctaSection={ctaSection}
         ctaButtons={ctaButtons}
+        pressFeature={pressFeature}
       />
     </>
   );
@@ -146,6 +175,17 @@ export default async function Page() {
   const homeContent = content.pages.home;
   const quickLinks = homeContent.sections.quickLinks || [];
   const ctaSection = (homeContent.sections as any).cta;
+  const pressFeatureContent = (homeContent.sections as any).pressFeature;
+  const pressFeature = pressFeatureContent
+    ? {
+        ...DEFAULT_PRESS_FEATURE,
+        ...pressFeatureContent,
+        cta: {
+          ...DEFAULT_PRESS_FEATURE.cta,
+          ...(pressFeatureContent.cta ?? {}),
+        }
+      }
+    : DEFAULT_PRESS_FEATURE;
   
   // Process CTA buttons with label fallbacks
   const ctaButtons = ctaSection?.buttons?.map((button: any) => ({
@@ -158,6 +198,7 @@ export default async function Page() {
       quickLinks={quickLinks}
       ctaSection={ctaSection}
       ctaButtons={ctaButtons}
+      pressFeature={pressFeature}
     />
   );
 }

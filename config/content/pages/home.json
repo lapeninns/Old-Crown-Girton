@@ -34,6 +34,18 @@
         }
       ]
     },
+    "pressFeature": {
+      "label": "In the press",
+      "eyebrow": "Country pub of the week",
+      "title": "Evening Standard spotlights The Old Crown, Girton",
+      "summary": "David Ellis praises our welcoming village pub, authentic Nepalese cooking, and ever-evolving menu in the Evening Standard's Country Pub of the Week column.",
+      "quote": "The changes keep locals coming back.",
+      "quoteAttribution": "David Ellis, Evening Standard",
+      "cta": {
+        "text": "Read the review",
+        "href": "https://www.standard.co.uk/going-out/bars/old-crown-girton-hotel-pub-review-b1249473.html"
+      }
+    },
     "quickLinks": [
       {
         "title": "Community & Events",
