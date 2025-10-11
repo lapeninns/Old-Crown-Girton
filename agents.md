@@ -319,8 +319,8 @@ Use React Context for [reason]
 
 ### UI Components
 
-- **MUST** use SHADCN UI components when available
-- **MUST** extend SHADCN rather than build from scratch
+- **MUST** use DaisyUI components when available
+- **MUST** extend DaisyUI rather than build from scratch
 - **MUST** follow established component patterns in codebase
 - Search codebase first before creating new components
 
@@ -496,8 +496,8 @@ my-monorepo/
 │   │   └── AGENTS.md                  # Design system guidelines
 │   ├── api-client/
 │   │   └── AGENTS.md                  # API client patterns
-│   └── database/
-│       └── AGENTS.md                  # Database migrations & schema
+│   └── shared/
+│       └── AGENTS.md                  # Shared utilities
 └── infrastructure/
     └── AGENTS.md                      # Deployment & infrastructure
 ```
@@ -516,62 +516,17 @@ my-monorepo/
 
 ### Chrome DevTools MCP Authentication
 
-**CRITICAL**: Chrome DevTools MCP requires authentication session tokens.
+**Note**: Chrome DevTools MCP may require authentication if the platform being tested requires sign-in.
 
-- **ALWAYS** ask the user for the authentication session token before running Chrome DevTools MCP
-- Never assume the token is available or cached
-- Session tokens expire and must be refreshed regularly
+- If the platform requires authentication, ask the user for a magic link token
+- Magic link tokens are used for sign-in, not for MCP access
+- Only request authentication when testing protected routes or features
 
-**Usage pattern:**
+**Usage pattern when authentication is needed:**
 
-1. Before initiating DevTools QA, request: "Please provide your Chrome DevTools MCP authentication session token"
+1. Before testing protected features, request: "Please provide a magic link token to sign in to the platform"
 2. Wait for user to provide token
-3. Proceed with DevTools inspection only after token is received
-
----
-
-## Database & Supabase
-
-### Supabase Remote Configuration
-
-**CRITICAL**: This project uses Supabase REMOTE, not local instances.
-
-- **NEVER** run migrations or seeds against local Supabase
-- **ALWAYS** target the remote Supabase instance directly
-- Database changes go straight to production/staging remote environment
-
-### Running Migrations & Seeds
-
-When database changes are required:
-
-```bash
-# Run migrations against remote
-supabase db push
-
-# Run seeds against remote (if needed)
-supabase db seed
-```
-
-**Important considerations:**
-
-- Migrations are destructive - always review before pushing to remote
-- Coordinate with team before running migrations on shared remote
-- Document all migration changes in task verification.md
-- Test data modifications carefully as they affect live environment
-- Consider backup/rollback strategy before major schema changes
-
-**When to run migrations:**
-
-- New tables or schema changes required
-- Column additions/modifications
-- Index creation or optimization
-- RLS policy updates
-
-**When to run seeds:**
-
-- Initial data population needed
-- Test data requirements for new features
-- Reference data updates
+3. Complete sign-in process, then proceed with DevTools inspection
 
 ---
 
@@ -585,8 +540,6 @@ Stop and address these immediately:
 - ⚠️ **Many assumptions** → Document and validate with stakeholder
 - ⚠️ **No verification plan** → Define success criteria first
 - ⚠️ **Skipped DevTools QA** → NEVER skip manual QA with Chrome DevTools MCP tool
-- ⚠️ **Running migrations without coordination** → Always coordinate remote database changes with team
-- ⚠️ **Local Supabase usage** → NEVER use local Supabase, always use remote
 
 ---
 
@@ -621,16 +574,14 @@ Stop and address these immediately:
 - **Batch questions** during implementation to maintain momentum
 - **Document assumptions** when making reasonable judgments
 - **Search codebase first** before creating new patterns
-- **Prioritize SHADCN** components over custom builds
+- **Prioritize DaisyUI** components over custom builds
 - **Mobile-first** approach for all UI work
 - **Accessibility is not optional** - follow all MUST requirements
 - **Create nested AGENTS.md** for subprojects in monorepos
 - **Chrome DevTools MCP tool is MANDATORY** for verification phase - never skip this step
 - **Always request Chrome DevTools auth token** before starting DevTools QA
-- **Use Supabase REMOTE only** - never run migrations/seeds against local instances
-- **Coordinate database changes** - migrations affect live remote environment
 
 ---
 
 **Last Updated**: 2025-01-11  
-**Version**: 3.2
+**Version**: 3.3

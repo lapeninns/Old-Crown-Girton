@@ -1,109 +1,113 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
-import Link from '@/lib/debugLink';
-import Image from 'next/image';
-import { useParsedData } from '@/hooks/useParsedData';
-import { useContent } from '@/hooks/useContent';
-import { NavDataSchema, NavDataParsed } from '@/lib/schemas';
-import { sanitizeHref, createHrefKey, isValidHref, logHrefIssue } from '@/utils/href';
+import { useState, useEffect, useCallback } from 'react';
+import {
+  ContactCTA,
+  DesktopNavLinks,
+  MobileNavLinks,
+  NavbarLogo,
+  useNavContent,
+} from './NavbarParts';
 
 export default function NavbarStatic() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const navbarRef = useRef<HTMLElement>(null);
-  const { data, loading, error } = useParsedData<NavDataParsed>('nav.json', NavDataSchema);
-  const { data: content } = useContent();
+  const {
+    links,
+    error,
+    errorLabel,
+    contactLabel,
+    navLabel,
+    menuButtonOpenLabel,
+    menuButtonCloseLabel,
+    logoAlt,
+  } = useNavContent();
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 10);
+      setIsScrolled(window.scrollY > 10);
     };
 
-    const navbar = navbarRef.current;
-    if (navbar) {
-      navbar.style.position = 'fixed';
-      navbar.style.top = '0';
-      navbar.style.left = '0';
-      navbar.style.right = '0';
-      navbar.style.zIndex = '50';
-      navbar.style.width = '100%';
-      // Remove will-change and transforms to avoid motion hints
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = data?.links || content?.global?.navigation?.header?.links || [];
-  const uiLabels = content?.global?.ui?.labels;
-  const ariaLabels = content?.global?.accessibility?.ariaLabels;
-  const contactLabel = content?.global?.ui?.buttons?.contact || 'Contact';
-
-  const filteredLinks = navLinks.filter((link: any) => {
-    if (!isValidHref(link.href)) {
-      logHrefIssue('Invalid href detected in navbar link', link.href, 'NavbarStatic.filteredLinks');
-      return false;
+  useEffect(() => {
+    if (!isOpen) {
+      return;
     }
-    
-    const safeHref = sanitizeHref(link.href);
-    return safeHref !== '/' && safeHref !== '/contact';
-  });
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
+  const closeMenu = useCallback(() => setIsOpen(false), []);
+
+  const navClasses = `fixed inset-x-0 top-0 z-50 border-b border-neutral-200 transform-gpu will-change-transform transition-all duration-300 ${
+    isScrolled ? 'bg-neutral-50/95 shadow-lg shadow-brand-900/10 backdrop-blur-lg' : 'bg-neutral-50 shadow-sm'
+  }`;
 
   return (
-    <nav
-      ref={navbarRef}
-      className={`bg-neutral-50 ${isScrolled ? 'shadow-lg bg-opacity-95 backdrop-blur-md' : 'shadow-md bg-opacity-100'}`}
-      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, width: '100%' }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center space-x-2">
-              <Image
-                src="/images/brand/OldCrownLogo.png"
-                alt={content?.global?.accessibility?.altTexts?.logo || 'Old Crown Girton Logo'}
-                width={60}
-                height={45}
-                className="h-8 w-auto"
-                priority
-              />
-              <span className="text-xl font-semibold text-brand-800">OLD CROWN</span>
-            </Link>
+    <nav aria-label={navLabel} className={navClasses}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="navbar px-0">
+          <div className="navbar-start gap-2">
+            <NavbarLogo altText={logoAlt} />
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {error && <span className="text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</span>}
-            {filteredLinks.map((link: any, index: number) => (
-              <Link key={createHrefKey(link.href, index)} href={sanitizeHref(link.href)} className="text-brand-600 hover:text-brand-800">
-                {link.label}
-              </Link>
-            ))}
+          <div className="navbar-center">
+            <DesktopNavLinks links={links} error={error} errorLabel={errorLabel} />
           </div>
 
-          <div className="hidden md:flex">
-            <Link href="/contact" className="px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800">
-              {contactLabel}
-            </Link>
+          <div className="navbar-end hidden md:flex">
+            <ContactCTA label={contactLabel} variant="desktop" />
           </div>
 
-          <div className="md:hidden">
-            <button 
-              onClick={() => setIsOpen(!isOpen)} 
-              className="text-brand-700 focus:outline-none p-2" 
+          <div className="navbar-end md:hidden">
+            <button
+              type="button"
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="btn btn-ghost btn-square btn-sm min-h-0 p-2 text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50"
               aria-expanded={isOpen}
-              aria-controls="nav-mobile-menu"
+              aria-controls="mobile-nav-static"
+              aria-haspopup="menu"
             >
-              <span className="sr-only">{ariaLabels?.openMenu || 'Open main menu'}</span>
+              <span className="sr-only">
+                {isOpen ? menuButtonCloseLabel : menuButtonOpenLabel}
+              </span>
               {!isOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
                 </svg>
               ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               )}
             </button>
@@ -112,30 +116,34 @@ export default function NavbarStatic() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-neutral-50 border-b border-neutral-200 relative z-50" id="nav-mobile-menu" role="dialog" aria-modal="true">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {error && <div className="px-3 py-2 text-xs text-error-500">{uiLabels?.error || 'Nav failed'}</div>}
-            <div className="flex flex-col space-y-4">
-              {filteredLinks.map((link: any, index: number) => (
-                <Link
-                  key={createHrefKey(link.href, index)}
-                  href={sanitizeHref(link.href)}
-                  className="text-brand-600 hover:text-brand-800 py-2 px-3"
-                  onClick={() => setIsOpen(false)}
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 z-40 bg-black/40 md:hidden"
+            onClick={closeMenu}
+            aria-label={menuButtonCloseLabel}
+          />
+          <div className="md:hidden">
+            <div className="relative z-50 bg-neutral-50/95 shadow-xl shadow-brand-900/10">
+              <div className="mx-auto max-w-7xl px-4 pb-6 pt-4 sm:px-6 lg:px-8">
+                <div
+                  id="mobile-nav-static"
+                  role="dialog"
+                  aria-modal="true"
+                  className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4"
                 >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/contact"
-                className="w-full px-5 py-2 text-center text-neutral-50 bg-brand-700 rounded-lg hover:bg-brand-800"
-                onClick={() => setIsOpen(false)}
-              >
-                {contactLabel}
-              </Link>
+                  <MobileNavLinks
+                    links={links}
+                    error={error}
+                    errorLabel={errorLabel}
+                    contactLabel={contactLabel}
+                    onNavigate={closeMenu}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );
