@@ -119,12 +119,15 @@ export default function NavbarStatic() {
         <>
           <button
             type="button"
-            className="fixed inset-0 z-40 bg-black/40 md:hidden"
+            className="fixed inset-0 z-40 bg-neutral-50/80 backdrop-blur-sm md:hidden"
             onClick={closeMenu}
             aria-label={menuButtonCloseLabel}
           />
           <div className="md:hidden">
-            <div className="relative z-50 bg-neutral-50/95 shadow-xl shadow-brand-900/10">
+            <div
+              className="relative z-50 bg-neutral-50/95 shadow-xl shadow-brand-900/10"
+              style={{ paddingTop: 'env(safe-area-inset-top)' }}
+            >
               <div className="mx-auto max-w-7xl px-4 pb-6 pt-4 sm:px-6 lg:px-8">
                 <div
                   id="mobile-nav-static"
