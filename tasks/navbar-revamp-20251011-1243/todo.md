@@ -17,6 +17,10 @@
 - [x] Verify `MenuInteractive` navbar height assumptions and adjust if new height differs.
 - [x] Ensure progressive placeholder styles in `ClientHomeContent` still line up with final navbar.
 
+## Status Bar Theming
+- [x] Add baseline `theme-color` metadata so iOS status bar stays light.
+- [x] Toggle `theme-color` when the mobile menu opens/closes.
+
 ## Testing & Verification
 - [ ] Run available automated checks (lint/typecheck) if time permits.
 - [ ] Perform Chrome DevTools manual QA (mobile/desktop, accessibility, performance).

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import {
   ContactCTA,
@@ -22,10 +22,14 @@ const PANEL_ANIMATION = {
   exit: { opacity: 0, y: -12, transition: { duration: 0.18, ease: [0.4, 0, 1, 1] } },
 } as const;
 
+const DEFAULT_THEME_COLOR = '#f9fafb';
+const MENU_THEME_COLOR = '#f9fafb';
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const themeColorCache = useRef<Map<HTMLMetaElement, string>>(new Map());
   const {
     links,
     error,
@@ -58,6 +62,37 @@ export default function Navbar() {
       document.body.style.overflow = originalOverflow;
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const metas = Array.from(document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'));
+    if (metas.length === 0) return;
+
+    if (themeColorCache.current.size === 0) {
+      metas.forEach((meta) => {
+        themeColorCache.current.set(meta, meta.getAttribute('content') || DEFAULT_THEME_COLOR);
+      });
+    }
+
+    metas.forEach((meta) => {
+      const fallback = themeColorCache.current.get(meta) ?? DEFAULT_THEME_COLOR;
+      meta.setAttribute('content', isOpen ? MENU_THEME_COLOR : fallback);
+    });
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (typeof window === 'undefined') return;
+      const metas = Array.from(document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'));
+      metas.forEach((meta) => {
+        const fallback = themeColorCache.current.get(meta);
+        if (fallback) {
+          meta.setAttribute('content', fallback);
+        }
+      });
+    };
+  }, []);
 
   const closeMenu = useCallback(() => setIsOpen(false), []);
 

@@ -45,6 +45,10 @@ const FALLBACK_SCRIPT = `(function(){try{function createFallback(){ try{ if(docu
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#f9fafb" />
+        <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+      </head>
       <body>
         <PerformanceProvider>
           {/* Skip link for keyboard users */}
