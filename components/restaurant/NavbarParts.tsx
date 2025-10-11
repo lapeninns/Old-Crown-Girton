@@ -21,7 +21,6 @@ interface NavContentResult {
   error: Error | null;
   errorLabel: string;
   contactLabel: string;
-  ariaLabels?: Record<string, string>;
   navLabel: string;
   menuButtonOpenLabel: string;
   menuButtonCloseLabel: string;
@@ -66,11 +65,11 @@ export function useNavContent(): NavContentResult {
   const menuButtonOpenLabel =
     ariaLabels?.menuButton ||
     ariaLabels?.openMenu ||
-    'Open main menu';
+    'Open navigation menu';
   const menuButtonCloseLabel =
     ariaLabels?.closeMenu ||
     ariaLabels?.closeDialog ||
-    'Close main menu';
+    'Close navigation menu';
   const logoAlt =
     content?.global?.accessibility?.altTexts?.logo ||
     'Old Crown Girton Logo';
@@ -80,7 +79,6 @@ export function useNavContent(): NavContentResult {
     error,
     errorLabel: uiLabels?.error || 'Nav failed',
     contactLabel,
-    ariaLabels,
     navLabel,
     menuButtonOpenLabel,
     menuButtonCloseLabel,
@@ -92,7 +90,7 @@ export function NavbarLogo({ altText }: { altText: string }) {
   return (
     <Link
       href="/"
-      className="flex items-center gap-2 rounded-lg px-1 py-1 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50"
+      className="flex items-center gap-2 px-2 py-1 text-brand-700"
     >
       <Image
         src="/images/brand/OldCrownLogo.png"
@@ -102,57 +100,67 @@ export function NavbarLogo({ altText }: { altText: string }) {
         className="h-8 w-auto"
         priority
       />
-      <span className="text-lg font-semibold tracking-tight text-brand-800">
+      <span className="text-lg font-semibold text-brand-700">
         OLD CROWN
       </span>
     </Link>
   );
 }
 
-export function DesktopNavLinks({
+export function NavLinks({
   links,
   error,
   errorLabel,
+  orientation = 'horizontal',
+  onNavigate,
 }: {
   links: SanitizedNavLink[];
   error: Error | null;
   errorLabel: string;
+  orientation?: 'horizontal' | 'vertical';
+  onNavigate?: () => void;
 }) {
+  const isVertical = orientation === 'vertical';
+  const listClass = isVertical
+    ? 'menu menu-vertical gap-2 px-0'
+    : 'menu menu-horizontal gap-1 px-0';
+
+  const defaultLinkClass = isVertical
+    ? 'btn btn-ghost justify-start w-full text-left font-medium text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
+    : 'btn btn-ghost font-semibold text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
+
+  const seasonalLinkClass = isVertical
+    ? 'btn justify-start w-full text-left items-center gap-2 border-none bg-brand-50 text-brand-700 shadow-sm transition hover:bg-brand-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
+    : 'btn btn-ghost items-center gap-2 font-semibold text-brand-700 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
+
   return (
-    <div className="hidden items-center gap-3 md:flex">
+    <div
+      className={isVertical ? 'flex flex-col gap-3' : 'flex items-center gap-3'}
+      data-orientation={orientation}
+    >
       {error && (
-        <span className="badge badge-error badge-sm font-semibold uppercase tracking-wide text-white">
+        <span className="badge badge-error badge-sm">
           {errorLabel}
         </span>
       )}
-      <ul className="menu menu-horizontal gap-1 px-0">
+      <ul className={listClass}>
         {links.map((link) => (
           <li key={link.key}>
             <Link
               href={link.href}
-              className={
-                link.isSeasonal
-                  ? 'group btn btn-sm min-h-0 gap-2 rounded-full border-none bg-gradient-to-r from-crimson-500 via-brand-600 to-cardamom-600 px-4 font-semibold text-white shadow-lg transition-transform duration-200 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700 motion-safe:hover:scale-[1.02]'
-                  : 'btn btn-ghost btn-sm min-h-0 px-3 text-base font-medium text-brand-600 hover:bg-transparent hover:text-brand-800 focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50'
-              }
+              onClick={onNavigate}
+              className={link.isSeasonal ? seasonalLinkClass : defaultLinkClass}
             >
-              {link.isSeasonal && (
-                <span
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-lg"
-                  aria-hidden="true"
-                >
-                  🎄
-                </span>
+              {link.isSeasonal ? (
+                <>
+                  <span aria-hidden="true" className="text-lg leading-none">
+                    🎄
+                  </span>
+                  <span className="font-semibold">{link.label}</span>
+                </>
+              ) : (
+                link.label
               )}
-              <span className={link.isSeasonal ? 'relative' : undefined}>
-                {link.label}
-                {link.isSeasonal && (
-                  <span
-                    className="pointer-events-none absolute inset-x-0 -bottom-1 h-px bg-white/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    aria-hidden="true"
-                  />
-                )}
-              </span>
             </Link>
           </li>
         ))}
@@ -163,81 +171,23 @@ export function DesktopNavLinks({
 
 export function ContactCTA({
   label,
-  variant,
   onClick,
+  fullWidth = false,
 }: {
   label: string;
-  variant: 'desktop' | 'mobile';
   onClick?: () => void;
+  fullWidth?: boolean;
 }) {
   const baseClasses =
-    'btn btn-primary border-none bg-brand-700 text-neutral-50 hover:bg-brand-800 focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50';
-
-  if (variant === 'mobile') {
-    return (
-      <Link
-        href="/contact"
-        onClick={onClick}
-        className={`${baseClasses} btn-block`}
-      >
-        {label}
-      </Link>
-    );
-  }
+    'btn border-none bg-brand-700 text-neutral-50 hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
 
   return (
-    <Link href="/contact" onClick={onClick} className={`${baseClasses} px-6`}>
+    <Link
+      href="/contact"
+      onClick={onClick}
+      className={fullWidth ? `${baseClasses} btn-block` : baseClasses}
+    >
       {label}
     </Link>
-  );
-}
-
-export function MobileNavLinks({
-  links,
-  error,
-  errorLabel,
-  contactLabel,
-  onNavigate,
-}: {
-  links: SanitizedNavLink[];
-  error: Error | null;
-  errorLabel: string;
-  contactLabel: string;
-  onNavigate: () => void;
-}) {
-  return (
-    <div className="flex flex-col gap-3">
-      {error && (
-        <span className="badge badge-error badge-sm w-fit">
-          {errorLabel}
-        </span>
-      )}
-      <ul className="menu menu-vertical gap-2">
-        {links.map((link) => (
-          <li key={link.key}>
-            <Link
-              href={link.href}
-              onClick={onNavigate}
-              className={
-                link.isSeasonal
-                  ? 'btn btn-sm w-full gap-2 rounded-full border-none bg-gradient-to-r from-crimson-500 via-brand-600 to-cardamom-600 px-4 font-semibold text-white shadow-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700'
-                  : 'btn btn-ghost justify-start text-base font-medium text-brand-600 hover:bg-brand-50 hover:text-brand-800 focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50'
-              }
-            >
-              {link.isSeasonal && (
-                <span
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-lg"
-                  aria-hidden="true"
-                >
-                  🎄
-                </span>
-              )}
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <ContactCTA label={contactLabel} variant="mobile" onClick={onNavigate} />
-    </div>
   );
 }
