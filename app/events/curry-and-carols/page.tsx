@@ -5,10 +5,28 @@ import { SchemaInjector } from "@/components/seo/RestaurantSchema";
 import Link from "@/lib/debugLink";
 import { getContactInfo } from "@/lib/restaurantData";
 
+const MENU_PREVIEW = [
+  {
+    title: "Starters to share",
+    description:
+      "Vegetable samosa, gobi manchurian, chicken tikka, and seekh kebab arrive together so everyone can taste each dish.",
+  },
+  {
+    title: "Mains & sides",
+    description:
+      "Pick from chicken tikka masala, special lamb curry, vegetable curry, pilau rice, or vegetable chow mein to build your plate.",
+  },
+  {
+    title: "Desserts & hot drinks",
+    description:
+      "Choose coffee with mince pie or warm Christmas pudding with brandy sauce to finish while the final carols ring out.",
+  },
+] as const;
+
 export const metadata = getSEOTags({
-  title: "Curry & Carols 2025 | Old Crown Girton – Coming Soon",
+  title: "Curry & Carols 2025 | Old Crown Girton – Menu Now Live",
   description:
-    "Curry & Carols returns to The Old Crown Girton on 16 & 17 December 2025. £35 per guest for a festive Nepalese banquet with live carols. Join the waitlist.",
+    "Curry & Carols returns to The Old Crown Girton on 16 & 17 December 2025. £35 per guest for a festive Nepalese banquet with live carols—preview the full menu and register your interest.",
   keywords: [
     "Curry and Carols",
     "Old Crown Girton events",
@@ -21,7 +39,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Curry & Carols at The Old Crown Girton – December 2025",
     description:
-      "Two festive evenings of Nepalese curry and live carols on 16 & 17 December 2025. £35 per guest – register your interest at The Old Crown Girton.",
+      "Two festive evenings of Nepalese curry and live carols on 16 & 17 December 2025. £35 per guest – menu now live so you can plan your festive feast before booking.",
     url: "https://oldcrowngirton.com/events/curry-and-carols",
   },
 });
@@ -124,7 +142,7 @@ export default function CurryAndCarolsPage() {
             <FadeIn>
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/30 rounded-full backdrop-blur touch-manipulation">
                 <span aria-hidden="true" role="img">🎄</span>
-                <span className="text-sm font-semibold tracking-wide uppercase">Coming Soon</span>
+                <span className="text-sm font-semibold tracking-wide uppercase">Menu Now Live</span>
                 <span className="sr-only">Curry &amp; Carols announcement</span>
               </span>
             </FadeIn>
@@ -135,14 +153,14 @@ export default function CurryAndCarolsPage() {
             </FadeInUp>
             <FadeInUp>
               <p className="text-lg md:text-xl text-neutral-100 max-w-3xl mx-auto leading-relaxed">
-                Two sparkling nights of Nepalese curry, mulled cheer, and live carols under our thatched roof. Join us on <strong>16 &amp; 17 December 2025</strong> for a £35 per guest festive feast that warms every chorus.
+                Two sparkling nights of Nepalese curry, mulled cheer, and live carols under our thatched roof. Join us on <strong>16 &amp; 17 December 2025</strong> for a £35 per guest festive feast—and browse the full menu before you book.
               </p>
             </FadeInUp>
             <FadeInUp>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <MotionLinkButton
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white text-brand-800 font-semibold shadow-lg hover:bg-brand-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-700"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white text-brand-800 font-semibold shadow-lg hover:bg-brand-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-700 w-full sm:w-auto min-h-[3.25rem]"
                   ariaLabel="Register your interest for Curry and Carols via the contact form"
                 >
                   <span aria-hidden="true" role="img">📝</span>
@@ -150,17 +168,25 @@ export default function CurryAndCarolsPage() {
                 </MotionLinkButton>
                 <MotionLinkButton
                   href={`tel:${contact.phone.primary.replace(/\s+/g, "")}`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-accent-500 text-neutral-900 font-semibold shadow-lg hover:bg-accent-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-200 focus-visible:ring-offset-brand-700"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-accent-500 text-neutral-900 font-semibold shadow-lg hover:bg-accent-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-200 focus-visible:ring-offset-brand-700 w-full sm:w-auto min-h-[3.25rem]"
                   ariaLabel="Call the Old Crown Girton team"
                 >
                   <span aria-hidden="true" role="img">📞</span>
                   Call the Team
                 </MotionLinkButton>
+                <MotionLinkButton
+                  href="/curry-and-carols-menu"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-white/60 text-white font-semibold shadow-lg hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white focus-visible:ring-offset-brand-700 w-full sm:w-auto min-h-[3.25rem]"
+                  ariaLabel="Preview the Curry and Carols menu"
+                >
+                  <span aria-hidden="true" role="img">🍽️</span>
+                  View 2025 Menu
+                </MotionLinkButton>
               </div>
             </FadeInUp>
             <FadeIn>
               <p className="text-sm uppercase tracking-wide text-white/90">
-                 stay tuned for the full menu reveal.
+                Menu now live · £35 per guest · Mulled welcome drink included
               </p>
             </FadeIn>
             <FadeIn>
@@ -183,6 +209,55 @@ export default function CurryAndCarolsPage() {
         </section>
 
         <main className="bg-white">
+          <section className="py-16 md:py-20 border-b border-brand-100" aria-labelledby="curry-carols-menu-preview-heading">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <FadeIn>
+                <div className="rounded-3xl border border-brand-100 bg-neutral-50 p-8 shadow-lg">
+                  <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="max-w-2xl space-y-4">
+                      <h2 id="curry-carols-menu-preview-heading" className="text-3xl font-display font-bold text-brand-800">
+                        The 2025 Curry &amp; Carols menu is ready
+                      </h2>
+                      <p className="text-lg text-brand-600 leading-relaxed">
+                        Preview every course you&apos;ll enjoy during the evening, from sizzling sharing starters to dessert and hot drinks.
+                        Let your guests pick their favourites now, then confirm your table when bookings open.
+                      </p>
+                      <ul className="space-y-4">
+                        {MENU_PREVIEW.map((item) => (
+                          <li key={item.title} className="flex items-start gap-3">
+                            <span aria-hidden="true" className="mt-1 text-brand-500">•</span>
+                            <div>
+                              <strong className="text-brand-700">{item.title}</strong>
+                              <p className="text-sm text-brand-600 leading-relaxed">{item.description}</p>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="flex w-full max-w-sm flex-col gap-3">
+                      <MotionLinkButton
+                        href="/curry-and-carols-menu"
+                        className="btn btn-secondary w-full min-h-[3rem] bg-brand-700 text-white border-brand-700 hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-neutral-50 touch-manipulation"
+                        ariaLabel="Visit the Curry and Carols menu page"
+                      >
+                        <span aria-hidden="true" role="img">📋</span>
+                        Read the full menu
+                      </MotionLinkButton>
+                      <MotionLinkButton
+                        href="/contact"
+                        className="btn btn-ghost w-full min-h-[3rem] text-brand-800 border-brand-200 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-neutral-50 touch-manipulation"
+                        ariaLabel="Contact the team about Curry and Carols"
+                      >
+                        <span aria-hidden="true" role="img">✉️</span>
+                        Ask about availability
+                      </MotionLinkButton>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
+          </section>
+
           <section className="py-16 md:py-20" aria-labelledby="curry-carols-details-heading">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <FadeIn>
@@ -191,7 +266,7 @@ export default function CurryAndCarolsPage() {
                     What to expect across both evenings
                   </h2>
                   <p className="text-lg text-brand-600 leading-relaxed">
-                    We&apos;re keeping the full setlist under wraps for now, but here&apos;s a taste of what makes Curry &amp; Carols Cambridge&apos;s most joyful December tradition.
+                    With the courses revealed, here&apos;s the rest of what makes Curry &amp; Carols Cambridge&apos;s most joyful December tradition.
                   </p>
                 </div>
               </FadeIn>

@@ -72,6 +72,14 @@ export default function EventsPage() {
                       <span aria-hidden="true" role="img">✨</span>
                       Discover Curry &amp; Carols
                     </MotionLinkButton>
+                    <MotionLinkButton
+                      href="/curry-and-carols-menu"
+                      className="btn btn-outline w-full sm:w-auto min-h-[3.25rem] border-white/60 text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white focus-visible:ring-offset-brand-700 touch-manipulation"
+                      ariaLabel="Preview the Curry and Carols menu"
+                    >
+                      <span aria-hidden="true" role="img">🍽️</span>
+                      View the Menu
+                    </MotionLinkButton>
                   </div>
                   <p className="text-sm text-neutral-100/90">
                     <span className="font-semibold">£35 per guest</span> · Welcome drink · Live carols both nights

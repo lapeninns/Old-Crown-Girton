@@ -114,10 +114,10 @@ const FULL_CHRISTMAS_MENU: FestiveMenu = {
       name: "Mains",
       items: [
         {
-          id: slugify("Annapurna Trout"),
-          name: "Annapurna Trout",
+          id: slugify("Zesty Lemon Sea Bass & Creamy Mash"),
+          name: "Zesty Lemon Sea Bass & Creamy Mash",
           description:
-            "Pan-seared trout served with mashed potatoes and lemon butter sauce.",
+            "Tender grilled sea bass infused with fresh lemon zest and herbs, served alongside smooth, buttery mashed potatoes.",
         },
         {
           id: slugify("Chicken Pistachio Korma"),
