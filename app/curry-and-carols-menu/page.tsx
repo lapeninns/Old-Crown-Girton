@@ -137,7 +137,7 @@ const ASSURANCE_POINTS = [
   {
     icon: "🕕",
     title: "Two evenings only",
-    description: "Curry & Carols runs 16 & 17 December 2025. Arrive from 6pm to settle in before the first song.",
+    description: "Curry & Carols runs 16 & 17 December 2025. Arrive from 7pm to settle in before the first song.",
   },
 ] as const;
 
@@ -250,7 +250,7 @@ export default function CurryAndCarolsMenuPage() {
             <FadeInUp>
               <p className="text-lg md:text-xl text-neutral-100 max-w-3xl mx-auto leading-relaxed">
                 Preview every course from this year&apos;s two-night celebration at The Old Crown Girton. Share starters,
-                choose a warming curry, and finish with mince pies or Christmas pudding while live carols fill our thatched
+                choose a warming curry, and finish with Christmas pudding while live carols fill our thatched
                 dining room.
               </p>
             </FadeInUp>
@@ -280,7 +280,7 @@ export default function CurryAndCarolsMenuPage() {
             </FadeInUp>
             <FadeIn>
               <p className="text-sm uppercase tracking-wide text-white/85">
-                Only on 16 &amp; 17 December · £35 per guest · Mulled welcome drink included
+                Only on 16 &amp; 17 December · £35 per guest · Live carols both nights
               </p>
             </FadeIn>
           </div>
@@ -295,7 +295,7 @@ export default function CurryAndCarolsMenuPage() {
                     A cosy Nepalese feast made for carolling nights
                   </h2>
                   <p className="text-lg text-brand-600 leading-relaxed">
-                    Arrive to mulled wine or the drink of your choice, share the sizzling starters, then pick a main while the
+                    Order mulled wine or your favourite drink from the bar, share the sizzling starters, then pick a main while the
                     choir warms up. Desserts and hot drinks keep things sweet after the final chorus.
                   </p>
                 </div>

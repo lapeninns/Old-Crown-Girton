@@ -7,7 +7,7 @@ import { getContactInfo } from "@/lib/restaurantData";
 
 const MENU_PREVIEW = [
   {
-    title: "Starters to share",
+    title: "Starters",
     description:
       "Vegetable samosa, gobi manchurian, chicken tikka, and seekh kebab arrive together so everyone can taste each dish.",
   },
@@ -153,7 +153,7 @@ export default function CurryAndCarolsPage() {
             </FadeInUp>
             <FadeInUp>
               <p className="text-lg md:text-xl text-neutral-100 max-w-3xl mx-auto leading-relaxed">
-                Two sparkling nights of Nepalese curry, mulled cheer, and live carols under our thatched roof. Join us on <strong>16 &amp; 17 December 2025</strong> for a £35 per guest festive feast—and browse the full menu before you book.
+                Two sparkling nights of Nepalese curry, cheer, and live carols under our thatched roof. Join us on <strong>16 &amp; 17 December 2025</strong> for a £35 per guest festive feast—and browse the full menu before you book.
               </p>
             </FadeInUp>
             <FadeInUp>
@@ -186,7 +186,7 @@ export default function CurryAndCarolsPage() {
             </FadeInUp>
             <FadeIn>
               <p className="text-sm uppercase tracking-wide text-white/90">
-                Menu now live · £35 per guest · Mulled welcome drink included
+                Menu now live · £35 per guest · Live carols both nights
               </p>
             </FadeIn>
             <FadeIn>

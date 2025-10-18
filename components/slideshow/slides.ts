@@ -61,7 +61,7 @@ export const slides = [
     headline: 'Two Magical Nights of Curry & Carols',
     copy: 'Join us on 16 & 17 December for a GBP 35 Nepalese banquet with live carols beneath our thatched roof — limited seats, joyful choruses.',
     badges: ['16 & 17 December', 'GBP 35 per guest', 'Live Carol Singers'],
-    ctas: { menuUrl: '/events/curry-and-carols', callTel: 'tel:+441223 277217' }
+    ctas: { menuUrl: '/curry-and-carols-menu', callTel: 'tel:+441223 277217', secondaryUrl: '/events/curry-and-carols' }
   },
   // New slide: car meet / road-trip moment — first-person copy, placed as slide 1
   {

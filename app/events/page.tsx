@@ -82,7 +82,7 @@ export default function EventsPage() {
                     </MotionLinkButton>
                   </div>
                   <p className="text-sm text-neutral-100/90">
-                    <span className="font-semibold">£35 per guest</span> · Welcome drink · Live carols both nights
+                    <span className="font-semibold">£35 per guest</span> · Live carols both nights
                   </p>
                 </div>
               </div>
