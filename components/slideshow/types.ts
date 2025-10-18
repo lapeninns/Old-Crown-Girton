@@ -19,5 +19,6 @@ export type Slide = {
   ctas?: {
     bookUrl?: string;
     callTel?: string;
+    menuUrl?: string;
   };
 };

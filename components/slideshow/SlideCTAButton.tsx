@@ -10,7 +10,7 @@ type SlideCTAButtonProps = {
   className?: string;
   children?: React.ReactNode;
   ariaLabel?: string;
-  variant: "book" | "call-takeaway" | "call-booking";
+  variant: "book" | "menu" | "call-takeaway" | "call-booking";
 };
 
 const buttonVariants = {
@@ -18,6 +18,11 @@ const buttonVariants = {
     emoji: "🍽️",
     text: "Book Online",
     ariaLabel: "Book a table online"
+  },
+  menu: {
+    emoji: "📖",
+    text: "View Menu",
+    ariaLabel: "View the menu"
   },
   "call-takeaway": {
     emoji: "📞", 

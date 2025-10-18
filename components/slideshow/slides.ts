@@ -11,6 +11,11 @@ import interiorCosyBarJpeg from '@cimages/Slideshow/interior/cosy-pub-bar-area-w
 import interiorSkySportsAvif from '@cimages/Slideshow/interior/premier-league-sky-tv-sports.avif';
 import interiorSkySportsJpeg from '@cimages/Slideshow/interior/premier-league-sky-tv-sports.jpeg';
 
+import christmasSlideAvif from '@cimages/Slideshow/seasonal/christmas-slide.avif';
+import christmasSlidePng from '@cimages/Slideshow/seasonal/christmas-slide.png';
+import curryCarolsSlideAvif from '@cimages/Slideshow/seasonal/curry-carols-slide.avif';
+import curryCarolsSlidePng from '@cimages/Slideshow/seasonal/curry-carols-slide.png';
+
 import gardenPicnicAvif from '@cimages/Slideshow/garden/family-friendly-pub-garden-with-picnic-tables.avif';
 import gardenPicnicJpeg from '@cimages/Slideshow/garden/family-friendly-pub-garden-with-picnic-tables.jpeg';
 import gardenSpaciousAvif from '@cimages/Slideshow/garden/spacious-beer-garden-and-outdoor-seating.avif';
@@ -32,6 +37,32 @@ import carChargingBaysAvif from '@cimages/Slideshow/cars/electric-vehicle-chargi
 import carChargingBaysPng from '@cimages/Slideshow/cars/electric-vehicle-charging-bays.png';
 
 export const slides = [
+  {
+    id: 'slide-christmas-2025',
+    image: {
+      primary: christmasSlideAvif,
+      fallback: christmasSlidePng
+    },
+    alt: 'Festive Christmas table setting with decorations at The Old Crown Girton',
+    eyebrow: 'Festive Menu 2025',
+    headline: 'Celebrate Christmas at Old Crown Girton',
+    copy: 'Gather your guests for a four-course festive meal with mulled wine or another welcome drink included for every arrival.',
+    badges: ['Mulled Wine Included', 'Four Courses', 'GBP 44.99 per guest'],
+    ctas: { menuUrl: '/christmas-menu', callTel: 'tel:+441223 277217' }
+  },
+  {
+    id: 'slide-curry-carols-2025',
+    image: {
+      primary: curryCarolsSlideAvif,
+      fallback: curryCarolsSlidePng
+    },
+    alt: 'Festive Nepalese curry dishes served alongside Christmas carollers',
+    eyebrow: 'Curry & Carols 2025',
+    headline: 'Two Magical Nights of Curry & Carols',
+    copy: 'Join us on 16 & 17 December for a GBP 35 Nepalese banquet with live carols beneath our thatched roof — limited seats, joyful choruses.',
+    badges: ['16 & 17 December', 'GBP 35 per guest', 'Live Carol Singers'],
+    ctas: { menuUrl: '/events/curry-and-carols', callTel: 'tel:+441223 277217' }
+  },
   // New slide: car meet / road-trip moment — first-person copy, placed as slide 1
   {
     id: 'slide-0',

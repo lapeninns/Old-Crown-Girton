@@ -14,7 +14,7 @@ interface DaisyUISlideshowProps {
 
 type ScrollBehaviorOption = 'auto' | 'instant' | 'smooth';
 
-const REQUIRED_SLIDE_IDS = new Set(['slide-ev-charging', 'slide-11']);
+const REQUIRED_SLIDE_IDS = new Set(['slide-christmas-2025', 'slide-curry-carols-2025']);
 const SESSION_SLIDE_COUNT = 5;
 
 type SlideBuckets = {
@@ -128,6 +128,26 @@ const CTA_BASE_CLASS =
   'inline-flex items-center justify-center gap-2 text-white font-semibold rounded-xl shadow-xl shadow-black/25 ring-1 ring-white/10 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 min-h-[2.75rem] sm:min-h-[3rem] whitespace-normal';
 
 const getCTAConfig = (slide: SlideType, slideIndex: number) => {
+  const ctas = slide.ctas ?? {};
+  const hasMenu = Boolean(ctas.menuUrl);
+  const hasCall = Boolean(ctas.callTel);
+  const hasBook = Boolean(ctas.bookUrl);
+
+  if (hasMenu && hasCall) {
+    return {
+      primaryButton: {
+        variant: 'menu' as const,
+        href: ctas.menuUrl,
+        className: `${CTA_BASE_CLASS} bg-accent hover:bg-accent/90`
+      },
+      secondaryButton: {
+        variant: 'call-booking' as const,
+        href: ctas.callTel,
+        className: `${CTA_BASE_CLASS} bg-crimson-600 hover:bg-crimson-700`
+      }
+    };
+  }
+
   const type = slideIndex % 3;
 
   switch (type) {
@@ -135,12 +155,12 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
       return {
         primaryButton: {
           variant: 'book' as const,
-          href: slide.ctas?.bookUrl,
+          href: hasBook ? ctas.bookUrl : undefined,
           className: `${CTA_BASE_CLASS} bg-accent hover:bg-accent/90`
         },
         secondaryButton: {
           variant: 'call-takeaway' as const,
-          href: slide.ctas?.callTel,
+          href: hasCall ? ctas.callTel : undefined,
           className: `${CTA_BASE_CLASS} bg-crimson-600 hover:bg-crimson-700`
         }
       };
@@ -148,12 +168,12 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
       return {
         primaryButton: {
           variant: 'call-takeaway' as const,
-          href: slide.ctas?.callTel,
+          href: hasCall ? ctas.callTel : undefined,
           className: `${CTA_BASE_CLASS} bg-crimson-600 hover:bg-crimson-700`
         },
         secondaryButton: {
           variant: 'call-booking' as const,
-          href: slide.ctas?.callTel,
+          href: hasCall ? ctas.callTel : undefined,
           className: `${CTA_BASE_CLASS} bg-accent hover:bg-accent/90`
         }
       };
@@ -161,12 +181,12 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
       return {
         primaryButton: {
           variant: 'call-booking' as const,
-          href: slide.ctas?.callTel,
+          href: hasCall ? ctas.callTel : undefined,
           className: `${CTA_BASE_CLASS} bg-crimson-600 hover:bg-crimson-700`
         },
         secondaryButton: {
           variant: 'book' as const,
-          href: slide.ctas?.bookUrl,
+          href: hasBook ? ctas.bookUrl : undefined,
           className: `${CTA_BASE_CLASS} bg-accent hover:bg-accent/90`
         }
       };
@@ -174,12 +194,12 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
       return {
         primaryButton: {
           variant: 'book' as const,
-          href: slide.ctas?.bookUrl,
+          href: hasBook ? ctas.bookUrl : undefined,
           className: `${CTA_BASE_CLASS} bg-accent hover:bg-accent/90`
         },
         secondaryButton: {
           variant: 'call-takeaway' as const,
-          href: slide.ctas?.callTel,
+          href: hasCall ? ctas.callTel : undefined,
           className: `${CTA_BASE_CLASS} bg-crimson-600 hover:bg-crimson-700`
         }
       };
