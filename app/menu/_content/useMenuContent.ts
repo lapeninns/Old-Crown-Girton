@@ -96,58 +96,7 @@ export function useMenuContent(): MenuContent | null {
         setContent(validatedFallback);
       } catch (error) {
         console.error('Menu content loading error:', error);
-        // Use inline fallback as last resort
-        const inlineFallback = {
-          meta: {
-            title: "Menu - Nepalese & Pub Classics",
-            description: "Our curated menu"
-          },
-          hero: {
-            title: "Menu — Nepalese & Pub Classics",
-            subtitle: "Curated menu — quick to scan. Book or order takeaway.",
-            buttons: {
-              bookOnline: {
-                label: "Book Online",
-                url: "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
-                target: "_blank",
-                style: "primary"
-              },
-              orderTakeaway: {
-                label: "Order Takeaway",
-                url: "tel:01223 277217",
-                style: "secondary"
-              }
-            }
-          },
-          interactive: {
-            search: {
-              placeholder: "Search menu items...",
-              toggleLabel: "Search & Filter",
-              hideLabel: "Hide Search",
-              clearLabel: "Clear All",
-              activeLabel: "Active"
-            },
-            navigation: {
-              allSectionsLabel: "All",
-              menuCategoriesLabel: "Menu categories",
-              noItemsMessage: "No items match current filters"
-            },
-            results: {
-              showingPrefix: "Showing",
-              itemsSuffix: "items",
-              matchingText: "matching",
-              withFiltersText: "with applied filters"
-            }
-          },
-          ui: {
-            loading: {
-              message: "Loading menu...",
-              error: "Failed to load menu content"
-            }
-          }
-        };
-        const validatedInlineFallback = validateMenuContent(inlineFallback);
-        setContent(validatedInlineFallback);
+        setContent(null);
       }
     }
 

@@ -4,7 +4,13 @@
       "name": "Old Crown [DEV]",
       "title": "Old Crown - Development Environment",
       "description": "Authentic Nepalese cuisine and pub classics - Development",
-      "keywords": ["nepalese", "restaurant", "pub", "oldcrown", "dev"],
+      "keywords": [
+        "nepalese",
+        "restaurant",
+        "pub",
+        "oldcrown",
+        "dev"
+      ],
       "version": "dev-1.0.0",
       "buildTime": "2024-DEV",
       "environment": "development"
@@ -56,7 +62,10 @@
         "title": "Welcome to Old Crown [DEV]",
         "subtitle": "Development Environment - Authentic Nepalese Cuisine & Pub Classics",
         "description": "Experience the rich flavors of Nepal combined with traditional British pub food in our cozy restaurant. [DEV MODE]",
-        "cta": "Book Your Table [DEV]"
+        "cta": {
+          "primary": "Book Your Table [DEV]",
+          "secondary": "View Menu [DEV]"
+        }
       },
       "sections": {
         "features": {
@@ -122,7 +131,6 @@
     "errors": {
       "general": "Something went wrong. Please try again. [DEV ERROR]",
       "network": "Network error. Please check your connection. [DEV]",
-      "validation": "Please check your input and try again. [DEV]",
       "notFound": "The requested resource was not found. [DEV]",
       "serverError": "Server error. Please try again later. [DEV]"
     }

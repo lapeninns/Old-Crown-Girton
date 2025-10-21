@@ -6,6 +6,8 @@ export type SlideImageSource =
   | {
       primary: string | StaticImageData;
       fallback?: string | StaticImageData;
+      width?: number | null;
+      height?: number | null;
     };
 
 export type Slide = {
@@ -16,9 +18,11 @@ export type Slide = {
   headline?: string;
   copy?: string;
   badges?: string[];
+  required?: boolean;
   ctas?: {
     bookUrl?: string;
     callTel?: string;
     menuUrl?: string;
+    secondaryUrl?: string;
   };
 };

@@ -63,7 +63,7 @@ export const MarketingSchema = z.object({
 });
 
 export const ConfigSchema = z.object({
-  env: z.enum(["app"]),
+  env: z.enum(["app", "dev", "staging", "prod"]).default("app"),
   featureFlags: z.record(z.string(), z.boolean()).default({}),
   api: z
     .object({
@@ -142,6 +142,78 @@ export const FeatureItemSchema = z.object({
   description: z.string().optional(),
   text: z.string().optional(),
 });
+
+export const CTAButtonSchema = z.object({
+  text: z.string(),
+  href: z.string(),
+  variant: z.string().optional(),
+  key: z.string().optional(),
+  external: z.boolean().optional(),
+  ariaLabel: z.string().optional(),
+});
+
+export const SlideImageSchema = z.object({
+  primary: z.string(),
+  fallback: z.string().optional(),
+  alt: z.string().optional(),
+  width: z.number().nullable().optional(),
+  height: z.number().nullable().optional(),
+});
+
+export const SlideCTASchema = z.object({
+  bookUrl: z.string().optional(),
+  callTel: z.string().optional(),
+  menuUrl: z.string().optional(),
+  secondaryUrl: z.string().optional(),
+});
+
+export const SlideSchema = z.object({
+  id: z.string(),
+  required: z.boolean().optional(),
+  image: SlideImageSchema,
+  alt: z.string().optional(),
+  eyebrow: z.string().optional(),
+  headline: z.string().optional(),
+  copy: z.string().optional(),
+  badges: z.array(z.string()).optional(),
+  ctas: SlideCTASchema.optional(),
+});
+
+export const SlideshowSettingsSchema = z.object({
+  autoplay: z.boolean().optional(),
+  intervalMs: z.number().optional(),
+  sessionSize: z.number().optional(),
+});
+
+export const SlideshowContentSchema = z.object({
+  settings: SlideshowSettingsSchema.default({}),
+  slides: z.array(SlideSchema),
+});
+
+export const PressFeatureSchema = z.object({
+  label: z.string().optional(),
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  summary: z.string().optional(),
+  quote: z.string().optional(),
+  quoteAttribution: z.string().optional(),
+  cta: z.object({
+    text: z.string().optional(),
+    href: z.string().optional(),
+  }).optional(),
+});
+
+export const HomeCTASectionSchema = z.object({
+  headline: z.string(),
+  description: z.string(),
+  buttons: z.array(CTAButtonSchema),
+});
+
+export const PageSeoSchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  schemas: z.array(z.record(z.string(), z.any())).optional(),
+}).passthrough();
 
 export const QuickLinkSchema = z.object({
   title: z.string(),
@@ -228,7 +300,10 @@ export const ContentSchema = z.object({
           items: z.array(FeatureItemSchema),
         }),
         quickLinks: z.array(QuickLinkSchema),
-      }),
+        pressFeature: PressFeatureSchema.optional(),
+        cta: HomeCTASectionSchema.optional(),
+      }).passthrough(),
+      seo: PageSeoSchema.optional(),
     }),
     about: z.object({
       hero: HeroSchema,
@@ -301,6 +376,7 @@ export const ContentSchema = z.object({
       items: z.array(FAQItemSchema),
     }).optional(),
     menuHighlights: z.record(z.string(), z.any()).optional(),
+    slideshow: SlideshowContentSchema.optional(),
   }),
   forms: z.object({
     validation: FormValidationSchema,

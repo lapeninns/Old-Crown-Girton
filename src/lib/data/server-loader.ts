@@ -16,7 +16,7 @@ import {
   type AppConfig,
   type Content,
 } from "./schemas";
-import { resolveEnv, type AppEnv } from "./env";
+import { resolveEnv, resolveContentEnvChain, type AppEnv } from "./env";
 import { globalCache, createCacheKey } from "./cache";
 import type { ZodTypeAny } from "zod";
 
@@ -27,20 +27,96 @@ async function readJson<T>(p: string, schema: any, name: string): Promise<T> {
   return schema.parse(parsed) as T;
 }
 
+async function readJsonRaw(p: string): Promise<any> {
+  const raw = await fs.readFile(p, "utf8");
+  return JSON.parse(raw);
+}
+
+async function readJsonIfExists(p: string): Promise<any | null> {
+  try {
+    return await readJsonRaw(p);
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') {
+      return null;
+    }
+    throw error;
+  }
+}
+
 function configPath(file: string) {
   return path.join(process.cwd(), "config", file);
 }
 
+function cloneValue<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map((item) => cloneValue(item)) as unknown as T;
+  }
+  if (value && typeof value === 'object') {
+    const result: Record<string, any> = {};
+    for (const [key, val] of Object.entries(value)) {
+      result[key] = cloneValue(val);
+    }
+    return result as T;
+  }
+  return value;
+}
+
+function mergeContent(base: any, override: any): any {
+  if (override === undefined || override === null) {
+    return cloneValue(base);
+  }
+  if (base === undefined || base === null) {
+    return cloneValue(override);
+  }
+
+  if (Array.isArray(override)) {
+    // Environment overrides replace arrays wholesale
+    return cloneValue(override);
+  }
+
+  if (Array.isArray(base)) {
+    return cloneValue(override);
+  }
+
+  if (typeof base === 'object' && typeof override === 'object') {
+    const result: Record<string, any> = { ...cloneValue(base) };
+    for (const key of Object.keys(override)) {
+      result[key] = mergeContent((result as any)[key], override[key]);
+    }
+    return result;
+  }
+
+  return cloneValue(override);
+}
+
+async function loadContentFromFilesystem(env: AppEnv): Promise<Content> {
+  const basePath = configPath("content.json");
+  let merged = await readJsonRaw(basePath);
+
+  const envChain = resolveContentEnvChain(env);
+
+  for (const envName of envChain) {
+    const overridePath = path.join(process.cwd(), "data", envName, "content.json");
+    try {
+      const override = await readJsonIfExists(overridePath);
+      if (override) {
+        merged = mergeContent(merged, override);
+      }
+    } catch (error) {
+      console.warn(`Failed to load content override for ${envName}:`, error);
+    }
+  }
+
+  return ContentSchema.parse(merged) as Content;
+}
+
 // Server-side data loading functions
 export async function getContentData(env: AppEnv = resolveEnv()): Promise<Content> {
-  const cacheKey = createCacheKey('content', env);
+  const envChain = resolveContentEnvChain(env);
+  const cacheKey = createCacheKey('content', env, { chain: envChain.join('>') });
   
   return globalCache.get(cacheKey, async () => {
-    return readJson<Content>(
-      configPath("content.json"),
-      ContentSchema,
-      "content"
-    );
+    return loadContentFromFilesystem(env);
   }, {
     ttl: getContentCacheTTL(env),
     enableCompression: process.env.NODE_ENV === 'production'
@@ -48,11 +124,11 @@ export async function getContentData(env: AppEnv = resolveEnv()): Promise<Conten
 }
 
 export async function getContentDataOptimized(env: AppEnv = resolveEnv()): Promise<Content> {
-  const cacheKey = createCacheKey('content-optimized', env);
+  const envChain = resolveContentEnvChain(env);
+  const cacheKey = createCacheKey('content-optimized', env, { chain: envChain.join('>') });
   
   return globalCache.get(cacheKey, async () => {
-    // Use main content.json directly
-    return readJson<Content>(configPath("content.json"), ContentSchema, "content");
+    return loadContentFromFilesystem(env);
   }, {
     ttl: getContentCacheTTL(env),
     enableCompression: process.env.NODE_ENV === 'production'

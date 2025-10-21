@@ -13,6 +13,7 @@ export interface PressFeatureContent {
   cta?: {
     text?: string;
     href?: string;
+    ariaLabel?: string;
   };
 }
 
@@ -38,9 +39,11 @@ export default function PressFeatureBanner({ content }: PressFeatureBannerProps)
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="space-y-4 md:max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.18em] text-brand-100 font-semibold">
-              {content.label || 'Press'}
-            </p>
+            {content.label ? (
+              <p className="text-sm uppercase tracking-[0.18em] text-brand-100 font-semibold">
+                {content.label}
+              </p>
+            ) : null}
             <div className="space-y-2">
               {content.eyebrow && (
                 <p className="text-brand-200 text-sm font-semibold">
@@ -77,7 +80,7 @@ export default function PressFeatureBanner({ content }: PressFeatureBannerProps)
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-700 font-semibold px-6 py-3 transition-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white hover:-translate-y-[1px] hover:shadow-lg"
               style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'var(--tap-highlight-color, currentColor)' }}
-              aria-label={`${content.label || 'Press'}: ${content.cta.text}`}
+              aria-label={content.cta.ariaLabel ?? content.cta.text ?? content.title ?? ''}
             >
               {content.cta.text}
               <span aria-hidden="true" className="text-lg leading-none">

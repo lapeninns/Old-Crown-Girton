@@ -4,7 +4,16 @@
       "name": "The Old Crown Girton",
       "title": "Historic Thatched Pub & Nepalese Restaurant",
       "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223277217",
-      "keywords": ["pub Girton", "Nepalese restaurant Cambridge", "family friendly pub Cambridge", "dog friendly pub Girton", "Sunday roast Cambridge", "historic thatched pub", "Girton College pub", "takeaway Cambridge"],
+      "keywords": [
+        "pub Girton",
+        "Nepalese restaurant Cambridge",
+        "family friendly pub Cambridge",
+        "dog friendly pub Girton",
+        "Sunday roast Cambridge",
+        "historic thatched pub",
+        "Girton College pub",
+        "takeaway Cambridge"
+      ],
       "branding": {
         "tagline": "A unique blend of authentic Nepalese cuisine and traditional British pub culture",
         "slogan": "Where heritage meets hospitality"
@@ -13,13 +22,34 @@
     "navigation": {
       "header": {
         "links": [
-          { "href": "/", "label": "Home" },
-          { "href": "/menu#starters", "label": "Menu" },
-          { "href": "/about", "label": "About" },
-          { "href": "/events", "label": "Events" },
-          { "href": "/press", "label": "Press" },
-          { "href": "/christmas-menu", "label": "Christmas Menu" },
-          { "href": "/contact", "label": "Contact" }
+          {
+            "href": "/",
+            "label": "Home"
+          },
+          {
+            "href": "/menu#starters",
+            "label": "Menu"
+          },
+          {
+            "href": "/about",
+            "label": "About"
+          },
+          {
+            "href": "/events",
+            "label": "Events"
+          },
+          {
+            "href": "/press",
+            "label": "Press"
+          },
+          {
+            "href": "/christmas-menu",
+            "label": "Christmas Menu"
+          },
+          {
+            "href": "/contact",
+            "label": "Contact"
+          }
         ]
       },
       "footer": {
@@ -27,25 +57,52 @@
           {
             "title": "Quick Links",
             "links": [
-              { "href": "/menu#starters", "label": "Menu" },
-              { "href": "/about", "label": "About" },
-              { "href": "/events", "label": "Events" },
-              { "href": "/christmas-menu", "label": "Christmas Menu" },
-              { "href": "/contact", "label": "Contact" }
+              {
+                "href": "/menu#starters",
+                "label": "Menu"
+              },
+              {
+                "href": "/about",
+                "label": "About"
+              },
+              {
+                "href": "/events",
+                "label": "Events"
+              },
+              {
+                "href": "/christmas-menu",
+                "label": "Christmas Menu"
+              },
+              {
+                "href": "/contact",
+                "label": "Contact"
+              }
             ]
           },
           {
             "title": "Legal",
             "links": [
-              { "href": "/tos", "label": "Terms of Service" },
-              { "href": "/privacy-policy", "label": "Privacy Policy" }
+              {
+                "href": "/tos",
+                "label": "Terms of Service"
+              },
+              {
+                "href": "/privacy-policy",
+                "label": "Privacy Policy"
+              }
             ]
           }
         ],
         "copyright": "© 2025 The Old Crown Girton. All rights reserved.",
         "socialMedia": {
-          "facebook": { "url": "https://facebook.com", "label": "Follow us on Facebook" },
-          "instagram": { "url": "https://instagram.com", "label": "Follow us on Instagram" }
+          "facebook": {
+            "url": "https://facebook.com",
+            "label": "Follow us on Facebook"
+          },
+          "instagram": {
+            "url": "https://instagram.com",
+            "label": "Follow us on Instagram"
+          }
         }
       },
       "breadcrumbs": {
@@ -137,7 +194,9 @@
         "currentPage": "Current page",
         "menuButton": "Menu button",
         "socialMedia": "Social media links",
-        "contactInfo": "Contact information"
+        "contactInfo": "Contact information",
+        "slideshowRegion": "Featured experiences slideshow",
+        "showcaseSection": "Restaurant showcase"
       },
       "altTexts": {
         "logo": "The Old Crown Girton logo",
@@ -188,6 +247,19 @@
             }
           ]
         },
+        "pressFeature": {
+          "label": "In the press",
+          "eyebrow": "Country pub of the week",
+          "title": "Evening Standard spotlights The Old Crown, Girton",
+          "summary": "David Ellis praises our welcoming village pub, authentic Nepalese cooking, and ever-evolving menu in the Evening Standard's Country Pub of the Week column.",
+          "quote": "The changes keep locals coming back.",
+          "quoteAttribution": "David Ellis, Evening Standard",
+          "cta": {
+            "text": "Read the review",
+            "href": "https://www.standard.co.uk/going-out/bars/old-crown-girton-hotel-pub-review-b1249473.html",
+            "ariaLabel": "Read the Evening Standard review (opens in new tab)"
+          }
+        },
         "quickLinks": [
           {
             "title": "Community & Events",
@@ -231,6 +303,90 @@
             }
           ]
         }
+      },
+      "seo": {
+        "schemas": [
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "The Old Crown Girton",
+            "url": "https://oldcrowngirton.com/",
+            "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics.",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://oldcrowngirton.com/menu?search={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Restaurant",
+            "@id": "https://oldcrowngirton.com/#restaurant",
+            "name": "The Old Crown Girton",
+            "image": "https://oldcrowngirton.com/opengraph-image.png",
+            "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Family and dog friendly venue voted #1 restaurant in Girton.",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "89 High Street",
+              "addressLocality": "Girton",
+              "addressRegion": "Cambridgeshire",
+              "postalCode": "CB3 0QQ",
+              "addressCountry": "GB"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 52.2462,
+              "longitude": 0.0731
+            },
+            "url": "https://oldcrowngirton.com/",
+            "telephone": "+441223277217",
+            "priceRange": "££",
+            "servesCuisine": [
+              "Nepalese",
+              "British",
+              "Pub food"
+            ],
+            "acceptsReservations": true,
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.6",
+              "bestRating": "5",
+              "worstRating": "1",
+              "ratingCount": "150"
+            },
+            "hasMenu": "https://oldcrowngirton.com/menu",
+            "sameAs": [
+              "https://www.facebook.com/oldcrowngirton",
+              "https://www.instagram.com/theoldcrowngirton"
+            ],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday"
+                ],
+                "opens": "12:00",
+                "closes": "22:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "12:00",
+                "closes": "23:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Sunday",
+                "opens": "12:00",
+                "closes": "22:00"
+              }
+            ]
+          }
+        ]
       }
     },
     "about": {
@@ -294,12 +450,30 @@
       "features": {
         "title": "What We Offer",
         "items": [
-          { "icon": "🌿", "text": "Outdoor terrace" },
-          { "icon": "🅿️", "text": "Free parking" },
-          { "icon": "🐕", "text": "Dog-friendly" },
-          { "icon": "♿", "text": "Accessible" },
-          { "icon": "📶", "text": "Free WiFi" },
-          { "icon": "🎉", "text": "Private dining" }
+          {
+            "icon": "🌿",
+            "text": "Outdoor terrace"
+          },
+          {
+            "icon": "🅿️",
+            "text": "Free parking"
+          },
+          {
+            "icon": "🐕",
+            "text": "Dog-friendly"
+          },
+          {
+            "icon": "♿",
+            "text": "Accessible"
+          },
+          {
+            "icon": "📶",
+            "text": "Free WiFi"
+          },
+          {
+            "icon": "🎉",
+            "text": "Private dining"
+          }
         ]
       }
     },
@@ -459,6 +633,372 @@
         "badge": "Chef's Special",
         "price": "£18.95"
       }
+    },
+    "slideshow": {
+      "settings": {
+        "autoplay": true,
+        "intervalMs": 5000,
+        "sessionSize": 5,
+        "regionLabel": "Featured experiences slideshow",
+        "sectionLabel": "Restaurant showcase"
+      },
+      "slides": [
+        {
+          "id": "slide-christmas-2025",
+          "image": {
+            "primary": "/images/slideshow/seasonal/christmas-slide.avif",
+            "fallback": "/images/slideshow/seasonal/christmas-slide.png",
+            "width": 1254,
+            "height": 716
+          },
+          "alt": "Festive Christmas table setting with decorations at The Old Crown Girton",
+          "eyebrow": "Festive Menu 2025",
+          "headline": "Celebrate Christmas at Old Crown Girton",
+          "copy": "Gather your guests for a four-course festive meal with mulled wine or another welcome drink included for every arrival.",
+          "badges": [
+            "Mulled Wine Included",
+            "Four Courses",
+            "GBP 44.99 per guest"
+          ],
+          "ctas": {
+            "menuUrl": "/christmas-menu",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-curry-carols-2025",
+          "image": {
+            "primary": "/images/slideshow/seasonal/curry-carols-slide.avif",
+            "fallback": "/images/slideshow/seasonal/curry-carols-slide.png",
+            "width": 763,
+            "height": 436
+          },
+          "alt": "Festive Nepalese curry dishes served alongside Christmas carollers",
+          "eyebrow": "Curry & Carols 2025",
+          "headline": "Two Magical Nights of Curry & Carols",
+          "copy": "Join us on 16 & 17 December for a GBP 35 Nepalese banquet with live carols beneath our thatched roof — limited seats, joyful choruses.",
+          "badges": [
+            "16 & 17 December",
+            "GBP 35 per guest",
+            "Live Carol Singers"
+          ],
+          "ctas": {
+            "menuUrl": "/curry-and-carols-menu",
+            "callTel": "tel:+441223 277217",
+            "secondaryUrl": "/events/curry-and-carols"
+          }
+        },
+        {
+          "id": "slide-0",
+          "image": {
+            "primary": "/images/slideshow/cars/car-meet-up.avif",
+            "fallback": "/images/slideshow/cars/car-meet-up.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "A trio of sports cars parked outside the thatched Old Crown Girton pub on a sunny day",
+          "eyebrow": "Road-Trip Welcome",
+          "headline": "A Perfect Stop for Road-Trip Meets",
+          "copy": "Pull up, park, and enjoy great food and drinks — our spacious forecourt and thatched backdrop make every car meet an easy, welcoming occasion.",
+          "badges": [
+            "Car Meets",
+            "Photo Moments",
+            "Friendly Welcome"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-ev-charging",
+          "image": {
+            "primary": "/images/slideshow/cars/electric-vehicle-charging-bays.avif",
+            "fallback": "/images/slideshow/cars/electric-vehicle-charging-bays.png",
+            "width": 1344,
+            "height": 768
+          },
+          "alt": "Electric vehicles charging at dedicated bays outside the Old Crown Girton pub",
+          "eyebrow": "Charge & Dine",
+          "headline": "Plug In While You Unwind Inside",
+          "copy": "Top up your EV and your energy in one stop — enjoy dinner or a pint while our on-site chargers handle your car.",
+          "badges": [
+            "EV Charging",
+            "Road-Trip Ready",
+            "Free Parking"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          },
+          "required": true
+        },
+        {
+          "id": "slide-1",
+          "image": {
+            "primary": "/images/slideshow/interior/the-old-crown-pub-restaurant-interior-dining.avif",
+            "fallback": "/images/slideshow/interior/the-old-crown-pub-restaurant-interior-dining.jpg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Historic restaurant interior dining room at Old Crown Girton",
+          "eyebrow": "Historic Restaurant Interior",
+          "headline": "Authentic Nepalese Dining in a Characterful Setting",
+          "copy": "Experience exceptional Nepalese cuisine in our cosy dining room — perfect for family meals and celebrations.",
+          "badges": [
+            "Historic Interior",
+            "Nepalese Cuisine",
+            "Family Dining"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-2",
+          "image": {
+            "primary": "/images/slideshow/interior/comfy-bar-lounge-with-armchairs-and-tv.avif",
+            "fallback": "/images/slideshow/interior/comfy-bar-lounge-with-armchairs-and-tv.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Comfortable bar lounge with armchairs and TV for sports viewing at Old Crown Girton",
+          "eyebrow": "Sports & Social Hub",
+          "headline": "Live Sports, Craft Beer & Community Spirit",
+          "copy": "Watch the big games in comfort with friends — a welcoming atmosphere for locals and visitors alike.",
+          "badges": [
+            "Live Sports",
+            "Craft Beer",
+            "Community Hub"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-3",
+          "image": {
+            "primary": "/images/slideshow/interior/stylish-pub-restaurant-dining-area-interior.avif",
+            "fallback": "/images/slideshow/interior/stylish-pub-restaurant-dining-area-interior.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Stylish pub restaurant dining area interior at Old Crown Girton",
+          "eyebrow": "Elegant Dining Space",
+          "headline": "Sophisticated Atmosphere for Special Occasions",
+          "copy": "Traditional pub charm with contemporary comfort — ideal for date nights and celebrations.",
+          "badges": [
+            "Elegant Interior",
+            "Special Occasions",
+            "Modern Comfort"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-4",
+          "image": {
+            "primary": "/images/slideshow/interior/cosy-pub-bar-area-with-games-machine.avif",
+            "fallback": "/images/slideshow/interior/cosy-pub-bar-area-with-games-machine.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Cosy pub bar area with games machine at Old Crown Girton",
+          "eyebrow": "Classic Entertainment",
+          "headline": "Relaxed Bar Lounge for Every Occasion",
+          "copy": "Grab a pint, catch up with friends, and settle into our welcoming atmosphere with traditional pub games.",
+          "badges": [
+            "Relaxed Lounge",
+            "Great Atmosphere",
+            "Pub Games"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-4b",
+          "image": {
+            "primary": "/images/slideshow/interior/premier-league-sky-tv-sports.avif",
+            "fallback": "/images/slideshow/interior/premier-league-sky-tv-sports.jpeg",
+            "width": 1344,
+            "height": 768
+          },
+          "alt": "Fans watching live Premier League football on a big screen inside a pub in Girton",
+          "eyebrow": "Live Sports",
+          "headline": "Catch Premier League & Major Matches Live",
+          "copy": "Join us for Premier League, football, rugby and headline sporting events on our big screen — the best place to watch the match in Girton and Cambridge.",
+          "badges": [
+            "Live Sports",
+            "Premier League",
+            "Big Screen"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-5",
+          "image": {
+            "primary": "/images/slideshow/garden/family-friendly-pub-garden-with-picnic-tables.avif",
+            "fallback": "/images/slideshow/garden/family-friendly-pub-garden-with-picnic-tables.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Family-friendly pub garden with picnic tables at Old Crown Girton",
+          "eyebrow": "Family Garden",
+          "headline": "Room to Unwind in Our Beer Garden",
+          "copy": "Plenty of space for groups, families, and lazy weekend afternoons with traditional picnic table seating.",
+          "badges": [
+            "Spacious Garden",
+            "Picnic Tables",
+            "Family Friendly"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-6",
+          "image": {
+            "primary": "/images/slideshow/garden/spacious-beer-garden-and-outdoor-seating.avif",
+            "fallback": "/images/slideshow/garden/spacious-beer-garden-and-outdoor-seating.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Spacious beer garden with outdoor seating at Old Crown Girton",
+          "eyebrow": "Al Fresco Dining",
+          "headline": "Outdoor Dining in Our Spacious Beer Garden",
+          "copy": "Enjoy fresh air and great food in our expansive outdoor space — perfect for summer dining.",
+          "badges": [
+            "Beer Garden",
+            "Outdoor Dining",
+            "Summer Seating"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-7",
+          "image": {
+            "primary": "/images/slideshow/garden/sunny-pub-garden-patio-seating-wellingborough-terrace.avif",
+            "fallback": "/images/slideshow/garden/sunny-pub-garden-patio-seating-wellingborough-terrace.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Sunny pub garden patio seating and terrace at Old Crown Girton",
+          "eyebrow": "Sun-Drenched Terrace",
+          "headline": "Al Fresco Dining on Our Sunny Terrace",
+          "copy": "Relax with weekend lunches and summer drinks on our spacious, sun-drenched terrace.",
+          "badges": [
+            "Sunny Terrace",
+            "Patio Seating",
+            "Summer Dining"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-8",
+          "image": {
+            "primary": "/images/slideshow/garden/childrens-wooden-play-area-with-slide-in-pub-garden.avif",
+            "fallback": "/images/slideshow/garden/childrens-wooden-play-area-with-slide-in-pub-garden.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Children's wooden play area with slide in pub garden at Old Crown Girton",
+          "eyebrow": "Kids Adventure Zone",
+          "headline": "Dedicated Children's Play Area for Family Fun",
+          "copy": "Let the kids play safely while you relax. Our secure wooden play area keeps families smiling.",
+          "badges": [
+            "Family Friendly",
+            "Safe Play",
+            "Kids Zone"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-9",
+          "image": {
+            "primary": "/images/slideshow/OldCrownGirtonBuilding.avif",
+            "fallback": "/images/slideshow/OldCrownGirtonBuilding.png",
+            "width": 688,
+            "height": 431
+          },
+          "alt": "Historic thatched exterior of Old Crown Girton - England's largest thatched pub",
+          "eyebrow": "Historic Thatched Exterior",
+          "headline": "England's Largest Thatched Pub — A Cambridge Landmark",
+          "copy": "Discover our remarkable thatched building — a unique setting minutes from Cambridge and Girton College.",
+          "badges": [
+            "Largest Thatched Pub",
+            "Historic Landmark",
+            "Cambridge Icon"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-10",
+          "image": {
+            "primary": "/images/slideshow/exterior/the-old-crown-pub-exterior-and-beer-garden.avif",
+            "fallback": "/images/slideshow/exterior/the-old-crown-pub-exterior-and-beer-garden.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "The Old Crown pub exterior and beer garden view",
+          "eyebrow": "Pub Exterior & Garden",
+          "headline": "Traditional Pub Charm with Modern Amenities",
+          "copy": "Beautiful exterior showcasing our historic character alongside our expansive garden facilities.",
+          "badges": [
+            "Historic Exterior",
+            "Garden Views",
+            "Traditional Charm"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          }
+        },
+        {
+          "id": "slide-11",
+          "image": {
+            "primary": "/images/slideshow/exterior/large-gravel-car-park-at-the-old-crown-pub.avif",
+            "fallback": "/images/slideshow/exterior/large-gravel-car-park-at-the-old-crown-pub.jpeg",
+            "width": 2048,
+            "height": 1152
+          },
+          "alt": "Large gravel car park with ample free parking at Old Crown Girton",
+          "eyebrow": "Convenient Free Parking",
+          "headline": "No Parking Worries — Plenty of Space",
+          "copy": "Unlike city centre, enjoy stress-free dining with our large, free car park.",
+          "badges": [
+            "Free Parking",
+            "Easy Access",
+            "Stress-Free"
+          ],
+          "ctas": {
+            "bookUrl": "https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true",
+            "callTel": "tel:+441223 277217"
+          },
+          "required": true
+        }
+      ]
     }
   },
   "forms": {

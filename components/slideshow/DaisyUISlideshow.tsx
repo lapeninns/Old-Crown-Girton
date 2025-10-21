@@ -3,19 +3,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import Image from 'next/image';
 import type { Slide as SlideType } from './types';
-import { slides as defaultSlides } from './slides';
 import SlideCTAButton from './SlideCTAButton';
 
 interface DaisyUISlideshowProps {
-  slides?: SlideType[];
+  slides: SlideType[];
   autoplay?: boolean;
   interval?: number;
+  sessionSize?: number;
+  regionLabel?: string;
 }
 
 type ScrollBehaviorOption = 'auto' | 'instant' | 'smooth';
-
-const REQUIRED_SLIDE_IDS = new Set(['slide-christmas-2025', 'slide-curry-carols-2025']);
-const SESSION_SLIDE_COUNT = 5;
 
 type SlideBuckets = {
   required: SlideType[];
@@ -55,7 +53,7 @@ const collectSlides = (allSlides: SlideType[]): SlideBuckets => {
   allSlides.forEach((slide) => {
     if (!slide?.id || seen.has(slide.id)) return;
     seen.add(slide.id);
-    if (REQUIRED_SLIDE_IDS.has(slide.id)) {
+    if (slide.required) {
       buckets.required.push(slide);
     } else {
       buckets.optional.push(slide);
@@ -74,7 +72,7 @@ const shuffleSlides = (slides: SlideType[]) => {
   return copy;
 };
 
-const selectSessionSlides = (allSlides: SlideType[], targetCount = SESSION_SLIDE_COUNT) => {
+const selectSessionSlides = (allSlides: SlideType[], targetCount: number) => {
   const { required, optional } = collectSlides(allSlides);
   if (!required.length && !optional.length) {
     return [];
@@ -97,7 +95,7 @@ const selectSessionSlides = (allSlides: SlideType[], targetCount = SESSION_SLIDE
   return shuffleSlides(combined).slice(0, targetCount);
 };
 
-const getDefaultSessionSlides = (allSlides: SlideType[], targetCount = SESSION_SLIDE_COUNT) => {
+const getDefaultSessionSlides = (allSlides: SlideType[], targetCount: number) => {
   const { required, optional } = collectSlides(allSlides);
   if (!required.length && !optional.length) {
     return [];
@@ -112,7 +110,7 @@ const getDefaultSessionSlides = (allSlides: SlideType[], targetCount = SESSION_S
   return combined.slice(0, targetCount);
 };
 
-const deriveSessionSlides = (allSlides: SlideType[], targetCount = SESSION_SLIDE_COUNT) => {
+const deriveSessionSlides = (allSlides: SlideType[], targetCount: number) => {
   const selected = selectSessionSlides(allSlides, targetCount);
   if (selected.length) {
     return selected;
@@ -120,7 +118,7 @@ const deriveSessionSlides = (allSlides: SlideType[], targetCount = SESSION_SLIDE
   return getDefaultSessionSlides(allSlides, targetCount);
 };
 
-const getInitialSessionSlides = (allSlides: SlideType[], targetCount = SESSION_SLIDE_COUNT) => {
+const getInitialSessionSlides = (allSlides: SlideType[], targetCount: number) => {
   return getDefaultSessionSlides(allSlides, targetCount);
 };
 
@@ -132,6 +130,7 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
   const hasMenu = Boolean(ctas.menuUrl);
   const hasCall = Boolean(ctas.callTel);
   const hasBook = Boolean(ctas.bookUrl);
+  const hasSecondary = Boolean(ctas.secondaryUrl);
 
   if (hasMenu && hasCall) {
     return {
@@ -164,7 +163,7 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
           className: `${CTA_BASE_CLASS} bg-crimson-600 hover:bg-crimson-700`
         }
       };
-    case 1: // Call for Takeaway + Call for Booking
+    case 1: // Call for Takeaway + Call for Booking / Secondary link
       return {
         primaryButton: {
           variant: 'call-takeaway' as const,
@@ -172,8 +171,8 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
           className: `${CTA_BASE_CLASS} bg-crimson-600 hover:bg-crimson-700`
         },
         secondaryButton: {
-          variant: 'call-booking' as const,
-          href: hasCall ? ctas.callTel : undefined,
+          variant: hasSecondary ? ('menu' as const) : ('call-booking' as const),
+          href: hasSecondary ? ctas.secondaryUrl : (hasCall ? ctas.callTel : undefined),
           className: `${CTA_BASE_CLASS} bg-accent hover:bg-accent/90`
         }
       };
@@ -206,12 +205,26 @@ const getCTAConfig = (slide: SlideType, slideIndex: number) => {
   }
 };
 
+const DEFAULT_SESSION_SIZE = 5;
+
+const DEFAULT_REGION_LABEL = 'Featured experiences slideshow';
+
 const DaisyUISlideshow = ({
-  slides = defaultSlides,
+  slides,
   autoplay = true,
-  interval = 5000
+  interval = 5000,
+  sessionSize = DEFAULT_SESSION_SIZE,
+  regionLabel = DEFAULT_REGION_LABEL,
 }: DaisyUISlideshowProps) => {
-  const [sessionSlides, setSessionSlides] = useState<SlideType[]>(() => getInitialSessionSlides(slides, SESSION_SLIDE_COUNT));
+  const normalizedSlides = useMemo(
+    () => (Array.isArray(slides) ? slides.filter(Boolean) : []),
+    [slides]
+  );
+  const effectiveSessionSize = Math.max(1, sessionSize || DEFAULT_SESSION_SIZE);
+
+  const [sessionSlides, setSessionSlides] = useState<SlideType[]>(() =>
+    getInitialSessionSlides(normalizedSlides, effectiveSessionSize)
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const autoplayTimerRef = useRef<number | null>(null);
@@ -392,14 +405,18 @@ const DaisyUISlideshow = ({
   }, [startAutoplay, stopAutoplay]);
 
   useEffect(() => {
-    if (!Array.isArray(slides)) {
-      return;
-    }
     if (typeof window === 'undefined') {
       return;
     }
 
-    const nextSlides = deriveSessionSlides(slides, SESSION_SLIDE_COUNT);
+    if (!normalizedSlides.length) {
+      setSessionSlides([]);
+      setCurrentIndex(0);
+      requestAnimationFrame(() => scrollToSlide(0, 'auto'));
+      return;
+    }
+
+    const nextSlides = deriveSessionSlides(normalizedSlides, effectiveSessionSize);
     setSessionSlides((current) => {
       if (
         current.length === nextSlides.length &&
@@ -414,7 +431,7 @@ const DaisyUISlideshow = ({
     requestAnimationFrame(() => {
       scrollToSlide(0, 'auto');
     });
-  }, [slides, scrollToSlide]);
+  }, [normalizedSlides, effectiveSessionSize, scrollToSlide]);
 
   useEffect(() => {
     // Ensure we are positioned correctly if slide count changes.
@@ -455,7 +472,7 @@ const DaisyUISlideshow = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       role="region"
-      aria-label="Featured experiences slideshow"
+      aria-label={regionLabel || DEFAULT_REGION_LABEL}
     >
       <div
         ref={carouselRef}

@@ -10,6 +10,7 @@ import Showcase from '@/components/slideshow/Showcase';
 import AboutSection from '@/app/_components/AboutSection';
 import MenuHighlights from '@/app/_components/MenuHighlights';
 import PressFeatureBanner, { PressFeatureContent } from '@/components/restaurant/sections/PressFeatureBanner';
+import type { Slide } from '@/components/slideshow/types';
 
 // Below-fold components - load progressively with stable SSR
 const TestimonialsSection = dynamic(() => import('@/components/restaurant/TestimonialsSection'), {
@@ -37,6 +38,17 @@ interface ClientHomeContentProps {
   ctaSection: any;
   ctaButtons: any[];
   pressFeature?: PressFeatureContent | null;
+  slideshow?: {
+    slides: Slide[];
+    settings?: {
+      autoplay?: boolean;
+      intervalMs?: number;
+      sessionSize?: number;
+      regionLabel?: string;
+      sectionLabel?: string;
+    };
+  } | null;
+  ariaLabels?: Record<string, string>;
 }
 
 // Optimized progressive loading with immediate display for SSR
@@ -87,7 +99,14 @@ function ProgressiveSection({
   );
 }
 
-export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons, pressFeature }: ClientHomeContentProps) {
+export default function ClientHomeContent({
+  quickLinks,
+  ctaSection,
+  ctaButtons,
+  pressFeature,
+  slideshow,
+  ariaLabels
+}: ClientHomeContentProps) {
   const [isHydrated, setIsHydrated] = useState(true); // Start with true for SSR
   const [navbarLoaded, setNavbarLoaded] = useState(true); // Start with true for immediate display
   const [criticalAssetsLoaded, setCriticalAssetsLoaded] = useState(true); // Start with true
@@ -163,8 +182,13 @@ export default function ClientHomeContent({ quickLinks, ctaSection, ctaButtons, 
             </div>
           }
         >
-          <section aria-label="Restaurant showcase">
-            <Showcase />
+          <section aria-label={ariaLabels?.showcaseSection ?? slideshow?.settings?.sectionLabel ?? 'Restaurant showcase'}>
+            <Showcase
+              slides={slideshow?.slides ?? []}
+              settings={slideshow?.settings}
+              regionLabel={ariaLabels?.slideshowRegion ?? slideshow?.settings?.regionLabel}
+              sectionLabel={ariaLabels?.showcaseSection ?? slideshow?.settings?.sectionLabel}
+            />
           </section>
         </ProgressiveSection>
 

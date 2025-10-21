@@ -13,25 +13,27 @@ import { PerformanceCacheManager, globalCache, createCacheKey } from '../cache';
 import type { AppEnv } from '../env';
 import type { Menu, Restaurant, Marketing, Content } from '../schemas';
 
+type EnvironmentConfig = {
+  ttl: {
+    menu: number;
+    restaurant: number;
+    marketing: number;
+    content: number;
+    config: number;
+  };
+  compression: {
+    enabled: boolean;
+    threshold: number;
+  };
+  preloading: {
+    enabled: boolean;
+    priority: ('menu' | 'restaurant' | 'marketing' | 'content')[];
+  };
+};
+
 interface EnhancedCacheConfig {
   environments: {
-    [key in AppEnv]: {
-      ttl: {
-        menu: number;
-        restaurant: number;
-        marketing: number;
-        content: number;
-        config: number;
-      };
-      compression: {
-        enabled: boolean;
-        threshold: number;
-      };
-      preloading: {
-        enabled: boolean;
-        priority: ('menu' | 'restaurant' | 'marketing' | 'content')[];
-      };
-    };
+    [key in AppEnv]: EnvironmentConfig;
   };
   monitoring: {
     enabled: boolean;
@@ -303,28 +305,82 @@ class EnhancedGlobalCacheManager {
 
   // Private methods
 
+  private createEnvironmentConfig(params: {
+    ttl: EnvironmentConfig['ttl'];
+    compressionEnabled: boolean;
+    compressionThreshold: number;
+    preloadEnabled: boolean;
+    preloadPriority: EnvironmentConfig['preloading']['priority'];
+  }): EnvironmentConfig {
+    return {
+      ttl: params.ttl,
+      compression: {
+        enabled: params.compressionEnabled,
+        threshold: params.compressionThreshold,
+      },
+      preloading: {
+        enabled: params.preloadEnabled,
+        priority: params.preloadPriority,
+      },
+    };
+  }
+
+  private cloneEnvironmentConfig(config: EnvironmentConfig): EnvironmentConfig {
+    return JSON.parse(JSON.stringify(config));
+  }
+
   private getDefaultConfig(): EnhancedCacheConfig {
     const isProd = process.env.NODE_ENV === 'production';
-    
+    const prodEnv = this.createEnvironmentConfig({
+      ttl: {
+        menu: 30 * 60 * 1000,
+        restaurant: 60 * 60 * 1000,
+        marketing: 15 * 60 * 1000,
+        content: 45 * 60 * 1000,
+        config: 60 * 60 * 1000,
+      },
+      compressionEnabled: true,
+      compressionThreshold: 1024,
+      preloadEnabled: true,
+      preloadPriority: ['menu', 'restaurant', 'marketing', 'content'],
+    });
+
+    const stagingEnv = this.createEnvironmentConfig({
+      ttl: {
+        menu: 20 * 60 * 1000,
+        restaurant: 45 * 60 * 1000,
+        marketing: 10 * 60 * 1000,
+        content: 30 * 60 * 1000,
+        config: 45 * 60 * 1000,
+      },
+      compressionEnabled: true,
+      compressionThreshold: 1536,
+      preloadEnabled: true,
+      preloadPriority: ['content', 'menu', 'marketing'],
+    });
+
+    const devEnv = this.createEnvironmentConfig({
+      ttl: {
+        menu: 5 * 60 * 1000,
+        restaurant: 10 * 60 * 1000,
+        marketing: 5 * 60 * 1000,
+        content: 10 * 60 * 1000,
+        config: 5 * 60 * 1000,
+      },
+      compressionEnabled: false,
+      compressionThreshold: 2048,
+      preloadEnabled: false,
+      preloadPriority: ['content', 'menu'],
+    });
+
+    const appEnv = this.cloneEnvironmentConfig(isProd ? prodEnv : devEnv);
+
     return {
       environments: {
-        app: {
-          ttl: {
-            menu: isProd ? 30 * 60 * 1000 : 5 * 60 * 1000,      // 30min prod, 5min dev
-            restaurant: isProd ? 60 * 60 * 1000 : 10 * 60 * 1000, // 60min prod, 10min dev
-            marketing: isProd ? 15 * 60 * 1000 : 5 * 60 * 1000,   // 15min prod, 5min dev
-            content: isProd ? 45 * 60 * 1000 : 10 * 60 * 1000,    // 45min prod, 10min dev
-            config: isProd ? 60 * 60 * 1000 : 5 * 60 * 1000       // 60min prod, 5min dev
-          },
-          compression: {
-            enabled: isProd,
-            threshold: isProd ? 1024 : 2048 // More aggressive in production
-          },
-          preloading: {
-            enabled: true,
-            priority: ['menu', 'restaurant', 'marketing', 'content']
-          }
-        }
+        app: appEnv,
+        dev: devEnv,
+        staging: stagingEnv,
+        prod: prodEnv,
       },
       monitoring: {
         enabled: true,

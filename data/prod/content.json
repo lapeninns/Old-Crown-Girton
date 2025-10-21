@@ -56,7 +56,10 @@
         "title": "Welcome to Old Crown",
         "subtitle": "Authentic Nepalese Cuisine & Traditional Pub Classics",
         "description": "Experience the rich flavors of Nepal combined with traditional British pub food in our cozy, welcoming restaurant. Perfect for family dinners, romantic evenings, or drinks with friends.",
-        "cta": "Book Your Table"
+        "cta": {
+          "primary": "Book Your Table",
+          "secondary": "View Menu"
+        }
       },
       "sections": {
         "features": {

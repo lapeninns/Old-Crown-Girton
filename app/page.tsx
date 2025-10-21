@@ -1,6 +1,7 @@
 export const revalidate = 300;
 
 import { renderSchemaTags } from '@/libs/seo';
+import type { PressFeatureContent } from '@/components/restaurant/sections/PressFeatureBanner';
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -37,117 +38,33 @@ const ClientHomeContent = dynamic(() => import('@/components/ClientHomeContent')
   )
 });
 
-type PressFeatureContent = {
-  label?: string;
-  eyebrow?: string;
-  title?: string;
-  summary?: string;
-  quote?: string;
-  quoteAttribution?: string;
-  cta?: {
-    text?: string;
-    href?: string;
-  };
-};
-
-const DEFAULT_PRESS_FEATURE: PressFeatureContent = {
-  label: "In the press",
-  eyebrow: "Country pub of the week",
-  title: "Evening Standard spotlights The Old Crown, Girton",
-  summary: "David Ellis praises our welcoming village pub, authentic Nepalese cooking, and ever-evolving menu in the Evening Standard's Country Pub of the Week column.",
-  quote: "The changes keep locals coming back.",
-  quoteAttribution: "David Ellis, Evening Standard",
-  cta: {
-    text: "Read the review",
-    href: "https://www.standard.co.uk/going-out/bars/old-crown-girton-hotel-pub-review-b1249473.html"
-  }
-};
-
 function HomePageContent({ 
   quickLinks, 
   ctaSection, 
   ctaButtons,
-  pressFeature
+  pressFeature,
+  schemaEntries,
+  slideshow,
+  ariaLabels
 }: {
   quickLinks: any[];
   ctaSection: any;
   ctaButtons: any[];
   pressFeature?: PressFeatureContent | null;
+  schemaEntries?: Record<string, any>[];
+  slideshow?: {
+    slides: any[];
+    settings?: {
+      autoplay?: boolean;
+      intervalMs?: number;
+      sessionSize?: number;
+    };
+  } | null;
+  ariaLabels?: Record<string, string>;
 }) {
   return (
     <>
-      {renderSchemaTags([
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Old Crown Girton",
-          "url": "https://oldcrowngirton.com/",
-          "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://oldcrowngirton.com//menu",
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@context": "https://schema.org",
-          "@type": "Restaurant",
-          "@id": "https://oldcrowngirton.com//#restaurant",
-          "name": "Old Crown Girton",
-          "image": "https://oldcrowngirton.com//opengraph-image.png",
-          "description": "Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Family and dog friendly venue voted #1 restaurant in Girton.",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "89 High Street",
-            "addressLocality": "Girton",
-            "addressRegion": "Cambridgeshire",
-            "postalCode": "CB3 0QQ",
-            "addressCountry": "GB"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 52.2462,
-            "longitude": 0.0731
-          },
-          "url": "https://oldcrowngirton.com/",
-          "telephone": "+441223 277217",
-          "priceRange": "££",
-          "servesCuisine": ["Nepalese", "British", "Pub food"],
-          "acceptsReservations": true,
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.6",
-            "bestRating": "5",
-            "worstRating": "1",
-            "ratingCount": "150"
-          },
-          "openingHoursSpecification": [
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-              "opens": "12:00",
-              "closes": "22:00"
-            },
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": "Saturday",
-              "opens": "12:00",
-              "closes": "23:00"
-            },
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": "Sunday",
-              "opens": "12:00",
-              "closes": "22:00"
-            }
-          ],
-          "hasMenu": "https://oldcrowngirton.com//menu",
-          "sameAs": [
-            "https://www.facebook.com/oldcrowngirton",
-            "https://www.instagram.com/theoldcrowngirton"
-          ]
-        }
-      ])}
+      {schemaEntries && schemaEntries.length > 0 ? renderSchemaTags(schemaEntries) : null}
       <style dangerouslySetInnerHTML={{ __html: `
         @media (prefers-reduced-motion: reduce) {
           *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -159,6 +76,11 @@ function HomePageContent({
         ctaSection={ctaSection}
         ctaButtons={ctaButtons}
         pressFeature={pressFeature}
+        slideshow={slideshow ? {
+          slides: slideshow.slides ?? [],
+          settings: slideshow.settings ?? {}
+        } : null}
+        ariaLabels={ariaLabels}
       />
     </>
   );
@@ -176,16 +98,16 @@ export default async function Page() {
   const quickLinks = homeContent.sections.quickLinks || [];
   const ctaSection = (homeContent.sections as any).cta;
   const pressFeatureContent = (homeContent.sections as any).pressFeature;
-  const pressFeature = pressFeatureContent
+  const pressFeature = pressFeatureContent || null;
+  const schemaEntries = Array.isArray(homeContent.seo?.schemas) ? homeContent.seo?.schemas : [];
+  const rawSlideshow = content.components?.slideshow;
+  const slideshowContent = rawSlideshow
     ? {
-        ...DEFAULT_PRESS_FEATURE,
-        ...pressFeatureContent,
-        cta: {
-          ...DEFAULT_PRESS_FEATURE.cta,
-          ...(pressFeatureContent.cta ?? {}),
-        }
+        slides: Array.isArray(rawSlideshow.slides) ? rawSlideshow.slides : [],
+        settings: rawSlideshow.settings ?? {}
       }
-    : DEFAULT_PRESS_FEATURE;
+    : null;
+  const ariaLabels = content.global?.accessibility?.ariaLabels ?? {};
   
   // Process CTA buttons with label fallbacks
   const ctaButtons = ctaSection?.buttons?.map((button: any) => ({
@@ -199,6 +121,9 @@ export default async function Page() {
       ctaSection={ctaSection}
       ctaButtons={ctaButtons}
       pressFeature={pressFeature}
+      slideshow={slideshowContent}
+      ariaLabels={ariaLabels}
+      schemaEntries={schemaEntries}
     />
   );
 }
