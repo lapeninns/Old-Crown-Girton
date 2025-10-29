@@ -82,7 +82,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 				streetAddress: '89 High Street',
 				addressLocality: 'Girton',
 				addressRegion: 'Cambridge',
-				postalCode: 'CB3 0QQ',
+				postalCode: 'CB3 0QD',
 				addressCountry: 'GB'
 			}
 		},

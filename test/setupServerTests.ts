@@ -74,7 +74,7 @@ export const server = setupServer(
       data: {
         name: "Old Crown Girton",
         phone: "01223277217",
-        address: "89 High Street, Girton, Cambridge, CB3 0QQ",
+        address: "89 High Street, Girton, Cambridge, CB3 0QD",
         hours: {
           monday: "12:00-23:00",
           tuesday: "12:00-23:00",

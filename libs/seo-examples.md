@@ -175,7 +175,7 @@ export default function EventsPage() {
           "@type": "PostalAddress",
           streetAddress: "89 High Street",
           addressLocality: "Girton",
-          postalCode: "CB3 0QQ",
+          postalCode: "CB3 0QD",
           addressCountry: "GB"
         }
       },

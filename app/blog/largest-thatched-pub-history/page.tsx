@@ -159,7 +159,7 @@ export default function ThatchedPubHistoryPage() {
               "streetAddress": "89 High Street",
               "addressLocality": "Girton",
               "addressRegion": "Cambridgeshire",
-              "postalCode": "CB3 0QQ",
+              "postalCode": "CB3 0QD",
               "addressCountry": "GB"
             }
           },
@@ -210,7 +210,7 @@ export default function ThatchedPubHistoryPage() {
             "streetAddress": "89 High Street",
             "addressLocality": "Girton",
             "addressRegion": "Cambridgeshire",
-            "postalCode": "CB3 0QQ",
+            "postalCode": "CB3 0QD",
             "addressCountry": "GB"
           },
           "historicalSignificance": "Largest thatched roof of any public house in England, representing centuries of traditional building techniques",

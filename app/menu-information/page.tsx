@@ -424,7 +424,7 @@ export default function MenuInformationPage() {
                 "streetAddress": "89 High Street",
                 "addressLocality": "Girton",
                 "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QQ",
+                "postalCode": "CB3 0QD",
                 "addressCountry": "GB"
               },
               "telephone": "+441223277217",
@@ -585,7 +585,7 @@ export default function MenuInformationPage() {
                 </div>
                 <div className="mt-6 text-center">
                   <p className="text-sm text-neutral-600">
-                    <strong>Location:</strong> 89 High Street, Girton, Cambridge CB3 0QQ
+                    <strong>Location:</strong> 89 High Street, Girton, Cambridge CB3 0QD
                   </p>
                 </div>
               </div>

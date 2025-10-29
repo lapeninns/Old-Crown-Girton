@@ -124,7 +124,7 @@ const PRESS_FACTS = [
 const MEDIA_CONTACT = {
   email: "oldcrown@lapeninns.com",
   phone: "01223 277217",
-  address: "89 High Street, Girton, Cambridge, CB3 0QQ",
+  address: "89 High Street, Girton, Cambridge, CB3 0QD",
 };
 
 export const metadata = getSEOTags({
@@ -176,7 +176,7 @@ export default function PressPage() {
                 "streetAddress": MEDIA_CONTACT.address,
                 "addressLocality": "Girton",
                 "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QQ",
+                "postalCode": "CB3 0QD",
                 "addressCountry": "GB"
               }
             }

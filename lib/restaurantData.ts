@@ -217,7 +217,7 @@ export const getContactInfo = () => ({
     street: (restaurantTemplate as any)?.address?.street || "89 High Street",
     area: "Girton",
     city: (restaurantTemplate as any)?.address?.city || "Girton",
-    postcode: (restaurantTemplate as any)?.address?.zip || "CB3 0QQ",
+    postcode: (restaurantTemplate as any)?.address?.zip || "CB3 0QD",
     country: "GB",
     coordinates: { lat: 52.2385, lng: 0.0926 },
     google_maps_url: "https://maps.google.com/?q=52.2385,0.0926"

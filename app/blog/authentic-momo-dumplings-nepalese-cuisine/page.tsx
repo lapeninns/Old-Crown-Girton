@@ -116,7 +116,7 @@ export default function MomoDumplingsPage() {
               "streetAddress": "89 High Street",
               "addressLocality": "Girton",
               "addressRegion": "Cambridgeshire",
-              "postalCode": "CB3 0QQ",
+              "postalCode": "CB3 0QD",
               "addressCountry": "GB"
             }
           },

@@ -23,7 +23,7 @@ export default function ClientFooter() {
               Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics
             </p>
             <div className="space-y-2 text-sm">
-              <p><EmojiIcon emoji="📍" className="mr-1" /> 89 High Street, Girton, Cambridge CB3 0QQ</p>
+              <p><EmojiIcon emoji="📍" className="mr-1" /> 89 High Street, Girton, Cambridge CB3 0QD</p>
               <p><EmojiIcon emoji="📞" className="mr-1" /> +44 1223 277217</p>
               <p><EmojiIcon emoji="📧" className="mr-1" /> oldcrown@lapeninns.com</p>
             </div>

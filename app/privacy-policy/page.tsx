@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
                 "streetAddress": "89 High Street",
                 "addressLocality": "Girton",
                 "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QQ",
+                "postalCode": "CB3 0QD",
                 "addressCountry": "GB"
               }
             },
@@ -227,7 +227,7 @@ export default function PrivacyPolicy() {
                       <div className="space-y-1 mb-4">
                         <p><strong>Data Protection Officer</strong></p>
                         <p>Old Crown Girton</p>
-                        <p>89 High Street, Girton, Cambridge CB3 0QQ</p>
+                        <p>89 High Street, Girton, Cambridge CB3 0QD</p>
                         <p>Email: <Link href="mailto:oldcrown@lapeninns.com" className="text-brand-600 hover:text-brand-700 underline">oldcrown@lapeninns.com</Link></p>
                           <p>Email: <Link href="mailto:oldcrown@lapeninns.com" className="text-brand-600 hover:text-brand-700 underline">oldcrown@lapeninns.com</Link></p>
                           <p>Email: <Link href="mailto:oldcrown@lapeninns.com" className="text-brand-600 hover:text-brand-700 underline">oldcrown@lapeninns.com</Link></p>

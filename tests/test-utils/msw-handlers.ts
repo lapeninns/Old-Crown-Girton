@@ -77,7 +77,7 @@ export const mockRestaurant: Restaurant = {
     street: 'High Street',
     city: 'Cambridge',
     state: 'Cambridgeshire',
-    zip: 'CB3 0QQ',
+    zip: 'CB3 0QD',
   },
   hours: {
     Monday: '12:00-22:00',

@@ -24,7 +24,7 @@ describe('ContactInfoSection', () => {
   const mockLocation = {
     title: 'Location',
     description: 'Just 3 miles from Cambridge',
-    address: '89 High Street, Girton, Cambridge, CB3 0QQ'
+    address: '89 High Street, Girton, Cambridge, CB3 0QD'
   };
 
   it('renders phone and location information correctly', () => {
@@ -39,7 +39,7 @@ describe('ContactInfoSection', () => {
     expect(screen.getByText('Location')).toBeInTheDocument();
     expect(screen.getByText('Just 3 miles from Cambridge')).toBeInTheDocument();
     expect(screen.getByText('89 High Street')).toBeInTheDocument();
-    expect(screen.getByText('CB3 0QQ')).toBeInTheDocument();
+    expect(screen.getByText('CB3 0QD')).toBeInTheDocument();
     
     // Check email section
     expect(screen.getByText('Email')).toBeInTheDocument();

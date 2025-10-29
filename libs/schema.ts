@@ -61,7 +61,7 @@ export function generateRestaurantSchema(): RestaurantSchema {
       streetAddress: contact?.address.street || "High Street",
       addressLocality: contact?.address.area || "Girton",
       addressRegion: contact?.address.city || "Cambridge",
-      postalCode: contact?.address.postcode || "CB3 0QQ",
+      postalCode: contact?.address.postcode || "CB3 0QD",
       addressCountry: "GB"
     },
     geo: {
