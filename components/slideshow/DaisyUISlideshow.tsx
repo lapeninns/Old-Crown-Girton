@@ -20,6 +20,41 @@ type SlideBuckets = {
   optional: SlideType[];
 };
 
+const OVERLAY_PADDING_CLASS =
+  'px-[clamp(1.5rem,4vw,4rem)] py-[clamp(2.5rem,6.5vw,5.75rem)]';
+
+const getHeadlineClasses = (headline?: string) => {
+  const length = headline?.length ?? 0;
+
+  if (length > 140) {
+    return 'text-[clamp(1.65rem,4vw,2.6rem)] leading-tight';
+  }
+
+  if (length > 100) {
+    return 'text-[clamp(1.85rem,4.4vw,3rem)] leading-tight';
+  }
+
+  if (length > 70) {
+    return 'text-[clamp(2rem,4.8vw,3.4rem)] leading-[1.05]';
+  }
+
+  return 'text-[clamp(2.15rem,5vw,3.65rem)] leading-[1.08]';
+};
+
+const getCopyClasses = (copy?: string) => {
+  const length = copy?.length ?? 0;
+
+  if (length > 360) {
+    return 'text-[clamp(0.95rem,2vw,1.15rem)] leading-relaxed';
+  }
+
+  if (length > 240) {
+    return 'text-[clamp(1rem,2.15vw,1.25rem)] leading-relaxed';
+  }
+
+  return 'text-[clamp(1.05rem,2.4vw,1.45rem)] leading-relaxed';
+};
+
 const resolveImageSrc = (image: SlideType['image']) => {
   if (!image) return null;
 
@@ -502,7 +537,9 @@ const DaisyUISlideshow = ({
                   <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/40 backdrop-blur-[2px]" aria-hidden="true" />
                 </div>
               )}
-              <div className="relative z-10 w-full px-[clamp(1.25rem,4vw,4rem)] py-[clamp(2.75rem,7vw,5.75rem)]">
+              <div
+                className={`relative z-10 flex min-h-[clamp(22rem,68vh,40rem)] w-full items-center justify-center ${OVERLAY_PADDING_CLASS}`}
+              >
                 <div className="mx-auto flex w-full max-w-[min(70rem,94vw)] flex-col items-center gap-y-[clamp(0.875rem,2vw,2.25rem)] text-center text-white">
                   {slide.eyebrow && (
                     <p className="text-[clamp(0.75rem,1.8vw,1.0625rem)] font-semibold uppercase tracking-[0.32em] text-accent-300">
@@ -510,12 +547,12 @@ const DaisyUISlideshow = ({
                     </p>
                   )}
                   {slide.headline && (
-                    <h2 className="text-balance font-display text-[clamp(2.15rem,5vw,3.65rem)] font-bold leading-[1.08]">
+                    <h2 className={`text-balance font-display font-bold ${getHeadlineClasses(slide.headline)}`}>
                       {slide.headline}
                     </h2>
                   )}
                   {slide.copy && (
-                    <p className="mx-auto max-w-[65ch] text-pretty text-[clamp(1.05rem,2.4vw,1.45rem)] leading-relaxed text-white/90">
+                    <p className={`mx-auto max-w-[65ch] text-pretty text-white/90 ${getCopyClasses(slide.copy)}`}>
                       {slide.copy}
                     </p>
                   )}

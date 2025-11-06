@@ -28,6 +28,9 @@ export const metadata = getSEOTags({
   },
 });
 
+const CHRISTMAS_MENU_PDF_PATH = "/documents/old-crown-girton-christmas-menu.pdf";
+const CHRISTMAS_MENU_PDF_FILENAME = "old-crown-girton-christmas-menu.pdf";
+
 const slugify = (value: string) =>
   value
     .toLowerCase()
@@ -418,7 +421,16 @@ export default async function ChristmasMenuPage() {
               </div>
             </FadeInUp>
             <FadeInUp>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-4">
+                <MotionLinkButton
+                  href={CHRISTMAS_MENU_PDF_PATH}
+                  download={CHRISTMAS_MENU_PDF_FILENAME}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white text-brand-800 font-semibold shadow-lg hover:bg-brand-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-700"
+                  ariaLabel="Download the Christmas menu"
+                >
+                  <span aria-hidden="true" role="img">⬇️</span>
+                  Download Christmas Menu
+                </MotionLinkButton>
                 <MotionLinkButton
                   href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white text-brand-800 font-semibold shadow-lg hover:bg-brand-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-700"

@@ -33,6 +33,8 @@ const LocationSection = dynamic(() => import('@/components/restaurant/LocationSe
   ssr: true,
 });
 
+const NAVBAR_OFFSET_FALLBACK = '64px';
+const NAVBAR_STACK_OFFSET_FALLBACK = '104px';
 interface ClientHomeContentProps {
   quickLinks: any[];
   ctaSection: any;
@@ -162,12 +164,14 @@ export default function ClientHomeContent({
         <Navbar />
       </ProgressiveSection>
       
-      <main 
-        className="overflow-x-hidden relative" 
+      <main
+        className="overflow-x-hidden relative"
         id="main-content"
         tabIndex={-1}
         style={{
-          paddingTop: '64px', // Account for fixed navbar
+          isolation: 'isolate',
+          minHeight: `calc(100vh - var(--navbar-offset, ${NAVBAR_OFFSET_FALLBACK}))`,
+          paddingTop: `var(--navbar-stack-offset, ${NAVBAR_STACK_OFFSET_FALLBACK})`,
         }}
       >
         {/* Hero Section: Slideshow - Above the fold, loads immediately after navbar */}
