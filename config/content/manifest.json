@@ -41,6 +41,7 @@
       "cacheDuration": 300000,
       "description": "Component-specific content loaded when components are used",
       "files": [
+        "components/consolidatedBanner.json",
         "components/testimonials.json",
         "components/faq.json",
         "components/menuHighlights.json"

@@ -10,7 +10,6 @@ import Showcase from '@/components/slideshow/Showcase';
 import AboutSection from '@/app/_components/AboutSection';
 import MenuHighlights from '@/app/_components/MenuHighlights';
 import PressFeatureBanner, { PressFeatureContent } from '@/components/restaurant/sections/PressFeatureBanner';
-import ChristmasMusicPlayer from '@/app/christmas-menu/_components/ChristmasMusicPlayer';
 import type { Slide } from '@/components/slideshow/types';
 
 // Below-fold components - load progressively with stable SSR
@@ -194,26 +193,6 @@ export default function ClientHomeContent({
               regionLabel={ariaLabels?.slideshowRegion ?? slideshow?.settings?.regionLabel}
               sectionLabel={ariaLabels?.showcaseSection ?? slideshow?.settings?.sectionLabel}
             />
-          </section>
-        </ProgressiveSection>
-
-        <ProgressiveSection
-          delay={getDelay(0)}
-          placeholder={
-            <div className="bg-brand-900 py-6 sm:py-8">
-              <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
-                <div className="h-12 w-32 rounded-full bg-white/20" />
-              </div>
-            </div>
-          }
-        >
-          <section
-            aria-label="Festive background music controls"
-            className="bg-brand-900 py-6 sm:py-8"
-          >
-            <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
-              <ChristmasMusicPlayer />
-            </div>
           </section>
         </ProgressiveSection>
 

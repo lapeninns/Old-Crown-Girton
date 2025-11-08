@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "id": "seasonalPromoBanner",
+    "season": "christmas-2025",
+    "status": "live",
+    "lastUpdated": "2025-11-08T18:17:00Z",
+    "audience": "site-wide",
+    "notes": "Standalone JSON representation of the Seasonal Promo banner so it can be shared outside the JSX component."
+  },
+  "dataset": {
+    "seasonal-banner": true
+  },
+  "surface": {
+    "tone": "brand-soft",
+    "translucent": true,
+    "classes": [
+      "border-b",
+      "border-brand-100",
+      "bg-brand-50/90",
+      "backdrop-blur"
+    ]
+  },
+  "layout": {
+    "container": "alert mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-3 rounded-none border-none bg-transparent px-4 py-2.5 text-center text-sm text-brand-900 shadow-none transition hover:bg-brand-100/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-50 md:flex-row md:gap-4 md:px-6 md:py-3 md:text-base min-h-0",
+    "primaryGroup": "flex flex-wrap items-center justify-center gap-2 text-center text-brand-900",
+    "messageText": "font-medium",
+    "ctaGroup": "flex items-center justify-center gap-2 text-center font-semibold text-brand-800",
+    "ctaLabel": "underline decoration-brand-300 underline-offset-4",
+    "ctaIcon": {
+      "name": "arrow-right",
+      "viewBox": "0 0 24 24",
+      "path": "M5 12h14m-6-6 6 6-6 6",
+      "strokeWidth": 2
+    }
+  },
+  "badge": {
+    "text": "Christmas 2025",
+    "classes": "badge border border-brand-200 bg-brand-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white",
+    "srLabel": "Seasonal badge"
+  },
+  "icon": {
+    "emoji": "🎄",
+    "srLabel": "Festive tree icon"
+  },
+  "copy": {
+    "message": "Festive tasting menus, mulled tipples, and seasonal cheer await."
+  },
+  "cta": {
+    "href": "/christmas-menu",
+    "label": "View the Christmas menu & book your table",
+    "ariaLabel": "Explore the Christmas menu and reserve your festive table",
+    "variant": "text-link",
+    "analyticsId": "banner-christmas-menu-cta"
+  }
+}
