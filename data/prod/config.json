@@ -1,7 +1,7 @@
 {
   "env": "prod",
   "featureFlags": {
-    "cms": true,
+    "cms": false,
     "posSync": true,
     "debug": false,
     "analytics": true,

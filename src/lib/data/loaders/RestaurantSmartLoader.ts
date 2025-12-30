@@ -42,12 +42,24 @@ class RestaurantSmartLoaderClass extends BaseSmartLoader<Restaurant> {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
       const endpoint = cfg.api?.restaurantEndpoint;
+      const baseUrl = cfg.api?.baseUrl;
 
       if (!cmsOn || !endpoint) {
         return null; // CMS not enabled or no endpoint configured
       }
 
+      if (this.isSelfApiEndpoint(endpoint, baseUrl)) {
+        console.warn('Restaurant API endpoint points to self; skipping CMS fetch to avoid recursion.', {
+          endpoint,
+          baseUrl
+        });
+        return null;
+      }
+
       const response = await this.fetchWithRetry(endpoint, config);
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status} ${response.statusText}`);
+      }
       const json = await response.json();
       return await this.validateAndParse(json);
     } catch (error) {
@@ -58,6 +70,26 @@ class RestaurantSmartLoaderClass extends BaseSmartLoader<Restaurant> {
 
   private getConfigPath(file: string): string {
     return path.join(process.cwd(), "config", file);
+  }
+
+  private isSelfApiEndpoint(endpoint: string, baseUrl?: string): boolean {
+    if (!baseUrl) {
+      return false;
+    }
+
+    try {
+      const endpointUrl = new URL(endpoint, baseUrl);
+      const baseUrlObj = new URL(baseUrl);
+
+      if (endpointUrl.origin !== baseUrlObj.origin) {
+        return false;
+      }
+
+      const endpointPath = endpointUrl.pathname.replace(/\/+$/, '');
+      return endpointPath === '/api/restaurant';
+    } catch {
+      return false;
+    }
   }
 
   /**
@@ -86,21 +118,21 @@ class RestaurantSmartLoaderClass extends BaseSmartLoader<Restaurant> {
   }> {
     const startTime = Date.now();
     let cacheStatus: 'hit' | 'miss' | 'error' = 'miss';
-    
+
     try {
       const result = await this.loadSmart(env, { enablePerformanceMonitoring: false });
       cacheStatus = result.cached ? 'hit' : 'miss';
-      
+
       const hasRequiredFields = !!(
-        result.data.name && 
-        result.data.phone && 
-        result.data.email && 
+        result.data.name &&
+        result.data.phone &&
+        result.data.email &&
         result.data.address
       );
-      
+
       const loadTime = Date.now() - startTime;
       const status = hasRequiredFields ? 'healthy' : 'degraded';
-      
+
       return {
         status,
         details: {

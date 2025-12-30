@@ -39,9 +39,18 @@ class MenuSmartLoaderClass extends BaseSmartLoader<Menu> {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
       const endpoint = cfg.api?.menuEndpoint;
+      const baseUrl = cfg.api?.baseUrl;
 
       if (!cmsOn || !endpoint) {
         return null; // CMS not enabled or no endpoint configured
+      }
+
+      if (this.isSelfApiEndpoint(endpoint, baseUrl)) {
+        console.warn('Menu API endpoint points to self; skipping CMS fetch to avoid recursion.', {
+          endpoint,
+          baseUrl
+        });
+        return null;
       }
 
       const response = await this.fetchWithRetry(endpoint, config);
@@ -106,6 +115,26 @@ class MenuSmartLoaderClass extends BaseSmartLoader<Menu> {
 
     // Validate the complete menu against schema
     return await this.validateAndParse(menu);
+  }
+
+  private isSelfApiEndpoint(endpoint: string, baseUrl?: string): boolean {
+    if (!baseUrl) {
+      return false;
+    }
+
+    try {
+      const endpointUrl = new URL(endpoint, baseUrl);
+      const baseUrlObj = new URL(baseUrl);
+
+      if (endpointUrl.origin !== baseUrlObj.origin) {
+        return false;
+      }
+
+      const endpointPath = endpointUrl.pathname.replace(/\/+$/, '');
+      return endpointPath === '/api/menu';
+    } catch {
+      return false;
+    }
   }
 
   private async loadMenuCategory(

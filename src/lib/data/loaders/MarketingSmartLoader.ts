@@ -42,9 +42,18 @@ class MarketingSmartLoaderClass extends BaseSmartLoader<Marketing> {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
       const endpoint = cfg.api?.marketingEndpoint;
+      const baseUrl = cfg.api?.baseUrl;
 
       if (!cmsOn || !endpoint) {
         return null; // CMS not enabled or no endpoint configured
+      }
+
+      if (this.isSelfApiEndpoint(endpoint, baseUrl)) {
+        console.warn('Marketing API endpoint points to self; skipping CMS fetch to avoid recursion.', {
+          endpoint,
+          baseUrl
+        });
+        return null;
       }
 
       const response = await this.fetchWithRetry(endpoint, config);
@@ -58,6 +67,26 @@ class MarketingSmartLoaderClass extends BaseSmartLoader<Marketing> {
 
   private getConfigPath(file: string): string {
     return path.join(process.cwd(), "config", file);
+  }
+
+  private isSelfApiEndpoint(endpoint: string, baseUrl?: string): boolean {
+    if (!baseUrl) {
+      return false;
+    }
+
+    try {
+      const endpointUrl = new URL(endpoint, baseUrl);
+      const baseUrlObj = new URL(baseUrl);
+
+      if (endpointUrl.origin !== baseUrlObj.origin) {
+        return false;
+      }
+
+      const endpointPath = endpointUrl.pathname.replace(/\/+$/, '');
+      return endpointPath === '/api/marketing';
+    } catch {
+      return false;
+    }
   }
 
   /**

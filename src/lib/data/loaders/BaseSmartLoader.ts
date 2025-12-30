@@ -32,6 +32,7 @@ export interface SmartLoadConfig {
   retryDelay?: number;
   fallbackToCache?: boolean;
   enablePerformanceMonitoring?: boolean;
+  timeoutMs?: number;
 }
 
 export interface LoaderMetrics {
@@ -102,12 +103,12 @@ export abstract class BaseSmartLoader<T> {
       if (apiResult) {
         this.metrics.apiSuccesses++;
         const result = this.createResult(apiResult, 'api', env, startTime);
-        
+
         // Cache the result
         if (defaultConfig.enableCache) {
           await this.cacheResult(env, result, defaultConfig);
         }
-        
+
         return result;
       }
 
@@ -115,19 +116,19 @@ export abstract class BaseSmartLoader<T> {
       this.metrics.apiFallbacks++;
       const filesystemResult = await this.loadFromFilesystem(env);
       this.metrics.filesystemFallbacks++;
-      
+
       const result = this.createResult(filesystemResult, 'filesystem', env, startTime);
-      
+
       // Cache filesystem result
       if (defaultConfig.enableCache) {
         await this.cacheResult(env, result, defaultConfig);
       }
-      
+
       return result;
 
     } catch (error) {
       this.metrics.errors++;
-      
+
       // Try to return stale cache data as last resort
       if (defaultConfig.fallbackToCache) {
         const staleResult = await this.tryLoadStaleFromCache(env);
@@ -136,7 +137,7 @@ export abstract class BaseSmartLoader<T> {
           return staleResult;
         }
       }
-      
+
       throw new Error(`Failed to load ${this.resourceName}: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       const loadTime = Date.now() - startTime;
@@ -183,7 +184,7 @@ export abstract class BaseSmartLoader<T> {
 
   // Protected helper methods
   protected async tryLoadFromCache(
-    env: AppEnv, 
+    env: AppEnv,
     config: SmartLoadConfig
   ): Promise<SmartLoadResult<T> | null> {
     // Note: PerformanceCacheManager expects a loader function in get()
@@ -194,14 +195,14 @@ export abstract class BaseSmartLoader<T> {
 
   protected async tryLoadStaleFromCache(env: AppEnv): Promise<SmartLoadResult<T> | null> {
     const cacheKey = createCacheKey(this.resourceName, env);
-    
+
     try {
       // Try to get stale data by using a very high TTL
       const staleData = await globalCache.get(cacheKey, null as any, {
         ttl: Number.MAX_SAFE_INTEGER, // Effectively no TTL check
         enableCompression: false
       });
-      
+
       if (staleData) {
         return {
           data: staleData as T,
@@ -214,13 +215,13 @@ export abstract class BaseSmartLoader<T> {
     } catch (error) {
       console.warn(`Stale cache read error for ${this.resourceName}:`, error);
     }
-    
+
     return null;
   }
 
   protected async cacheResult(
-    env: AppEnv, 
-    result: SmartLoadResult<T>, 
+    env: AppEnv,
+    result: SmartLoadResult<T>,
     config: SmartLoadConfig
   ): Promise<void> {
     // Note: The PerformanceCacheManager doesn't expose a public set method
@@ -230,9 +231,9 @@ export abstract class BaseSmartLoader<T> {
   }
 
   protected createResult(
-    data: T, 
-    source: 'api' | 'filesystem' | 'cache', 
-    env: AppEnv, 
+    data: T,
+    source: 'api' | 'filesystem' | 'cache',
+    env: AppEnv,
     startTime: number,
     retryCount = 0
   ): SmartLoadResult<T> {
@@ -248,8 +249,8 @@ export abstract class BaseSmartLoader<T> {
   }
 
   protected updateMetrics(loadTime: number): void {
-    this.metrics.averageLoadTime = 
-      (this.metrics.averageLoadTime * (this.metrics.totalRequests - 1) + loadTime) / 
+    this.metrics.averageLoadTime =
+      (this.metrics.averageLoadTime * (this.metrics.totalRequests - 1) + loadTime) /
       this.metrics.totalRequests;
     this.metrics.lastUpdated = new Date().toISOString();
   }
@@ -263,12 +264,12 @@ export abstract class BaseSmartLoader<T> {
   }
 
   protected async fetchWithRetry(
-    url: string, 
+    url: string,
     config: SmartLoadConfig,
     init?: RequestInit
   ): Promise<Response> {
     // Delegate to fetchWithResilience for consistent retry/backoff/timeouts
     const { fetchWithResilience } = await import('../fetchWithResilience');
-    return fetchWithResilience(url, { ...init, headers: { 'accept': 'application/json', 'cache-control': 'no-store', ...(init?.headers || {}) } }, { tries: (config.maxRetries || 3) + 1, timeoutMs: 5000, baseBackoffMs: config.retryDelay || 1000 });
+    return fetchWithResilience(url, { ...init, headers: { 'accept': 'application/json', 'cache-control': 'no-store', ...(init?.headers || {}) } }, { tries: (config.maxRetries || 3) + 1, timeoutMs: config.timeoutMs || 5000, baseBackoffMs: config.retryDelay || 1000 });
   }
 }

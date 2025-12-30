@@ -1,12 +1,59 @@
-# Continuous Improvement Log
+# Continuity Ledger
 
-This file tracks significant architectural changes, refactors, and performance improvements to ensure context is preserved across sessions.
+Last updated: 2025-12-30T15:59:46Z
 
-- **2025-12-30**: Refactored `API Client` to use `AxiosApiClient` and `ToastNotificationService` for better abstraction and testing.
-- **2025-12-30**: Implemented comprehensive speed and loading optimizations:
-  - **Parallel Data Fetching**: Updated `app/page.tsx` to use `Promise.all` for fetching marketing and content data concurrently.
-  - **Reusable Skeletons**: Created a dedicated `components/skeletons` directory with atomic and molecular skeleton components (`Skeleton.tsx`, `HomeSkeletons.tsx`, `MenuSkeletons.tsx`) to replace inconsistent inline loading states.
-  - **Simplified Loading Logic**: Removed artificial delays and complex "progressive loading" overhead from `ClientHomeContent.tsx`, relying on native React Suspense for faster and smoother UX.
-  - **Menu Page Optimization**: Updated `app/menu/page.tsx` and `MenuHero.tsx` to use the new skeleton components.
-- **2025-12-30**: Fixed 27-second server-side timeout by disabling the unreachable Content API in `data/prod/config.json` (`cms.enabled: false`). This forces the use of local filesystem data, eliminating the `AbortError` and "Slow content API request" warnings.
-- **2025-12-30**: Fixed "Restaurant & Bar Opening Time struggling to load" in development environment. Identified recursive API call issue where `RestaurantSmartLoader` attempted to fetch from `localhost` within the same server instance. Disabled CMS in `data/dev/config.json` (`cms.enabled: false`) to force filesystem loading, ensuring instant resolution of opening hours data.
+## Goal (incl. success criteria)
+
+- Diagnose and resolve the Restaurant API AbortError/slow request observed in logs.
+- Success: root cause identified in code/config and mitigation proposed/implemented.
+
+## Constraints/Assumptions
+
+- Follow AGENTS SDLC phases; no coding before requirements and plan are reviewed.
+- All work tracked in a task folder `tasks/<slug>-YYYYMMDD-HHMM>/`.
+- Manual UI QA via Chrome DevTools MCP required for UI changes.
+- Network access is restricted in this environment.
+
+## Key decisions
+
+- Likely root cause is CMS API recursion/timeout due to `cmsOn` using `cms.enabled || featureFlags.cms` and prod config setting `featureFlags.cms: true` with endpoint pointing to the same `/api/restaurant` route.
+
+## State
+
+- Added self-endpoint guard to restaurant/menu/marketing/content loaders; pending verification.
+
+## Done
+
+- Read root `AGENTS.md` instructions (provided by user).
+- Located `app/api/restaurant/route.ts`, `src/lib/data/loaders/RestaurantSmartLoader.ts`, `src/lib/data/loaders/BaseSmartLoader.ts`, and config files.
+- Created `tasks/fix-restaurant-api-timeout-20251230-1551/` with SDLC artifacts.
+- Implemented self-endpoint guard in `RestaurantSmartLoader.tryLoadFromAPI`.
+- Added same guard to Menu/Marketing/Content smart loaders.
+
+## Now
+
+- Prepare verification steps and note any remaining checks.
+
+## Next
+
+- Verify `/api/restaurant` response and log warnings.
+
+## Open questions (UNCONFIRMED if needed)
+
+- Is this error from production, staging, or local environment? (UNCONFIRMED)
+- Should CMS be enabled in prod, and if so, should it point to a separate CMS host? (UNCONFIRMED)
+
+## Working set (files/ids/commands)
+
+- AGENTS.md
+- CONTINUITY.md
+- app/api/restaurant/route.ts
+- src/lib/data/loaders/RestaurantSmartLoader.ts
+- src/lib/data/loaders/BaseSmartLoader.ts
+- data/prod/config.json
+- tasks/fix-restaurant-api-timeout-20251230-1551/research.md
+- tasks/fix-restaurant-api-timeout-20251230-1551/plan.md
+- tasks/fix-restaurant-api-timeout-20251230-1551/todo.md
+- src/lib/data/loaders/MenuSmartLoader.ts
+- src/lib/data/loaders/MarketingSmartLoader.ts
+- src/lib/data/loaders/ContentSmartLoader.ts

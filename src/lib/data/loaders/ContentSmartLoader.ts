@@ -42,9 +42,18 @@ class ContentSmartLoaderClass extends BaseSmartLoader<Content> {
       const cfg = await getConfigData(env);
       const cmsOn = cfg.cms?.enabled || cfg.featureFlags?.["cms"];
       const endpoint = cfg.api?.contentEndpoint;
+      const baseUrl = cfg.api?.baseUrl;
 
       if (!cmsOn || !endpoint) {
         return null; // CMS not enabled or no endpoint configured
+      }
+
+      if (this.isSelfApiEndpoint(endpoint, baseUrl)) {
+        console.warn('Content API endpoint points to self; skipping CMS fetch to avoid recursion.', {
+          endpoint,
+          baseUrl
+        });
+        return null;
       }
 
       const response = await this.fetchWithRetry(endpoint, config);
@@ -58,6 +67,26 @@ class ContentSmartLoaderClass extends BaseSmartLoader<Content> {
 
   private getConfigPath(file: string): string {
     return path.join(process.cwd(), "config", file);
+  }
+
+  private isSelfApiEndpoint(endpoint: string, baseUrl?: string): boolean {
+    if (!baseUrl) {
+      return false;
+    }
+
+    try {
+      const endpointUrl = new URL(endpoint, baseUrl);
+      const baseUrlObj = new URL(baseUrl);
+
+      if (endpointUrl.origin !== baseUrlObj.origin) {
+        return false;
+      }
+
+      const endpointPath = endpointUrl.pathname.replace(/\/+$/, '');
+      return endpointPath === '/api/content';
+    } catch {
+      return false;
+    }
   }
 
   /**
