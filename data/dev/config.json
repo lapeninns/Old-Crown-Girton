@@ -1,7 +1,7 @@
 {
   "env": "dev",
   "featureFlags": {
-    "cms": true,
+    "cms": false,
     "posSync": false,
     "debug": true,
     "analytics": false,
@@ -14,8 +14,8 @@
     "restaurantEndpoint": "http://localhost:3000/api/restaurant",
     "contentEndpoint": "http://localhost:3000/api/content"
   },
-  "cms": { 
-    "enabled": true,
+  "cms": {
+    "enabled": false,
     "source": "filesystem",
     "fallback": "default"
   },
