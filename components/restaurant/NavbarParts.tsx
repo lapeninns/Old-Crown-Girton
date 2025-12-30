@@ -35,12 +35,12 @@ export function useNavContent(initialContent?: any): NavContentResult {
   const content = initialContent || fetchedContent;
 
   const navLinksRaw =
-    data?.links ||
-    content?.global?.navigation?.header?.links ||
-    [];
+    (data?.links ||
+      content?.global?.navigation?.header?.links ||
+      []) as any[];
 
   const sanitizedLinks = useMemo<SanitizedNavLink[]>(() => {
-    return navLinksRaw.reduce<SanitizedNavLink[]>((acc, link, index) => {
+    return navLinksRaw.reduce((acc: SanitizedNavLink[], link: any, index: number) => {
       if (!isValidHref(link.href)) {
         logHrefIssue('Invalid href detected in navbar link', link.href, 'Navbar.useNavContent');
         return acc;
@@ -58,7 +58,7 @@ export function useNavContent(initialContent?: any): NavContentResult {
         isSeasonal: false,
       });
       return acc;
-    }, []);
+    }, [] as SanitizedNavLink[]);
   }, [navLinksRaw]);
 
   const uiLabels = content?.global?.ui?.labels;

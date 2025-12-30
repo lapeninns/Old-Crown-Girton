@@ -28,7 +28,8 @@ function HomePageContent({
   pressFeature,
   schemaEntries,
   slideshow,
-  ariaLabels
+  ariaLabels,
+  content
 }: {
   quickLinks: any[];
   ctaSection: any;
