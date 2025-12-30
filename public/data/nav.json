@@ -1,11 +1,28 @@
 {
   "links": [
-    { "href": "/", "label": "Home" },
-    { "href": "/menu", "label": "Menu" },
-    { "href": "/about", "label": "About" },
-    { "href": "/events", "label": "Events" },
-    { "href": "/press", "label": "Press" },
-    { "href": "/christmas-menu", "label": "Christmas Menu" },
-    { "href": "/contact", "label": "Contact" }
+    {
+      "href": "/",
+      "label": "Home"
+    },
+    {
+      "href": "/menu",
+      "label": "Menu"
+    },
+    {
+      "href": "/about",
+      "label": "About"
+    },
+    {
+      "href": "/events",
+      "label": "Events"
+    },
+    {
+      "href": "/press",
+      "label": "Press"
+    },
+    {
+      "href": "/contact",
+      "label": "Contact"
+    }
   ]
 }

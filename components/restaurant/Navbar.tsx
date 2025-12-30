@@ -2,10 +2,8 @@
 
 import { useLayoutEffect, useRef, useState } from 'react';
 import { ContactCTA, NavLinks, NavbarLogo, useNavContent } from './NavbarParts';
-import SeasonalPromoBanner from './SeasonalPromoBanner';
 
 const MOBILE_NAV_ID = 'mobile-nav';
-const SEASONAL_BANNER_SELECTOR = '[data-seasonal-banner]';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,11 +29,7 @@ export default function Navbar() {
 
     const updateOffsets = () => {
       const navRect = element.getBoundingClientRect();
-      const bannerEl = element.querySelector(SEASONAL_BANNER_SELECTOR) as HTMLElement | null;
-      const bannerHeight = bannerEl ? bannerEl.getBoundingClientRect().height : 0;
-      const baseHeight = Math.max(navRect.height - bannerHeight, 0);
-
-      document.documentElement.style.setProperty('--navbar-offset', `${baseHeight}px`);
+      document.documentElement.style.setProperty('--navbar-offset', `${navRect.height}px`);
       document.documentElement.style.setProperty('--navbar-stack-offset', `${navRect.height}px`);
     };
 
@@ -46,16 +40,12 @@ export default function Navbar() {
     const resizeObserver =
       typeof ResizeObserver !== 'undefined'
         ? new ResizeObserver(() => {
-            rafUpdate();
-          })
+          rafUpdate();
+        })
         : null;
 
     if (resizeObserver) {
       resizeObserver.observe(element);
-      const bannerEl = element.querySelector(SEASONAL_BANNER_SELECTOR) as HTMLElement | null;
-      if (bannerEl) {
-        resizeObserver.observe(bannerEl);
-      }
     }
 
     window.addEventListener('resize', rafUpdate);
@@ -76,7 +66,6 @@ export default function Navbar() {
       aria-label={navLabel}
       className="fixed inset-x-0 top-0 z-50 border-b bg-white shadow-sm"
     >
-      <SeasonalPromoBanner />
       <div className="mx-auto w-full max-w-7xl px-4 py-2 md:px-6">
         <div className="flex items-center justify-between gap-3">
           <NavbarLogo altText={logoAlt} />
@@ -144,9 +133,8 @@ export default function Navbar() {
 
       <div
         id={MOBILE_NAV_ID}
-        className={`md:hidden border-t border-base-200 bg-white ${
-          isMenuOpen ? 'block' : 'hidden'
-        }`}
+        className={`md:hidden border-t border-base-200 bg-white ${isMenuOpen ? 'block' : 'hidden'
+          }`}
       >
         <div className="mx-auto w-full max-w-7xl px-4 py-3 md:px-6">
           <NavLinks

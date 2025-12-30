@@ -28,22 +28,18 @@ const COMPONENT_REGISTRY: ComponentRegistry = {
   // Navigation components
   'header': () => import('../../components/Header'),
   'footer': () => import('../../components/Footer'),
-  
+
   // Content components  
-  'hero': () => import('../../components/Hero'),
   'menu-interactive': () => import('../../components/menu/MenuInteractive'),
-  'testimonials': () => import('../../components/Testimonials1'),
   'slideshow': () => import('../../components/slideshow/Slideshow'),
-  
+
   // Interactive components
   'modal': () => import('../../components/Modal'),
-  
+
   // Marketing components
   'cta': () => import('../../components/CTA'),
-  'pricing': () => import('../../components/Pricing'),
-  'features': () => import('../../components/FeaturesGrid'),
   'faq': () => import('../../components/FAQ'),
-  
+
   // Layout components
   'client-home': () => import('../../components/ClientHomeContent')
 };
@@ -52,7 +48,7 @@ const COMPONENT_REGISTRY: ComponentRegistry = {
  * Error Boundary for component loading failures
  */
 class ComponentErrorBoundary extends React.Component<
-  { 
+  {
     children: React.ReactNode;
     fallback?: React.ReactNode;
     onError?: (error: Error) => void;
@@ -78,7 +74,7 @@ class ComponentErrorBoundary extends React.Component<
       return this.props.fallback || (
         <div className="p-4 text-center text-gray-500 bg-gray-50 rounded">
           <p>Component temporarily unavailable</p>
-          <button 
+          <button
             onClick={() => this.setState({ hasError: false })}
             className="mt-2 text-sm underline text-blue-600 hover:text-blue-800"
           >
@@ -95,7 +91,7 @@ class ComponentErrorBoundary extends React.Component<
 /**
  * Simple loading placeholder component
  */
-function LoadingPlaceholder({ 
+function LoadingPlaceholder({
   className = '',
   height = '200px',
   variant = 'rectangular'
@@ -105,7 +101,7 @@ function LoadingPlaceholder({
   variant?: 'rectangular' | 'circular' | 'text';
 }) {
   const baseClasses = 'animate-pulse bg-gray-200';
-  
+
   const variantClasses = {
     rectangular: 'rounded',
     circular: 'rounded-full',
@@ -113,7 +109,7 @@ function LoadingPlaceholder({
   };
 
   return (
-    <div 
+    <div
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       style={{ height }}
       aria-label="Loading content..."
@@ -139,7 +135,7 @@ export function AdaptiveComponent({
   // Check if component should be loaded based on device tier and strategy
   const shouldLoad = useMemo(() => {
     if (defer) return false; // Deferred components load only when explicitly triggered
-    
+
     return shouldLoadComponent(componentId, capabilities.deviceTier, loadingPlan);
   }, [componentId, capabilities.deviceTier, loadingPlan, defer]);
 
@@ -156,7 +152,7 @@ export function AdaptiveComponent({
     return lazy(() => {
       // Add timeout for component loading
       const timeoutMs = strategy.timeoutMs;
-      
+
       const loadPromise = importFn();
       const timeoutPromise = new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error(`Component ${componentId} load timeout`)), timeoutMs)
@@ -164,7 +160,7 @@ export function AdaptiveComponent({
 
       return Promise.race([loadPromise, timeoutPromise]).catch(error => {
         console.error(`Failed to load component ${componentId}:`, error);
-        
+
         // Return a fallback component for graceful degradation
         return {
           default: () => (
@@ -180,7 +176,7 @@ export function AdaptiveComponent({
   // Preload component if requested and supported
   const handlePreload = useCallback(() => {
     if (preload && strategy.enablePreload) {
-      preloadContent(componentId).catch(error => 
+      preloadContent(componentId).catch(error =>
         console.warn(`Preload failed for ${componentId}:`, error)
       );
     }
@@ -200,7 +196,7 @@ export function AdaptiveComponent({
 
   // Generate appropriate placeholder
   const defaultPlaceholder = placeholder || (
-    <LoadingPlaceholder 
+    <LoadingPlaceholder
       className="w-full"
       height={getPlaceholderHeight(componentId)}
     />
@@ -211,8 +207,8 @@ export function AdaptiveComponent({
 
   // Wrap in error boundary if provided
   const ComponentWithErrorBoundary = ErrorBoundaryComponent ? (
-    <ErrorBoundaryComponent 
-      error={new Error('Component load failed')} 
+    <ErrorBoundaryComponent
+      error={new Error('Component load failed')}
       retry={() => window.location.reload()}
     >
       <Suspense fallback={defaultFallback}>
@@ -237,16 +233,12 @@ function getPlaceholderHeight(componentId: string): string {
   const heightMap: Record<string, string> = {
     'header': '80px',
     'navigation': '60px',
-    'hero': '400px',
     'menu': '600px',
-    'testimonials': '300px',
     'slideshow': '400px',
     'footer': '200px',
     'modal': '300px',
     'contact-form': '400px',
-    'cta': '150px',
-    'pricing': '500px',
-    'features': '400px'
+    'cta': '150px'
   };
 
   return heightMap[componentId] || '200px';
@@ -274,12 +266,12 @@ export function useDeferredComponent(componentId: string) {
 /**
  * Component for rendering critical components immediately
  */
-export function CriticalComponent({ 
-  componentId, 
-  ...props 
+export function CriticalComponent({
+  componentId,
+  ...props
 }: AdaptiveComponentProps & any) {
   return (
-    <AdaptiveComponent 
+    <AdaptiveComponent
       componentId={componentId}
       priority="high"
       defer={false}
@@ -292,12 +284,12 @@ export function CriticalComponent({
 /**
  * Component for rendering non-critical components with lazy loading
  */
-export function LazyComponent({ 
-  componentId, 
-  ...props 
+export function LazyComponent({
+  componentId,
+  ...props
 }: AdaptiveComponentProps & any) {
   return (
-    <AdaptiveComponent 
+    <AdaptiveComponent
       componentId={componentId}
       priority="normal"
       defer={false}
@@ -310,12 +302,12 @@ export function LazyComponent({
 /**
  * Component for rendering low-priority components that load in background
  */
-export function BackgroundComponent({ 
-  componentId, 
-  ...props 
+export function BackgroundComponent({
+  componentId,
+  ...props
 }: AdaptiveComponentProps & any) {
   return (
-    <AdaptiveComponent 
+    <AdaptiveComponent
       componentId={componentId}
       priority="low"
       defer={true}
@@ -335,15 +327,15 @@ export function withAdaptiveLoading<P extends object>(
 ) {
   return function AdaptiveWrappedComponent(props: P) {
     const { capabilities } = useProgressiveLoadingContext();
-    
+
     // For high-end devices, render directly without lazy loading overhead
     if (capabilities.deviceTier === 'premium' || capabilities.deviceTier === 'high-end') {
       return <WrappedComponent {...props} />;
     }
-    
+
     // For other devices, use adaptive loading
     return (
-      <AdaptiveComponent 
+      <AdaptiveComponent
         componentId={componentId}
         {...options}
         component={WrappedComponent}

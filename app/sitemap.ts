@@ -37,7 +37,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const corePages = [
     createEntry({ path: '/', priority: 1, changeFrequency: 'weekly' }),
     createEntry({ path: '/menu', priority: 0.9, changeFrequency: 'daily' }),
-    createEntry({ path: '/christmas-menu', priority: 0.88, changeFrequency: 'weekly' }),
     createEntry({ path: '/about', priority: 0.8, changeFrequency: 'monthly', lastModified: lastMonth }),
     createEntry({ path: '/contact', priority: 0.8, changeFrequency: 'monthly', lastModified: lastMonth }),
     createEntry({ path: '/book-a-table', priority: 0.78, changeFrequency: 'weekly', lastModified: lastWeek }),
@@ -48,12 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const eventPages = [
     createEntry({ path: '/events', priority: 0.82, changeFrequency: 'weekly', lastModified: lastWeek }),
-    createEntry({
-      path: '/events/curry-and-carols',
-      priority: 0.88,
-      changeFrequency: 'weekly',
-      lastModified: currentDate,
-    }),
   ];
 
   const blogPages = [

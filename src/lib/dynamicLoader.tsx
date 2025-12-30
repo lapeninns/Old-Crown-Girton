@@ -39,7 +39,7 @@ const LoadingSection = () => (
 // Enhanced dynamic with queue
 export function createLazyDynamic(importFn: () => Promise<any>, options: { loading?: React.ComponentType; ssr?: boolean; rootMargin?: string } = {}) {
   const { loading: LoadingComp = LoadingSection, ssr = true, rootMargin = '300px 0px' } = options;
-  return dynamic(importFn, { 
+  return dynamic(importFn, {
     loading: function LazyWrapper({ error, isLoading, pastDelay, retry, timedOut, ...props }: { error?: Error; isLoading?: boolean; pastDelay?: boolean; retry?: () => void; timedOut?: boolean; }) {
       const [Comp, setComp] = useState<React.ComponentType | null>(null);
       const ref = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ export function createLazyDynamic(importFn: () => Promise<any>, options: { loadi
 
       return Comp ? <Comp {...props} /> : <LoadingComp {...props} />;
     },
-    ssr 
+    ssr
   });
 }
 
@@ -92,11 +92,6 @@ export const DynamicTestimonials = createLazyDynamic(
   { loading: LoadingSection }
 );
 
-export const DynamicTestimonials11 = createLazyDynamic(
-  () => import('@/components/Testimonials11'),
-  { loading: LoadingSection }
-);
-
 export const DynamicFAQ = createLazyDynamic(
   () => import('@/components/FAQ'),
   { loading: LoadingSection }
@@ -105,17 +100,6 @@ export const DynamicFAQ = createLazyDynamic(
 // Analytics and tracking (client-side only)
 export const DynamicErrorBoundary = createLazyDynamic(
   () => import('@/components/ErrorBoundary'),
-  { ssr: false }
-);
-
-// Features components
-export const DynamicFeaturesGrid = createLazyDynamic(
-  () => import('@/components/FeaturesGrid'),
-  { loading: LoadingSection }
-);
-
-export const DynamicPricing = createLazyDynamic(
-  () => import('@/components/Pricing'),
   { loading: LoadingSection }
 );
 
@@ -125,7 +109,7 @@ export const DynamicPricing = createLazyDynamic(
 export const preloadCriticalComponents = () => {
   if (typeof window !== 'undefined' && LAZY_V2) {
     // Queue preloads to avoid herd
-    queue.add(() => import('@/components/slideshow/Slideshow').then(() => {}));
+    queue.add(() => import('@/components/slideshow/Slideshow').then(() => { }));
 
     // Preload modal on hover over CTA buttons
     const preloadModal = () => {
@@ -135,7 +119,7 @@ export const preloadCriticalComponents = () => {
     // Add event listeners for preloading
     document.addEventListener('mouseenter', (e) => {
       const target = e.target as Element;
-      
+
       if (target.closest('[data-modal-trigger]')) {
         preloadModal();
       }

@@ -43,10 +43,6 @@
             "label": "Press"
           },
           {
-            "href": "/christmas-menu",
-            "label": "Christmas Menu"
-          },
-          {
             "href": "/contact",
             "label": "Contact"
           }
@@ -68,10 +64,6 @@
               {
                 "href": "/events",
                 "label": "Events"
-              },
-              {
-                "href": "/christmas-menu",
-                "label": "Christmas Menu"
               },
               {
                 "href": "/contact",
@@ -643,51 +635,6 @@
         "sectionLabel": "Restaurant showcase"
       },
       "slides": [
-        {
-          "id": "slide-christmas-2025",
-          "image": {
-            "primary": "/images/slideshow/seasonal/christmas-slide.avif",
-            "fallback": "/images/slideshow/seasonal/christmas-slide.png",
-            "width": 1254,
-            "height": 716
-          },
-          "alt": "Festive Christmas table setting with decorations at The Old Crown Girton",
-          "eyebrow": "Festive Menu 2025",
-          "headline": "Celebrate Christmas at Old Crown Girton",
-          "copy": "Gather your guests for a four-course festive meal with mulled wine or another welcome drink included for every arrival.",
-          "badges": [
-            "Mulled Wine Included",
-            "Four Courses",
-            "GBP 44.99 per guest"
-          ],
-          "ctas": {
-            "menuUrl": "/christmas-menu",
-            "callTel": "tel:+441223 277217"
-          }
-        },
-        {
-          "id": "slide-curry-carols-2025",
-          "image": {
-            "primary": "/images/slideshow/seasonal/curry-carols-slide.avif",
-            "fallback": "/images/slideshow/seasonal/curry-carols-slide.png",
-            "width": 763,
-            "height": 436
-          },
-          "alt": "Festive Nepalese curry dishes served alongside Christmas carollers",
-          "eyebrow": "Curry & Carols 2025",
-          "headline": "Two Magical Nights of Curry & Carols",
-          "copy": "Join us on 16 & 17 December for a GBP 35 Nepalese banquet with live carols beneath our thatched roof — limited seats, joyful choruses.",
-          "badges": [
-            "16 & 17 December",
-            "GBP 35 per guest",
-            "Live Carol Singers"
-          ],
-          "ctas": {
-            "menuUrl": "/curry-and-carols-menu",
-            "callTel": "tel:+441223 277217",
-            "secondaryUrl": "/events/curry-and-carols"
-          }
-        },
         {
           "id": "slide-0",
           "image": {

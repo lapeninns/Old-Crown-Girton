@@ -52,7 +52,7 @@ export function useNavContent(): NavContentResult {
         key: createHrefKey(link.href, index),
         href: sanitizedHref,
         label: link.label,
-        isSeasonal: sanitizedHref === '/christmas-menu',
+        isSeasonal: false,
       });
       return acc;
     }, []);
