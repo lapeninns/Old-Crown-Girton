@@ -7,13 +7,12 @@ import MenuHero from './_components/MenuHero';
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import dynamic from 'next/dynamic';
 // Dynamic imports for Menu page sections - optimized for performance
+// Dynamic imports for Menu page sections - optimized for performance
+import { MenuInteractiveSkeleton } from '@/components/skeletons/MenuSkeletons';
+
 const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
 	ssr: true,
-	loading: () => (
-		<div className="min-h-96 bg-white flex items-center justify-center">
-			<div className="text-lg text-neutral-500">Loading menu...</div>
-		</div>
-	)
+	loading: () => <MenuInteractiveSkeleton />
 });
 // Dynamic imports for Menu page sections - optimized for performance
 

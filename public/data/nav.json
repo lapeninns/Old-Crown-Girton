@@ -17,6 +17,10 @@
       "label": "Events"
     },
     {
+      "href": "/book-a-table",
+      "label": "Book a Table"
+    },
+    {
       "href": "/press",
       "label": "Press"
     },

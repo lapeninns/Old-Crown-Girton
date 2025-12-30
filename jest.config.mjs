@@ -24,18 +24,20 @@ const customJestConfig = {
         '**/tests/data/**/*.(test|spec).[jt]s?(x)',
         '**/tests/validation/**/*.(test|spec).[jt]s?(x)',
         '**/tests/compatibility/**/*.(test|spec).[jt]s?(x)',
+        // Utils tests
+        '**/tests/utils/**/*.(test|spec).[jt]s?(x)',
         // Example tests
         '**/test/examples/**/*.(server|api).(test|spec).[jt]s?(x)',
       ],
       setupFiles: ['<rootDir>/test/setupServerEnv.ts'],
       setupFilesAfterEnv: ['<rootDir>/test/setupServerTests.ts'],
       transform: {
-        '^.+\\.(ts|tsx)$': ['ts-jest', { 
-          tsconfig: { 
+        '^.+\\.(ts|tsx)$': ['ts-jest', {
+          tsconfig: {
             jsx: 'react-jsx',
             module: 'esnext',
             target: 'es2020'
-          } 
+          }
         }],
       },
       moduleNameMapper: {
@@ -45,7 +47,7 @@ const customJestConfig = {
         '/node_modules/(?!(nanoid|@supabase|undici)/)/',
       ],
     },
-    
+
     // Client environment for React components and browser code
     {
       displayName: 'client',
@@ -65,12 +67,12 @@ const customJestConfig = {
       setupFiles: ['<rootDir>/test/setupClientEnv.ts'],
       setupFilesAfterEnv: ['<rootDir>/test/setupClientTests.ts'],
       transform: {
-        '^.+\\.(ts|tsx)$': ['ts-jest', { 
-          tsconfig: { 
+        '^.+\\.(ts|tsx)$': ['ts-jest', {
+          tsconfig: {
             jsx: 'react-jsx',
             module: 'esnext',
             target: 'es2020'
-          } 
+          }
         }],
       },
       moduleNameMapper: {
@@ -84,7 +86,7 @@ const customJestConfig = {
       ],
     },
   ],
-  
+
   // Coverage settings
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
@@ -96,7 +98,7 @@ const customJestConfig = {
     '!**/test/**',
     '!**/tests/**',
   ],
-  
+
   coverageThreshold: {
     global: {
       branches: 85,
