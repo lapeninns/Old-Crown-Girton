@@ -7,7 +7,7 @@ import CallToActionSection from '../../../../components/restaurant/sections/Call
 // Mock framer-motion to avoid animation issues in tests
 jest.mock('framer-motion', () => {
   const React = require('react');
-  
+
   const createMotionComponent = (tag: string) => {
     return ({ children, ...props }: any) => {
       // Filter out motion-specific props to avoid React warnings
@@ -25,11 +25,11 @@ jest.mock('framer-motion', () => {
         onAnimationStart,
         ...domProps
       } = props;
-      
+
       return React.createElement(tag, domProps, children);
     };
   };
-  
+
   return {
     motion: {
       div: createMotionComponent('div'),
@@ -68,7 +68,7 @@ describe('CallToActionSection', () => {
       },
       {
         text: 'Book Online',
-        href: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true',
+        href: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book',
         variant: 'crimson' as const,
         external: true
       }
@@ -99,7 +99,7 @@ describe('CallToActionSection', () => {
 
     expect(menuLink).toHaveAttribute('href', '/menu');
     expect(eventsLink).toHaveAttribute('href', '/events');
-    expect(bookingLink).toHaveAttribute('href', 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true');
+    expect(bookingLink).toHaveAttribute('href', 'https://www.nabatable.com/restaurants/the-old-crown-girton/book');
   });
 
   it('handles external links with proper security attributes', () => {
@@ -119,10 +119,10 @@ describe('CallToActionSection', () => {
 
     // Check accent variant
     expect(menuLink).toHaveClass('bg-accent-600', 'hover:bg-accent-700', 'focus:ring-accent-500');
-    
+
     // Check brand variant
     expect(eventsLink).toHaveClass('bg-brand-700', 'hover:bg-brand-800', 'focus:ring-brand-500');
-    
+
     // Check crimson variant
     expect(bookingLink).toHaveClass('bg-crimson-700', 'hover:bg-crimson-800', 'focus:ring-crimson-500');
   });
@@ -165,7 +165,7 @@ describe('CallToActionSection', () => {
 
   it('renders semantic HTML structure', () => {
     const { container } = render(<CallToActionSection {...mockCTAData} />);
-    
+
     const section = container.querySelector('section');
     const heading = container.querySelector('h2');
 
@@ -185,10 +185,10 @@ describe('CallToActionSection', () => {
 
   it('returns null when no headline provided', () => {
     const { container } = render(
-      <CallToActionSection 
-        headline="" 
-        description="Test description" 
-        buttons={mockCTAData.buttons} 
+      <CallToActionSection
+        headline=""
+        description="Test description"
+        buttons={mockCTAData.buttons}
       />
     );
     expect(container.firstChild).toBeNull();
@@ -196,10 +196,10 @@ describe('CallToActionSection', () => {
 
   it('returns null when no buttons provided', () => {
     const { container } = render(
-      <CallToActionSection 
-        headline="Test headline" 
-        description="Test description" 
-        buttons={[]} 
+      <CallToActionSection
+        headline="Test headline"
+        description="Test description"
+        buttons={[]}
       />
     );
     expect(container.firstChild).toBeNull();
@@ -209,14 +209,14 @@ describe('CallToActionSection', () => {
     const { container } = render(
       <CallToActionSection {...mockCTAData} className="custom-class" />
     );
-    
+
     const section = container.querySelector('section');
     expect(section).toHaveClass('custom-class');
   });
 
   it('handles responsive button layout correctly', () => {
     const { container } = render(<CallToActionSection {...mockCTAData} />);
-    
+
     const buttonContainer = container.querySelector('.flex');
     expect(buttonContainer).toHaveClass('flex-wrap', 'gap-4', 'justify-center');
   });
@@ -224,10 +224,10 @@ describe('CallToActionSection', () => {
   it('uses button key for React key when available', () => {
     // This test verifies that the key prop is handled correctly
     // We can't directly test React keys, but we ensure no console warnings
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+
     render(<CallToActionSection {...mockCTAData} />);
-    
+
     expect(consoleSpy).not.toHaveBeenCalled();
     consoleSpy.mockRestore();
   });

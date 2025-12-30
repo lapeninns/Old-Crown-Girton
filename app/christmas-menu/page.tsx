@@ -432,7 +432,7 @@ export default async function ChristmasMenuPage() {
                   Download Christmas Menu
                 </MotionLinkButton>
                 <MotionLinkButton
-                  href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                  href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white text-brand-800 font-semibold shadow-lg hover:bg-brand-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-700"
                   ariaLabel="Book your table online"
                 >
@@ -609,23 +609,23 @@ export default async function ChristmasMenuPage() {
                     &pound;{CHEF_SELECTIONS.price.value}
                   </p>
                   <p className="mt-4 text-brand-700 leading-relaxed">
-                  {CHEF_SELECTIONS.drink.offer}
-                </p>
-                {CHEF_SELECTIONS.drink.included && (
-                  <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-500 px-3 py-1 text-sm font-semibold text-neutral-900">
-                    <span aria-hidden="true" role="img">🍷</span>
-                    Mulled wine or another drink of their choice comes with every menu
+                    {CHEF_SELECTIONS.drink.offer}
                   </p>
-                )}
-                <div className="mt-6 space-y-3">
-                  <MotionLinkButton
-                    href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-700 px-5 py-3 text-white hover:bg-brand-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-50"
-                    ariaLabel="Book the Chef&rsquo;s Christmas set menu online"
-                  >
-                    <span aria-hidden="true" role="img">🥂</span>
-                    Book the festive set menu
-                  </MotionLinkButton>
+                  {CHEF_SELECTIONS.drink.included && (
+                    <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-500 px-3 py-1 text-sm font-semibold text-neutral-900">
+                      <span aria-hidden="true" role="img">🍷</span>
+                      Mulled wine or another drink of their choice comes with every menu
+                    </p>
+                  )}
+                  <div className="mt-6 space-y-3">
+                    <MotionLinkButton
+                      href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-700 px-5 py-3 text-white hover:bg-brand-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-300 focus-visible:ring-offset-brand-50"
+                      ariaLabel="Book the Chef&rsquo;s Christmas set menu online"
+                    >
+                      <span aria-hidden="true" role="img">🥂</span>
+                      Book the festive set menu
+                    </MotionLinkButton>
                     <Link
                       href={`tel:${telHref}`}
                       className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-brand-200 px-5 py-3 text-brand-700 hover:bg-brand-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300"

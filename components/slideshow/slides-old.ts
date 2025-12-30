@@ -9,7 +9,7 @@ export const slides = [
     headline: 'Authentic Nepalese Dining in a Characterful Setting',
     copy: 'Experience exceptional Nepalese cuisine in our cosy dining room opening onto the terrace — perfect for family meals and celebrations.',
     badges: ['Historic Interior', 'Nepalese Cuisine', 'Family Dining'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-2',
@@ -19,7 +19,7 @@ export const slides = [
     headline: 'England\'s Largest Thatched Pub — A Cambridge Landmark',
     copy: 'Discover our remarkable thatched building and sunny deck — a unique setting minutes from Cambridge and Girton College.',
     badges: ['Largest Thatched Pub', 'Historic Landmark', 'Sunny Deck'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-3',
@@ -29,7 +29,7 @@ export const slides = [
     headline: 'Al Fresco Dining on Our Terrace',
     copy: 'Relax with weekend lunches and summer drinks on our spacious, umbrella‑shaded terrace.',
     badges: ['Terrace', 'Patio Seating', 'Summer Dining'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-4',
@@ -39,7 +39,7 @@ export const slides = [
     headline: 'Live Sports, Craft Beer & Community Spirit',
     copy: 'Watch the big games in comfort with friends — a welcoming atmosphere for locals and visitors alike.',
     badges: ['Live Sports', 'Craft Beer', 'Community Hub'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-5',
@@ -49,7 +49,7 @@ export const slides = [
     headline: 'Relaxed Bar Lounge for Every Occasion',
     copy: 'Grab a pint, catch up with friends, and settle into our comfortable lounge seating.',
     badges: ['Relaxed Lounge', 'Great Atmosphere'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-6',
@@ -59,7 +59,7 @@ export const slides = [
     headline: 'Sophisticated Atmosphere for Special Occasions',
     copy: 'Traditional pub charm with contemporary comfort — ideal for date nights and celebrations.',
     badges: ['Elegant Interior', 'Special Occasions'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-7',
@@ -69,7 +69,7 @@ export const slides = [
     headline: 'Dedicated Children\'s Play Area for Family Fun',
     copy: 'Let the kids play safely while you relax. Our secure play area keeps families smiling.',
     badges: ['Family Friendly', 'Safe Play'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-8',
@@ -79,7 +79,7 @@ export const slides = [
     headline: 'Room to Unwind in Our Beer Garden',
     copy: 'Plenty of space for groups, families, and lazy weekend afternoons.',
     badges: ['Spacious Garden', 'Picnic Tables'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-9',
@@ -89,7 +89,7 @@ export const slides = [
     headline: 'Green Space for Relaxed Gatherings',
     copy: 'Enjoy peaceful corners and greenery just minutes from Cambridge.',
     badges: ['Green Space', 'Relaxed Vibes'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   },
   {
     id: 'slide-10',
@@ -99,7 +99,7 @@ export const slides = [
     headline: 'No Parking Worries — Plenty of Space',
     copy: 'Unlike city centre, enjoy stress‑free dining with our large, free car park.',
     badges: ['Free Parking', 'Easy Access'],
-    ctas: { bookUrl: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true', callTel: 'tel:+441223 277217' }
+    ctas: { bookUrl: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book', callTel: 'tel:+441223 277217' }
   }
 ];
 

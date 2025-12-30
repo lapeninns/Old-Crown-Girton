@@ -13,14 +13,14 @@ import { MarketingDataSchema } from '@/lib/schemas';
 export default function Hero() {
   const contact = getContactInfo();
   const { hours, isLoading: hoursLoading } = useOpeningHours();
-  
+
   // Generate hours snippet from actual restaurant data
   const hoursSnippet = (() => {
     if (hoursLoading) return 'Loading hours...';
     if (!hours) return 'Open – see full hours';
-    
+
     const { kitchenSummary, barSummary } = hours.summary;
-    
+
     if (kitchenSummary && barSummary) {
       return `Kitchen: ${kitchenSummary} | Bar: ${barSummary}`;
     } else if (kitchenSummary) {
@@ -28,25 +28,25 @@ export default function Hero() {
     } else if (barSummary) {
       return `Bar: ${barSummary}`;
     }
-    
+
     return 'Open – see full hours';
   })();
-  
+
   const { data: marketing } = useParsedData('marketing.json', MarketingDataSchema);
   const { data: content } = useContent();
-  
+
   // Get content from content management system with fallbacks
   const heroContent = content?.pages?.home?.hero;
   const labelBookOnline = marketing?.buttons?.bookOnline || content?.global?.ui?.buttons?.bookOnline || 'Book Online';
   const labelCallForTakeaway = marketing?.buttons?.callForTakeaway || 'Call for Takeaway';
-  
+
   // Hero content with fallbacks
   const heroTitle = heroContent?.title || 'Girton\'s Historic Thatched Pub with Himalayan Flavour';
   const heroDescription = heroContent?.description || 'A welcoming village hub just outside Cambridge – authentic Nepalese dishes alongside trusted British pub comfort in a distinctive thatched setting.';
   const primaryCTA = heroContent?.cta?.primary || labelBookOnline;
   const secondaryCTA = heroContent?.cta?.secondary || 'View Menu';
   const altText = content?.global?.accessibility?.altTexts?.heroBanner || 'Old Crown Girton Building';
-  
+
   // Feature tags from content or fallback
   const features = content?.pages?.home?.sections?.features?.items || [
     { title: 'Authentic Nepalese + Pub Classics' },
@@ -55,9 +55,9 @@ export default function Hero() {
     { title: 'Garden • Live Sports' },
     { title: 'Community Events' }
   ];
-  
+
   return (
-  <section className="relative h-[60vh] sm:h-[65vh] md:h-screen flex items-center justify-center">
+    <section className="relative h-[60vh] sm:h-[65vh] md:h-screen flex items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -75,7 +75,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div variants={mv.fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10% 0%' }}>
-            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-neutral-50 mb-6 leading-snug md:leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold text-neutral-50 mb-6 leading-snug md:leading-tight">
             <span className="block text-accent-400">Girton’s Historic Thatched Pub</span>
             <span className="block text-neutral-50 text-xl sm:text-2xl md:text-3xl lg:text-4xl">with Himalayan Flavour</span>
           </h1>
@@ -94,16 +94,16 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <motion.a
-                href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
-                target="_blank"
-                rel="noopener noreferrer"
+            <motion.a
+              href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={mv.button.hover}
               whileTap={mv.button.tap}
-                className="bg-brand-600 hover:bg-accent-500 text-neutral-50 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
-              >
-                {primaryCTA}
-              </motion.a>
+              className="bg-brand-600 hover:bg-accent-500 text-neutral-50 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-base sm:text-lg shadow-lg transition-all duration-200 w-full sm:w-auto"
+            >
+              {primaryCTA}
+            </motion.a>
             <motion.a
               href={`tel:${contact?.phone.primary || '01223 277217'}`}
               whileHover={mv.button.hover}

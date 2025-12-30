@@ -36,20 +36,20 @@ export const metadata: Metadata = {
 export default async function MenuPage({ searchParams }: { searchParams?: { category?: string } }) {
 	// Detect priority category from search params or URL hash (for server-side optimization)
 	const priorityCategory = searchParams?.category;
-	
+
 	// Preload all data concurrently with priority category optimization
 	const [m, content, menu] = await Promise.all([
 		getMarketingSmart(),
 		getContentSmart(),
 		getMenuSmart(priorityCategory) // Pass priority category for optimized loading
 	]);
-	
+
 	const menuContent = content.pages.menu;
-	
+
 	const labels = m.buttons || {};
 	const labelBookOnline = labels.bookOnline || menuContent.hero.cta.book || content.global.ui.buttons.bookOnline || 'Book Online';
 	const labelOrderTakeaway = labels.orderTakeaway || menuContent.hero.cta.order || 'Order Takeaway';
-	
+
 	// Optimize menu data structure for faster client-side rendering
 	const optimizedMenu = {
 		...menu,
@@ -65,7 +65,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 			} : null
 		}))
 	};
-	
+
 	// Enhanced structured data with optimized menu
 	const structuredData = {
 		'@context': 'https://schema.org',
@@ -96,10 +96,10 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 				description: item.description || undefined,
 				offers: item.price
 					? {
-							'@type': 'Offer',
-							price: String(item.price.amount),
-							priceCurrency: item.price.currency || 'GBP',
-						}
+						'@type': 'Offer',
+						price: String(item.price.amount),
+						priceCurrency: item.price.currency || 'GBP',
+					}
 					: undefined,
 				suitableForDiet: [
 					...(item.dietary?.vegetarian ? ['https://schema.org/VegetarianDiet'] : []),
@@ -121,17 +121,18 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 	}
 
 	// Find starters section and set as default
-	const startersSection = optimizedMenu?.sections?.find((section: any) => 
-		section.name?.toLowerCase().includes('starter') || 
+	const startersSection = optimizedMenu?.sections?.find((section: any) =>
+		section.name?.toLowerCase().includes('starter') ||
 		section.name?.toLowerCase().includes('appetizer') ||
 		section.id?.toLowerCase().includes('starter')
 	);
-	
+
 	const defaultSelectedStarters = startersSection ? normalizeId(startersSection.id || startersSection.name) : null;
 
 	return (
 		<>
-			<style dangerouslySetInnerHTML={{ __html: `
+			<style dangerouslySetInnerHTML={{
+				__html: `
 			  @media (prefers-reduced-motion: reduce) {
 			    *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 			    html:focus-within{scroll-behavior:auto!important}
@@ -148,8 +149,8 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 				<main className="space-y-16">
 					<FadeIn>
 						<section aria-labelledby="interactive-menu-heading">
-							<MenuInteractive 
-								sections={optimizedMenu?.sections || []} 
+							<MenuInteractive
+								sections={optimizedMenu?.sections || []}
 								defaultSelected={defaultSelectedStarters}
 								preloadedData={true}
 							/>
@@ -169,7 +170,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 									<p className="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
 										Find comprehensive allergen information, dietary requirements, and food safety details to help you make informed choices.
 									</p>
-									<Link 
+									<Link
 										href="/menu-information"
 										className="inline-flex items-center justify-center px-8 py-4 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
 									>
@@ -185,7 +186,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 									</div>
 								</div>
 							</div>
-							
+
 							{/* Main CTA Section - seamlessly integrated */}
 							<div className="pt-8 pb-16">
 								<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -194,14 +195,14 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 											<h3 className="text-3xl md:text-4xl font-display font-bold mb-6 text-white drop-shadow-lg">
 												🍽️ Experience Our Interactive Menu
 											</h3>
-											
+
 											<p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
 												Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway orders.
 											</p>
-											
+
 											<div className="flex flex-wrap gap-4 justify-center mb-6">
 												<Link
-													href="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+													href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
 													target="_blank"
 													rel="noopener noreferrer"
 													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
@@ -209,22 +210,22 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 													{labelBookOnline}
 													<span className="ml-2 text-sm" aria-hidden="true">↗</span>
 												</Link>
-											<Link
-												href="tel:01223 277217"
-												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
-											>
-												{labelOrderTakeaway}
-											</Link>
-											<Link
-												href="/takeaway-menu"
-												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-50 hover:bg-brand-100 text-brand-800 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 focus-visible:ring-offset-2 inline-block"
-											>
-												Takeaway Menu
-											</Link>
-											<Link
-												href="/about"
-												className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-700 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
-											>
+												<Link
+													href="tel:01223 277217"
+													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+												>
+													{labelOrderTakeaway}
+												</Link>
+												<Link
+													href="/takeaway-menu"
+													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-50 hover:bg-brand-100 text-brand-800 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 focus-visible:ring-offset-2 inline-block"
+												>
+													Takeaway Menu
+												</Link>
+												<Link
+													href="/about"
+													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-700 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+												>
 													Learn Our Story
 												</Link>
 											</div>

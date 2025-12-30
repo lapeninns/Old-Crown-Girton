@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getSEOTags } from '@/libs/seo';
 
-const BOOKING_URL = 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true';
+const BOOKING_URL = 'https://www.nabatable.com/restaurants/the-old-crown-girton/book';
 
 export const metadata = getSEOTags({
   title: 'Book a Table | Old Crown Girton',

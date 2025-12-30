@@ -33,7 +33,7 @@ describe('MenuCTASection', () => {
   const mockButtons = [
     {
       text: 'Book Online',
-      href: 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true',
+      href: 'https://www.nabatable.com/restaurants/the-old-crown-girton/book',
       variant: 'primary' as const,
       external: true
     },
@@ -58,7 +58,7 @@ describe('MenuCTASection', () => {
 
   it('renders title and description with default values', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     expect(screen.getByText('Ready to Try Our Unique Menu?')).toBeInTheDocument();
     expect(screen.getByText(/Book a table or order takeaway to experience/)).toBeInTheDocument();
   });
@@ -71,14 +71,14 @@ describe('MenuCTASection', () => {
         description="Custom description text"
       />
     );
-    
+
     expect(screen.getByText('Custom Title')).toBeInTheDocument();
     expect(screen.getByText('Custom description text')).toBeInTheDocument();
   });
 
   it('renders all buttons correctly', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     expect(screen.getByRole('link', { name: /book online/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /order takeaway/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /learn our story/i })).toBeInTheDocument();
@@ -86,54 +86,54 @@ describe('MenuCTASection', () => {
 
   it('applies correct button styling variants', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     const bookButton = screen.getByRole('link', { name: /book online/i });
     const orderButton = screen.getByRole('link', { name: /order takeaway/i });
     const storyButton = screen.getByRole('link', { name: /learn our story/i });
-    
+
     // Primary variant (accent colors)
     expect(bookButton).toHaveClass('bg-accent', 'hover:bg-accent-700', 'text-white');
-    
+
     // Secondary variant (crimson colors)
     expect(orderButton).toHaveClass('bg-crimson-600', 'hover:bg-crimson-800', 'text-white');
-    
+
     // Tertiary variant (white background)
     expect(storyButton).toHaveClass('bg-white', 'hover:bg-neutral-100', 'text-stout-700');
   });
 
   it('handles external links correctly', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     const externalLink = screen.getByRole('link', { name: /book online/i });
-    expect(externalLink).toHaveAttribute('href', 'https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true');
+    expect(externalLink).toHaveAttribute('href', 'https://www.nabatable.com/restaurants/the-old-crown-girton/book');
     expect(externalLink).toHaveAttribute('target', '_blank');
     expect(externalLink).toHaveAttribute('rel', 'noopener noreferrer');
-    
+
     // Should have external indicator
     expect(externalLink).toHaveTextContent('↗');
   });
 
   it('handles internal links correctly', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     const internalLink = screen.getByRole('link', { name: /learn our story/i });
     expect(internalLink).toHaveAttribute('href', '/about');
     expect(internalLink).not.toHaveAttribute('target');
     expect(internalLink).not.toHaveAttribute('rel');
-    
+
     // Should not have external indicator
     expect(internalLink).not.toHaveTextContent('↗');
   });
 
   it('renders allergen notice when provided', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     expect(screen.getByText('Please inform us of any allergies or dietary requirements when ordering.')).toBeInTheDocument();
   });
 
   it('does not render allergen notice when not provided', () => {
     render(<MenuCTASection buttons={mockButtons} />);
-    
+
     expect(screen.queryByText(/allergies or dietary requirements/)).not.toBeInTheDocument();
   });
 
@@ -165,7 +165,7 @@ describe('MenuCTASection', () => {
     ];
 
     render(<MenuCTASection buttons={buttonsWithMissingVariant} />);
-    
+
     const button = screen.getByRole('link', { name: /default button/i });
     // Should default to primary styling
     expect(button).toHaveClass('bg-accent', 'hover:bg-accent-700', 'text-white');
@@ -173,11 +173,11 @@ describe('MenuCTASection', () => {
 
   it('has proper semantic HTML structure', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     // Should be wrapped in a section
     const section = document.querySelector('section');
     expect(section).toBeInTheDocument();
-    
+
     // Should have proper heading
     const heading = screen.getByRole('heading', { level: 2 });
     expect(heading).toHaveTextContent('Ready to Try Our Unique Menu?');
@@ -185,7 +185,7 @@ describe('MenuCTASection', () => {
 
   it('maintains button order', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     const links = screen.getAllByRole('link');
     expect(links[0]).toHaveTextContent('Book Online');
     expect(links[1]).toHaveTextContent('Order Takeaway: 01223277217');
@@ -194,9 +194,9 @@ describe('MenuCTASection', () => {
 
   it('has proper accessibility attributes', () => {
     render(<MenuCTASection {...defaultProps} />);
-    
+
     const links = screen.getAllByRole('link');
-    
+
     // All links should have focus styles
     links.forEach(link => {
       expect(link).toHaveClass('focus:outline-none', 'focus-visible:ring-4');

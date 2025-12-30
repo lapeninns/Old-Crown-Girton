@@ -27,16 +27,17 @@ const AboutCTASection = dynamic(() => import("@/components/restaurant/sections/A
 export default async function AboutPage() {
   const m = await getMarketingSmart();
   const content = await getContentSmart();
-  
+
   const labels = m.buttons || {};
   const labelBookOnline = labels.bookOnline || content.global.ui.buttons.bookOnline || 'Book Online';
-  
+
   // About page content
   const aboutContent = content.pages.about;
   const contact = getContactInfo();
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @media (prefers-reduced-motion: reduce) {
           *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
           html:focus-within{scroll-behavior:auto!important}
@@ -48,7 +49,7 @@ export default async function AboutPage() {
           { name: 'Home', url: 'https://oldcrowngirton.com/' },
           { name: 'About', url: 'https://oldcrowngirton.com/about' }
         ]} page="about" />
-        
+
         {/* Hero Section with motion animation */}
         <section className="relative bg-gradient-to-br from-brand-600 to-brand-800 text-white py-10 md:py-16" aria-labelledby="about-hero-heading">
           <div className="absolute inset-0 bg-black/10"></div>
@@ -69,7 +70,7 @@ export default async function AboutPage() {
           <FadeIn>
             <section className="bg-white py-16" aria-labelledby="story-timeline-heading">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <StoryTimelineSection 
+                <StoryTimelineSection
                   title={aboutContent.story.title}
                   introduction={aboutContent.story.introduction}
                   timeline={aboutContent.story.timeline}
@@ -81,11 +82,11 @@ export default async function AboutPage() {
           <FadeIn>
             <section className="bg-brand-100 py-16" aria-labelledby="about-cta-heading">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <AboutCTASection 
+                <AboutCTASection
                   title={aboutContent.cta.title}
                   description={aboutContent.cta.description}
                   buttonText={aboutContent.cta.button}
-                  buttonHref="https://togo.uk.com/makebookingv2.aspx?venueid=2640&nv=true"
+                  buttonHref="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                   buttonLabel={labelBookOnline}
                   contact={{
                     address: aboutContent.cta.contact.address
