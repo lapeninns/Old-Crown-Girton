@@ -14,8 +14,8 @@
     "restaurantEndpoint": "https://oldcrown.co.uk/api/restaurant",
     "contentEndpoint": "https://oldcrown.co.uk/api/content"
   },
-  "cms": { 
-    "enabled": true,
+  "cms": {
+    "enabled": false,
     "source": "api",
     "fallback": "filesystem"
   },

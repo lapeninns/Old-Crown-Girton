@@ -1,54 +1,11 @@
-# Continuity Ledger
+# Continuous Improvement Log
 
-Last updated: 2025-12-30T14:43:13Z
+This file tracks significant architectural changes, refactors, and performance improvements to ensure context is preserved across sessions.
 
-## Goal (incl. success criteria)
-
-- Add a Book a Table page that matches provided screenshots and uses existing components
-- Add Book a Table to navigation
-- Success: Page renders with similar layout/sections, uses DaisyUI where possible, and passes manual DevTools QA
-
-## Constraints/Assumptions
-
-- Follow AGENTS.md SDLC phases; no coding before research/plan
-- Must use Chrome DevTools MCP for UI QA in verification
-- Use DaisyUI components and reuse existing patterns
-- Use MCP tools where possible; DaisyUI Blueprint MCP not available
-
-## Key decisions
-
-- Implement Book a Table page as content page (replace redirect)
-- Update nav links in both `public/data/nav.json` and `config/content.json`
-- Align Book a Table hero + tips palette and typography to other marketing pages
-
-## State
-
-- Phase 3 update applied; verification should be rerun for final sign-off
-
-## Done
-
-- Ensured root `AGENTS.md` exists with correct casing
-- Created task folder and SDLC docs
-- Implemented `app/book-a-table/page.tsx` with hero, booking cards, map/contact, and tips section
-- Added `/book-a-table` to header nav data sources
-- Ran initial Chrome DevTools MCP QA and captured screenshot artifact
-- Updated hero/tips styling to align with Contact/About pages
-
-## Now
-
-- Share changes and note QA rerun need
-
-## Next
-
-- Rerun DevTools MCP QA and update verification.md
-
-## Open questions (UNCONFIRMED if needed)
-
-- Should CTA link stay external to Nab a Table or use an internal booking flow? (UNCONFIRMED)
-
-## Working set (files/ids/commands)
-
-- app/book-a-table/page.tsx
-- public/data/nav.json
-- config/content.json
-- tasks/book-a-table-page-20251230-1421/verification.md
+- **2025-12-30**: Refactored `API Client` to use `AxiosApiClient` and `ToastNotificationService` for better abstraction and testing.
+- **2025-12-30**: Implemented comprehensive speed and loading optimizations:
+  - **Parallel Data Fetching**: Updated `app/page.tsx` to use `Promise.all` for fetching marketing and content data concurrently.
+  - **Reusable Skeletons**: Created a dedicated `components/skeletons` directory with atomic and molecular skeleton components (`Skeleton.tsx`, `HomeSkeletons.tsx`, `MenuSkeletons.tsx`) to replace inconsistent inline loading states.
+  - **Simplified Loading Logic**: Removed artificial delays and complex "progressive loading" overhead from `ClientHomeContent.tsx`, relying on native React Suspense for faster and smoother UX.
+  - **Menu Page Optimization**: Updated `app/menu/page.tsx` and `MenuHero.tsx` to use the new skeleton components.
+- **2025-12-30**: Fixed 27-second server-side timeout by disabling the unreachable Content API in `data/prod/config.json` (`cms.enabled: false`). This forces the use of local filesystem data, eliminating the `AbortError` and "Slow content API request" warnings.
