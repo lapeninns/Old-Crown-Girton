@@ -10,10 +10,12 @@ import BookingForm from './BookingForm';
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  content?: any;
 }
 
-export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
-  const { data: content } = useContent();
+export default function BookingModal({ isOpen, onClose, content: initialContent }: BookingModalProps) {
+  const { data: fetchedContent } = useContent();
+  const content = initialContent || fetchedContent;
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Get form labels and messages from content management

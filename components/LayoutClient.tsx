@@ -23,15 +23,15 @@ const BookingModal = dynamic(() => import('./restaurant/BookingModal'), {
   loading: () => null // No loading skeleton
 });
 
-const BookingModalPortal = ({ disabled = false }: { disabled?: boolean }) => {
+const BookingModalPortal = ({ disabled = false, content }: { disabled?: boolean; content?: any }) => {
   const [open, setOpen] = React.useState(false);
   const [isHydrated, setIsHydrated] = React.useState(false);
 
   React.useEffect(() => {
     setIsHydrated(true);
-    
+
     const handler = () => {
-    try { console.debug && console.debug('BookingModalPortal: received open-booking-modal'); } catch (e) { /* ignore */ }
+      try { console.debug && console.debug('BookingModalPortal: received open-booking-modal'); } catch (e) { /* ignore */ }
       setOpen(true);
     };
 
@@ -71,7 +71,7 @@ const BookingModalPortal = ({ disabled = false }: { disabled?: boolean }) => {
   if (disabled) return null;
   return (
     <div data-booking-portal-mounted={open ? "1" : "0"}>
-      <BookingModal isOpen={open} onClose={() => setOpen(false)} />
+      <BookingModal isOpen={open} onClose={() => setOpen(false)} content={content} />
     </div>
   );
 };
@@ -132,7 +132,7 @@ const CrispChat = (): null => {
 // 2. Toaster: Show Success/Error messages anywhere from the app with toast()
 // 3. Tooltip: Show tooltips if any JSX elements has these 2 attributes: data-tooltip-id="tooltip" data-tooltip-content=""
 // 4. CrispChat: Set Crisp customer chat support (see above)
-const ClientLayout = ({ children }: { children: ReactNode }) => {
+const ClientLayout = ({ children, content }: { children: ReactNode; content?: any }) => {
   const pathname = usePathname() || '';
   const isNoMotion = (
     pathname.startsWith('/admin') ||
@@ -167,7 +167,7 @@ const ClientLayout = ({ children }: { children: ReactNode }) => {
 
       {/* Floating Call / Book FAB */}
       {!isNoMotion && <StickyCallButtonDynamic />}
-      <BookingModalPortal disabled={isNoMotion} />
+      <BookingModalPortal disabled={isNoMotion} content={content} />
     </>
   );
 };
