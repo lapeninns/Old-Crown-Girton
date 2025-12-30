@@ -5,7 +5,7 @@ import { ContactCTA, NavLinks, NavbarLogo, useNavContent } from './NavbarParts';
 
 const MOBILE_NAV_ID = 'mobile-nav';
 
-export default function Navbar() {
+export default function Navbar({ content }: { content?: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement | null>(null);
   const {
@@ -17,7 +17,7 @@ export default function Navbar() {
     menuButtonOpenLabel,
     menuButtonCloseLabel,
     logoAlt,
-  } = useNavContent();
+  } = useNavContent(content);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);

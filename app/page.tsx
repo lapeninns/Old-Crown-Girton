@@ -34,7 +34,6 @@ function HomePageContent({
   ctaSection: any;
   ctaButtons: any[];
   pressFeature?: PressFeatureContent | null;
-  schemaEntries?: Record<string, any>[];
   slideshow?: {
     slides: any[];
     settings?: {
@@ -44,6 +43,8 @@ function HomePageContent({
     };
   } | null;
   ariaLabels?: Record<string, string>;
+  schemaEntries?: Record<string, any>[];
+  content?: any;
 }) {
   return (
     <>
@@ -65,6 +66,7 @@ function HomePageContent({
           settings: slideshow.settings ?? {}
         } : null}
         ariaLabels={ariaLabels}
+        content={content}
       />
     </>
   );
@@ -110,6 +112,7 @@ export default async function Page() {
       slideshow={slideshowContent}
       ariaLabels={ariaLabels}
       schemaEntries={schemaEntries}
+      content={content}
     />
   );
 }

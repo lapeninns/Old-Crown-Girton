@@ -27,9 +27,12 @@ interface NavContentResult {
   logoAlt: string;
 }
 
-export function useNavContent(): NavContentResult {
+
+export function useNavContent(initialContent?: any): NavContentResult {
   const { data, error } = useParsedData<NavDataParsed>('nav.json', NavDataSchema);
-  const { data: content } = useContent();
+  const { data: fetchedContent } = useContent();
+
+  const content = initialContent || fetchedContent;
 
   const navLinksRaw =
     data?.links ||

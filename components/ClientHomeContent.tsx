@@ -68,6 +68,7 @@ interface ClientHomeContentProps {
     };
   } | null;
   ariaLabels?: Record<string, string>;
+  content?: any;
 }
 
 export default function ClientHomeContent({
@@ -76,7 +77,8 @@ export default function ClientHomeContent({
   ctaButtons,
   pressFeature,
   slideshow,
-  ariaLabels
+  ariaLabels,
+  content
 }: ClientHomeContentProps) {
   // Simplified rendering without artificial delays
   return (
@@ -84,7 +86,7 @@ export default function ClientHomeContent({
       {/* Critical Navigation - loads first with priority */}
       <Suspense fallback={<NavbarSkeleton />}>
         <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-          <Navbar />
+          <Navbar content={content} />
         </div>
       </Suspense>
 
