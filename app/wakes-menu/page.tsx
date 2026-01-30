@@ -25,7 +25,7 @@ const BASE_COURSES = [
   },
 ];
 
-const OPTIONAL_EXTRAS = [
+const INCLUDED_EXTRAS = [
   {
     title: "Chicken pakora",
     description: "Freshly fried pakora with coriander chutney, prepared minutes before service.",
@@ -41,7 +41,7 @@ const contact = getContactInfo();
 export const metadata = getSEOTags({
   title: "Wakes Buffet | Celebration of Life Catering | Old Crown Girton",
   description:
-    "Plan a calm celebration of life with our £10-per-guest wakes buffet: one sandwich, chicken wings, and a samosa, plus optional chicken pakora with tea or coffee.",
+    "Plan a calm celebration of life with our £13-per-guest wakes buffet: one sandwich, chicken wings, a samosa, chicken pakora, and tea or coffee included.",
   keywords: [
     "wakes menu Cambridge",
     "celebration of life catering",
@@ -53,7 +53,7 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Wakes Buffet at The Old Crown Girton",
     description:
-      "£10 per guest for a sandwich, chicken wings, and a samosa, with the option to add chicken pakora and hot drinks for £2.50.",
+      "£13 per guest for a complete package: sandwich, chicken wings, samosa, chicken pakora, and tea or coffee.",
     url: "https://oldcrowngirton.com/wakes-menu",
   },
 });
@@ -65,11 +65,11 @@ export default function WakesMenuPage() {
       "@type": "Menu",
       name: "Old Crown Girton Wakes Menu",
       description:
-        "Wakes and celebration of life catering at The Old Crown Girton with one sandwich, chicken wings, and a samosa per guest, plus optional chicken pakora and hot drinks.",
+        "Wakes and celebration of life catering at The Old Crown Girton with one sandwich, chicken wings, samosa, chicken pakora, and tea or coffee per guest.",
       url: "https://oldcrowngirton.com/wakes-menu",
       offers: {
         "@type": "Offer",
-        price: "10.00",
+        price: "13.00",
         priceCurrency: "GBP",
         availability: "https://schema.org/InStoreOnly",
       },
@@ -93,27 +93,27 @@ export default function WakesMenuPage() {
             {
               "@type": "MenuItem",
               name: "Sandwich choice",
-              description: "Every guest selects one sandwich: egg & mayo or bacon & cheese. Included in the £10 wakes menu.",
+              description: "Every guest selects one sandwich: egg & mayo or bacon & cheese. Included in the £13 wakes package.",
             },
             {
               "@type": "MenuItem",
               name: "Chicken wings",
-              description: "Seasoned chicken wings served warm. Included in the £10 wakes menu.",
+              description: "Seasoned chicken wings served warm. Included in the £13 wakes package.",
             },
             {
               "@type": "MenuItem",
               name: "Samosa choice",
-              description: "Every guest selects a vegetable or meat samosa. Included in the £10 wakes menu.",
+              description: "Every guest selects a vegetable or meat samosa. Included in the £13 wakes package.",
             },
             {
               "@type": "MenuItem",
-              name: "Chicken pakora & hot drink add-on",
-              description: "Add freshly fried chicken pakora plus tea or coffee for £2.50 per guest.",
-              offers: {
-                "@type": "Offer",
-                price: "2.50",
-                priceCurrency: "GBP",
-              },
+              name: "Chicken pakora",
+              description: "Freshly fried chicken pakora with coriander chutney. Included in the £13 wakes package.",
+            },
+            {
+              "@type": "MenuItem",
+              name: "Tea or coffee",
+              description: "Pots of freshly brewed tea or cafetiere coffee. Included in the £13 wakes package.",
             },
           ],
         },
@@ -145,14 +145,14 @@ export default function WakesMenuPage() {
           </FadeInUp>
           <FadeInUp>
             <p className="text-lg md:text-xl text-neutral-100 max-w-3xl mx-auto leading-relaxed">
-              Bring everyone together with a calm, £10-per-guest buffet prepared by the Old Crown kitchen. Each person receives a sandwich of their choice, a warm chicken wing, and a vegetable or meat samosa. Add chicken pakora with tea or coffee for £2.50 per guest when you want an extra flourish.
+              Bring everyone together with a calm, £13-per-guest buffet prepared by the Old Crown kitchen. Each person receives a sandwich of their choice, a warm chicken wing, a vegetable or meat samosa, freshly fried chicken pakora, and tea or coffee—all included.
             </p>
           </FadeInUp>
           <FadeInUp>
             <div className="flex flex-wrap justify-center gap-3 text-sm text-white/80">
               {[
-                "£10 per guest · includes sandwich, wing & samosa",
-                "Optional chicken pakora & hot drinks +£2.50",
+                "£13 per guest · complete package",
+                "Sandwich, wing, samosa, pakora & hot drink included",
                 "Hosted in our dining rooms — no takeaway packaging",
               ].map((detail) => (
                 <span
@@ -200,13 +200,13 @@ export default function WakesMenuPage() {
           <FadeIn>
             <div className="max-w-3xl space-y-4 mb-12">
               <h2 id="wakes-offer-heading" className="text-3xl md:text-4xl font-display font-bold text-brand-800">
-                How the £10 wakes buffet is served
+                How the £13 wakes buffet is served
               </h2>
               <p className="text-lg text-brand-600 leading-relaxed">
-                The buffet is designed so every guest receives one item from each course below. We label platters clearly and can adapt fillings with advance notice.
+                The buffet is designed so every guest receives one item from each course below, plus chicken pakora and a hot drink. We label platters clearly and can adapt fillings with advance notice.
               </p>
               <p className="text-sm font-semibold text-brand-500 uppercase tracking-wide">
-                Example plate: Egg & mayo sandwich · Chicken wing · Vegetable samosa (£10 per guest)
+                Example plate: Egg & mayo sandwich · Chicken wing · Vegetable samosa · Chicken pakora · Tea or coffee (£13 per guest)
               </p>
             </div>
           </FadeIn>
@@ -250,21 +250,21 @@ export default function WakesMenuPage() {
                 </div>
               </article>
               <aside className="flex flex-col gap-6">
-                <article className="rounded-3xl border border-accent-200 bg-accent-50 p-8 shadow-lg focus-within:shadow-2xl" aria-labelledby="optional-extras-heading">
-                  <h3 id="optional-extras-heading" className="text-2xl font-display font-semibold text-accent-700 mb-4">
-                    Optional extras +£2.50 per guest
+                <article className="rounded-3xl border border-brand-200 bg-brand-50 p-8 shadow-lg focus-within:shadow-2xl" aria-labelledby="included-extras-heading">
+                  <h3 id="included-extras-heading" className="text-2xl font-display font-semibold text-brand-700 mb-4">
+                    Also included in £13
                   </h3>
                   <ul className="space-y-4">
-                    {OPTIONAL_EXTRAS.map((extra) => (
+                    {INCLUDED_EXTRAS.map((extra) => (
                       <li key={extra.title} className="space-y-1">
-                        <p className="text-lg font-semibold text-accent-700">{extra.title}</p>
-                        <p className="text-accent-700/80 leading-relaxed">{extra.description}</p>
+                        <p className="text-lg font-semibold text-brand-700">{extra.title}</p>
+                        <p className="text-brand-700/80 leading-relaxed">{extra.description}</p>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-6 rounded-xl bg-white/80 p-4 text-sm text-accent-700">
-                    <p className="font-semibold">Illustrative total</p>
-                    <p>Egg & mayo sandwich + chicken wing + vegetable samosa (£10) + chicken pakora + tea (£2.50) = £12.50 per guest.</p>
+                  <div className="mt-6 rounded-xl bg-white/80 p-4 text-sm text-brand-700">
+                    <p className="font-semibold">Complete package</p>
+                    <p>Sandwich + chicken wing + samosa + chicken pakora + tea or coffee = £13 per guest.</p>
                   </div>
                 </article>
                 <article className="rounded-3xl border border-brand-100 bg-white p-6 shadow-lg focus-within:shadow-2xl" aria-labelledby="event-support-heading">
