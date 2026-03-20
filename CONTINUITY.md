@@ -1,6 +1,6 @@
 # Continuity Ledger
 
-Last updated: 2026-03-20T11:38:00Z
+Last updated: 2026-03-20T11:44:00Z
 
 ## Goal (incl. success criteria)
 
@@ -22,7 +22,7 @@ Last updated: 2026-03-20T11:38:00Z
 
 ## State
 
-- SEO/GEO foundation and editorial rollout are complete locally; takeaway CTA copy and CTA text-color consistency fixes are complete as well. External validation and a few legacy lint debts remain.
+- SEO/GEO foundation and editorial rollout are complete locally; takeaway CTA copy, CTA text-color consistency, and legacy brand-asset cleanup are complete as well. External validation and a few legacy lint debts remain.
 
 ## Done
 
@@ -51,10 +51,13 @@ Last updated: 2026-03-20T11:38:00Z
 - Created SDLC artifacts for `tasks/cta-text-color-consistency-20260320-1111/`.
 - Corrected the CTA color pass so affected `Call for Takeaway` and `What's On` buttons use the light CTA treatment with brown brand text.
 - Verified the corrected CTA color fix with `git diff --check`, targeted lint, and a full production build.
+- Created SDLC artifacts for `tasks/brand-asset-cleanup-20260320-1123/`.
+- Removed legacy starter branding residue from package metadata, social preview images, and the favicon.
+- Replaced the remaining legacy preview/logo surfaces with Old Crown branded assets and verified with residue search plus a full production build.
 
 ## Now
 
-- Report the corrected CTA color fix and exact affected surfaces.
+- Report the completed branding cleanup and exact replaced assets.
 
 ## Next
 
@@ -93,6 +96,11 @@ Last updated: 2026-03-20T11:38:00Z
 - tasks/cta-text-color-consistency-20260320-1111/todo.md
 - tasks/cta-text-color-consistency-20260320-1111/verification.md
 - tasks/cta-text-color-consistency-20260320-1111/artifacts/checks.md
+- tasks/brand-asset-cleanup-20260320-1123/research.md
+- tasks/brand-asset-cleanup-20260320-1123/plan.md
+- tasks/brand-asset-cleanup-20260320-1123/todo.md
+- tasks/brand-asset-cleanup-20260320-1123/verification.md
+- tasks/brand-asset-cleanup-20260320-1123/artifacts/checks.md
 - src/lib/site/site.ts
 - src/lib/site/editorial.ts
 - src/lib/seo/metadata.ts
