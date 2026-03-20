@@ -1,6 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
 import BasicTest from '@/components/simple/BasicTest';
+import {
+  bannerButtonRecipe,
+  ctaPanelRecipe,
+  glassPanelRecipe,
+  sectionDescriptionRecipe,
+  sectionTitleRecipe,
+} from '@/src/design-system';
 
 /**
  * Props interfaces for AboutCTASection component
@@ -58,14 +65,14 @@ export default function AboutCTASection({
 
   return (
     <section className={`${className}`}>
-      <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
+      <div className={ctaPanelRecipe()}>
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 drop-shadow-lg">
+          <h2 className={sectionTitleRecipe('mb-4 text-3xl text-white md:text-4xl')}>
             🏛️ {title}
           </h2>
           
           {description && (
-            <p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className={sectionDescriptionRecipe('mb-8 text-white/95')}>
               {description}
             </p>
           )}
@@ -77,7 +84,7 @@ export default function AboutCTASection({
                 target: '_blank',
                 rel: 'noopener noreferrer'
               })}
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-700 font-bold rounded-xl shadow-lg hover:bg-brand-50 hover:text-brand-800 transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-300 border-2 border-brand-100"
+              className={bannerButtonRecipe('light', 'focus-visible:ring-offset-brand-700')}
               aria-label={buttonLabel || buttonText}
             >
               <span className="mr-2" aria-hidden="true">📞</span>
@@ -91,7 +98,7 @@ export default function AboutCTASection({
           </div>
           
           {contact && (
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white/90">
+            <div className={glassPanelRecipe()}>
               {contact.address && (
                 <p className="mb-2">
                   <span className="font-semibold text-white">Address:</span> {contact.address}

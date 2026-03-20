@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "Menu — Nepalese & Pub Classics",
-    "subtitle": "Curated menu — quick to scan. Book or order takeaway.",
+    "subtitle": "Curated menu — quick to scan. Book or call for takeaway.",
     "buttons": {
       "bookOnline": {
         "label": "Book Online",
@@ -14,7 +14,7 @@
         "style": "primary"
       },
       "orderTakeaway": {
-        "label": "Order Takeaway",
+        "label": "Call for Takeaway",
         "url": "tel:01223 277217",
         "style": "secondary"
       }

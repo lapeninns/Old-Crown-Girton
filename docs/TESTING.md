@@ -158,7 +158,7 @@ test-utils/
     └── browser.ts                      # MSW worker (browser)
 
 playwright.config.ts                    # Playwright configuration
-jest.config.js                         # Jest configuration  
+jest.config.mjs                        # Jest configuration
 jest.setup.ts                          # Test environment setup
 ```
 

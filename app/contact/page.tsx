@@ -2,7 +2,19 @@ import RestaurantLayout from "@/components/restaurant/Layout";
 import { getContentSmart } from '@/src/lib/data/server-loader';
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
 import { FadeIn } from '@/components/animations/MotionWrappers';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
 import dynamic from 'next/dynamic';
+import {
+  mapFrameRecipe,
+  pageHeroDescriptionRecipe,
+  pageHeroInnerClassName,
+  pageHeroOverlayClassName,
+  pageHeroSectionRecipe,
+  pageHeroTitleRecipe,
+  sectionInnerClassName,
+  sectionShellClassName,
+  subsectionTitleRecipe,
+} from '@/src/design-system';
 
 // SEO Metadata
 export const metadata = getSEOTags({
@@ -13,9 +25,13 @@ export const metadata = getSEOTags({
   openGraph: {
     title: "Contact Old Crown Girton - Book Table | Directions",
     description: "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223277217.",
-    url: "https://oldcrowngirton.com//contact",
+    url: "https://oldcrowngirton.com/contact",
   },
 });
+
+const CONTACT_PAGE_TITLE = "Contact Old Crown Girton - Book Table | Directions | Opening Hours";
+const CONTACT_PAGE_DESCRIPTION =
+  "Contact Old Crown Girton for bookings, directions & enquiries. Located at 89 High Street, Girton, Cambridge. Phone: 01223277217. Free parking available.";
 
 // Dynamic imports for Contact page sections
 const ContactInfoSection = dynamic(() => import("@/components/restaurant/sections/ContactInfoSection"));
@@ -37,18 +53,27 @@ export default async function ContactPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          // ... existing schema markup remains the same
+          buildWebPageSchema({
+            path: '/contact',
+            title: CONTACT_PAGE_TITLE,
+            description: CONTACT_PAGE_DESCRIPTION,
+            type: 'ContactPage',
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Contact', path: '/contact' },
+          ]),
         ])}
         
         {/* Hero Section with motion animation */}
-        <section className="relative bg-gradient-to-br from-brand-600 to-brand-800 text-white py-10 md:py-16" aria-labelledby="contact-hero-heading">
-          <div className="absolute inset-0 bg-black/10"></div>
+        <section className={pageHeroSectionRecipe()} aria-labelledby="contact-hero-heading">
+          <div className={pageHeroOverlayClassName}></div>
           <FadeIn>
-            <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h1 id="contact-hero-heading" className="text-2xl md:text-3xl font-display font-bold text-white mb-3 leading-tight">
+            <div className={pageHeroInnerClassName}>
+              <h1 id="contact-hero-heading" className={pageHeroTitleRecipe('mb-3')}>
                 {contactContent.hero.title}
               </h1>
-              <p className="text-base md:text-lg text-brand-100 max-w-2xl mx-auto leading-relaxed">
+              <p className={pageHeroDescriptionRecipe()}>
                 {contactContent.hero.subtitle}
               </p>
             </div>
@@ -56,12 +81,12 @@ export default async function ContactPage() {
         </section>
 
         {/* Main contact content with progressive disclosure */}
-        <main className="bg-white py-16 space-y-16">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <main className={`bg-white ${sectionShellClassName} space-y-16`}>
+          <div className={sectionInnerClassName}>
             <FadeIn>
               <section className="grid grid-cols-1 lg:grid-cols-2 gap-8" aria-labelledby="contact-info-heading">
                 <div>
-                  <h2 id="contact-info-heading" className="text-2xl font-display font-bold text-brand-700 mb-6">Contact Information</h2>
+                  <h2 id="contact-info-heading" className={subsectionTitleRecipe('mb-6')}>Contact Information</h2>
                   <ContactInfoSection 
                     phone={contactContent.contactInfo.phone}
                     location={contactContent.contactInfo.location}
@@ -70,7 +95,7 @@ export default async function ContactPage() {
 
                 <div className="space-y-8">
                   <div>
-                    <h2 className="text-2xl font-semibold text-brand-700 mb-6">
+                    <h2 className={subsectionTitleRecipe('mb-6')}>
                       {contactContent.hours.title}
                     </h2>
                     <RestaurantHoursCard />
@@ -88,9 +113,9 @@ export default async function ContactPage() {
 
             <FadeIn>
               <section className="mt-16" aria-labelledby="map-heading">
-                <h2 id="map-heading" className="text-2xl font-display font-bold text-brand-700 mb-6 text-center">Find Us</h2>
+                <h2 id="map-heading" className={subsectionTitleRecipe('mb-6 text-center')}>Find Us</h2>
                 <InteractiveMap 
-                  className="bg-neutral-50 rounded-xl shadow-lg overflow-hidden"
+                  className={mapFrameRecipe()}
                   height="400px"
                   title="Old Crown Girton Location"
                 />

@@ -3,6 +3,14 @@
 import React from 'react';
 import { useMenuContent } from '../_content/useMenuContent';
 import { MenuHeroSkeleton } from '@/components/skeletons/MenuSkeletons';
+import {
+  bannerButtonRecipe,
+  pageHeroDescriptionRecipe,
+  pageHeroInnerClassName,
+  pageHeroOverlayClassName,
+  pageHeroSectionRecipe,
+  pageHeroTitleRecipe,
+} from '@/src/design-system';
 
 export default function MenuHero() {
   const content = useMenuContent();
@@ -14,22 +22,22 @@ export default function MenuHero() {
   const { hero } = content;
 
   return (
-    <section className="relative bg-gradient-to-br from-brand-600 to-brand-800 text-white py-10 md:py-16">
-      <div className="absolute inset-0 bg-black/10"></div>
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-white mb-3 leading-tight">{hero.title}</h1>
-        <p className="text-base md:text-lg text-brand-100 mb-6 max-w-2xl mx-auto leading-relaxed">{hero.subtitle}</p>
+    <section className={pageHeroSectionRecipe()}>
+      <div className={pageHeroOverlayClassName}></div>
+      <div className={pageHeroInnerClassName}>
+        <h1 className={pageHeroTitleRecipe('mb-3')}>{hero.title}</h1>
+        <p className={pageHeroDescriptionRecipe('mb-6')}>{hero.subtitle}</p>
         <div className="flex flex-wrap justify-center gap-3">
           <a
             href="/wakes-menu"
-            className="bg-brand-100 hover:bg-brand-200 text-brand-900 border-2 border-brand-200 font-bold py-3 px-6 rounded-lg text-sm transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-300 focus-visible:ring-offset-2"
-            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'rgba(0,0,0,0)' }}
+            className={bannerButtonRecipe('light', 'text-brand-900 hover:bg-brand-100')}
+            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
           >
             Wakes Menu
           </a>
           <a
             href="/takeaway-menu"
-            className="bg-brand-50 hover:bg-brand-100 text-brand-800 border-2 border-brand-200 font-bold py-3 px-6 rounded-lg text-sm transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
+            className={bannerButtonRecipe('light')}
           >
             Takeaway Menu
           </a>
@@ -37,13 +45,13 @@ export default function MenuHero() {
             href={hero.buttons.bookOnline.url}
             target={hero.buttons.bookOnline.target}
             rel="noopener noreferrer"
-            className="bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 font-bold py-3 px-6 rounded-lg text-sm transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
+            className={bannerButtonRecipe('light')}
           >
             {hero.buttons.bookOnline.label}
           </a>
           <a
             href={hero.buttons.orderTakeaway.url}
-            className="bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-3 px-6 rounded-lg text-sm transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
+            className={bannerButtonRecipe('light')}
           >
             {hero.buttons.orderTakeaway.label}
           </a>

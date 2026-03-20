@@ -1,8 +1,9 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn, FadeInUp, MotionLinkButton } from "@/components/animations/MotionWrappers";
 import Link from "@/lib/debugLink";
-import { getSEOTags, renderSchemaTags } from "@/libs/seo";
+import { buildPageMetadata, renderSchemaTags } from "@/libs/seo";
 import { getContactInfo } from "@/lib/restaurantData";
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
 
 const BASE_COURSES = [
   {
@@ -38,10 +39,13 @@ const INCLUDED_EXTRAS = [
 
 const contact = getContactInfo();
 
-export const metadata = getSEOTags({
-  title: "Wakes Buffet | Celebration of Life Catering | Old Crown Girton",
-  description:
-    "Plan a calm celebration of life with our £13-per-guest wakes buffet: one sandwich, chicken wings, a samosa, chicken pakora, and tea or coffee included.",
+const WAKES_PAGE_TITLE = 'Wakes Buffet | Celebration of Life Catering | Old Crown Girton';
+const WAKES_PAGE_DESCRIPTION =
+  'Plan a calm celebration of life with our £13-per-guest wakes buffet: one sandwich, chicken wings, a samosa, chicken pakora, and tea or coffee included.';
+
+export const metadata = buildPageMetadata({
+  title: WAKES_PAGE_TITLE,
+  description: WAKES_PAGE_DESCRIPTION,
   keywords: [
     "wakes menu Cambridge",
     "celebration of life catering",
@@ -49,13 +53,10 @@ export const metadata = getSEOTags({
     "funeral reception menu",
     "sandwich buffet Cambridge",
   ],
-  canonicalUrlRelative: "/wakes-menu",
-  openGraph: {
-    title: "Wakes Buffet at The Old Crown Girton",
-    description:
-      "£13 per guest for a complete package: sandwich, chicken wings, samosa, chicken pakora, and tea or coffee.",
-    url: "https://oldcrowngirton.com/wakes-menu",
-  },
+  path: '/wakes-menu',
+  socialTitle: 'Wakes Buffet at The Old Crown Girton',
+  socialDescription:
+    '£13 per guest for a complete package: sandwich, chicken wings, samosa, chicken pakora, and tea or coffee.',
 });
 
 export default function WakesMenuPage() {
@@ -123,7 +124,18 @@ export default function WakesMenuPage() {
 
   return (
     <RestaurantLayout>
-      {renderSchemaTags(structuredData)}
+      {renderSchemaTags([
+        ...structuredData,
+        buildWebPageSchema({
+          path: '/wakes-menu',
+          title: WAKES_PAGE_TITLE,
+          description: WAKES_PAGE_DESCRIPTION,
+        }),
+        buildBreadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: 'Wakes Menu', path: '/wakes-menu' },
+        ]),
+      ])}
 
       <section
         className="relative bg-gradient-to-br from-brand-700 via-crimson-600 to-cardamom-700 text-white py-16 md:py-24"

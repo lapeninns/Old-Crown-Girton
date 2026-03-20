@@ -5,14 +5,16 @@ import { LoadingProvider } from '@/contexts/LoadingContext';
 import GlobalLoadingIndicator from '@/components/GlobalLoadingIndicator';
 import ServiceWorkerProvider from '@/components/ServiceWorkerProvider';
 import { PerformanceProvider } from '@/components/PerformanceProvider';
+import { renderSchemaTags } from '@/libs/seo';
+import { buildOrganizationSchema, buildRestaurantSchema, buildWebSiteSchema } from '@/src/lib/seo/schema';
+import { getSEOTags } from '@/libs/seo';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://oldcrowngirton.com/'),
+export const metadata: Metadata = getSEOTags({
   title: 'The Old Crown Girton | Historic Thatched Pub & Nepalese Restaurant',
-  description: 'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223277217',
+  description:
+    'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223277217',
   manifest: '/manifest.json',
   icons: {
     icon: [
@@ -32,8 +34,8 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }
     ]
-  }
-};
+  },
+});
 
 // Minimal inline scripts injected into the server HTML to ensure tests
 // that dispatch `open-booking-modal` before React hydration still
@@ -41,6 +43,10 @@ export const metadata: Metadata = {
 const QUEUE_SCRIPT = `(function(){try{window.__bookingModalQueue = window.__bookingModalQueue || []; window.addEventListener('open-booking-modal', function(){ try{ window.__bookingModalQueue.push(true); } catch(e){} });}catch(e){} })();`;
 
 const FALLBACK_SCRIPT = `(function(){try{function createFallback(){ try{ if(document.getElementById('booking-modal-fallback')) return; var overlay = document.createElement('div'); overlay.id = 'booking-modal-fallback'; overlay.setAttribute('role','dialog'); overlay.setAttribute('aria-modal','true'); overlay.style.position = 'fixed'; overlay.style.inset = '0'; overlay.style.display = 'flex'; overlay.style.alignItems = 'center'; overlay.style.justifyContent = 'center'; overlay.style.zIndex = '9999'; overlay.style.background = 'var(--overlay-60)'; var box = document.createElement('div'); box.style.background = 'var(--color-neutral-50)'; box.style.borderRadius = '12px'; box.style.padding = '24px'; box.style.maxWidth = '640px'; box.style.width = '90%'; box.style.boxShadow = 'var(--shadow-large)'; box.innerText = 'Book a Table'; overlay.appendChild(box); document.body.appendChild(overlay); } catch(e){} } function removeFallback(){ try{ var el = document.getElementById('booking-modal-fallback'); if(el) el.remove(); } catch(e){} } window.addEventListener('open-booking-modal', function(){ try{ window.__bookingModalQueue = window.__bookingModalQueue || []; window.__bookingModalQueue.push(true); } catch(e){} if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', createFallback); } else { createFallback(); } }); window.addEventListener('booking-modal-close', removeFallback); window.addEventListener('close-booking-modal', removeFallback); } catch(e){} })();`;
+// eslint-disable-next-line no-restricted-syntax
+const LIGHT_THEME_COLOR = 'rgb(253 246 245)';
+// eslint-disable-next-line no-restricted-syntax
+const DARK_THEME_COLOR = 'rgb(15 23 42)';
 
 import { getContentSmart } from '@/src/lib/data/server-loader';
 
@@ -50,10 +56,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const content = await getContentSmart();
 
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <head>
-        <meta name="theme-color" content="#fdf6f5" />
-        <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content={LIGHT_THEME_COLOR} />
+        <meta name="theme-color" content={DARK_THEME_COLOR} media="(prefers-color-scheme: dark)" />
+        {renderSchemaTags([buildOrganizationSchema(), buildWebSiteSchema(), buildRestaurantSchema()])}
       </head>
       <body>
         <PerformanceProvider>

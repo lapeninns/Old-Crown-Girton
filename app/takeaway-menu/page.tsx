@@ -1,15 +1,19 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn, FadeInUp, MotionLinkButton } from "@/components/animations/MotionWrappers";
-import { getSEOTags, renderSchemaTags } from "@/libs/seo";
+import { buildPageMetadata, renderSchemaTags } from "@/libs/seo";
 import Link from "@/lib/debugLink";
 import { getContactInfo } from "@/lib/restaurantData";
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
 
 const TAKEAWAY_MENU_PATH = "/takeaway-menu/old-crown-takeaway-menu.jpg";
 
-export const metadata = getSEOTags({
-  title: "Takeaway Menu Download | Old Crown Girton",
-  description:
-    "Download The Old Crown Girton takeaway menu and order authentic Nepalese and British pub favourites for collection in Girton, Cambridge.",
+const TAKEAWAY_PAGE_TITLE = 'Takeaway Menu Download | Old Crown Girton';
+const TAKEAWAY_PAGE_DESCRIPTION =
+  'Download The Old Crown Girton takeaway menu and order authentic Nepalese and British pub favourites for collection in Girton, Cambridge.';
+
+export const metadata = buildPageMetadata({
+  title: TAKEAWAY_PAGE_TITLE,
+  description: TAKEAWAY_PAGE_DESCRIPTION,
   keywords: [
     "takeaway menu Cambridge",
     "Old Crown Girton takeaway",
@@ -18,13 +22,10 @@ export const metadata = getSEOTags({
     "Nepalese takeaway Cambridge",
     "pub takeaway Girton",
   ],
-  canonicalUrlRelative: "/takeaway-menu",
-  openGraph: {
-    title: "Download the Old Crown Girton Takeaway Menu",
-    description:
-      "Access our latest takeaway menu and place your collection order direct with the Old Crown Girton team.",
-    url: "https://oldcrowngirton.com/takeaway-menu",
-  },
+  path: '/takeaway-menu',
+  socialTitle: 'Download the Old Crown Girton Takeaway Menu',
+  socialDescription:
+    'Access our latest takeaway menu and place your collection order direct with the Old Crown Girton team.',
 });
 
 export default function TakeawayMenuPage() {
@@ -60,7 +61,18 @@ export default function TakeawayMenuPage() {
 
   return (
     <RestaurantLayout>
-      {renderSchemaTags(structuredData)}
+      {renderSchemaTags([
+        ...structuredData,
+        buildWebPageSchema({
+          path: '/takeaway-menu',
+          title: TAKEAWAY_PAGE_TITLE,
+          description: TAKEAWAY_PAGE_DESCRIPTION,
+        }),
+        buildBreadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: 'Takeaway Menu', path: '/takeaway-menu' },
+        ]),
+      ])}
 
       <section
         className="relative bg-gradient-to-br from-brand-700 via-crimson-600 to-cardamom-700 text-white py-16 md:py-24"

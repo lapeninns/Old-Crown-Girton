@@ -1,152 +1,29 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
-import Link from '@/lib/debugLink';
-import { Images } from '@/src/lib/images';
+import { buildPageMetadata, renderSchemaTags } from '@/libs/seo';
 import { FadeIn } from '@/components/animations/MotionWrappers';
+import { blogCategories, featuredBlogPost, recentBlogPosts } from '@/src/lib/site/editorial';
+import {
+  buildBlogSchema,
+  buildBreadcrumbSchema,
+  buildCollectionPageSchema,
+  buildItemListSchema,
+} from '@/src/lib/seo/schema';
 import { BlogHero, BlogFeatured, FilterableBlogSection } from './_components';
 
-// SEO Metadata
-export const metadata = getSEOTags({
-  title: "Blog | Old Crown Girton - Local Stories, Food & Community News | Cambridge",
-  description: "Discover stories from Old Crown Girton: Nepalese cuisine recipes, Girton village history, local events coverage, and community news from Cambridge's historic thatched pub.",
+const BLOG_PAGE_TITLE =
+  'Blog | Old Crown Girton - Local Stories, Food & Community News | Cambridge';
+const BLOG_PAGE_DESCRIPTION =
+  "Discover stories from Old Crown Girton: Nepalese cuisine recipes, Girton village history, local events coverage, and community news from Cambridge's historic thatched pub.";
+
+export const metadata = buildPageMetadata({
+  title: BLOG_PAGE_TITLE,
+  description: BLOG_PAGE_DESCRIPTION,
   keywords: ["Old Crown Girton blog", "Cambridge pub blog", "Girton village stories", "Nepalese cuisine recipes", "Cambridge local news", "pub history blog"],
-  canonicalUrlRelative: "/blog",
-  openGraph: {
-    title: "Blog | Old Crown Girton - Local Stories & Community News",
-    description: "Discover stories from Old Crown Girton: Nepalese cuisine recipes, Girton village history, local events coverage, and community news.",
-    url: "https://oldcrowngirton.com//blog",
-  },
+  path: '/blog',
+  socialTitle: 'Blog | Old Crown Girton - Local Stories & Community News',
+  socialDescription:
+    'Discover stories from Old Crown Girton: Nepalese cuisine recipes, Girton village history, local events coverage, and community news.',
 });
-
-
-
-// Featured and recent blog posts data
-const featuredPost = {
-  id: "authentic-momo-dumplings-nepalese-cuisine",
-  title: "A Guide to Authentic Momo Dumplings and Nepalese Cuisine at Old Crown Girton",
-  excerpt: "Discover the art of authentic Nepalese momo dumplings and explore the rich flavors of Himalayan cuisine at Cambridge's most unique restaurant destination.",
-  image: Images.blog.momo,
-  category: "Nepalese Cuisine",
-  author: "Raj Gurung",
-  publishedDate: "2024-11-15",
-  readTime: "9 min read",
-  slug: "authentic-momo-dumplings-nepalese-cuisine"
-};
-
-const blogPosts = [
-  {
-    id: "evening-standard-country-pub-of-the-week",
-    title: "Evening Standard Spotlights The Old Crown, Girton",
-    excerpt: "The Evening Standard names us Country Pub of the Week, celebrating our Nepalese cooking, village welcome, and ever-evolving menu.",
-    image: Images.blog.thatchedExterior,
-    category: "Press & Media",
-    author: "Old Crown Team",
-    publishedDate: "2024-12-19",
-    readTime: "2 min read",
-    slug: "evening-standard-country-pub-of-the-week"
-  },
-  {
-    id: "business-lunch-cambridge-guide",
-    title: "The Ultimate Business Lunch Destination in Cambridge",
-    excerpt: "Discover why Old Crown Girton has become the go-to choice for professionals seeking the perfect balance of quality cuisine, professional atmosphere, and convenient location.",
-    image: Images.blog.businessLunch,
-    category: "Business Dining",
-    author: "Emma Sutton",
-    publishedDate: "2024-11-25",
-    readTime: "8 min read",
-    slug: "business-lunch-cambridge-guide"
-  },
-  {
-    id: "dog-friendly-dining-guide",
-    title: "The Ultimate Dog-Friendly Dining Experience at Old Crown Girton",
-    excerpt: "Discover why Old Crown Girton has become Cambridge's favourite destination for dining with four-legged family members.",
-    image: Images.blog.dogFriendly,
-    category: "Dog-Friendly",
-    author: "Sarah Mitchell",
-    publishedDate: "2024-12-20",
-    readTime: "6 min read",
-    slug: "dog-friendly-dining-guide"
-  },
-  {
-    id: "student-guide-cambridge-university",
-    title: "A Cambridge Student's Guide to Old Crown Girton",
-    excerpt: "Discover why Old Crown Girton has become the go-to destination for Cambridge University students seeking affordable quality dining, unique experiences, and the perfect study break.",
-    image: Images.blog.studentGuide,
-    category: "Student Life",
-    author: "James Mitchell",
-    publishedDate: "2024-11-20",
-    readTime: "7 min read",
-    slug: "student-guide-cambridge-university"
-  },
-  {
-    id: "perfect-sunday-roast-guide",
-    title: "Sunday Roast in Cambridge: Where to Go + Our Alternatives",
-    excerpt: "We don't currently serve a traditional Sunday roast. Explore Cambridge options and what to try at our thatched pub instead.",
-    image: Images.blog.sundayRoast,
-    category: "Food & Dining",
-    author: "Old Crown Team",
-    publishedDate: "2024-12-15",
-    readTime: "7 min read",
-    slug: "perfect-sunday-roast-guide"
-  },
-  {
-    id: "largest-thatched-pub-history",
-    title: "The Remarkable History of England's Largest Thatched Pub",
-    excerpt: "Journey through centuries of history at Old Crown Girton, from its medieval origins to its current status as a unique dining destination.",
-    image: Images.blog.thatchedExterior,
-    category: "History & Heritage",
-    author: "Dr. Margaret Whitfield",
-    publishedDate: "2024-12-10",
-    readTime: "9 min read",
-    slug: "largest-thatched-pub-history"
-  },
-  {
-    id: "ultimate-sports-viewing-guide",
-    title: "The Ultimate Sports Viewing Experience at Old Crown Girton",
-    excerpt: "Discover why Old Crown Girton has become Cambridge's premier destination for watching live sports with unbeatable atmosphere and crystal-clear viewing.",
-    image: Images.blog.sportsViewing,
-    category: "Sports & Entertainment",
-    author: "Tom Richardson",
-    publishedDate: "2024-12-05",
-    readTime: "8 min read",
-    slug: "ultimate-sports-viewing-guide"
-  },
-  {
-    id: "local-suppliers-fresh-ingredients",
-    title: "Supporting Local: Our Commitment to Fresh Ingredients and Community Suppliers",
-    excerpt: "Discover how Old Crown Girton's partnership with local suppliers creates exceptional flavors while supporting the Cambridgeshire community.",
-    image: Images.blog.localIngredients,
-    category: "Local Sourcing",
-    author: "Emma Sutton",
-    publishedDate: "2024-11-30",
-    readTime: "10 min read",
-    slug: "local-suppliers-fresh-ingredients"
-  },
-  {
-    id: "nepalese-cuisine-journey",
-    title: "The Journey of Nepalese Cuisine to Girton Village",
-    excerpt: "Discover how authentic Nepalese flavors found their home in Cambridge's historic thatched pub, creating a unique dining experience.",
-    image: Images.blog.nepaleseHero,
-    category: "Cuisine",
-    author: "Old Crown Team",
-    publishedDate: "2024-08-15",
-    readTime: "5 min read",
-    slug: "nepalese-cuisine-journey"
-  }
-];
-
-const categories = [
-  { name: "All Posts", count: 9, slug: "all" },
-  { name: "Press & Media", count: 1, slug: "press-media" },
-  { name: "Food & Dining", count: 2, slug: "food-dining" },
-  { name: "Nepalese Cuisine", count: 2, slug: "nepalese-cuisine" },
-  { name: "Business Dining", count: 1, slug: "business-dining" },
-  { name: "Student Life", count: 1, slug: "student-life" },
-  { name: "History & Heritage", count: 1, slug: "history" },
-  { name: "Sports & Entertainment", count: 1, slug: "sports" },
-  { name: "Local Sourcing", count: 1, slug: "local-sourcing" },
-  { name: "Dog-Friendly", count: 1, slug: "dog-friendly" }
-];
 
 export default function BlogPage() {
   return (
@@ -159,7 +36,32 @@ export default function BlogPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          // ... existing schema markup remains the same
+          buildCollectionPageSchema({
+            path: '/blog',
+            title: BLOG_PAGE_TITLE,
+            description: BLOG_PAGE_DESCRIPTION,
+          }),
+          buildBlogSchema({
+            path: '/blog',
+            name: 'Old Crown Girton Blog',
+            description: BLOG_PAGE_DESCRIPTION,
+          }),
+          buildItemListSchema({
+            path: '/blog',
+            name: 'Old Crown Girton articles',
+            items: [featuredBlogPost, ...recentBlogPosts].map((post) => ({
+              name: post.title,
+              path: post.path,
+              description: post.excerpt,
+              image: post.image,
+              datePublished: post.publishedDate,
+              type: post.schemaType,
+            })),
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+          ]),
         ])}
         
         {/* Blog Hero Section with motion animation */}
@@ -176,13 +78,13 @@ export default function BlogPage() {
             <section className="py-16 bg-white" aria-labelledby="featured-post-heading">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 id="featured-post-heading" className="text-3xl font-display font-bold text-brand-700 mb-8 text-center">Featured Story</h2>
-                <BlogFeatured post={featuredPost} />
+                <BlogFeatured post={featuredBlogPost} />
               </div>
             </section>
           </FadeIn>
 
           <FadeIn>
-            <FilterableBlogSection posts={blogPosts} categories={categories} />
+            <FilterableBlogSection posts={recentBlogPosts} categories={blogCategories} />
           </FadeIn>
 
           <FadeIn>

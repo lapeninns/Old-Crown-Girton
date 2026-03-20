@@ -1,23 +1,21 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
 import { Images } from '@/src/lib/images';
+import { buildArticleSchemas, buildFaqSchema } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Business Lunch Cambridge | Corporate Dining at Old Crown Girton",
   description: "Discover Cambridge's perfect business lunch venue at Old Crown Girton. Quiet atmosphere, quality Nepalese and British cuisine, convenient parking, and professional service near Science Park.",
   keywords: ["business lunch Cambridge", "corporate dining Cambridge", "best gastropubs Cambridge", "business lunch spots Cambridge", "professional dining Girton", "meeting venue Cambridge"],
-  canonicalUrlRelative: "/blog/business-lunch-cambridge-guide",
-  openGraph: {
-    title: "Business Lunch Cambridge | Corporate Dining at Old Crown Girton",
-    description: "Experience Cambridge's ideal business lunch venue with quality cuisine, professional atmosphere, and convenient location.",
-    url: "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide",
-    type: "article",
-  },
+  path: '/blog/business-lunch-cambridge-guide',
+  socialTitle: 'Business Lunch Cambridge | Corporate Dining at Old Crown Girton',
+  socialDescription:
+    "Experience Cambridge's ideal business lunch venue with quality cuisine, professional atmosphere, and convenient location.",
+  image: Images.blog.businessLunch,
 });
 
 export default function BusinessLunchGuidePage() {
@@ -76,98 +74,50 @@ export default function BusinessLunchGuidePage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Person",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/business-lunch-cambridge-guide',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/business-lunch-cambridge-guide"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 1580,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Business Lunch",
-                "description": "Professional dining for business meetings and corporate entertainment"
+                name: 'Business Lunch',
+                description:
+                  'Professional dining for business meetings and corporate entertainment',
               },
               {
-                "@type": "Thing",
-                "name": "Corporate Dining",
-                "description": "Restaurant services tailored for business professionals and meetings"
-              }
-            ]
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Do you offer business lunch packages?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, we offer tailored business lunch packages with set menus, private dining areas, and professional service designed for corporate meetings and client entertainment."
-                }
+                name: 'Corporate Dining',
+                description:
+                  'Restaurant services tailored for business professionals and meetings',
               },
-              {
-                "@type": "Question",
-                "name": "How far is Old Crown Girton from Cambridge Science Park?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Old Crown Girton is just 10 minutes drive from Cambridge Science Park, with ample free parking and easy access from the A14 and M11."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Can you accommodate dietary requirements for business lunches?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Absolutely. With advance notice, we can accommodate all dietary requirements including vegan, vegetarian, gluten-free, and other specific needs for business dining."
-                }
-              }
-            ]
-          }
+            ],
+          }),
+          buildFaqSchema([
+            {
+              question: 'Do you offer business lunch packages?',
+              answer:
+                'Yes, we offer tailored business lunch packages with set menus, private dining areas, and professional service designed for corporate meetings and client entertainment.',
+            },
+            {
+              question: 'How far is Old Crown Girton from Cambridge Science Park?',
+              answer:
+                'Old Crown Girton is just 10 minutes drive from Cambridge Science Park, with ample free parking and easy access from the A14 and M11.',
+            },
+            {
+              question: 'Can you accommodate dietary requirements for business lunches?',
+              answer:
+                'Absolutely. With advance notice, we can accommodate all dietary requirements including vegan, vegetarian, gluten-free, and other specific needs for business dining.',
+            },
+          ]),
         ])}
 
         <div className="min-h-screen bg-neutral-50">

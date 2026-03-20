@@ -1,4 +1,5 @@
 'use client';
+import { contentPanelRecipe, panelTextRecipe, panelTitleRecipe, socialIconButtonRecipe } from '@/src/design-system';
 
 /**
  * Props interfaces for SocialMediaSection component
@@ -29,20 +30,20 @@ export default function SocialMediaSection({
   className = '' 
 }: SocialMediaSectionProps) {
   return (
-    <div className={`bg-neutral-50 p-6 rounded-xl shadow-lg text-center ${className}`}>
-      <h2 className="text-xl font-display font-bold text-brand-700 mb-4">
+    <div className={contentPanelRecipe(`text-center ${className}`.trim())}>
+      <h2 className={panelTitleRecipe('mb-4')}>
         {title}
       </h2>
       
       {description && (
-        <p className="text-neutral-600 mb-4">{description}</p>
+        <p className={panelTextRecipe('mb-4')}>{description}</p>
       )}
       
       <div className="flex justify-center space-x-6">
         {/* Facebook Link */}
         <a 
           href="https://facebook.com" 
-          className="text-brand-600 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60 rounded-full p-1"
+          className={socialIconButtonRecipe('brand')}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Follow us on Facebook"
@@ -55,7 +56,7 @@ export default function SocialMediaSection({
         {/* Instagram Link */}
         <a 
           href="https://instagram.com" 
-          className="text-brand-600 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60 rounded-full p-1"
+          className={socialIconButtonRecipe('brand')}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Follow us on Instagram"

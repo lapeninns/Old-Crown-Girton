@@ -2,6 +2,14 @@
 import Link from '@/lib/debugLink';
 import { motion } from 'framer-motion';
 import { variants as mv } from '@/lib/motion/variants';
+import {
+  bannerButtonRecipe,
+  ctaPanelRecipe,
+  sectionDescriptionRecipe,
+  sectionInnerClassName,
+  sectionShellClassName,
+  sectionTitleRecipe,
+} from '@/src/design-system';
 
 /**
  * Props interfaces for MenuCTASection component
@@ -37,7 +45,7 @@ interface MenuCTASectionProps {
  */
 export default function MenuCTASection({ 
   title = "Ready to Try Our Unique Menu?",
-  description = "Book a table or order takeaway to experience the best of Nepal and Britain at Girton's historic thatched pub.",
+  description = "Book a table or call for takeaway to experience the best of Nepal and Britain at Girton's historic thatched pub.",
   buttons,
   allergenNotice,
   className = '' 
@@ -47,29 +55,27 @@ export default function MenuCTASection({
   }
 
   const getButtonClasses = (variant: string) => {
-    const base = 'transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105';
     switch (variant) {
-      case 'primary':
-        return `${base} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200`;
       case 'secondary':
-        return `${base} bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20`;
+        return bannerButtonRecipe('light');
       case 'tertiary':
-        return `${base} bg-white hover:bg-neutral-50 text-brand-700 border-2 border-brand-200`;
+        return bannerButtonRecipe('heritage');
+      case 'primary':
       default:
-        return `${base} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200`;
+        return bannerButtonRecipe('light');
     }
   };
 
   return (
-    <motion.section className={`py-16 bg-white ${className}`} variants={mv.fadeUp} initial="hidden" animate="visible">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
+    <motion.section className={`bg-white ${sectionShellClassName} ${className}`} variants={mv.fadeUp} initial="hidden" animate="visible">
+      <div className={sectionInnerClassName}>
+        <div className={ctaPanelRecipe()}>
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-white drop-shadow-lg">
+            <h2 className={sectionTitleRecipe('mb-6 text-3xl text-white md:text-4xl')}>
               🍽️ {title}
             </h2>
             
-            <p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className={sectionDescriptionRecipe('mb-8 text-white/95')}>
               {description}
             </p>
             
@@ -88,7 +94,7 @@ export default function MenuCTASection({
                   <motion.div key={index} whileHover={mv.button.hover} whileTap={mv.button.tap}>
                     <ButtonComponent
                       {...buttonProps}
-                      className={`${getButtonClasses(button.variant)} font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block`}
+                      className={getButtonClasses(button.variant)}
                     >
                       {button.text}
                       {button.external && (

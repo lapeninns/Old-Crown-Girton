@@ -1,23 +1,21 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
 import { Images } from '@/src/lib/images';
+import { buildArticleSchemas, buildFaqSchema } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Authentic Momo Dumplings Cambridge | Best Nepalese Restaurant Old Crown Girton",
   description: "Discover authentic Nepalese momo dumplings at Old Crown Girton. Cambridge's best Nepalese restaurant serving traditional Himalayan momo, dal bhat, and curry in historic thatched pub setting.",
   keywords: ["momo dumplings Cambridge", "Nepalese restaurant Cambridge", "authentic Nepalese food", "best curry Cambridge", "Himalayan food Cambridge", "Nepalese food Cambridge"],
-  canonicalUrlRelative: "/blog/authentic-momo-dumplings-nepalese-cuisine",
-  openGraph: {
-    title: "Authentic Momo Dumplings Cambridge | Best Nepalese Restaurant",
-    description: "Experience authentic Nepalese momo dumplings and traditional Himalayan cuisine at Cambridge's most unique restaurant.",
-    url: "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine",
-    type: "article",
-  },
+  path: '/blog/authentic-momo-dumplings-nepalese-cuisine',
+  socialTitle: "Authentic Momo Dumplings Cambridge | Best Nepalese Restaurant",
+  socialDescription:
+    "Experience authentic Nepalese momo dumplings and traditional Himalayan cuisine at Cambridge's most unique restaurant.",
+  image: Images.blog.momo,
 });
 
 export default function MomoDumplingsPage() {
@@ -91,68 +89,33 @@ export default function MomoDumplingsPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Person",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/authentic-momo-dumplings-nepalese-cuisine',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/authentic-momo-dumplings-nepalese-cuisine"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 1680,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Momo Dumplings",
-                "description": "Traditional Nepalese steamed dumplings filled with seasoned vegetables or meat"
+                name: 'Momo Dumplings',
+                description:
+                  'Traditional Nepalese steamed dumplings filled with seasoned vegetables or meat',
               },
               {
-                "@type": "Thing",
-                "name": "Nepalese Cuisine",
-                "description": "Authentic cooking traditions and dishes from Nepal and the Himalayan region"
-              }
-            ]
-          },
+                name: 'Nepalese Cuisine',
+                description:
+                  'Authentic cooking traditions and dishes from Nepal and the Himalayan region',
+              },
+            ],
+          }),
           {
             "@context": "https://schema.org",
             "@type": "Recipe",
@@ -204,36 +167,23 @@ export default function MomoDumplingsPage() {
             "prepTime": "PT45M",
             "totalTime": "PT75M"
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "What are momo dumplings?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Momo dumplings are traditional Nepalese steamed dumplings made with thin dough wrappers filled with seasoned vegetables or meat. They originated in Tibet and are now Nepal's most beloved comfort food."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Are your momo made fresh daily?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, all our momo dumplings are handmade fresh every morning using traditional techniques and recipes passed down through generations."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What makes Nepalese cuisine different from Indian food?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "While both cuisines share some spices, Nepalese cooking is generally less heavily spiced and focuses more on highlighting natural ingredient flavors. It also incorporates Tibetan and Chinese influences, particularly in cooking techniques like steaming."
-                }
-              }
-            ]
-          }
+          buildFaqSchema([
+            {
+              question: 'What are momo dumplings?',
+              answer:
+                "Momo dumplings are traditional Nepalese steamed dumplings made with thin dough wrappers filled with seasoned vegetables or meat. They originated in Tibet and are now Nepal's most beloved comfort food.",
+            },
+            {
+              question: 'Are your momo made fresh daily?',
+              answer:
+                'Yes, all our momo dumplings are handmade fresh every morning using traditional techniques and recipes passed down through generations.',
+            },
+            {
+              question: 'What makes Nepalese cuisine different from Indian food?',
+              answer:
+                'While both cuisines share some spices, Nepalese cooking is generally less heavily spiced and focuses more on highlighting natural ingredient flavors. It also incorporates Tibetan and Chinese influences, particularly in cooking techniques like steaming.',
+            },
+          ]),
         ])}
 
         <div className="min-h-screen bg-neutral-50">
@@ -321,7 +271,7 @@ export default function MomoDumplingsPage() {
               {/* Call to Action */}
               <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
                 <h3 className="text-2xl font-bold mb-4">Ready to Try Authentic momo?</h3>
-                <p className="text-brand-100 mb-6">Experience the authentic flavors of Nepal in Cambridge's most unique setting. Book your table today and discover why our momo are becoming legendary.</p>
+                <p className="text-brand-100 mb-6">Experience the authentic flavors of Nepal in Cambridge&apos;s most unique setting. Book your table today and discover why our momo are becoming legendary.</p>
                 <Link
                   href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                   target="_blank"

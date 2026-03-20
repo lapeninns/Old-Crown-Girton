@@ -29,17 +29,23 @@ interface NavContentResult {
 
 
 export function useNavContent(initialContent?: any): NavContentResult {
-  const { data, error } = useParsedData<NavDataParsed>('nav.json', NavDataSchema);
-  const { data: fetchedContent } = useContent();
-
+  const { data: fetchedContent, loading: contentLoading } = useContent();
   const content = initialContent || fetchedContent;
-
-  const navLinksRaw =
-    (data?.links ||
-      content?.global?.navigation?.header?.links ||
-      []) as any[];
+  const navLinksFromContent = content?.global?.navigation?.header?.links;
+  const shouldLoadLegacyNav =
+    !navLinksFromContent?.length && (Boolean(initialContent) || !contentLoading);
+  const { data: legacyNav, error } = useParsedData<NavDataParsed>(
+    'nav.json',
+    NavDataSchema,
+    { enabled: shouldLoadLegacyNav }
+  );
 
   const sanitizedLinks = useMemo<SanitizedNavLink[]>(() => {
+    const navLinksRaw =
+      (navLinksFromContent ||
+        legacyNav?.links ||
+        []) as any[];
+
     return navLinksRaw.reduce((acc: SanitizedNavLink[], link: any, index: number) => {
       if (!isValidHref(link.href)) {
         logHrefIssue('Invalid href detected in navbar link', link.href, 'Navbar.useNavContent');
@@ -59,7 +65,7 @@ export function useNavContent(initialContent?: any): NavContentResult {
       });
       return acc;
     }, [] as SanitizedNavLink[]);
-  }, [navLinksRaw]);
+  }, [legacyNav?.links, navLinksFromContent]);
 
   const uiLabels = content?.global?.ui?.labels;
   const ariaLabels = content?.global?.accessibility?.ariaLabels;

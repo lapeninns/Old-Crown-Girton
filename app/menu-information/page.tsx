@@ -1,19 +1,24 @@
-import { getSEOTags, renderSchemaTags } from "@/libs/seo";
+import { buildPageMetadata, renderSchemaTags } from "@/libs/seo";
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import MenuInfoCollapse from '@/components/menu/MenuInfoCollapse';
 import Link from '@/lib/debugLink';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
+import { siteUrl } from '@/src/lib/site/site';
 
-export const metadata = getSEOTags({
-  title: "Menu Information & Dietary Requirements | Old Crown Girton - Allergens, Dietary Options & Food Safety",
-  description: "Comprehensive allergen information, dietary requirements, and menu transparency for Old Crown Girton. We comply with UK Food Information Regulations 2014 and Natasha's Law.",
+const MENU_INFORMATION_PAGE_TITLE =
+  "Menu Information & Dietary Requirements | Old Crown Girton - Allergens, Dietary Options & Food Safety";
+const MENU_INFORMATION_PAGE_DESCRIPTION =
+  "Comprehensive allergen information, dietary requirements, and menu transparency for Old Crown Girton. We comply with UK Food Information Regulations 2014 and Natasha's Law.";
+
+export const metadata = buildPageMetadata({
+  title: MENU_INFORMATION_PAGE_TITLE,
+  description: MENU_INFORMATION_PAGE_DESCRIPTION,
   keywords: ["Old Crown Girton allergens", "dietary requirements Cambridge", "gluten free restaurant", "vegetarian Girton", "food allergies", "menu information", "Natasha's Law compliance"],
-  canonicalUrlRelative: "/menu-information",
-  openGraph: {
-    title: "Menu Information & Dietary Requirements | Old Crown Girton",
-    description: "Complete allergen information and dietary options at Old Crown Girton. Safe dining for all dietary requirements.",
-    url: "https://oldcrowngirton.com//menu-information",
-  },
+  path: '/menu-information',
+  socialTitle: 'Menu Information & Dietary Requirements | Old Crown Girton',
+  socialDescription:
+    'Complete allergen information and dietary options at Old Crown Girton. Safe dining for all dietary requirements.',
 });
 
 const faqItems = [
@@ -400,16 +405,25 @@ export default function MenuInformationPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
+          buildWebPageSchema({
+            path: '/menu-information',
+            title: MENU_INFORMATION_PAGE_TITLE,
+            description: MENU_INFORMATION_PAGE_DESCRIPTION,
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Menu Information', path: '/menu-information' },
+          ]),
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            "@id": "https://oldcrowngirton.com//menu-information#faqpage",
+            "@id": `${siteUrl('/menu-information')}#faqpage`,
             "name": "Menu Information & Dietary Requirements - Old Crown Girton",
             "description": "Comprehensive allergen information, dietary requirements, and food safety information for Old Crown Girton restaurant.",
-            "url": "https://oldcrowngirton.com//menu-information",
+            "url": siteUrl('/menu-information'),
             "mainEntity": faqItems.map((item, index) => ({
               "@type": "Question",
-              "@id": `https://oldcrowngirton.com//menu-information#faq-${index}`,
+              "@id": `${siteUrl('/menu-information')}#faq-${index}`,
               "name": item.title,
               "acceptedAnswer": {
                 "@type": "Answer",
@@ -431,23 +445,6 @@ export default function MenuInformationPage() {
               "email": "oldcrown@lapeninns.com",
               "servesCuisine": ["Nepalese", "British", "Indian"],
               "priceRange": "$$"
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "@id": "https://oldcrowngirton.com//menu-information#webpage",
-            "name": "Menu Information & Dietary Requirements",
-            "description": "Complete guide to allergens, dietary options and food safety at Old Crown Girton",
-            "url": "https://oldcrowngirton.com//menu-information",
-            "isPartOf": {
-              "@type": "WebSite",
-              "name": "Old Crown Girton",
-              "url": "https://oldcrowngirton.com/"
-            },
-            "speakable": {
-              "@type": "SpeakableSpecification",
-              "cssSelector": ["h1", "h2", ".faq-question"]
             }
           }
         ])}

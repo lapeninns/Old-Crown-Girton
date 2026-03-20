@@ -1,7 +1,8 @@
 // Enhanced robots.txt for restaurant SEO optimization
 import { MetadataRoute } from 'next'
+import { SITE_ORIGIN } from '@/src/lib/site/site';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.oldcrowngirton.com';
+const BASE_URL = SITE_ORIGIN;
  
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -16,22 +17,20 @@ export default function robots(): MetadataRoute.Robots {
           '/contact',
           '/events',
           '/blog',
-          '/book-table',
-          '/takeaway',
-          '/nepalese-restaurant-girton',
-          '/indian-restaurant-cambridge',
-          '/pub-food-girton',
-          '/restaurant-near-me'
+          '/book-a-table',
+          '/takeaway-menu',
+          '/wakes-menu',
+          '/menu-information',
+          '/press',
+          '/privacy-policy',
+          '/tos'
         ],
         disallow: [
           '/api/',
           '/dashboard/',
           '/signin/',
-          '/_next/',
           '/admin/',
-          '/private/',
-          '/*?*', // Block parameter URLs to avoid duplicate content
-          '/*#'   // Block fragment URLs
+          '/private/'
         ],
         crawlDelay: 1,
       },
@@ -73,6 +72,31 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'Twitterbot',
         allow: '/',
       },
+
+      // AI crawler rules
+      {
+        userAgent: 'GPTBot',
+        allow: '/',
+        disallow: ['/api/', '/admin/'],
+      },
+      {
+        userAgent: 'ChatGPT-User',
+        allow: '/',
+      },
+      {
+        userAgent: 'ClaudeBot',
+        allow: '/',
+        disallow: ['/api/', '/admin/'],
+      },
+      {
+        userAgent: 'anthropic-ai',
+        allow: '/',
+      },
+      {
+        userAgent: 'PerplexityBot',
+        allow: '/',
+        disallow: ['/api/', '/admin/'],
+      },
       
       // Block aggressive SEO crawlers
       {
@@ -93,9 +117,7 @@ export default function robots(): MetadataRoute.Robots {
       }
     ],
     sitemap: [
-      `${BASE_URL}/sitemap.xml`,
-      `${BASE_URL}/sitemap-images.xml`,
-      `${BASE_URL}/sitemap-news.xml`
+      `${BASE_URL}/sitemap.xml`
     ],
     host: BASE_URL,
   }

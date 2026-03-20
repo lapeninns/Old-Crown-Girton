@@ -1,22 +1,20 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
+import { buildArticleSchemas, buildFaqSchema } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Dog-Friendly Dining at Old Crown Girton | Cambridge's Best Pet-Welcome Pub",
   description: "Discover Cambridge's most welcoming dog-friendly pub restaurant. Our guide to dining with your four-legged family at Old Crown Girton's spacious terrace and bar area.",
   keywords: ["dog friendly pub Cambridge", "pet friendly restaurant Girton", "dogs welcome Cambridge", "Old Crown Girton dogs", "beer garden dogs Cambridge", "family pub Cambridge"],
-  canonicalUrlRelative: "/blog/dog-friendly-dining-guide",
-  openGraph: {
-    title: "Dog-Friendly Dining at Old Crown Girton | Cambridge's Best Pet-Welcome Pub",
-    description: "Discover Cambridge's most welcoming dog-friendly pub restaurant with spacious terrace, water bowls, and staff who love meeting furry customers.",
-    url: "https://oldcrowngirton.com/blog/dog-friendly-dining-guide",
-    type: "article",
-  },
+  path: '/blog/dog-friendly-dining-guide',
+  socialTitle: "Dog-Friendly Dining at Old Crown Girton | Cambridge's Best Pet-Welcome Pub",
+  socialDescription:
+    "Discover Cambridge's most welcoming dog-friendly pub restaurant with spacious terrace, water bowls, and staff who love meeting furry customers.",
+  image: Images.blog.dogFriendly,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -108,90 +106,44 @@ export default function DogFriendlyDiningPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/dog-friendly-dining-guide#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/dog-friendly-dining-guide",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Person",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/dog-friendly-dining-guide',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/dog-friendly-dining-guide"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 1240,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Dog-Friendly Restaurant",
-                "description": "Restaurant that welcomes dogs and provides amenities for pet owners"
+                name: 'Dog-Friendly Restaurant',
+                description:
+                  'Restaurant that welcomes dogs and provides amenities for pet owners',
               },
               {
-                "@type": "Place",
-                "name": "Old Crown Girton",
-                "description": "Historic thatched pub in Cambridge serving Nepalese cuisine"
-              }
-            ]
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Are dogs allowed inside Old Crown Girton?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, well-behaved dogs are welcome in our bar area as well as our outdoor terrace garden. We provide water bowls and our staff love meeting four-legged customers."
-                }
+                name: 'Old Crown Girton',
+                description: 'Historic thatched pub in Cambridge serving Nepalese cuisine',
               },
-              {
-                "@type": "Question",
-                "name": "Is there a secure outdoor area for dogs?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Our large terrace garden is fully fenced and provides a secure, comfortable space for dogs of all sizes. There are shaded areas for warmer weather and plenty of room to move around."
-                }
-              }
-            ]
-          }
+            ],
+          }),
+          buildFaqSchema([
+            {
+              question: 'Are dogs allowed inside Old Crown Girton?',
+              answer:
+                'Yes, well-behaved dogs are welcome in our bar area as well as our outdoor terrace garden. We provide water bowls and our staff love meeting four-legged customers.',
+            },
+            {
+              question: 'Is there a secure outdoor area for dogs?',
+              answer:
+                'Our large terrace garden is fully fenced and provides a secure, comfortable space for dogs of all sizes. There are shaded areas for warmer weather and plenty of room to move around.',
+            },
+          ]),
         ])}
 
         <div className="min-h-screen bg-neutral-50">
@@ -279,7 +231,7 @@ export default function DogFriendlyDiningPage() {
               {/* Call to Action */}
               <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
                 <h3 className="text-2xl font-bold mb-4">Ready to Dine with Your Dog?</h3>
-                <p className="text-brand-100 mb-6">Experience Cambridge's most welcoming dog-friendly pub. Book your table and bring your four-legged family member along!</p>
+                <p className="text-brand-100 mb-6">Experience Cambridge&apos;s most welcoming dog-friendly pub. Book your table and bring your four-legged family member along!</p>
                 <Link
                   href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                   target="_blank"

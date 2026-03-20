@@ -1,4 +1,5 @@
 'use client';
+import { contentPanelRecipe, panelTitleRecipe } from '@/src/design-system';
 
 /**
  * Props interfaces for ContactFeaturesSection component
@@ -38,8 +39,8 @@ export default function ContactFeaturesSection({
   }
 
   return (
-    <div className={`bg-neutral-50 p-6 rounded-xl shadow-lg ${className}`}>
-      <h2 className="text-xl font-display font-bold text-brand-700 mb-4">
+    <div className={contentPanelRecipe(className)}>
+      <h2 className={panelTitleRecipe('mb-4')}>
         {title}
       </h2>
       

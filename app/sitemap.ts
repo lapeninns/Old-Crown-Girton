@@ -1,5 +1,6 @@
 // Enhanced SEO Sitemap Generator - Restaurant-specific sitemap optimization
 import { MetadataRoute } from 'next';
+import { SITE_ORIGIN } from '@/src/lib/site/site';
 
 type ChangeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 
@@ -13,7 +14,7 @@ interface SitemapEntryConfig {
   };
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.oldcrowngirton.com';
+const BASE_URL = SITE_ORIGIN;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
@@ -40,6 +41,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     createEntry({ path: '/about', priority: 0.8, changeFrequency: 'monthly', lastModified: lastMonth }),
     createEntry({ path: '/contact', priority: 0.8, changeFrequency: 'monthly', lastModified: lastMonth }),
     createEntry({ path: '/book-a-table', priority: 0.78, changeFrequency: 'weekly', lastModified: lastWeek }),
+    createEntry({ path: '/menu-information', priority: 0.75, changeFrequency: 'monthly', lastModified: lastMonth }),
+    createEntry({ path: '/takeaway-menu', priority: 0.74, changeFrequency: 'monthly', lastModified: lastMonth }),
+    createEntry({ path: '/wakes-menu', priority: 0.72, changeFrequency: 'monthly', lastModified: lastMonth }),
+    createEntry({ path: '/press', priority: 0.7, changeFrequency: 'monthly', lastModified: lastMonth }),
     createEntry({ path: '/blog', priority: 0.8, changeFrequency: 'weekly' }),
     createEntry({ path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly', lastModified: new Date('2024-01-01') }),
     createEntry({ path: '/tos', priority: 0.3, changeFrequency: 'yearly', lastModified: new Date('2024-01-01') }),
@@ -59,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     createEntry({ path: '/blog/ultimate-sports-viewing-guide', lastModified: new Date('2024-12-05'), changeFrequency: 'monthly', priority: 0.7 }),
     createEntry({ path: '/blog/local-suppliers-fresh-ingredients', lastModified: new Date('2024-11-30'), changeFrequency: 'monthly', priority: 0.7 }),
     createEntry({ path: '/blog/nepalese-cuisine-journey', lastModified: new Date('2024-08-15'), changeFrequency: 'monthly', priority: 0.7 }),
+    createEntry({ path: '/blog/evening-standard-country-pub-of-the-week', lastModified: new Date('2024-11-10'), changeFrequency: 'monthly', priority: 0.7 }),
   ];
 
   const groupedEntries = [...corePages, ...eventPages, ...blogPages];

@@ -1,5 +1,13 @@
 'use client';
 import Link from '@/lib/debugLink';
+import {
+  bannerButtonRecipe,
+  ctaPanelRecipe,
+  sectionDescriptionRecipe,
+  sectionInnerClassName,
+  sectionShellClassName,
+  sectionTitleRecipe,
+} from '@/src/design-system';
 
 /**
  * Props interfaces for CallToActionSection component
@@ -42,31 +50,27 @@ export default function CallToActionSection({
     return null;
   }
 
-  /**
-   * Get button styling based on variant using design system tokens
-   */
   const getButtonClasses = (variant: CTAButton['variant']): string => {
-    const baseClasses = 'font-bold py-4 px-8 rounded-lg text-base focus:outline-none focus:ring-4 focus:ring-offset-2 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105';
-    
     switch (variant) {
-      case 'accent':
-        return `${baseClasses} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 focus:ring-brand-300`;
       case 'brand':
-        return `${baseClasses} bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 focus:ring-white/30`;
+        return bannerButtonRecipe('light');
       case 'crimson':
-        return `${baseClasses} bg-white hover:bg-neutral-50 text-crimson-700 border-2 border-crimson-200 focus:ring-crimson-300`;
+        return bannerButtonRecipe('heritage');
+      case 'accent':
       default:
-        return `${baseClasses} bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 focus:ring-brand-300`;
+        return bannerButtonRecipe('light');
     }
-  };  return (
-    <section className={`bg-white py-16 ${className}`}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
+  };
+
+  return (
+    <section className={`bg-white ${sectionShellClassName} ${className}`}>
+      <div className={sectionInnerClassName}>
+        <div className={ctaPanelRecipe()}>
           <div className="text-center">
-            <h2 className="font-display font-bold text-white mb-4 h2 drop-shadow-lg text-3xl md:text-4xl">
+            <h2 className={sectionTitleRecipe('mb-4 text-3xl text-white md:text-4xl')}>
               🎉 {headline}
             </h2>
-            <p className="text-neutral-100 mb-8 text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className={sectionDescriptionRecipe('mb-8 text-neutral-100')}>
               {description}
             </p>
             
@@ -87,7 +91,7 @@ export default function CallToActionSection({
                   <div key={button.key || button.text || index}>
                     <Link
                       href={button.href}
-                      className={`${getButtonClasses(button.variant)}`}
+                      className={getButtonClasses(button.variant)}
                       {...buttonProps}
                     >
                       {button.text}

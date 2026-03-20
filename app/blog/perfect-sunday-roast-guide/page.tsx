@@ -1,22 +1,20 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
+import { buildArticleSchemas, buildFaqSchema } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Sunday Roast in Cambridge: Where to Go + Roast Alternatives | Old Crown Girton",
   description: "We don't currently serve a traditional Sunday roast. Discover Cambridge Sunday roast options and our Sunday roast alternatives at Old Crown Girton's historic thatched pub.",
   keywords: ["Sunday roast Girton", "Sunday lunch Cambridge", "best Sunday roast Cambridge", "Sunday roast alternatives", "pub Sunday roast CB3", "family Sunday lunch"],
-  canonicalUrlRelative: "/blog/perfect-sunday-roast-guide",
-  openGraph: {
-    title: "Sunday Roast in Cambridge: Where to Go + Alternatives",
-    description: "We don't serve a traditional Sunday roast — explore Cambridge options and our comforting Sunday alternatives.",
-    url: "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide",
-    type: "article",
-  },
+  path: '/blog/perfect-sunday-roast-guide',
+  socialTitle: 'Sunday Roast in Cambridge: Where to Go + Alternatives',
+  socialDescription:
+    "We don't serve a traditional Sunday roast — explore Cambridge options and our comforting Sunday alternatives.",
+  image: Images.blog.sundayRoast,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -72,98 +70,50 @@ export default function SundayRoastGuidePage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Organization",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/perfect-sunday-roast-guide',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              type: 'Organization',
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/perfect-sunday-roast-guide"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 850,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Sunday Roast",
-                "description": "Traditional British Sunday meal featuring roasted meat, vegetables, Yorkshire pudding and gravy"
+                name: 'Sunday Roast',
+                description:
+                  'Traditional British Sunday meal featuring roasted meat, vegetables, Yorkshire pudding and gravy',
               },
               {
-                "@type": "Thing",
-                "name": "British Cuisine",
-                "description": "Traditional cooking methods and dishes from Great Britain"
-              }
-            ]
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Do you serve a traditional Sunday roast?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "No. We don't currently serve a traditional Sunday roast. However, we offer comforting Nepalese dishes and British pub classics that many guests enjoy as Sunday lunch alternatives."
-                }
+                name: 'British Cuisine',
+                description: 'Traditional cooking methods and dishes from Great Britain',
               },
-              {
-                "@type": "Question",
-                "name": "What should I order instead of a Sunday roast?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Try our Nepalese comfort dishes, momo, mixed platters for sharing, or familiar British pub classics – all great options for a relaxed Sunday meal."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Are you open on Sundays?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, we open on Sundays. Please see our current opening hours in the footer or contact us to confirm."
-                }
-              }
-            ]
-          }
+            ],
+          }),
+          buildFaqSchema([
+            {
+              question: 'Do you serve a traditional Sunday roast?',
+              answer:
+                "No. We don't currently serve a traditional Sunday roast. However, we offer comforting Nepalese dishes and British pub classics that many guests enjoy as Sunday lunch alternatives.",
+            },
+            {
+              question: 'What should I order instead of a Sunday roast?',
+              answer:
+                'Try our Nepalese comfort dishes, momo, mixed platters for sharing, or familiar British pub classics - all great options for a relaxed Sunday meal.',
+            },
+            {
+              question: 'Are you open on Sundays?',
+              answer:
+                'Yes, we open on Sundays. Please see our current opening hours in the footer or contact us to confirm.',
+            },
+          ]),
         ])}
 
         <div className="min-h-screen bg-neutral-50">
@@ -251,7 +201,7 @@ export default function SundayRoastGuidePage() {
               {/* Call to Action */}
               <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
                 <h3 className="text-2xl font-bold mb-4">Craving a cosy Sunday lunch?</h3>
-                <p className="text-brand-100 mb-6">We don't serve a traditional Sunday roast, but our Nepalese dishes and British pub classics make great Sunday roast alternatives.</p>
+                <p className="text-brand-100 mb-6">We don&apos;t serve a traditional Sunday roast, but our Nepalese dishes and British pub classics make great Sunday roast alternatives.</p>
                 <Link
                   href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                   target="_blank"

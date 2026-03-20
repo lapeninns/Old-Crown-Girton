@@ -1,20 +1,14 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn } from '@/components/animations/MotionWrappers';
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildPageMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import PressFeatureBanner, { PressFeatureContent } from '@/components/restaurant/sections/PressFeatureBanner';
-
-type PressArticle = {
-  id: string;
-  title: string;
-  summary: string;
-  source: string;
-  date: string;
-  href: string;
-  ctaLabel: string;
-  isExternal?: boolean;
-  tags?: string[];
-};
+import { pressArticles, type PressArticle } from '@/src/lib/site/editorial';
+import {
+  buildBreadcrumbSchema,
+  buildCollectionPageSchema,
+  buildItemListSchema,
+} from '@/src/lib/seo/schema';
 
 const HERO_PRESS_FEATURE: PressFeatureContent = {
   label: "In the press",
@@ -36,84 +30,6 @@ const FOOD_HYGIENE_CARD = {
   href: "https://ratings.food.gov.uk/business/1750898/old-crown-girton?utm_source=chatgpt.com",
 };
 
-const PRESS_ARTICLES: PressArticle[] = [
-  {
-    id: "evening-standard-country-pub",
-    title: "Evening Standard: Country Pub of the Week",
-    summary: "David Ellis highlights our Nepalese kitchen, warm village welcome, and ever-evolving pub menu.",
-    source: "Evening Standard",
-    date: "19 December 2024",
-    href: "https://www.standard.co.uk/going-out/bars/old-crown-girton-hotel-pub-review-b1249473.html",
-    ctaLabel: "Full Evening Standard feature",
-    isExternal: true,
-    tags: ["Press Feature"],
-  },
-  {
-    id: "cambs-edition-royal-makeover",
-    title: "Cambs Edition: The Old Crown’s Royal Makeover",
-    summary: "Cambridge Edition charts the revitalised interiors, bold Nepalese flavours, and the team leading the transformation.",
-    source: "Cambridge Edition",
-    date: "20 September 2024",
-    href: "https://cambsedition.co.uk/food-drink/the-old-crown-a-royal-makeover/?utm_source=chatgpt.com",
-    ctaLabel: "Read Cambs Edition feature",
-    isExternal: true,
-    tags: ["Lifestyle"],
-  },
-  {
-    id: "press-blog-recap",
-    title: "Behind the Feature: Evening Standard Spotlight",
-    summary: "Our team shares the story behind the coverage and what it means for Cambridge's largest thatched pub.",
-    source: "Old Crown Blog",
-    date: "19 December 2024",
-    href: "/blog/evening-standard-country-pub-of-the-week",
-    ctaLabel: "Read the coverage recap",
-    tags: ["Press & Media"],
-  },
-  {
-    id: "cambridge-independent-reopening",
-    title: "Cambridge Independent: Revamped Old Crown Reopens",
-    summary: "Local press covers our launch party, refreshed spaces, and renewed community focus after the refurbishment.",
-    source: "Cambridge Independent",
-    date: "21 March 2018",
-    href: "https://www.cambridgeindependent.co.uk/lifestyle/revamped-old-crown-in-girton-celebrates-reopening-with-launch-party-9052915/?utm_source=chatgpt.com",
-    ctaLabel: "Read Cambridge Independent story",
-    isExternal: true,
-    tags: ["Community"],
-  },
-  {
-    id: "largest-thatched-heritage",
-    title: "England's Largest Thatched Pub Heritage",
-    summary: "Dive into the centuries-old story of The Old Crown Girton, a favourite backdrop for visiting journalists.",
-    source: "Old Crown Blog",
-    date: "10 December 2024",
-    href: "/blog/largest-thatched-pub-history",
-    ctaLabel: "Explore the heritage feature",
-    tags: ["Background"],
-  },
-  {
-    id: "camra-guide",
-    title: "CAMRA Guide: Old Crown Pub Profile",
-    summary: "Cambridge CAMRA’s guide spotlights our historic building, expansive garden, and multi-space dining experience.",
-    source: "Cambridge & District CAMRA",
-    date: "CAMRA listing",
-    href: "https://pubs.cambridge-camra.org.uk/viewnode.php?id=1636&utm_source=chatgpt.com",
-    ctaLabel: "View CAMRA listing",
-    isExternal: true,
-    tags: ["Heritage"],
-  },
-  {
-    id: "visit-south-cambs",
-    title: "Visit South Cambs: Hospitality Spotlight",
-    summary: "South Cambridgeshire’s visitor guide features Old Crown Girton as a must-visit hospitality destination.",
-    source: "Visit South Cambs",
-    date: "Updated 11 September 2025",
-    href: "https://visitsouthcambs.co.uk/hospitality/old-crown-girton/?utm_source=chatgpt.com",
-    ctaLabel: "View Visit South Cambs listing",
-    isExternal: true,
-    tags: ["Tourism"],
-  },
-];
-
 const PRESS_FACTS = [
   "England's largest thatched pub, located just outside Cambridge in Girton village.",
   "Authentic Nepalese cuisine paired with British pub classics from our award-winning kitchen team.",
@@ -127,9 +43,14 @@ const MEDIA_CONTACT = {
   address: "89 High Street, Girton, Cambridge, CB3 0QD",
 };
 
-export const metadata = getSEOTags({
-  title: "Press & Media | Old Crown Girton - Evening Standard Feature & Media Resources",
-  description: "Explore press coverage of The Old Crown Girton, including our Evening Standard feature, media highlights, and press enquiry information for journalists.",
+const PRESS_PAGE_TITLE =
+  'Press & Media | Old Crown Girton - Evening Standard Feature & Media Resources';
+const PRESS_PAGE_DESCRIPTION =
+  'Explore press coverage of The Old Crown Girton, including our Evening Standard feature, media highlights, and press enquiry information for journalists.';
+
+export const metadata = buildPageMetadata({
+  title: PRESS_PAGE_TITLE,
+  description: PRESS_PAGE_DESCRIPTION,
   keywords: [
     "Old Crown Girton press",
     "Cambridge pub media coverage",
@@ -137,12 +58,10 @@ export const metadata = getSEOTags({
     "Nepalese restaurant press kit",
     "Girton thatched pub media resources",
   ],
-  canonicalUrlRelative: "/press",
-  openGraph: {
-    title: "Press & Media | Old Crown Girton",
-    description: "Discover media coverage, press resources, and contact details for Old Crown Girton's historic thatched pub.",
-    url: "https://oldcrowngirton.com//press",
-  },
+  path: '/press',
+  socialTitle: 'Press & Media | Old Crown Girton',
+  socialDescription:
+    "Discover media coverage, press resources, and contact details for Old Crown Girton's historic thatched pub.",
 });
 
 export default function PressPage() {
@@ -156,49 +75,25 @@ export default function PressPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "@id": "https://oldcrowngirton.com//press#webpage",
-            "name": "Press & Media - Old Crown Girton",
-            "description": "Media coverage, press resources, and contact information for The Old Crown Girton.",
-            "url": "https://oldcrowngirton.com//press",
-            "isPartOf": {
-              "@type": "WebSite",
-              "name": "Old Crown Girton",
-              "url": "https://oldcrowngirton.com/"
-            },
-            "about": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": MEDIA_CONTACT.address,
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://oldcrowngirton.com/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Press & Media",
-                "item": "https://oldcrowngirton.com//press"
-              }
-            ]
-          }
+          buildCollectionPageSchema({
+            path: '/press',
+            title: PRESS_PAGE_TITLE,
+            description: PRESS_PAGE_DESCRIPTION,
+          }),
+          buildItemListSchema({
+            path: '/press',
+            name: 'Old Crown Girton press coverage',
+            items: pressArticles.map((article) => ({
+              name: article.title,
+              path: article.href,
+              description: article.summary,
+              type: article.isExternal ? 'Article' : 'NewsArticle',
+            })),
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Press & Media', path: '/press' },
+          ]),
         ])}
 
         <section
@@ -287,7 +182,7 @@ export default function PressPage() {
                 </div>
 
                 <div className="grid gap-6 sm:gap-8 md:grid-cols-2 xl:grid-cols-3">
-                  {PRESS_ARTICLES.map((article) => {
+                  {pressArticles.map((article: PressArticle) => {
                     const Tag = article.isExternal ? 'a' : Link;
                     const tagProps = article.isExternal
                       ? {

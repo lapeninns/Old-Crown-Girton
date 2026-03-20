@@ -1,9 +1,42 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn, BouncyEmoji, MotionLinkButton } from "@/components/animations/MotionWrappers";
+import { buildPageMetadata, renderSchemaTags } from '@/libs/seo';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
+
+const EVENTS_PAGE_TITLE = 'Events at The Old Crown, Girton | Sports, Celebrations & Community';
+const EVENTS_PAGE_DESCRIPTION =
+  'Plan celebrations, catch live sports, and host community gatherings at The Old Crown Girton with flexible spaces, food, drinks, and easy parking.';
+
+export const metadata = buildPageMetadata({
+  title: EVENTS_PAGE_TITLE,
+  description: EVENTS_PAGE_DESCRIPTION,
+  keywords: [
+    'events Cambridge pub',
+    'private hire Girton',
+    'sports pub Cambridge',
+    'celebrations at Old Crown Girton',
+    'community events Girton',
+  ],
+  path: '/events',
+  socialTitle: 'Events at The Old Crown, Girton',
+  socialDescription:
+    'Discover live sports, private celebrations, and community gatherings at The Old Crown Girton.',
+});
 
 export default function EventsPage() {
   return (
     <RestaurantLayout>
+      {renderSchemaTags([
+        buildWebPageSchema({
+          path: '/events',
+          title: EVENTS_PAGE_TITLE,
+          description: EVENTS_PAGE_DESCRIPTION,
+        }),
+        buildBreadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: 'Events', path: '/events' },
+        ]),
+      ])}
       <div className="min-h-screen bg-brand-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-brand-600 to-brand-800 text-white py-10 md:py-16">

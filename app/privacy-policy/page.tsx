@@ -1,18 +1,22 @@
-import { getSEOTags, renderSchemaTags } from "@/libs/seo";
+import { buildPageMetadata, renderSchemaTags } from "@/libs/seo";
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import Link from '@/lib/debugLink';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
 
-export const metadata = getSEOTags({
-  title: "Privacy Policy | Old Crown Girton - Data Protection & GDPR Compliance",
-  description: "Privacy policy for Old Crown Girton outlining data handling for restaurant bookings, enquiries and website usage. GDPR compliant data protection policy.",
+const PRIVACY_PAGE_TITLE =
+  'Privacy Policy | Old Crown Girton - Data Protection & GDPR Compliance';
+const PRIVACY_PAGE_DESCRIPTION =
+  'Privacy policy for Old Crown Girton outlining data handling for restaurant bookings, enquiries and website usage. GDPR compliant data protection policy.';
+
+export const metadata = buildPageMetadata({
+  title: PRIVACY_PAGE_TITLE,
+  description: PRIVACY_PAGE_DESCRIPTION,
   keywords: ["Old Crown Girton privacy policy", "restaurant data protection", "GDPR compliance Cambridge", "pub privacy policy"],
-  canonicalUrlRelative: "/privacy-policy",
-  openGraph: {
-    title: "Privacy Policy | Old Crown Girton",
-    description: "Privacy policy for Old Crown Girton outlining data handling for restaurant bookings, enquiries and website usage.",
-    url: "https://oldcrowngirton.com//privacy-policy",
-  },
+  path: '/privacy-policy',
+  socialTitle: 'Privacy Policy | Old Crown Girton',
+  socialDescription:
+    'Privacy policy for Old Crown Girton outlining data handling for restaurant bookings, enquiries and website usage.',
 });
 
 export default function PrivacyPolicy() {
@@ -26,39 +30,15 @@ export default function PrivacyPolicy() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "@id": "https://oldcrowngirton.com//privacy-policy#webpage",
-            "name": "Privacy Policy - Old Crown Girton",
-            "description": "Privacy policy and data protection information for Old Crown Girton restaurant bookings, enquiries and website usage.",
-            "url": "https://oldcrowngirton.com//privacy-policy",
-            "isPartOf": {
-              "@type": "WebSite",
-              "name": "Old Crown Girton",
-              "url": "https://oldcrowngirton.com/"
-            },
-            "about": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainContentOfPage": {
-              "@type": "WebPageElement",
-              "cssSelector": "main"
-            },
-            "speakable": {
-              "@type": "SpeakableSpecification",
-              "cssSelector": ["h1", "h2"]
-            }
-          }
+          buildWebPageSchema({
+            path: '/privacy-policy',
+            title: PRIVACY_PAGE_TITLE,
+            description: PRIVACY_PAGE_DESCRIPTION,
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Privacy Policy', path: '/privacy-policy' },
+          ]),
         ])}
         
         {/* Hero Section with consistent styling */}

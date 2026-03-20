@@ -1,22 +1,20 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { Images } from '@/src/lib/images';
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { buildArticleSchemas, buildFaqSchema } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Student Guide to Old Crown Girton | Best Cambridge University Pub Near Girton College",
   description: "Discover the ultimate student guide to Old Crown Girton - affordable dining, student deals, perfect location near Girton College, and unique Nepalese cuisine for Cambridge University students.",
   keywords: ["student deals Cambridge", "Cambridge University pub", "student discounts Cambridge pubs", "cheap eats Cambridge", "Girton College pub", "best pubs for students Cambridge"],
-  canonicalUrlRelative: "/blog/student-guide-cambridge-university",
-  openGraph: {
-    title: "Student Guide to Old Crown Girton | Best Cambridge University Pub",
-    description: "The ultimate student guide to affordable dining and great atmosphere at Cambridge's most unique pub near Girton College.",
-    url: "https://oldcrowngirton.com/blog/student-guide-cambridge-university",
-    type: "article",
-  },
+  path: '/blog/student-guide-cambridge-university',
+  socialTitle: 'Student Guide to Old Crown Girton | Best Cambridge University Pub',
+  socialDescription:
+    "The ultimate student guide to affordable dining and great atmosphere at Cambridge's most unique pub near Girton College.",
+  image: Images.blog.studentGuide,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -90,98 +88,48 @@ export default function StudentGuideePage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/student-guide-cambridge-university#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/student-guide-cambridge-university",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Person",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/student-guide-cambridge-university',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/student-guide-cambridge-university"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 1450,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Student Life",
-                "description": "University student experiences and budget-friendly dining options"
+                name: 'Student Life',
+                description: 'University student experiences and budget-friendly dining options',
               },
               {
-                "@type": "Thing",
-                "name": "Cambridge University",
-                "description": "Student community and social life at the University of Cambridge"
-              }
-            ]
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Do you offer student discounts?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We offer excellent value for students with generous portions and competitive pricing. Check with our team about current student deals and group booking discounts for societies."
-                }
+                name: 'Cambridge University',
+                description: 'Student community and social life at the University of Cambridge',
               },
-              {
-                "@type": "Question",
-                "name": "How do I get to Old Crown Girton from Cambridge University?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "It's a pleasant 15-minute bike ride from central Cambridge through Girton village, or take the Citi 5 bus route. Secure bike parking is available at the pub."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Can you accommodate Cambridge society events?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, we welcome Cambridge societies and can accommodate group bookings with advance notice. Our indoor and outdoor spaces work well for both small committee meetings and larger society gatherings."
-                }
-              }
-            ]
-          }
+            ],
+          }),
+          buildFaqSchema([
+            {
+              question: 'Do you offer student discounts?',
+              answer:
+                'We offer excellent value for students with generous portions and competitive pricing. Check with our team about current student deals and group booking discounts for societies.',
+            },
+            {
+              question: 'How do I get to Old Crown Girton from Cambridge University?',
+              answer:
+                "It's a pleasant 15-minute bike ride from central Cambridge through Girton village, or take the Citi 5 bus route. Secure bike parking is available at the pub.",
+            },
+            {
+              question: 'Can you accommodate Cambridge society events?',
+              answer:
+                'Yes, we welcome Cambridge societies and can accommodate group bookings with advance notice. Our indoor and outdoor spaces work well for both small committee meetings and larger society gatherings.',
+            },
+          ]),
         ])}
 
         <div className="min-h-screen bg-neutral-50">

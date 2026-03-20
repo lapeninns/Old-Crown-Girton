@@ -1,22 +1,20 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
+import { buildArticleSchemas } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "England's Largest Thatched Pub | Historic Old Crown Girton Cambridge",
   description: "Discover the fascinating history of Old Crown Girton, claimed to be England's largest thatched pub. Explore centuries of heritage, architectural significance, and historic Cambridge pub culture.",
   keywords: ["largest thatched pub England", "historic pubs Cambridge", "Old Crown Girton history", "thatched roof pub Cambridge", "historic Girton", "Cambridge pub heritage"],
-  canonicalUrlRelative: "/blog/largest-thatched-pub-history",
-  openGraph: {
-    title: "England's Largest Thatched Pub | Historic Old Crown Girton",
-    description: "Explore the remarkable history of Old Crown Girton, England's largest thatched pub, from medieval origins to modern Nepalese cuisine.",
-    url: "https://oldcrowngirton.com/blog/largest-thatched-pub-history",
-    type: "article",
-  },
+  path: '/blog/largest-thatched-pub-history',
+  socialTitle: "England's Largest Thatched Pub | Historic Old Crown Girton",
+  socialDescription:
+    "Explore the remarkable history of Old Crown Girton, England's largest thatched pub, from medieval origins to modern Nepalese cuisine.",
+  image: Images.blog.thatchedExterior,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -134,73 +132,35 @@ export default function ThatchedPubHistoryPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/largest-thatched-pub-history#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/largest-thatched-pub-history",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Person",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/largest-thatched-pub-history',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/largest-thatched-pub-history"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 1680,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Thatched Pub",
-                "description": "Historic public house with traditional thatched roof construction"
+                name: 'Thatched Pub',
+                description: 'Historic public house with traditional thatched roof construction',
               },
               {
-                "@type": "Thing",
-                "name": "English Heritage",
-                "description": "Historical buildings and traditions of England"
+                name: 'English Heritage',
+                description: 'Historical buildings and traditions of England',
               },
               {
-                "@type": "HistoricBuilding",
-                "name": "Old Crown Girton",
-                "description": "England's largest thatched pub, dating from medieval times"
-              }
-            ]
-          },
+                name: 'Old Crown Girton',
+                description: "England's largest thatched pub, dating from medieval times",
+              },
+            ],
+          }),
           {
             "@context": "https://schema.org",
             "@type": "HistoricalPlace",
@@ -306,7 +266,7 @@ export default function ThatchedPubHistoryPage() {
               {/* Call to Action */}
               <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
                 <h3 className="text-2xl font-bold mb-4">Experience Living History</h3>
-                <p className="text-brand-100 mb-6">Visit England's largest thatched pub and dine beneath centuries of heritage. Book your table to experience history firsthand.</p>
+                <p className="text-brand-100 mb-6">Visit England&apos;s largest thatched pub and dine beneath centuries of heritage. Book your table to experience history firsthand.</p>
                 <Link
                   href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                   target="_blank"

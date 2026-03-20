@@ -1,18 +1,22 @@
-import { getSEOTags, renderSchemaTags } from "@/libs/seo";
+import { buildPageMetadata, renderSchemaTags } from "@/libs/seo";
 import RestaurantLayout from "@/components/restaurant/Layout";
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import Link from '@/lib/debugLink';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
 
-export const metadata = getSEOTags({
-  title: "Terms of Service | Old Crown Girton - Restaurant Booking & Service Conditions",
-  description: "Terms of service for Old Crown Girton covering restaurant bookings, table reservations, cancellations and dining policies for our Cambridge pub.",
+const TOS_PAGE_TITLE =
+  'Terms of Service | Old Crown Girton - Restaurant Booking & Service Conditions';
+const TOS_PAGE_DESCRIPTION =
+  'Terms of service for Old Crown Girton covering restaurant bookings, table reservations, cancellations and dining policies for our Cambridge pub.';
+
+export const metadata = buildPageMetadata({
+  title: TOS_PAGE_TITLE,
+  description: TOS_PAGE_DESCRIPTION,
   keywords: ["Old Crown Girton terms", "restaurant booking terms", "pub terms of service Cambridge", "dining terms conditions"],
-  canonicalUrlRelative: "/tos",
-  openGraph: {
-    title: "Terms of Service | Old Crown Girton",
-    description: "Terms of service for Old Crown Girton covering restaurant bookings, table reservations and dining policies.",
-    url: "https://oldcrowngirton.com//tos",
-  },
+  path: '/tos',
+  socialTitle: 'Terms of Service | Old Crown Girton',
+  socialDescription:
+    'Terms of service for Old Crown Girton covering restaurant bookings, table reservations and dining policies.',
 });
 
 export default function TOS() {
@@ -26,39 +30,15 @@ export default function TOS() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "@id": "https://oldcrowngirton.com//tos#webpage",
-            "name": "Terms of Service - Old Crown Girton",
-            "description": "Terms of service and conditions for Old Crown Girton restaurant bookings, reservations and dining services.",
-            "url": "https://oldcrowngirton.com//tos",
-            "isPartOf": {
-              "@type": "WebSite",
-              "name": "Old Crown Girton",
-              "url": "https://oldcrowngirton.com/"
-            },
-            "about": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainContentOfPage": {
-              "@type": "WebPageElement",
-              "cssSelector": "main"
-            },
-            "speakable": {
-              "@type": "SpeakableSpecification",
-              "cssSelector": ["h1", "h2"]
-            }
-          }
+          buildWebPageSchema({
+            path: '/tos',
+            title: TOS_PAGE_TITLE,
+            description: TOS_PAGE_DESCRIPTION,
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Terms of Service', path: '/tos' },
+          ]),
         ])}
         
         {/* Hero Section with consistent styling */}

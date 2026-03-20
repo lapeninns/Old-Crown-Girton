@@ -9,12 +9,11 @@
  */
 
 import 'server-only';
-import fs from "fs/promises";
-import path from "path";
 import { ContentSchema, type Content } from '../schemas';
 import { BaseSmartLoader, type SmartLoadConfig } from './BaseSmartLoader';
 import { getConfigData } from '../loader';
 import type { AppEnv } from '../env';
+import { loadMergedContentFromFilesystem } from '../content-filesystem';
 
 class ContentSmartLoaderClass extends BaseSmartLoader<Content> {
   protected schema = ContentSchema;
@@ -31,10 +30,7 @@ class ContentSmartLoaderClass extends BaseSmartLoader<Content> {
   }
 
   protected async loadFromFilesystem(env: AppEnv): Promise<Content> {
-    const configPath = this.getConfigPath("content.json");
-    const raw = await fs.readFile(configPath, "utf8");
-    const parsed = JSON.parse(raw);
-    return await this.validateAndParse(parsed);
+    return loadMergedContentFromFilesystem(env);
   }
 
   protected async tryLoadFromAPI(env: AppEnv, config: SmartLoadConfig): Promise<Content | null> {
@@ -63,10 +59,6 @@ class ContentSmartLoaderClass extends BaseSmartLoader<Content> {
       console.warn('Content API loading failed:', error);
       return null; // Will trigger filesystem fallback
     }
-  }
-
-  private getConfigPath(file: string): string {
-    return path.join(process.cwd(), "config", file);
   }
 
   private isSelfApiEndpoint(endpoint: string, baseUrl?: string): boolean {

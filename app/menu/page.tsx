@@ -1,8 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import RestaurantLayout from "@/components/restaurant/Layout";
+import { buildPageMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
-import { Metadata } from 'next';
 import { getMarketingSmart, getMenuSmart, getContentSmart } from '@/src/lib/data/server-loader';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
+import { siteUrl } from '@/src/lib/site/site';
 import MenuHero from './_components/MenuHero';
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import dynamic from 'next/dynamic';
@@ -18,19 +20,21 @@ const MenuInteractive = dynamic(() => import('./_components/MenuInteractive'), {
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-	title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
-	description: 'Explore our searchable menu featuring authentic Nepalese cuisine, momo, dal bhat & curries, plus traditional British pub classics. Advanced search and dietary filters available. Takeaway available.',
-	keywords: 'searchable menu Cambridge, Nepalese menu Cambridge, authentic Nepalese food Girton, momo Cambridge, dal bhat, curry takeaway Cambridge, pub food menu Girton, dietary filters menu, nutrition information',
-	openGraph: {
-		title: 'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton',
-		description: 'Discover our interactive menu with search and dietary filters, combining authentic Nepalese cuisine with traditional British pub favorites at Girton\'s historic thatched pub',
-		url: 'https://oldcrowngirton.com//menu',
-		siteName: 'The Old Crown Girton',
-		locale: 'en_GB',
-		type: 'website',
-	},
-};
+const MENU_PAGE_TITLE =
+  'Menu | Authentic Nepalese Food & Pub Classics | The Old Crown Girton';
+const MENU_PAGE_DESCRIPTION =
+  'Explore our searchable menu featuring authentic Nepalese cuisine, momo, dal bhat & curries, plus traditional British pub classics. Advanced search and dietary filters available. Takeaway available.';
+
+export const metadata = buildPageMetadata({
+  title: MENU_PAGE_TITLE,
+  description: MENU_PAGE_DESCRIPTION,
+  keywords:
+    'searchable menu Cambridge, Nepalese menu Cambridge, authentic Nepalese food Girton, momo Cambridge, dal bhat, curry takeaway Cambridge, pub food menu Girton, dietary filters menu, nutrition information',
+  path: '/menu',
+  socialTitle: MENU_PAGE_TITLE,
+  socialDescription:
+    "Discover our interactive menu with search and dietary filters, combining authentic Nepalese cuisine with traditional British pub favorites at Girton's historic thatched pub",
+});
 
 export default async function MenuPage({ searchParams }: { searchParams?: { category?: string } }) {
 	// Detect priority category from search params or URL hash (for server-side optimization)
@@ -47,7 +51,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 
 	const labels = m.buttons || {};
 	const labelBookOnline = labels.bookOnline || menuContent.hero.cta.book || content.global.ui.buttons.bookOnline || 'Book Online';
-	const labelOrderTakeaway = labels.orderTakeaway || menuContent.hero.cta.order || 'Order Takeaway';
+	const labelOrderTakeaway = labels.orderTakeaway || menuContent.hero.cta.order || 'Call for Takeaway';
 
 	// Optimize menu data structure for faster client-side rendering
 	const optimizedMenu = {
@@ -69,7 +73,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'Menu',
-		'@id': 'https://oldcrowngirton.com//menu#menu',
+		'@id': `${siteUrl('/menu')}#menu`,
 		name: menuContent.hero.title,
 		description: `${menuContent.sections.description} Browse with advanced search and filtering.`,
 		inLanguage: 'en-GB',
@@ -138,6 +142,17 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 			  }
 			` }} />
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+			{renderSchemaTags([
+				buildWebPageSchema({
+					path: '/menu',
+					title: MENU_PAGE_TITLE,
+					description: MENU_PAGE_DESCRIPTION,
+				}),
+				buildBreadcrumbSchema([
+					{ name: 'Home', path: '/' },
+					{ name: 'Menu', path: '/menu' },
+				]),
+			])}
 			<RestaurantLayout>
 				{/* Hero Section with motion animation */}
 				<section aria-label="Menu introduction">
@@ -196,7 +211,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 											</h3>
 
 											<p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
-												Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway orders.
+												Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway.
 											</p>
 
 											<div className="flex flex-wrap gap-4 justify-center mb-6">
@@ -211,7 +226,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 												</Link>
 												<Link
 													href="tel:01223 277217"
-													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-brand-900 hover:bg-brand-950 text-white border-2 border-white/20 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
+													className="transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 bg-white hover:bg-neutral-50 text-brand-800 border-2 border-brand-200 font-bold py-4 px-8 rounded-lg text-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30 inline-block"
 												>
 													{labelOrderTakeaway}
 												</Link>

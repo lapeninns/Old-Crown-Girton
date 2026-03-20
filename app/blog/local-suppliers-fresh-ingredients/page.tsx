@@ -1,22 +1,20 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
+import { buildArticleSchemas, buildFaqSchema } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Local Suppliers & Fresh Ingredients at Old Crown Girton | Cambridge Local Food",
   description: "Discover how Old Crown Girton sources fresh, local ingredients from Cambridgeshire suppliers. From farm-to-table vegetables to authentic Nepalese spices, taste the local difference.",
   keywords: ["local food Cambridge", "farm to table Girton", "local suppliers Cambridge", "fresh ingredients Cambridge", "sustainable dining Girton", "Cambridgeshire produce"],
-  canonicalUrlRelative: "/blog/local-suppliers-fresh-ingredients",
-  openGraph: {
-    title: "Local Suppliers & Fresh Ingredients at Old Crown Girton",
-    description: "Discover our commitment to local sourcing and fresh ingredients. Supporting Cambridgeshire suppliers while delivering exceptional flavors.",
-    url: "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients",
-    type: "article",
-  },
+  path: '/blog/local-suppliers-fresh-ingredients',
+  socialTitle: 'Local Suppliers & Fresh Ingredients at Old Crown Girton',
+  socialDescription:
+    'Discover our commitment to local sourcing and fresh ingredients. Supporting Cambridgeshire suppliers while delivering exceptional flavors.',
+  image: Images.blog.localIngredients,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -168,98 +166,50 @@ export default function LocalSuppliersPage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Person",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/local-suppliers-fresh-ingredients',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/local-suppliers-fresh-ingredients"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 1720,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Local Food Sourcing",
-                "description": "Practice of obtaining ingredients from nearby farms and producers"
+                name: 'Local Food Sourcing',
+                description:
+                  'Practice of obtaining ingredients from nearby farms and producers',
               },
               {
-                "@type": "Thing",
-                "name": "Sustainable Agriculture",
-                "description": "Farming methods that preserve environmental health while producing quality food"
-              }
-            ]
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Where do you source your ingredients from?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We source fresh meat, vegetables, and dairy from local Cambridgeshire farms and producers within 30 miles. Authentic Nepalese spices and specialty ingredients are sourced directly from Nepal and India to ensure authenticity."
-                }
+                name: 'Sustainable Agriculture',
+                description:
+                  'Farming methods that preserve environmental health while producing quality food',
               },
-              {
-                "@type": "Question",
-                "name": "Do you support local farmers?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, we work exclusively with local farms that practice ethical, sustainable farming. Our partnerships support grass-fed cattle, free-range poultry, and organic vegetable growers across Cambridgeshire."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "How does local sourcing affect your menu?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Our menu evolves seasonally to showcase the best local ingredients available. This ensures peak freshness and flavor while reducing environmental impact and supporting sustainable farming practices."
-                }
-              }
-            ]
-          }
+            ],
+          }),
+          buildFaqSchema([
+            {
+              question: 'Where do you source your ingredients from?',
+              answer:
+                'We source fresh meat, vegetables, and dairy from local Cambridgeshire farms and producers within 30 miles. Authentic Nepalese spices and specialty ingredients are sourced directly from Nepal and India to ensure authenticity.',
+            },
+            {
+              question: 'Do you support local farmers?',
+              answer:
+                'Yes, we work exclusively with local farms that practice ethical, sustainable farming. Our partnerships support grass-fed cattle, free-range poultry, and organic vegetable growers across Cambridgeshire.',
+            },
+            {
+              question: 'How does local sourcing affect your menu?',
+              answer:
+                'Our menu evolves seasonally to showcase the best local ingredients available. This ensures peak freshness and flavor while reducing environmental impact and supporting sustainable farming practices.',
+            },
+          ]),
         ])}
 
         <div className="min-h-screen bg-neutral-50">

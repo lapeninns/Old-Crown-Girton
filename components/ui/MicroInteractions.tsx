@@ -3,6 +3,7 @@
 
 import { useState, useEffect, memo, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { buttonRecipe, cardRecipe, fieldControlRecipe, fieldLabelRecipe } from '@/src/design-system';
 
 // Button with micro-interactions
 interface AnimatedButtonProps {
@@ -30,27 +31,22 @@ const AnimatedButton = memo<AnimatedButtonProps>(({
 }) => {
   const [isPressed, setIsPressed] = useState(false);
 
-  const baseClasses = 'relative font-medium rounded-full transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden';
-  
-  const variants = {
-    primary: 'bg-accent hover:bg-accent-700 text-white focus:ring-accent/50 disabled:bg-neutral-400',
-    secondary: 'bg-stout-700 hover:bg-stout-800 text-white focus:ring-stout-700/50 disabled:bg-neutral-400',
-    ghost: 'bg-transparent hover:bg-neutral-100 text-stout-700 focus:ring-gray-200 disabled:text-neutral-400',
-    outline: 'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent/50 disabled:border-neutral-300 disabled:text-neutral-400'
-  };
-
-  const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg'
-  };
-
   const isDisabled = disabled || loading;
+  const variantMap = {
+    primary: 'brand',
+    secondary: 'secondary',
+    ghost: 'ghost',
+    outline: 'outline',
+  } as const;
 
   return (
     <motion.button
       type={type}
-      className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`}
+      className={buttonRecipe({
+        variant: variantMap[variant],
+        size,
+        className: `relative overflow-hidden ${className}`.trim(),
+      })}
       disabled={isDisabled}
       onClick={onClick}
       whileHover={!isDisabled ? { scale: 1.02 } : {}}
@@ -130,7 +126,10 @@ const AnimatedCard = memo<AnimatedCardProps>(({
 }) => {
   return (
     <motion.div
-      className={`cursor-pointer ${className}`}
+      className={cardRecipe({
+        interactive: true,
+        className: `cursor-pointer ${className}`.trim(),
+      })}
       whileHover={{ scale: hoverScale }}
       whileTap={{ scale: clickScale }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
@@ -149,6 +148,7 @@ interface AnimatedInputProps {
   type?: string;
   placeholder?: string;
   value?: string;
+  // eslint-disable-next-line no-unused-vars
   onChange?: (value: string) => void;
   error?: string;
   className?: string;
@@ -173,10 +173,10 @@ const AnimatedInput = memo<AnimatedInputProps>(({
   return (
     <div className={`relative ${className}`}>
       <motion.label
-        className={`absolute left-3 transition-all duration-200 pointer-events-none ${
+        className={`pointer-events-none absolute left-4 transition-all duration-200 ${
           isFocused || hasValue
-  ? 'text-sm text-accent -top-2 bg-white px-2'
-            : 'text-neutral-500 top-3'
+            ? fieldLabelRecipe('text-xs -top-2 rounded-full bg-white px-2 py-0.5 shadow-[var(--shadow-subtle)]')
+            : 'top-3.5 text-sm text-neutral-500'
         }`}
         animate={{
           scale: isFocused || hasValue ? 0.9 : 1,
@@ -194,11 +194,7 @@ const AnimatedInput = memo<AnimatedInputProps>(({
         onChange={(e) => onChange?.(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className={`
-          w-full px-3 py-3 border rounded-lg transition-all duration-200
-          focus:ring-2 focus:ring-accent/50 focus:border-accent
-          ${error ? 'border-crimson-500' : 'border-neutral-300'}
-        `}
+        className={fieldControlRecipe(error ? 'border-crimson-500 focus:border-crimson-500 focus:ring-crimson-100' : undefined)}
         whileFocus={{ scale: 1.01 }}
         transition={{ duration: 0.2 }}
       />

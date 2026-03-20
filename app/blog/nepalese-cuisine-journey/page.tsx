@@ -1,24 +1,22 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import ErrorFallback from '@/components/ErrorFallback';
+import { buildArticleSchemas } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "The Journey of Nepalese Cuisine to Girton Village | Old Crown Girton Blog",
   description: "Discover how authentic Nepalese flavors found their home in Cambridge's historic thatched pub, creating a unique dining experience that bridges cultures.",
   keywords: ["Nepalese cuisine Cambridge", "Old Crown Girton history", "authentic Nepalese food", "Cambridge pub food", "cultural fusion dining"],
-  canonicalUrlRelative: "/blog/nepalese-cuisine-journey",
-  openGraph: {
-    title: "The Journey of Nepalese Cuisine to Girton Village",
-    description: "Discover how authentic Nepalese flavors found their home in Cambridge's historic thatched pub, creating a unique dining experience.",
-    url: "https://oldcrowngirton.com/blog/nepalese-cuisine-journey",
-    type: "article",
-  },
+  path: '/blog/nepalese-cuisine-journey',
+  socialTitle: 'The Journey of Nepalese Cuisine to Girton Village',
+  socialDescription:
+    "Discover how authentic Nepalese flavors found their home in Cambridge's historic thatched pub, creating a unique dining experience.",
+  image: Images.blog.nepaleseHero,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -68,86 +66,29 @@ export default function BlogPostPage() {
       <ErrorBoundary fallback={<ErrorFallback />}>
         <RestaurantLayout>
           {renderSchemaTags([
-            {
-              "@context": "https://schema.org",
-              "@type": "BlogPosting",
-              "@id": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey#blogposting",
-              "headline": post.title,
-              "description": post.excerpt,
-              "url": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey",
-              "datePublished": post.publishedDate,
-              "dateModified": post.modifiedDate,
-              "author": {
-                "@type": "Organization",
-                "name": post.author.name,
-                "description": post.author.bio
+            ...buildArticleSchemas({
+              path: '/blog/nepalese-cuisine-journey',
+              headline: post.title,
+              description: post.excerpt,
+              image: post.image,
+              publishedDate: post.publishedDate,
+              modifiedDate: post.modifiedDate,
+              author: {
+                type: 'Organization',
+                name: post.author.name,
+                description: post.author.bio,
               },
-              "publisher": {
-                "@type": "LocalBusiness",
-                "name": "Old Crown Girton",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://oldcrowngirton.com/icon.png"
+              section: post.category,
+              tags: post.tags,
+              html: post.content,
+              about: [
+                {
+                  name: 'Nepalese Cuisine',
+                  description:
+                    'Traditional cuisine from Nepal featuring diverse flavors and cooking techniques',
                 },
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "89 High Street",
-                  "addressLocality": "Girton",
-                  "addressRegion": "Cambridgeshire",
-                  "postalCode": "CB3 0QD",
-                  "addressCountry": "GB"
-                }
-              },
-              "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey"
-              },
-              "image": {
-                "@type": "ImageObject",
-                "url": `https://oldcrowngirton.com/${post.image}`,
-                "width": 1200,
-                "height": 630
-              },
-              "articleSection": post.category,
-              "keywords": post.tags.join(", "),
-              "wordCount": 385,
-              "inLanguage": "en-GB",
-              "isPartOf": {
-                "@type": "Blog",
-                "name": "Old Crown Girton Blog",
-                "url": "https://oldcrowngirton.com/blog"
-              },
-              "about": {
-                "@type": "Thing",
-                "name": "Nepalese Cuisine",
-                "description": "Traditional cuisine from Nepal featuring diverse flavors and cooking techniques"
-              }
-            },
-            {
-              "@context": "https://schema.org",
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey#webpage",
-              "name": post.title,
-              "description": post.excerpt,
-              "url": "https://oldcrowngirton.com/blog/nepalese-cuisine-journey",
-              "isPartOf": {
-                "@type": "WebSite",
-                "name": "Old Crown Girton",
-                "url": "https://oldcrowngirton.com/"
-              },
-              "about": {
-                "@type": "LocalBusiness",
-                "name": "Old Crown Girton"
-              },
-              "mainContentOfPage": {
-                "@type": "WebPageElement",
-                "cssSelector": "article"
-              },
-              "speakable": {
-                "@type": "SpeakableSpecification",
-                "cssSelector": ["h1", "h2"]
-              }
-            }
+              ],
+            }),
           ])}
 
           <div className="min-h-screen bg-neutral-50">
@@ -232,7 +173,7 @@ export default function BlogPostPage() {
                 {/* Call to Action */}
                 <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
                   <h3 className="text-2xl font-bold mb-4">Experience Authentic Nepalese Cuisine</h3>
-                  <p className="text-brand-100 mb-6">Discover the unique flavors of Nepal in Cambridge's most historic setting. Book your table today and taste the authentic difference.</p>
+                  <p className="text-brand-100 mb-6">Discover the unique flavors of Nepal in Cambridge&apos;s most historic setting. Book your table today and taste the authentic difference.</p>
                   <Link
                     href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                     target="_blank"

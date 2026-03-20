@@ -3,6 +3,9 @@ export const revalidate = 300;
 import { renderSchemaTags } from '@/libs/seo';
 import type { PressFeatureContent } from '@/components/restaurant/sections/PressFeatureBanner';
 import { getMarketingSmart, getContentSmart } from '@/src/lib/data/server-loader';
+import { HOMEPAGE_FAQ_ITEMS } from '@/src/lib/site/homepage';
+import { buildFaqSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
+import { siteMetadata } from '@/src/lib/site/site';
 import React from 'react';
 import dynamic from 'next/dynamic';
 
@@ -20,6 +23,13 @@ const ClientHomeContent = dynamic(() => import('@/components/ClientHomeContent')
     </div>
   )
 });
+
+const HOMEPAGE_FAQ_SCHEMA = buildFaqSchema(HOMEPAGE_FAQ_ITEMS);
+
+function shouldKeepHomeSchemaEntry(entry: Record<string, any>) {
+  const schemaType = entry?.['@type'];
+  return schemaType !== 'Restaurant' && schemaType !== 'LocalBusiness';
+}
 
 function HomePageContent({
   quickLinks,
@@ -88,7 +98,17 @@ export default async function Page() {
   const ctaSection = (homeContent.sections as any).cta;
   const pressFeatureContent = (homeContent.sections as any).pressFeature;
   const pressFeature = pressFeatureContent || null;
-  const schemaEntries = Array.isArray(homeContent.seo?.schemas) ? homeContent.seo?.schemas : [];
+  const schemaEntries = [
+    buildWebPageSchema({
+      path: '/',
+      title: siteMetadata.title,
+      description: siteMetadata.description,
+    }),
+    ...(Array.isArray(homeContent.seo?.schemas)
+      ? homeContent.seo.schemas.filter(shouldKeepHomeSchemaEntry)
+      : []),
+    HOMEPAGE_FAQ_SCHEMA,
+  ];
   const rawSlideshow = content.components?.slideshow;
   const slideshowContent = rawSlideshow
     ? {

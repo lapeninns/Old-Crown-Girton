@@ -1,6 +1,15 @@
 'use client';
 import Image from 'next/image';
 import { useHomeContent } from '../_content/useHomeContent';
+import {
+  accentTextClassName,
+  cardRecipe,
+  featureListClassName,
+  sectionInnerClassName,
+  sectionProseClassName,
+  sectionShellClassName,
+  sectionTitleRecipe,
+} from '@/src/design-system';
 
 export default function AboutSection() {
   const content = useHomeContent();
@@ -13,29 +22,29 @@ export default function AboutSection() {
   const { aboutSection } = content;
   
   return (
-    <section className="bg-white py-16" id="about-heading" aria-labelledby="about-heading">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`bg-white ${sectionShellClassName}`} id="about-heading" aria-labelledby="about-heading">
+      <div className={sectionInnerClassName}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Content */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-stout-700 mb-6">
+            <h2 className={sectionTitleRecipe('mb-6')}>
               {aboutSection.title.split(aboutSection.titleAccent)[0]}
-              <span className="text-accent-600">{aboutSection.titleAccent}</span>
+              <span className={accentTextClassName}>{aboutSection.titleAccent}</span>
               {aboutSection.title.split(aboutSection.titleAccent)[1]}
             </h2>
             
-            <div className="prose prose-lg text-brand-700 space-y-4">
+            <div className={`${sectionProseClassName} space-y-4`}>
               {aboutSection.description.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
 
             {/* Awards Section */}
-            <div className="mt-8 p-6 bg-brand-100 rounded-lg border border-brand-200">
-              <h3 className="text-xl font-display font-bold text-stout-700 mb-4">
+            <div className={cardRecipe({ tone: 'muted', className: 'mt-8 p-6' })}>
+              <h3 className={sectionTitleRecipe('mb-4 text-2xl md:text-2xl')}>
                 {aboutSection.features.title}
               </h3>
-              <ul className="list-disc pl-5 text-sm text-brand-700 space-y-2">
+              <ul className={featureListClassName}>
                 {aboutSection.features.items.map((item, index) => (
                   <li key={index}>{item}</li>
                 ))}

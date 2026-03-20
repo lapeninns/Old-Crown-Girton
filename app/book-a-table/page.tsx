@@ -3,7 +3,28 @@ import RestaurantLayout from '@/components/restaurant/Layout';
 import { FadeIn } from '@/components/animations/MotionWrappers';
 import Link from '@/lib/debugLink';
 import { getContactInfo } from '@/lib/restaurantData';
-import { getSEOTags } from '@/libs/seo';
+import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
+import {
+  buttonRecipe,
+  contentPanelRecipe,
+  ctaPanelRecipe,
+  glassPanelRecipe,
+  heroChipRecipe,
+  heroChipRowClassName,
+  mapFrameRecipe,
+  pageHeroDescriptionRecipe,
+  pageHeroEyebrowRecipe,
+  pageHeroInnerClassName,
+  pageHeroOverlayClassName,
+  pageHeroSectionRecipe,
+  pageHeroTitleRecipe,
+  panelTextRecipe,
+  sectionInnerClassName,
+  sectionShellClassName,
+  softPanelRecipe,
+  subsectionTitleRecipe,
+} from '@/src/design-system';
 
 const BOOKING_URL = 'https://www.nabatable.com/restaurants/the-old-crown-girton/book';
 
@@ -22,6 +43,10 @@ export const metadata = getSEOTags({
     url: 'https://oldcrowngirton.com/book-a-table',
   },
 });
+
+const BOOK_A_TABLE_PAGE_TITLE = 'Book a Table | Old Crown Girton';
+const BOOK_A_TABLE_PAGE_DESCRIPTION =
+  'Plan your visit and reserve a table at The Old Crown Girton. Book online or call the team during opening hours.';
 
 const BOOKING_HIGHLIGHTS = [
   'Authentic Nepalese & British pub classics',
@@ -69,32 +94,43 @@ export default function BookATablePage() {
         }}
       />
       <RestaurantLayout>
+        {renderSchemaTags([
+          buildWebPageSchema({
+            path: '/book-a-table',
+            title: BOOK_A_TABLE_PAGE_TITLE,
+            description: BOOK_A_TABLE_PAGE_DESCRIPTION,
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Book a Table', path: '/book-a-table' },
+          ]),
+        ])}
         <section
-          className="relative bg-gradient-to-br from-brand-600 to-brand-800 text-white py-10 md:py-16"
+          className={pageHeroSectionRecipe()}
           aria-labelledby="book-table-hero-heading"
         >
-          <div className="absolute inset-0 bg-black/10" />
+          <div className={pageHeroOverlayClassName} />
           <FadeIn>
-            <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <p className="text-xs uppercase tracking-[0.35em] text-brand-100/80">
+            <div className={pageHeroInnerClassName}>
+              <p className={pageHeroEyebrowRecipe()}>
                 Plan your visit
               </p>
               <h1
                 id="book-table-hero-heading"
-                className="mt-3 text-2xl md:text-3xl font-display font-bold leading-tight"
+                className={pageHeroTitleRecipe('mt-3')}
               >
                 Book a Table at The Old Crown Girton
               </h1>
-              <p className="mt-4 text-base md:text-lg text-brand-100 max-w-2xl mx-auto leading-relaxed">
+              <p className={pageHeroDescriptionRecipe('mt-4')}>
                 Secure your table for authentic Nepalese dishes, pub classics, garden gatherings, and milestone
                 celebrations. Book online in moments or call us and we will confirm your reservation during opening
                 hours.
               </p>
-              <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <div className={heroChipRowClassName}>
                 {BOOKING_HIGHLIGHTS.map((highlight) => (
                   <span
                     key={highlight}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/90 backdrop-blur"
+                    className={heroChipRecipe()}
                   >
                     <span aria-hidden="true" className="text-base text-white/80">✅</span>
                     {highlight}
@@ -107,22 +143,19 @@ export default function BookATablePage() {
 
         <main className="space-y-16 bg-white pb-16">
           <FadeIn>
-            <section className="pt-12" aria-labelledby="booking-options-heading">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className={`pt-12 ${sectionShellClassName}`} aria-labelledby="booking-options-heading">
+              <div className={sectionInnerClassName}>
                 <div className="grid gap-8 lg:grid-cols-[1.6fr,1fr]">
-                  <div className="card bg-white shadow-xl border border-brand-100">
-                    <div className="card-body gap-6">
+                  <div className={contentPanelRecipe('gap-6')}>
                       <RestaurantHoursCard />
-                    </div>
                   </div>
 
-                  <div className="card bg-white shadow-xl border border-brand-100">
-                    <div className="card-body gap-6">
+                  <div className={contentPanelRecipe('gap-6')}>
                       <div>
-                        <h2 id="booking-options-heading" className="text-2xl font-display font-bold text-brand-700">
+                        <h2 id="booking-options-heading" className={subsectionTitleRecipe()}>
                           Book online or by phone
                         </h2>
-                        <p className="mt-3 text-sm text-brand-600 leading-relaxed">
+                        <p className={panelTextRecipe('mt-3')}>
                           Reserve instantly online or call us and we will confirm your booking straight away during
                           opening hours.
                         </p>
@@ -132,27 +165,26 @@ export default function BookATablePage() {
                           href={BOOKING_URL}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn bg-accent text-neutral-900 hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                          className={buttonRecipe({ variant: 'accent', size: 'md', className: 'text-stout-950' })}
                           style={{ touchAction: 'manipulation' }}
                         >
                           🗓️ Book online ↗
                         </a>
                         <a
                           href={`tel:${phoneDial}`}
-                          className="btn bg-brand-700 text-white hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                          className={buttonRecipe({ variant: 'brand', size: 'md' })}
                           style={{ touchAction: 'manipulation' }}
                         >
                           📞 Call {phoneDisplay}
                         </a>
                       </div>
-                      <div className="rounded-xl border border-brand-100 bg-brand-50/60 p-4 text-sm text-brand-700">
+                      <div className={softPanelRecipe('text-sm text-brand-700')}>
                         <p className="font-semibold text-brand-700">Need help planning?</p>
                         <p className="mt-2 text-brand-600">
                           We are happy to advise on seating, celebrations, or accessibility needs. Mention any special
                           requests when you book.
                         </p>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -161,20 +193,19 @@ export default function BookATablePage() {
 
           <FadeIn>
             <section className="py-4" aria-labelledby="visit-info-heading">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className={sectionInnerClassName}>
                 <div className="grid gap-8 lg:grid-cols-2">
-                  <div className="card bg-white shadow-xl border border-brand-100">
-                    <div className="card-body gap-4">
+                  <div className={contentPanelRecipe('gap-4')}>
                       <div>
-                        <h2 id="visit-info-heading" className="text-2xl font-display font-bold text-brand-700">
+                        <h2 id="visit-info-heading" className={subsectionTitleRecipe()}>
                           Find Us
                         </h2>
-                        <p className="mt-2 text-sm text-brand-600">
+                        <p className={panelTextRecipe('mt-2')}>
                           {address}
                         </p>
                       </div>
                       <InteractiveMap
-                        className="h-[260px] rounded-xl shadow-md overflow-hidden bg-neutral-50"
+                        className={mapFrameRecipe('h-[260px]')}
                         height="260px"
                         title="Old Crown Girton map"
                       />
@@ -182,19 +213,17 @@ export default function BookATablePage() {
                         href={contact.address.google_maps_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-ghost justify-start px-0 text-brand-700 hover:text-brand-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                        className={buttonRecipe({ variant: 'ghost', size: 'sm', className: 'justify-start px-0' })}
                         style={{ touchAction: 'manipulation' }}
                       >
                         View directions on Google Maps ↗
                       </a>
-                    </div>
                   </div>
 
-                  <div className="card bg-white shadow-xl border border-brand-100">
-                    <div className="card-body gap-4">
+                  <div className={contentPanelRecipe('gap-4')}>
                       <div>
-                        <h2 className="text-2xl font-display font-bold text-brand-700">Contact the Team</h2>
-                        <p className="mt-2 text-sm text-brand-600 leading-relaxed">
+                        <h2 className={subsectionTitleRecipe()}>Contact the Team</h2>
+                        <p className={panelTextRecipe('mt-2')}>
                           Questions about a booking, accessibility, allergies, or special requests? Get in touch and we
                           will help plan your visit.
                         </p>
@@ -216,13 +245,12 @@ export default function BookATablePage() {
                       <div className="mt-auto">
                         <Link
                           href="/contact"
-                          className="btn btn-outline border-brand-300 text-brand-700 hover:bg-brand-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                          className={buttonRecipe({ variant: 'outline', size: 'md' })}
                           style={{ touchAction: 'manipulation' }}
                         >
                           Contact Page →
                         </Link>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -231,17 +259,16 @@ export default function BookATablePage() {
 
           <FadeIn>
             <section className="py-4" aria-labelledby="booking-tips-heading">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="card bg-brand-700 text-white shadow-xl border border-brand-600">
-                  <div className="card-body gap-6">
-                    <h2 id="booking-tips-heading" className="text-2xl font-display font-bold">
+              <div className={sectionInnerClassName}>
+                <div className={ctaPanelRecipe('gap-6')}>
+                    <h2 id="booking-tips-heading" className={subsectionTitleRecipe('text-white')}>
                       Booking Tips
                     </h2>
                     <div className="grid gap-4 md:grid-cols-2">
                       {BOOKING_TIPS.map((tip) => (
                         <div
                           key={tip.text}
-                          className="rounded-xl border border-white/15 bg-white/10 p-4 text-sm text-white/90"
+                          className={glassPanelRecipe('p-4 text-sm')}
                         >
                           <div className="flex items-start gap-3">
                             <span aria-hidden="true" className="text-lg">
@@ -252,7 +279,6 @@ export default function BookATablePage() {
                         </div>
                       ))}
                     </div>
-                  </div>
                 </div>
               </div>
             </section>

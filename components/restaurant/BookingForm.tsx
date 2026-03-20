@@ -3,6 +3,7 @@
 import React from 'react';
 import Button from './Button';
 import { useBookingForm } from '@/hooks/features/booking/useBookingForm';
+import { cardRecipe, fieldControlRecipe, fieldLabelRecipe, fieldNoteRecipe } from '@/src/design-system';
 
 interface BookingFormProps {
     onSuccess: () => void;
@@ -28,7 +29,7 @@ export default function BookingForm({
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-brand-700 mb-1">
+                    <label htmlFor="name" className={fieldLabelRecipe()}>
                         {formLabels?.name || 'Full Name'} *
                     </label>
                     <input
@@ -38,13 +39,13 @@ export default function BookingForm({
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
+                        className={fieldControlRecipe()}
                         placeholder={formLabels?.name || 'Your name'}
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-brand-700 mb-1">
+                    <label htmlFor="phone" className={fieldLabelRecipe()}>
                         {formLabels?.phone || 'Phone Number'} *
                     </label>
                     <input
@@ -54,14 +55,14 @@ export default function BookingForm({
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
+                        className={fieldControlRecipe()}
                         placeholder="+44 1223 277217"
                     />
                 </div>
             </div>
 
             <div>
-                <label htmlFor="email" className="block text-sm font-medium text-brand-700 mb-1">
+                <label htmlFor="email" className={fieldLabelRecipe()}>
                     {formLabels?.email || 'Email Address'}
                 </label>
                 <input
@@ -70,14 +71,14 @@ export default function BookingForm({
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
+                    className={fieldControlRecipe()}
                     placeholder={formLabels?.email || 'your@email.com'}
                 />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                    <label htmlFor="date" className="block text-sm font-medium text-brand-700 mb-1">
+                    <label htmlFor="date" className={fieldLabelRecipe()}>
                         {formLabels?.date || 'Date'} *
                     </label>
                     <input
@@ -88,12 +89,12 @@ export default function BookingForm({
                         value={formData.date}
                         onChange={handleChange}
                         min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors"
+                        className={fieldControlRecipe()}
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="time" className="block text-sm font-medium text-brand-700 mb-1">
+                    <label htmlFor="time" className={fieldLabelRecipe()}>
                         {formLabels?.time || 'Time'} *
                     </label>
                     <select
@@ -102,7 +103,7 @@ export default function BookingForm({
                         required
                         value={formData.time}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-colors"
+                        className={fieldControlRecipe()}
                     >
                         <option value="">{uiLabels?.selectTime || 'Select time'}</option>
                         <option value="12:00">12:00 PM</option>
@@ -121,7 +122,7 @@ export default function BookingForm({
                 </div>
 
                 <div>
-                    <label htmlFor="guests" className="block text-sm font-medium text-brand-700 mb-1">
+                    <label htmlFor="guests" className={fieldLabelRecipe()}>
                         {formLabels?.partySize || 'Guests'} *
                     </label>
                     <select
@@ -130,7 +131,7 @@ export default function BookingForm({
                         required
                         value={formData.guests}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-colors"
+                        className={fieldControlRecipe()}
                     >
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                             <option key={num} value={num}>{num} {num === 1 ? (uiLabels?.guest || 'guest') : (uiLabels?.guests || 'guests')}</option>
@@ -141,7 +142,7 @@ export default function BookingForm({
             </div>
 
             <div>
-                <label htmlFor="message" className="block text-sm font-medium text-brand-700 mb-1">
+                <label htmlFor="message" className={fieldLabelRecipe()}>
                     {formLabels?.specialRequests || 'Special Requests'}
                 </label>
                 <textarea
@@ -150,13 +151,13 @@ export default function BookingForm({
                     rows={3}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-colors resize-none"
+                    className={fieldControlRecipe('min-h-[120px] resize-y')}
                     placeholder={uiLabels?.specialRequestsPlaceholder || 'Dietary requirements, celebrations, etc.'}
                 />
             </div>
 
             {/* Call Option */}
-            <div className="bg-brand-50 p-4 rounded-lg">
+            <div className={cardRecipe({ tone: 'muted', className: 'p-4' })}>
                 <div className="flex items-center gap-3 mb-2">
                     <span className="text-2xl">📞</span>
                     <span className="font-medium text-brand-800">{uiLabels?.preferToCall || 'Prefer to call?'}</span>
@@ -184,7 +185,7 @@ export default function BookingForm({
                 >
                     {isSubmitting ? 'Sending...' : (buttons?.submit || 'Request Booking')}
                 </Button>
-                <p className="text-xs text-neutral-500 mt-2 text-center">
+                <p className={fieldNoteRecipe('mt-2 text-center text-xs')}>
                     * {uiLabels?.requiredFields || 'Required fields'}. {uiLabels?.confirmationMessage || "We'll call you within 1 hour to confirm availability."}.
                 </p>
             </div>

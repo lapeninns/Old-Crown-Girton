@@ -1,0 +1,10 @@
+# Checks
+
+- `git diff --check -- CONTINUITY.md libs/seo.tsx src/lib/seo/metadata.ts src/lib/seo/schema.ts src/lib/site/editorial.ts app/blog/page.tsx app/press/page.tsx app/events/page.tsx app/menu/page.tsx app/privacy-policy/page.tsx app/tos/page.tsx app/takeaway-menu/page.tsx app/wakes-menu/page.tsx app/menu-information/page.tsx app/blog/authentic-momo-dumplings-nepalese-cuisine/page.tsx app/blog/business-lunch-cambridge-guide/page.tsx app/blog/dog-friendly-dining-guide/page.tsx app/blog/evening-standard-country-pub-of-the-week/page.tsx app/blog/largest-thatched-pub-history/page.tsx app/blog/local-suppliers-fresh-ingredients/page.tsx app/blog/nepalese-cuisine-journey/page.tsx app/blog/perfect-sunday-roast-guide/page.tsx app/blog/student-guide-cambridge-university/page.tsx app/blog/ultimate-sports-viewing-guide/page.tsx tasks/seo-geo-editorial-rollout-20260320-1042`
+  - Result: passed
+- `./node_modules/.bin/next lint --file libs/seo.tsx --file src/lib/seo/metadata.ts --file src/lib/seo/schema.ts --file src/lib/site/editorial.ts --file app/blog/page.tsx --file app/press/page.tsx --file app/events/page.tsx --file app/menu/page.tsx --file app/takeaway-menu/page.tsx --file app/blog/authentic-momo-dumplings-nepalese-cuisine/page.tsx --file app/blog/business-lunch-cambridge-guide/page.tsx --file app/blog/dog-friendly-dining-guide/page.tsx --file app/blog/evening-standard-country-pub-of-the-week/page.tsx --file app/blog/largest-thatched-pub-history/page.tsx --file app/blog/local-suppliers-fresh-ingredients/page.tsx --file app/blog/nepalese-cuisine-journey/page.tsx --file app/blog/perfect-sunday-roast-guide/page.tsx --file app/blog/student-guide-cambridge-university/page.tsx --file app/blog/ultimate-sports-viewing-guide/page.tsx`
+  - Result: passed
+- `./node_modules/.bin/next lint --file app/privacy-policy/page.tsx --file app/tos/page.tsx --file app/wakes-menu/page.tsx --file app/menu-information/page.tsx`
+  - Result: fails on pre-existing page-body issues, including `react/no-unescaped-entities`, design-token enforcement, and color-token enforcement outside the new SEO changes.
+- `npm run build`
+  - Result: passed

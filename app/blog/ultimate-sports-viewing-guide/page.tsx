@@ -1,22 +1,20 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
+import { buildArticleSchemas, buildFaqSchema } from '@/src/lib/seo/schema';
 
-// SEO Metadata
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Watch Live Sports at Old Crown Girton | Best Sports Pub Near Cambridge",
   description: "Experience live sports at Old Crown Girton with crystal-clear large screens, Premier League football, rugby, cricket. The perfect sports pub near Cambridge with great atmosphere.",
   keywords: ["watch football Cambridge", "sports pub Girton", "live sports Cambridge", "Premier League pub Cambridge", "rugby viewing Cambridge", "pubs showing football"],
-  canonicalUrlRelative: "/blog/ultimate-sports-viewing-guide",
-  openGraph: {
-    title: "Watch Live Sports at Old Crown Girton | Best Sports Pub Cambridge",
-    description: "Experience live sports in Cambridge's most atmospheric sports pub. Crystal-clear screens, great food, and unbeatable match-day atmosphere.",
-    url: "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide",
-    type: "article",
-  },
+  path: '/blog/ultimate-sports-viewing-guide',
+  socialTitle: 'Watch Live Sports at Old Crown Girton | Best Sports Pub Cambridge',
+  socialDescription:
+    "Experience live sports in Cambridge's most atmospheric sports pub. Crystal-clear screens, great food, and unbeatable match-day atmosphere.",
+  image: Images.blog.sportsViewing,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -179,98 +177,48 @@ export default function SportsViewingGuidePage() {
       ` }} />
       <RestaurantLayout>
         {renderSchemaTags([
-          {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide#blogposting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "url": "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide",
-            "datePublished": post.publishedDate,
-            "dateModified": post.modifiedDate,
-            "author": {
-              "@type": "Person",
-              "name": post.author.name,
-              "description": post.author.bio
+          ...buildArticleSchemas({
+            path: '/blog/ultimate-sports-viewing-guide',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            publishedDate: post.publishedDate,
+            modifiedDate: post.modifiedDate,
+            author: {
+              name: post.author.name,
+              description: post.author.bio,
             },
-            "publisher": {
-              "@type": "LocalBusiness",
-              "name": "Old Crown Girton",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://oldcrowngirton.com/icon.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "89 High Street",
-                "addressLocality": "Girton",
-                "addressRegion": "Cambridgeshire",
-                "postalCode": "CB3 0QD",
-                "addressCountry": "GB"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://oldcrowngirton.com/blog/ultimate-sports-viewing-guide"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": `https://oldcrowngirton.com/${post.image}`,
-              "width": 1200,
-              "height": 630
-            },
-            "articleSection": post.category,
-            "keywords": post.tags.join(", "),
-            "wordCount": 1540,
-            "inLanguage": "en-GB",
-            "isPartOf": {
-              "@type": "Blog",
-              "name": "Old Crown Girton Blog",
-              "url": "https://oldcrowngirton.com/blog"
-            },
-            "about": [
+            section: post.category,
+            tags: post.tags,
+            html: post.content,
+            about: [
               {
-                "@type": "Thing",
-                "name": "Sports Viewing",
-                "description": "Watching live sports events in a social pub environment"
+                name: 'Sports Viewing',
+                description: 'Watching live sports events in a social pub environment',
               },
               {
-                "@type": "Thing",
-                "name": "Sports Pub",
-                "description": "Public house specializing in live sports entertainment"
-              }
-            ]
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "What sports do you show at Old Crown Girton?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We show all major sports including Premier League football, Champions League, Six Nations rugby, international cricket, tennis Grand Slams, and major tournaments across various sports."
-                }
+                name: 'Sports Pub',
+                description: 'Public house specializing in live sports entertainment',
               },
-              {
-                "@type": "Question",
-                "name": "Do you show Premier League matches?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, we show all the biggest Premier League matches throughout the season, from early Saturday kick-offs to Monday Night Football, with crystal-clear large screens and great atmosphere."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Should I book for major sporting events?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "For major matches, especially Premier League games and international tournaments, we recommend arriving 30 minutes before kick-off or contacting us for group bookings to ensure the best seating."
-                }
-              }
-            ]
-          }
+            ],
+          }),
+          buildFaqSchema([
+            {
+              question: 'What sports do you show at Old Crown Girton?',
+              answer:
+                'We show all major sports including Premier League football, Champions League, Six Nations rugby, international cricket, tennis Grand Slams, and major tournaments across various sports.',
+            },
+            {
+              question: 'Do you show Premier League matches?',
+              answer:
+                'Yes, we show all the biggest Premier League matches throughout the season, from early Saturday kick-offs to Monday Night Football, with crystal-clear large screens and great atmosphere.',
+            },
+            {
+              question: 'Should I book for major sporting events?',
+              answer:
+                'For major matches, especially Premier League games and international tournaments, we recommend arriving 30 minutes before kick-off or contacting us for group bookings to ensure the best seating.',
+            },
+          ]),
         ])}
 
         <div className="min-h-screen bg-neutral-50">
@@ -358,7 +306,7 @@ export default function SportsViewingGuidePage() {
               {/* Call to Action */}
               <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
                 <h3 className="text-2xl font-bold mb-4">Ready for Match Day?</h3>
-                <p className="text-brand-100 mb-6">Join Cambridge's best sports viewing community. Book your table for the next big match and experience the atmosphere!</p>
+                <p className="text-brand-100 mb-6">Join Cambridge&apos;s best sports viewing community. Book your table for the next big match and experience the atmosphere!</p>
                 <Link
                   href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
                   target="_blank"

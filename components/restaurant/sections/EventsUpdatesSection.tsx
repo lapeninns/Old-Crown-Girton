@@ -1,4 +1,5 @@
 'use client';
+import { panelTextRecipe, panelTitleRecipe, softPanelRecipe, socialIconButtonRecipe } from '@/src/design-system';
 
 /**
  * Props interfaces for EventsUpdatesSection component
@@ -29,20 +30,20 @@ export default function EventsUpdatesSection({
   className = '' 
 }: EventsUpdatesSectionProps) {
   return (
-    <div className={`bg-accent-50 border-2 border-accent-500 rounded-xl p-6 text-center ${className}`}>
-      <h3 className="text-xl font-display font-bold text-brand-700 mb-3">
+    <div className={softPanelRecipe(`border-2 border-accent-400 text-center ${className}`.trim())}>
+      <h3 className={panelTitleRecipe('mb-3')}>
         {title}
       </h3>
       
       {description && (
-        <p className="text-brand-600 mb-4">{description}</p>
+        <p className={panelTextRecipe('mb-4')}>{description}</p>
       )}
       
       <div className="flex justify-center space-x-4">
         {/* Facebook Link */}
         <a 
           href="https://facebook.com" 
-          className="text-accent-500 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60 rounded-full p-1"
+          className={socialIconButtonRecipe('accent')}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Follow us on Facebook for event updates"
@@ -55,7 +56,7 @@ export default function EventsUpdatesSection({
         {/* Instagram Link */}
         <a 
           href="https://instagram.com" 
-          className="text-accent-500 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60 rounded-full p-1"
+          className={socialIconButtonRecipe('accent')}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Follow us on Instagram for event updates"

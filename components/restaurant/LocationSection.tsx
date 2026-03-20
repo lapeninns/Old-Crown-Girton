@@ -3,18 +3,28 @@ import RestaurantHoursCard from './RestaurantHoursCard';
 import InteractiveMap from './InteractiveMap';
 import { getContactInfo } from '@/lib/restaurantData';
 import EmojiIcon from '@/components/common/EmojiIcon';
+import {
+  accentTextClassName,
+  contentPanelRecipe,
+  mapFrameRecipe,
+  panelTitleRecipe,
+  sectionDescriptionRecipe,
+  sectionInnerClassName,
+  sectionShellClassName,
+  sectionTitleRecipe,
+} from '@/src/design-system';
 
 export default function LocationSection() {
   const contact = getContactInfo();
 
   return (
-    <section className="bg-brand-50 py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`bg-brand-50 ${sectionShellClassName}`}>
+      <div className={sectionInnerClassName}>
         <div className="text-center mb-12">
-          <h2 id="location-heading" className="text-4xl md:text-5xl font-display font-bold text-foreground-strong mb-4">
-            Find <span className="text-accent">Us</span>
+          <h2 id="location-heading" className={sectionTitleRecipe('mb-4 text-foreground-strong')}>
+            Find <span className={accentTextClassName}>Us</span>
           </h2>
-          <p className="text-lg text-foreground max-w-2xl mx-auto">
+          <p className={sectionDescriptionRecipe('text-foreground')}>
             Located in the heart of Girton village, we&apos;re easily accessible 
             and just a short drive from Cambridge city center.
           </p>
@@ -24,9 +34,9 @@ export default function LocationSection() {
           {/* Contact Information */}
           <div className="space-y-8">
             {/* Address */}
-            <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
-              <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
-                <EmojiIcon emoji="📍" className="text-accent" />
+            <div className={contentPanelRecipe()}>
+              <h3 className={panelTitleRecipe('mb-4 flex items-center gap-2 text-foreground-strong')}>
+                <EmojiIcon emoji="📍" className={accentTextClassName} />
                 Address
               </h3>
               <p className="text-foreground">
@@ -38,9 +48,9 @@ export default function LocationSection() {
             </div>
 
             {/* Contact Details */}
-            <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
-              <h3 className="text-xl font-display font-bold text-foreground-strong mb-4 flex items-center gap-2">
-                <EmojiIcon emoji="📞" className="text-accent" />
+            <div className={contentPanelRecipe()}>
+              <h3 className={panelTitleRecipe('mb-4 flex items-center gap-2 text-foreground-strong')}>
+                <EmojiIcon emoji="📞" className={accentTextClassName} />
                 Contact
               </h3>
               <div className="space-y-2 text-foreground">
@@ -68,7 +78,7 @@ export default function LocationSection() {
           {/* Map */}
           <div>
             <InteractiveMap 
-              className="h-[600px] bg-neutral-50 rounded-xl shadow-lg overflow-hidden"
+              className={mapFrameRecipe('h-[600px]')}
               title="Old Crown Girton Location"
             />
           </div>

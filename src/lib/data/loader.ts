@@ -17,95 +17,18 @@ import {
   type Content,
 } from "./schemas";
 import { resolveEnv, resolveContentEnvChain, type AppEnv } from "./env";
-import { globalCache, createCacheKey, PerformanceCacheManager } from "./cache";
+import { globalCache, createCacheKey } from "./cache";
 import type { ZodTypeAny } from "zod";
+import { loadMergedContentFromFilesystem } from './content-filesystem';
 
-async function readJson<T>(p: string, schema: any, name: string): Promise<T> {
+async function readJson<T>(p: string, schema: any): Promise<T> {
   const raw = await fs.readFile(p, "utf8");
   const parsed = JSON.parse(raw);
   return schema.parse(parsed) as T;
 }
 
-async function readJsonRaw(p: string): Promise<any> {
-  const raw = await fs.readFile(p, "utf8");
-  return JSON.parse(raw);
-}
-
-async function readJsonIfExists(p: string): Promise<any | null> {
-  try {
-    return await readJsonRaw(p);
-  } catch (error: any) {
-    if (error?.code === 'ENOENT') {
-      return null;
-    }
-    throw error;
-  }
-}
-
 function configPath(file: string) {
   return path.join(process.cwd(), "config", file);
-}
-
-function cloneValue<T>(value: T): T {
-  if (Array.isArray(value)) {
-    return value.map((item) => cloneValue(item)) as unknown as T;
-  }
-  if (value && typeof value === 'object') {
-    const result: Record<string, any> = {};
-    for (const [key, val] of Object.entries(value)) {
-      result[key] = cloneValue(val);
-    }
-    return result as T;
-  }
-  return value;
-}
-
-function mergeContent(base: any, override: any): any {
-  if (override === undefined || override === null) {
-    return cloneValue(base);
-  }
-  if (base === undefined || base === null) {
-    return cloneValue(override);
-  }
-
-  if (Array.isArray(override)) {
-    return cloneValue(override);
-  }
-
-  if (Array.isArray(base)) {
-    return cloneValue(override);
-  }
-
-  if (typeof base === 'object' && typeof override === 'object') {
-    const result: Record<string, any> = { ...cloneValue(base) };
-    for (const key of Object.keys(override)) {
-      result[key] = mergeContent((result as any)[key], override[key]);
-    }
-    return result;
-  }
-
-  return cloneValue(override);
-}
-
-async function loadContentFromFilesystem(env: AppEnv): Promise<Content> {
-  const basePath = configPath("content.json");
-  let merged = await readJsonRaw(basePath);
-
-  const envChain = resolveContentEnvChain(env);
-
-  for (const envName of envChain) {
-    const overridePath = path.join(process.cwd(), "data", envName, "content.json");
-    try {
-      const override = await readJsonIfExists(overridePath);
-      if (override) {
-        merged = mergeContent(merged, override);
-      }
-    } catch (error) {
-      console.warn(`Failed to load content override for ${envName}:`, error);
-    }
-  }
-
-  return ContentSchema.parse(merged) as Content;
 }
 
 export async function getMenuData(env: AppEnv = resolveEnv()): Promise<Menu> {
@@ -204,18 +127,18 @@ export async function getMenuSmart(env: AppEnv = resolveEnv()): Promise<Menu> {
 }
 
 export async function getRestaurantInfo(env: AppEnv = resolveEnv()): Promise<Restaurant> {
+  void env;
   return readJson<Restaurant>(
     configPath("restaurant.json"),
-    RestaurantSchema,
-    "restaurant"
+    RestaurantSchema
   );
 }
 
 export async function getMarketingContent(env: AppEnv = resolveEnv()): Promise<Marketing> {
+  void env;
   return readJson<Marketing>(
     configPath("marketing.json"),
-    MarketingSchema,
-    "marketing"
+    MarketingSchema
   );
 }
 
@@ -228,9 +151,9 @@ export async function getConfigData(env: AppEnv = resolveEnv()): Promise<AppConf
     const fallbackPath = configPath("config.json");
     
     try {
-      return await readJson<AppConfig>(envConfigPath, ConfigSchema, "config");
+      return await readJson<AppConfig>(envConfigPath, ConfigSchema);
     } catch {
-      return readJson<AppConfig>(fallbackPath, ConfigSchema, "config");
+      return readJson<AppConfig>(fallbackPath, ConfigSchema);
     }
   }, {
     ttl: getConfigCacheTTL(env)
@@ -242,7 +165,7 @@ export async function getContentData(env: AppEnv = resolveEnv()): Promise<Conten
   const cacheKey = createCacheKey('content', env, { chain: envChain.join('>') });
   
   return globalCache.get(cacheKey, async () => {
-    return loadContentFromFilesystem(env);
+    return loadMergedContentFromFilesystem(env);
   }, {
     ttl: getContentCacheTTL(env),
     enableCompression: process.env.NODE_ENV === 'production'
@@ -255,7 +178,7 @@ export async function getContentDataOptimized(env: AppEnv = resolveEnv()): Promi
   const cacheKey = createCacheKey('content-optimized', env, { chain: envChain.join('>') });
   
   return globalCache.get(cacheKey, async () => {
-    return loadContentFromFilesystem(env);
+    return loadMergedContentFromFilesystem(env);
   }, {
     ttl: getContentCacheTTL(env),
     enableCompression: process.env.NODE_ENV === 'production'
@@ -326,10 +249,6 @@ async function fetchMarketingFromApiServer(url: string): Promise<Marketing> {
 
 async function fetchRestaurantFromApiServer(url: string): Promise<Restaurant> {
   return fetchJsonValidatedServer<Restaurant>(url, RestaurantSchema, { cache: 'no-store' });
-}
-
-async function fetchConfigFromApiServer(url: string): Promise<AppConfig> {
-  return fetchJsonValidatedServer<AppConfig>(url, ConfigSchema, { cache: 'no-store' });
 }
 
 async function fetchContentFromApiServer(url: string): Promise<Content> {
@@ -477,28 +396,28 @@ export async function getRestaurantSmart(env: AppEnv = resolveEnv()): Promise<Re
 /**
  * Get cache TTL for content
  */
-function getContentCacheTTL(env: AppEnv): number {
+function getContentCacheTTL(_env?: AppEnv): number {
   return process.env.NODE_ENV === 'production' ? 60 * 60 * 1000 : 60 * 1000; // 1 hour in prod, 1 minute in dev
 }
 
 /**
  * Get cache TTL for menu
  */
-function getMenuCacheTTL(env: AppEnv): number {
+function getMenuCacheTTL(_env?: AppEnv): number {
   return process.env.NODE_ENV === 'production' ? 2 * 60 * 60 * 1000 : 30 * 1000; // 2 hours in prod, 30 seconds in dev
 }
 
 /**
  * Get cache TTL for config
  */
-function getConfigCacheTTL(env: AppEnv): number {
+function getConfigCacheTTL(_env?: AppEnv): number {
   return process.env.NODE_ENV === 'production' ? 30 * 60 * 1000 : 30 * 1000; // 30 minutes in prod, 30 seconds in dev
 }
 
 /**
  * Get cache TTL for restaurant info
  */
-function getRestaurantCacheTTL(env: AppEnv): number {
+function getRestaurantCacheTTL(_env?: AppEnv): number {
   return process.env.NODE_ENV === 'production' ? 4 * 60 * 60 * 1000 : 2 * 60 * 1000; // 4 hours in prod, 2 minutes in dev
 }
 

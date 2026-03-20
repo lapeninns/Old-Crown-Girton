@@ -1,4 +1,5 @@
 'use client';
+import { buttonRecipe, contentPanelRecipe, panelTextRecipe, panelTitleRecipe } from '@/src/design-system';
 
 /**
  * Props interfaces for ContactInfoSection component
@@ -52,62 +53,62 @@ export default function ContactInfoSection({
   return (
     <div className={`space-y-8 ${className}`}>
       {/* Phone */}
-      <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
+      <div className={contentPanelRecipe()}>
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📞</span>
           <div>
-            <h2 className="text-xl font-display font-bold text-brand-700">
+            <h2 className={panelTitleRecipe()}>
               {phone.title}
             </h2>
-            <p className="text-neutral-600">
+            <p className={panelTextRecipe()}>
               {phone.description}
             </p>
           </div>
         </div>
               <p>
                 <strong>Phone:</strong> 
-                <a href={`tel:${phone.number.replace(/\s/g, '')}`} className="inline-block bg-brand-600 text-neutral-50 font-semibold py-1 px-3 rounded ml-2">
+                <a href={`tel:${phone.number.replace(/\s/g, '')}`} className={buttonRecipe({ variant: 'brand', size: 'sm', className: 'ml-2 inline-flex' })}>
                   {phone.number}
                 </a>
               </p>
       </div>
 
       {/* Address */}
-      <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
+      <div className={contentPanelRecipe()}>
         <div className="flex items-start gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📍</span>
           <div>
-            <h2 className="text-xl font-display font-bold text-brand-700 mb-2">
+            <h2 className={panelTitleRecipe('mb-2')}>
               {location.title}
             </h2>
-            <address className="text-neutral-600 not-italic">
+            <address className={`${panelTextRecipe()} not-italic`}>
               {addressLines.map((line: string, index: number) => (
                 <p key={index}>{line}</p>
               ))}
             </address>
           </div>
         </div>
-        <p className="text-sm text-neutral-500">
+        <p className={panelTextRecipe('text-neutral-500')}>
           {location.description}
         </p>
       </div>
 
       {/* Email */}
-      <div className="bg-neutral-50 p-6 rounded-xl shadow-lg">
+      <div className={contentPanelRecipe()}>
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl" aria-hidden="true">📧</span>
           <div>
-            <h2 className="text-xl font-display font-bold text-brand-700">
+            <h2 className={panelTitleRecipe()}>
               Email
             </h2>
-            <p className="text-neutral-600">
+            <p className={panelTextRecipe()}>
               Send us a message
             </p>
           </div>
         </div>
               <a
                 href={`mailto:${'oldcrown@lapeninns.com'}`}
-                className="inline-block bg-brand-600 text-neutral-50 font-semibold py-2 px-4 rounded focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/60"
+                className={buttonRecipe({ variant: 'outline', size: 'sm', className: 'inline-flex' })}
                 aria-label="Email restaurant at oldcrown@lapeninns.com"
               >
                 oldcrown@lapeninns.com

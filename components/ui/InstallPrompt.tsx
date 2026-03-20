@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInstallPrompt, usePWAMetrics, useServiceWorker } from './PWAUtils';
 import { AnimatedButton } from './MicroInteractions';
+import { buttonRecipe, cardRecipe, sectionDescriptionRecipe, sectionTitleRecipe } from '@/src/design-system';
 
 interface InstallPromptProps {
   onInstall?: () => void;
@@ -60,7 +61,7 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md"
       >
-        <div className="bg-neutral-50 rounded-2xl shadow-2xl border border-neutral-200 p-6 relative overflow-hidden">
+        <div className={cardRecipe({ tone: 'default', className: 'relative overflow-hidden p-6' })}>
           {/* Background pattern */}
           <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-brand-50/10" />
           
@@ -77,10 +78,10 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
               </div>
               
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold text-stout-700 mb-1">
+                <h3 className={sectionTitleRecipe('mb-1 text-2xl md:text-2xl')}>
                   Install Old Crown App
                 </h3>
-                <p className="text-sm text-brand-600 mb-4 leading-relaxed">
+                <p className={sectionDescriptionRecipe('mb-4 max-w-none text-sm')}>
                   Get the full restaurant experience! Fast access to our menu, table booking, and offline browsing.
                 </p>
                 
@@ -107,7 +108,11 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
                   
                   <button
                     onClick={handleDismiss}
-                    className="px-4 py-2 text-sm text-neutral-500 hover:text-brand-600 transition-colors"
+                    className={buttonRecipe({
+                      variant: 'ghost',
+                      size: 'sm',
+                      className: 'text-neutral-500 hover:text-brand-700',
+                    })}
                   >
                     Not now
                   </button>
@@ -117,7 +122,11 @@ const InstallPrompt = ({ onInstall, onDismiss }: InstallPromptProps) => {
               {/* Close button */}
               <button
                 onClick={handleDismiss}
-                className="flex-shrink-0 p-1 text-neutral-400 hover:text-brand-600 transition-colors"
+                className={buttonRecipe({
+                  variant: 'ghost',
+                  size: 'sm',
+                  className: 'min-h-0 rounded-full p-1 text-neutral-400 hover:bg-transparent hover:text-brand-700',
+                })}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -146,7 +155,11 @@ export const InstallButton = () => {
   return (
     <motion.button
       onClick={handleInstall}
-  className="flex items-center space-x-2 px-4 py-2 bg-accent hover:bg-accent-700 text-white rounded-full text-sm font-medium transition-colors shadow-lg"
+      className={buttonRecipe({
+        variant: 'accent',
+        size: 'sm',
+        className: 'rounded-full shadow-[var(--shadow-accent)]',
+      })}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >

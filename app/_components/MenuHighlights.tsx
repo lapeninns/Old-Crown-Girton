@@ -3,6 +3,14 @@ import DishCard from '@/components/restaurant/DishCard';
 import Link from '@/lib/debugLink';
 import { AutoMarquee } from '@/components/restaurant/AutoMarquee';
 import { Images } from '@/src/lib/images';
+import {
+  accentTextClassName,
+  buttonRecipe,
+  sectionDescriptionRecipe,
+  sectionInnerClassName,
+  sectionShellClassName,
+  sectionTitleRecipe,
+} from '@/src/design-system';
 
 // Featured dishes using only high-quality real dish images
 const featuredDishes = [
@@ -52,13 +60,13 @@ const featuredDishes = [
 
 export default function MenuHighlights() {
   return (
-    <section className="bg-brand-50 py-16" id="menu-highlights-heading" aria-labelledby="menu-highlights-heading">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`bg-brand-50 ${sectionShellClassName}`} id="menu-highlights-heading" aria-labelledby="menu-highlights-heading">
+      <div className={sectionInnerClassName}>
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-700 mb-4">
-            Our <span className="text-accent-600">Signature</span> Dishes
+          <h2 className={sectionTitleRecipe('mb-4 text-brand-700')}>
+            Our <span className={accentTextClassName}>Signature</span> Dishes
           </h2>
-          <p className="text-lg text-brand-600 max-w-2xl mx-auto">
+          <p className={sectionDescriptionRecipe()}>
             A taste of what we offer
           </p>
         </div>
@@ -84,7 +92,10 @@ export default function MenuHighlights() {
         <div className="text-center">
           <Link
             href="/menu#starters"
-            className="inline-block bg-brand-700 hover:bg-brand-800 text-white border-2 border-brand-600 font-bold py-4 px-8 rounded-lg text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-300 focus:ring-offset-2"
+            className={buttonRecipe({
+              variant: 'brand',
+              size: 'lg',
+            })}
             aria-label="View full restaurant menu"
           >
             View Full Menu

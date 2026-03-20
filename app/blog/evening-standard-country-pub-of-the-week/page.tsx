@@ -1,13 +1,14 @@
 import RestaurantLayout from "@/components/restaurant/Layout";
-import { getSEOTags, renderSchemaTags } from '@/libs/seo';
+import { buildArticleMetadata, renderSchemaTags } from '@/libs/seo';
 import Link from '@/lib/debugLink';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Images } from '@/src/lib/images';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import ErrorFallback from '@/components/ErrorFallback';
+import { buildArticleSchemas } from '@/src/lib/seo/schema';
 
-export const metadata = getSEOTags({
+export const metadata = buildArticleMetadata({
   title: "Evening Standard Names Old Crown Girton Country Pub of the Week",
   description: "The Evening Standard celebrates Old Crown Girton as Country Pub of the Week, praising our Nepalese cooking, village welcome, and ever-evolving menu.",
   keywords: [
@@ -17,13 +18,11 @@ export const metadata = getSEOTags({
     "Cambridge pub press feature",
     "Nepalese food Cambridge review"
   ],
-  canonicalUrlRelative: "/blog/evening-standard-country-pub-of-the-week",
-  openGraph: {
-    title: "Old Crown Girton Featured as Country Pub of the Week",
-    description: "David Ellis spotlights Old Crown Girton in the Evening Standard, applauding our Nepalese cooking and vibrant village pub atmosphere.",
-    url: "https://oldcrowngirton.com/blog/evening-standard-country-pub-of-the-week",
-    type: "article",
-  },
+  path: '/blog/evening-standard-country-pub-of-the-week',
+  socialTitle: 'Old Crown Girton Featured as Country Pub of the Week',
+  socialDescription:
+    'David Ellis spotlights Old Crown Girton in the Evening Standard, applauding our Nepalese cooking and vibrant village pub atmosphere.',
+  image: Images.blog.thatchedExterior,
 });
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
@@ -75,85 +74,35 @@ export default function EveningStandardPressPage() {
       <ErrorBoundary fallback={<ErrorFallback />}>
         <RestaurantLayout>
       {renderSchemaTags([
-        {
-          "@context": "https://schema.org",
-          "@type": "NewsArticle",
-          "@id": "https://oldcrowngirton.com/blog/evening-standard-country-pub-of-the-week#newsarticle",
-          "headline": post.title,
-          "description": post.excerpt,
-          "url": "https://oldcrowngirton.com/blog/evening-standard-country-pub-of-the-week",
-          "datePublished": post.publishedDate,
-          "dateModified": post.modifiedDate,
-          "author": {
-            "@type": "Organization",
-            "name": post.author.name,
-            "description": post.author.bio
+        ...buildArticleSchemas({
+          path: '/blog/evening-standard-country-pub-of-the-week',
+          headline: post.title,
+          description: post.excerpt,
+          image: post.image,
+          publishedDate: post.publishedDate,
+          modifiedDate: post.modifiedDate,
+          author: {
+            type: 'Organization',
+            name: post.author.name,
+            description: post.author.bio,
           },
-          "publisher": {
-            "@type": "LocalBusiness",
-            "name": "Old Crown Girton",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://oldcrowngirton.com/icon.png"
+          section: post.category,
+          tags: post.tags,
+          html: post.content,
+          articleType: 'NewsArticle',
+          sameAs: [post.articleUrl],
+          about: [
+            {
+              name: 'Press Coverage',
+              description: 'Media coverage and third-party reviews of Old Crown Girton',
             },
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "89 High Street",
-              "addressLocality": "Girton",
-              "addressRegion": "Cambridgeshire",
-              "postalCode": "CB3 0QD",
-              "addressCountry": "GB"
-            }
-          },
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://oldcrowngirton.com/blog/evening-standard-country-pub-of-the-week"
-          },
-          "image": {
-            "@type": "ImageObject",
-            "url": "https://oldcrowngirton.com/" + post.image,
-            "width": 1200,
-            "height": 630
-          },
-          "articleSection": post.category,
-          "keywords": post.tags.join(", "),
-          "wordCount": 320,
-          "inLanguage": "en-GB",
-          "isPartOf": {
-            "@type": "Blog",
-            "name": "Old Crown Girton Blog",
-            "url": "https://oldcrowngirton.com/blog"
-          },
-          "sameAs": [
-            post.articleUrl
-          ]
-        },
-        {
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "@id": "https://oldcrowngirton.com/blog/evening-standard-country-pub-of-the-week#webpage",
-          "name": post.title,
-          "description": post.excerpt,
-          "url": "https://oldcrowngirton.com/blog/evening-standard-country-pub-of-the-week",
-          "isPartOf": {
-            "@type": "WebSite",
-            "name": "Old Crown Girton",
-            "url": "https://oldcrowngirton.com/"
-          },
-          "about": {
-            "@type": "Restaurant",
-            "name": "Old Crown Girton",
-            "servesCuisine": ["Nepalese", "British"]
-          },
-          "mainContentOfPage": {
-            "@type": "WebPageElement",
-            "cssSelector": "article"
-          },
-          "speakable": {
-            "@type": "SpeakableSpecification",
-            "cssSelector": ["h1", "h2"]
-          }
-        }
+            {
+              name: 'Evening Standard Review',
+              description:
+                'Editorial coverage highlighting the pub, menu, and atmosphere at Old Crown Girton',
+            },
+          ],
+        }),
       ])}
 
       <div className="min-h-screen bg-neutral-50">
