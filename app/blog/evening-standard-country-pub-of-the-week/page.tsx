@@ -27,7 +27,10 @@ export const metadata = buildArticleMetadata({
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
 
+import BlogArticlePage from '../_components/BlogArticlePage';
+
 export default function EveningStandardPressPage() {
+
   const post = {
     title: "Evening Standard Spotlights The Old Crown, Girton",
     excerpt: "David Ellis names Old Crown Girton the Evening Standard’s Country Pub of the Week, highlighting our Nepalese cooking, welcoming atmosphere, and evolving menu.",
@@ -63,18 +66,8 @@ export default function EveningStandardPressPage() {
     articleUrl: "https://www.standard.co.uk/going-out/bars/old-crown-girton-hotel-pub-review-b1249473.html"
   };
 
-  return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: `
-        @media (prefers-reduced-motion: reduce) {
-          *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-          html:focus-within{scroll-behavior:auto!important}
-        }
-      ` }} />
-      <ErrorBoundary fallback={<ErrorFallback />}>
-        <RestaurantLayout>
-      {renderSchemaTags([
-        ...buildArticleSchemas({
+  const schemaEntries = [
+...buildArticleSchemas({
           path: '/blog/evening-standard-country-pub-of-the-week',
           headline: post.title,
           description: post.excerpt,
@@ -103,90 +96,31 @@ export default function EveningStandardPressPage() {
             },
           ],
         }),
-      ])}
+  ];
 
-      <div className="min-h-screen bg-neutral-50">
-        <nav className="bg-white py-4 border-b">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center space-x-2 text-sm text-neutral-600">
-              <Link href="/" className="hover:text-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">Home</Link>
-              <span aria-hidden="true">→</span>
-              <Link href="/blog" className="hover:text-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">Blog</Link>
-              <span aria-hidden="true">→</span>
-              <span className="text-brand-600">{post.category}</span>
-            </div>
-          </div>
-        </nav>
-
-        <header className="bg-white py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8">
-              <span className="inline-block px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm font-medium mb-4">
-                {post.category}
-              </span>
-              <h1 className="text-3xl md:text-4xl font-display font-bold text-brand-700 mb-4 leading-tight">
-                {post.title}
-              </h1>
-              <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-neutral-600">
-                <span>By {post.author.name}</span>
-                <span aria-hidden="true">•</span>
-                <time dateTime={post.publishedDate}>
-                  {new Date(post.publishedDate).toLocaleDateString('en-GB', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </time>
-                <span aria-hidden="true">•</span>
-                <span>{post.readTime}</span>
-              </div>
-            </div>
-
-            <div className="relative h-64 md:h-96 rounded-xl overflow-hidden">
-              <MotionDiv className="absolute inset-0" layoutId={`post:${post.slug}:image`}>
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 1024px"
-                  priority
-                />
-              </MotionDiv>
-            </div>
-          </div>
-        </header>
-
-        <main className="bg-white">
-          <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose prose-brand">
-            <div
-              className="space-y-6 leading-relaxed text-neutral-700"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-
-            <div className="mt-10 border-t border-neutral-200 pt-10">
-              <h2 className="text-xl font-display font-semibold text-brand-700 mb-4">
-                Read the Evening Standard review
-              </h2>
-              <p className="text-neutral-700 mb-4">
-                The full piece is available on the Evening Standard website. We’ve linked it here so you can explore the feature in David Ellis’s own words.
-              </p>
-              <Link
-                href={post.articleUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-600 text-white font-semibold px-5 py-3 transition-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 hover:-translate-y-[1px] hover:bg-brand-700"
-                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'var(--tap-highlight-color, currentColor)' }}
-              >
-                Read the Evening Standard review
-                <span aria-hidden="true" className="text-lg leading-none">↗</span>
-              </Link>
-            </div>
-          </article>
-        </main>
-      </div>
-        </RestaurantLayout>
-      </ErrorBoundary>
-    </>
+  return (
+    <BlogArticlePage
+      path="/blog/evening-standard-country-pub-of-the-week"
+      post={post}
+      schemaEntries={schemaEntries}
+      cta={{
+        title: 'Seen the coverage. Now try the place.',
+        body: 'Press helps with trust, but conversion comes from making the next visit easy to act on.',
+        primaryHref: '/book-a-table',
+        primaryLabel: 'Book a Table',
+        secondaryHref: '/press',
+        secondaryLabel: 'Press & Reviews'
+}}
+      quickLinks={[
+        {
+                label: 'View menu',
+                href: '/menu'
+        },
+        {
+                label: 'Plan an event',
+                href: '/events'
+        }
+]}
+    />
   );
 }

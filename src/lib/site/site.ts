@@ -40,9 +40,9 @@ export function metadataBaseUrl() {
 
 export const siteMetadata = {
   name: 'The Old Crown Girton',
-  title: 'The Old Crown Girton | Historic Thatched Pub & Nepalese Restaurant',
+  title: 'The Old Crown Girton | Historic Pub Near Cambridge with Nepalese Food',
   description:
-    'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics. Book: 01223277217',
+    'Historic thatched pub in Girton near Cambridge with authentic Nepalese food, British pub classics, free parking, and table booking. Call 01223277217.',
   domainName: config.domainName,
   locale: 'en-GB',
   publisher: 'Lapen Inns',
@@ -54,7 +54,7 @@ export const restaurantFacts = {
   alternateName: 'Old Crown Girton',
   tagline: 'Historic Thatched Pub & Nepalese Restaurant',
   description:
-    'Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics.',
+    'Historic thatched pub in Girton near Cambridge serving authentic Nepalese cuisine, British pub classics, and easy visits with free parking.',
   telephone: restaurantConfig.phone,
   email: 'oldcrown@lapeninns.com',
   cuisines: ['Nepalese', 'British Pub Food'],

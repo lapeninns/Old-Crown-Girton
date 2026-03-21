@@ -26,7 +26,7 @@ interface SocialMediaSectionProps {
  */
 export default function SocialMediaSection({ 
   title = "Follow Us",
-  description = "Stay updated with our latest news and special offers",
+  description = "Follow Old Crown for match-day updates, event moments, and what is coming out of the kitchen",
   className = '' 
 }: SocialMediaSectionProps) {
   return (
@@ -42,7 +42,7 @@ export default function SocialMediaSection({
       <div className="flex justify-center space-x-6">
         {/* Facebook Link */}
         <a 
-          href="https://facebook.com" 
+          href="https://www.facebook.com/oldcrowngirton" 
           className={socialIconButtonRecipe('brand')}
           target="_blank"
           rel="noopener noreferrer"
@@ -55,7 +55,7 @@ export default function SocialMediaSection({
         
         {/* Instagram Link */}
         <a 
-          href="https://instagram.com" 
+          href="https://www.instagram.com/theoldcrowngirton" 
           className={socialIconButtonRecipe('brand')}
           target="_blank"
           rel="noopener noreferrer"

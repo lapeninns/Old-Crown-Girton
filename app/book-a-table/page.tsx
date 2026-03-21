@@ -4,7 +4,7 @@ import { FadeIn } from '@/components/animations/MotionWrappers';
 import Link from '@/lib/debugLink';
 import { getContactInfo } from '@/lib/restaurantData';
 import { getSEOTags, renderSchemaTags } from '@/libs/seo';
-import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
+import { buildBreadcrumbSchema, buildFaqSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
 import {
   buttonRecipe,
   contentPanelRecipe,
@@ -32,21 +32,21 @@ const RestaurantHoursCard = dynamic(() => import('@/components/restaurant/Restau
 const InteractiveMap = dynamic(() => import('@/components/restaurant/InteractiveMap'));
 
 export const metadata = getSEOTags({
-  title: 'Book a Table | Old Crown Girton',
+  title: 'Book a Table Near Cambridge | Old Crown Girton',
   description:
-    'Plan your visit and reserve a table at The Old Crown Girton. Book online or call the team during opening hours.',
+    'Book a table at Old Crown Girton near Cambridge for authentic Nepalese food, British pub classics, family-friendly dining, and free parking.',
   canonicalUrlRelative: '/book-a-table',
   openGraph: {
-    title: 'Book a Table at Old Crown Girton',
+    title: 'Book a Table Near Cambridge | Old Crown Girton',
     description:
-      'Plan your visit and reserve a table at The Old Crown Girton. Book online or call the team during opening hours.',
+      'Book a table at Old Crown Girton near Cambridge for authentic Nepalese food, British pub classics, family-friendly dining, and free parking.',
     url: 'https://oldcrowngirton.com/book-a-table',
   },
 });
 
-const BOOK_A_TABLE_PAGE_TITLE = 'Book a Table | Old Crown Girton';
+const BOOK_A_TABLE_PAGE_TITLE = 'Book a Table Near Cambridge | Old Crown Girton';
 const BOOK_A_TABLE_PAGE_DESCRIPTION =
-  'Plan your visit and reserve a table at The Old Crown Girton. Book online or call the team during opening hours.';
+  'Book a table at Old Crown Girton near Cambridge for authentic Nepalese food, British pub classics, family-friendly dining, and free parking.';
 
 const BOOKING_HIGHLIGHTS = [
   'Authentic Nepalese & British pub classics',
@@ -71,6 +71,24 @@ const BOOKING_TIPS = [
   {
     icon: '♿',
     text: 'Accessibility needs or highchairs required? Mention it when you call so the team can prepare.',
+  },
+];
+
+const BOOKING_FAQ_ITEMS = [
+  {
+    question: 'Can I book a table online at Old Crown Girton?',
+    answer:
+      'Yes. You can reserve online through our booking partner or call the team directly during opening hours if you would prefer help with your booking.',
+  },
+  {
+    question: 'Is there parking when I book a table?',
+    answer:
+      'Yes. Old Crown Girton has free on-site parking, which makes visits easier for guests travelling from Cambridge and the surrounding villages.',
+  },
+  {
+    question: 'Can you accommodate families, groups, and special requests?',
+    answer:
+      'Yes. We welcome families, group bookings, celebrations, and guests with dietary or accessibility requirements. Let us know your needs when booking.',
   },
 ];
 
@@ -104,6 +122,7 @@ export default function BookATablePage() {
             { name: 'Home', path: '/' },
             { name: 'Book a Table', path: '/book-a-table' },
           ]),
+          buildFaqSchema(BOOKING_FAQ_ITEMS),
         ])}
         <section
           className={pageHeroSectionRecipe()}

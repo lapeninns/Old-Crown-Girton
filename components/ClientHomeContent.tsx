@@ -9,6 +9,8 @@ import ClientFooter from '@/components/ClientFooter';
 import Showcase from '@/components/slideshow/Showcase';
 import AboutSection from '@/app/_components/AboutSection';
 import MenuHighlights from '@/app/_components/MenuHighlights';
+import ConversionProofSection from '@/app/_components/ConversionProofSection';
+import VisitMomentsSection from '@/app/_components/VisitMomentsSection';
 import PressFeatureBanner, { PressFeatureContent } from '@/components/restaurant/sections/PressFeatureBanner';
 import type { Slide } from '@/components/slideshow/types';
 
@@ -112,20 +114,26 @@ export default function ClientHomeContent({
           </section>
         </Suspense>
 
+        <section aria-labelledby="conversion-proof-heading">
+          <ConversionProofSection />
+        </section>
+
+        <section aria-labelledby="visit-moments-heading">
+          <VisitMomentsSection />
+        </section>
+
         {pressFeature && (
           <Suspense fallback={<PressFeatureSkeleton />}>
             <PressFeatureBanner content={pressFeature} />
           </Suspense>
         )}
 
-        {/* About Section */}
         <Suspense fallback={<SectionStartSkeleton />}>
           <section aria-labelledby="about-heading">
             <AboutSection />
           </section>
         </Suspense>
 
-        {/* Menu Highlights */}
         <Suspense fallback={<MenuHighlightsSkeleton />}>
           <section aria-labelledby="menu-highlights-heading">
             <MenuHighlights />
@@ -167,4 +175,3 @@ export default function ClientHomeContent({
     </div>
   );
 }
-

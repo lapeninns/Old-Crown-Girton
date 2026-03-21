@@ -3,13 +3,31 @@ import { FadeIn, FadeInUp, MotionLinkButton } from "@/components/animations/Moti
 import { buildPageMetadata, renderSchemaTags } from "@/libs/seo";
 import Link from "@/lib/debugLink";
 import { getContactInfo } from "@/lib/restaurantData";
-import { buildBreadcrumbSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
+import { buildBreadcrumbSchema, buildFaqSchema, buildWebPageSchema } from '@/src/lib/seo/schema';
 
 const TAKEAWAY_MENU_PATH = "/takeaway-menu/old-crown-takeaway-menu.jpg";
 
-const TAKEAWAY_PAGE_TITLE = 'Takeaway Menu Download | Old Crown Girton';
+const TAKEAWAY_PAGE_TITLE = 'Takeaway in Girton Near Cambridge | Old Crown Girton';
 const TAKEAWAY_PAGE_DESCRIPTION =
-  'Download The Old Crown Girton takeaway menu and order authentic Nepalese and British pub favourites for collection in Girton, Cambridge.';
+  'Order takeaway from Old Crown Girton near Cambridge with authentic Nepalese dishes, pub favourites, easy collection, and free parking.';
+
+const TAKEAWAY_FAQ_ITEMS = [
+  {
+    question: 'How do I order takeaway from Old Crown Girton?',
+    answer:
+      'Call the team directly to place your takeaway order, then collect from the pub in Girton once your food is ready.',
+  },
+  {
+    question: 'Is takeaway collection easy?',
+    answer:
+      'Yes. Old Crown Girton offers free on-site parking, which makes collection simple for guests coming from Girton and nearby Cambridge.',
+  },
+  {
+    question: 'Can I check allergens before ordering takeaway?',
+    answer:
+      'Yes. The takeaway menu includes dish details, and the team can advise on allergens and dietary requirements when you call to order.',
+  },
+];
 
 export const metadata = buildPageMetadata({
   title: TAKEAWAY_PAGE_TITLE,
@@ -23,9 +41,9 @@ export const metadata = buildPageMetadata({
     "pub takeaway Girton",
   ],
   path: '/takeaway-menu',
-  socialTitle: 'Download the Old Crown Girton Takeaway Menu',
+  socialTitle: 'Takeaway in Girton Near Cambridge | Old Crown Girton',
   socialDescription:
-    'Access our latest takeaway menu and place your collection order direct with the Old Crown Girton team.',
+    'Order takeaway from Old Crown Girton near Cambridge with authentic Nepalese dishes, pub favourites, easy collection, and free parking.',
 });
 
 export default function TakeawayMenuPage() {
@@ -72,6 +90,7 @@ export default function TakeawayMenuPage() {
           { name: 'Home', path: '/' },
           { name: 'Takeaway Menu', path: '/takeaway-menu' },
         ]),
+        buildFaqSchema(TAKEAWAY_FAQ_ITEMS),
       ])}
 
       <section

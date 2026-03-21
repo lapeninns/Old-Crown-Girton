@@ -9,20 +9,20 @@
       "label": "Menu"
     },
     {
-      "href": "/about",
-      "label": "About"
+      "href": "/book-a-table",
+      "label": "Book a Table"
     },
     {
       "href": "/events",
       "label": "Events"
     },
     {
-      "href": "/book-a-table",
-      "label": "Book a Table"
+      "href": "/takeaway-menu",
+      "label": "Takeaway"
     },
     {
-      "href": "/press",
-      "label": "Press"
+      "href": "/about",
+      "label": "About"
     },
     {
       "href": "/contact",

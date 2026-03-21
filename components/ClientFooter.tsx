@@ -20,7 +20,7 @@ export default function ClientFooter() {
               Old Crown Girton
             </h3>
             <p className="text-neutral-100 mb-4">
-              Historic thatched pub in Girton serving authentic Nepalese cuisine and British pub classics
+              Historic pub near Cambridge with authentic Nepalese food, British pub classics, and easy visits with free parking.
             </p>
             <div className="space-y-2 text-sm">
               <p><EmojiIcon emoji="📍" className="mr-1" /> 89 High Street, Girton, Cambridge CB3 0QD</p>
@@ -34,23 +34,28 @@ export default function ClientFooter() {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
+                <Link href="/book-a-table" className="hover:text-foreground-strong transition-colors">
+                  Book a Table
+                </Link>
+              </li>
+              <li>
                 <Link href="/menu#starters" className="hover:text-foreground-strong transition-colors">
                   Menu
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-foreground-strong transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-foreground-strong transition-colors">
-                  Contact
+                <Link href="/takeaway-menu" className="hover:text-foreground-strong transition-colors">
+                  Takeaway
                 </Link>
               </li>
               <li>
                 <Link href="/events" className="hover:text-foreground-strong transition-colors">
-                  Events
+                  Events & Private Hire
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-foreground-strong transition-colors">
+                  Contact & Directions
                 </Link>
               </li>
             </ul>
@@ -87,7 +92,7 @@ export default function ClientFooter() {
             <p className="mt-1">
               <Link href="/privacy-policy" className="hover:text-foreground-strong">Privacy Policy</Link>
               {' | '}
-              <Link href="/terms-of-service" className="hover:text-foreground-strong">Terms of Service</Link>
+              <Link href="/tos" className="hover:text-foreground-strong">Terms of Service</Link>
             </p>
           </div>
         </div>

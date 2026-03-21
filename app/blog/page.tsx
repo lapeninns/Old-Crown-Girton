@@ -67,8 +67,8 @@ export default function BlogPage() {
         {/* Blog Hero Section with motion animation */}
         <section aria-labelledby="blog-hero-heading">
           <BlogHero 
-            title="Stories from Old Crown Girton"
-            subtitle="Discover the rich heritage, delicious cuisine, and vibrant community that makes our historic thatched pub special"
+            title="Stories that help people choose Old Crown"
+            subtitle="Food, heritage, local context, and practical guides that support discovery while still leading readers back to booking, menu, events, or takeaway."
           />
         </section>
 
@@ -88,31 +88,26 @@ export default function BlogPage() {
           </FadeIn>
 
           <FadeIn>
-            <section className="py-16 bg-white" aria-labelledby="newsletter-heading">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
+            <section className="py-16 bg-white" aria-labelledby="blog-next-step-heading">
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="rounded-[32px] bg-gradient-to-r from-brand-600 to-brand-800 p-8 md:p-12 text-white shadow-xl">
                   <div className="text-center">
-                    <h2 id="newsletter-heading" className="text-3xl md:text-4xl font-display font-bold text-white mb-4 drop-shadow-lg">
-                      📰 Stay Updated
+                    <h2 id="blog-next-step-heading" className="text-3xl md:text-4xl font-display font-bold">
+                      Reading is useful, but the point is to move people forward
                     </h2>
-                    <p className="text-lg text-neutral-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-                      Get the latest stories, event announcements, and special offers from Old Crown Girton
+                    <p className="mt-4 text-lg text-neutral-100 max-w-3xl mx-auto leading-relaxed">
+                      If a story has done its job, the next step should feel obvious.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                      <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-                      <input 
-                        id="newsletter-email"
-                        type="email" 
-                        placeholder="Enter your email"
-                        className="flex-1 px-4 py-3 border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20"
-                        required
-                      />
-                      <button 
-                        className="px-6 py-3 bg-accent-500 text-neutral-900 font-semibold rounded-lg hover:bg-accent-400 focus:outline-none focus:ring-2 focus:ring-accent-300 focus:ring-offset-2 focus:ring-offset-brand-600 transition-all duration-200 shadow-lg hover:shadow-xl"
-                        type="submit"
-                      >
-                        Subscribe
-                      </button>
+                    <div className="mt-8 flex flex-wrap justify-center gap-3">
+                      <a href="/menu" className="rounded-full bg-white px-6 py-3 font-semibold text-brand-700 transition hover:bg-brand-50">
+                        View Menu
+                      </a>
+                      <a href="/book-a-table" className="rounded-full bg-accent-500 px-6 py-3 font-semibold text-stout-950 transition hover:bg-accent-400">
+                        Book a Table
+                      </a>
+                      <a href="/events" className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white transition hover:bg-white/10">
+                        Events & Private Hire
+                      </a>
                     </div>
                   </div>
                 </div>

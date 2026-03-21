@@ -12,7 +12,7 @@ export default function Navbar({ content }: { content?: any }) {
     links,
     error,
     errorLabel,
-    contactLabel,
+    primaryCtaLabel,
     navLabel,
     menuButtonOpenLabel,
     menuButtonCloseLabel,
@@ -80,7 +80,7 @@ export default function Navbar({ content }: { content?: any }) {
           </div>
 
           <div className="hidden md:flex md:flex-none">
-            <ContactCTA label={contactLabel} />
+            <ContactCTA label={primaryCtaLabel} />
           </div>
 
           <div className="md:hidden">
@@ -146,7 +146,7 @@ export default function Navbar({ content }: { content?: any }) {
           />
           <div className="mt-3">
             <ContactCTA
-              label={contactLabel}
+              label={primaryCtaLabel}
               onClick={closeMenu}
               fullWidth
             />

@@ -4,7 +4,6 @@ import Link from '@/lib/debugLink';
 import { AutoMarquee } from '@/components/restaurant/AutoMarquee';
 import { Images } from '@/src/lib/images';
 import {
-  accentTextClassName,
   buttonRecipe,
   sectionDescriptionRecipe,
   sectionInnerClassName,
@@ -63,11 +62,13 @@ export default function MenuHighlights() {
     <section className={`bg-brand-50 ${sectionShellClassName}`} id="menu-highlights-heading" aria-labelledby="menu-highlights-heading">
       <div className={sectionInnerClassName}>
         <div className="text-center mb-12">
-          <h2 className={sectionTitleRecipe('mb-4 text-brand-700')}>
-            Our <span className={accentTextClassName}>Signature</span> Dishes
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-500">Signature food</p>
+          <h2 className={sectionTitleRecipe('mt-3 mb-4 text-brand-700')}>
+            Nepalese dishes that stand out, plus pub classics that keep mixed groups happy
           </h2>
-          <p className={sectionDescriptionRecipe()}>
-            A taste of what we offer
+          <p className={sectionDescriptionRecipe('max-w-3xl')}>
+            The menu is one of Old Crown&apos;s strongest conversion points, so this section should do more than look
+            good. It needs to reassure people that everyone at the table will find a reason to come.
           </p>
         </div>
 
@@ -90,16 +91,27 @@ export default function MenuHighlights() {
         </div>
 
         <div className="text-center">
-          <Link
-            href="/menu#starters"
-            className={buttonRecipe({
-              variant: 'brand',
-              size: 'lg',
-            })}
-            aria-label="View full restaurant menu"
-          >
-            View Full Menu
-          </Link>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/menu#starters"
+              className={buttonRecipe({
+                variant: 'brand',
+                size: 'lg',
+              })}
+              aria-label="View full restaurant menu"
+            >
+              View Full Menu
+            </Link>
+            <Link
+              href="/book-a-table"
+              className={buttonRecipe({
+                variant: 'outline',
+                size: 'lg',
+              })}
+            >
+              Book for Dinner
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -162,6 +162,42 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 				{/* Main menu content with progressive disclosure */}
 				<main className="space-y-16">
 					<FadeIn>
+						<section className="bg-white pt-12" aria-labelledby="menu-next-step-heading">
+							<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+								<div className="grid gap-4 md:grid-cols-3">
+									<div className="rounded-3xl border border-brand-100 bg-neutral-50 p-6 shadow-sm">
+										<p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">Start here</p>
+										<h2 id="menu-next-step-heading" className="mt-3 text-2xl font-display font-bold text-brand-700">
+											Choose the quickest next step
+										</h2>
+										<p className="mt-3 text-brand-600 leading-relaxed">
+											If you already know what you need, use one of these routes instead of scrolling the entire menu first.
+										</p>
+									</div>
+									<div className="rounded-3xl border border-brand-100 bg-white p-6 shadow-sm">
+										<h3 className="text-lg font-semibold text-brand-700">Booking for a meal</h3>
+										<p className="mt-3 text-sm leading-7 text-brand-600">
+											See the menu, then lock in a table for dinner, a family meal, or a relaxed catch-up.
+										</p>
+										<Link href="/book-a-table" className="mt-6 inline-flex text-sm font-semibold text-brand-700 hover:text-brand-900">
+											Book a Table →
+										</Link>
+									</div>
+									<div className="rounded-3xl border border-brand-100 bg-white p-6 shadow-sm">
+										<h3 className="text-lg font-semibold text-brand-700">Ordering to collect</h3>
+										<p className="mt-3 text-sm leading-7 text-brand-600">
+											Going takeaway? Skip straight to the download and call-to-order flow.
+										</p>
+										<Link href="/takeaway-menu" className="mt-6 inline-flex text-sm font-semibold text-brand-700 hover:text-brand-900">
+											See Takeaway Options →
+										</Link>
+									</div>
+								</div>
+							</div>
+						</section>
+					</FadeIn>
+
+					<FadeIn>
 						<section aria-labelledby="interactive-menu-heading">
 							<MenuInteractive
 								sections={optimizedMenu?.sections || []}
@@ -207,11 +243,11 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 									<div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 md:p-12 shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2 border-2 border-brand-700">
 										<div className="text-center">
 											<h3 className="text-3xl md:text-4xl font-display font-bold mb-6 text-white drop-shadow-lg">
-												🍽️ Experience Our Interactive Menu
+												Book, call, or keep browsing
 											</h3>
 
 											<p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
-												Use our advanced search and dietary filters to find the perfect dish. Book online or call for takeaway.
+												Use the filters if you want detail, but the main goal here is simple: make the next decision easy.
 											</p>
 
 											<div className="flex flex-wrap gap-4 justify-center mb-6">

@@ -4,6 +4,19 @@ import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { cdnOptimizationMiddleware } from './src/lib/cdnStrategy';
 
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get('host') || '';
+  const forwardedProto = request.headers.get('x-forwarded-proto');
+  const isTargetDomain = host === 'oldcrowngirton.com' || host === 'www.oldcrowngirton.com';
+  const shouldForceHttps = isTargetDomain && forwardedProto && forwardedProto !== 'https';
+  const shouldStripWww = host === 'www.oldcrowngirton.com';
+
+  if (shouldForceHttps || shouldStripWww) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.protocol = 'https:';
+    redirectUrl.host = 'oldcrowngirton.com';
+    return NextResponse.redirect(redirectUrl, 308);
+  }
+
   const res = NextResponse.next();
 
   // Supabase auth middleware - only use in Node.js runtime

@@ -19,7 +19,10 @@ export const metadata = buildArticleMetadata({
 
 const MotionDiv = dynamic(() => import('@/components/motion/DynamicMotion').then(mod => mod.MotionDiv), { ssr: false });
 
+import BlogArticlePage from '../_components/BlogArticlePage';
+
 export default function DogFriendlyDiningPage() {
+
   const post = {
     title: "The Ultimate Dog-Friendly Dining Experience at Old Crown Girton",
     excerpt: "Discover why Old Crown Girton has become Cambridge's favourite destination for dining with four-legged family members.",
@@ -95,18 +98,8 @@ export default function DogFriendlyDiningPage() {
     tags: ["Dog-friendly", "Pet dining", "Beer garden", "Family-friendly", "Cambridge pubs"]
   };
 
-  return (
-    <>
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @media (prefers-reduced-motion: reduce) {
-          *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-          html:focus-within{scroll-behavior:auto!important}
-        }
-      ` }} />
-      <RestaurantLayout>
-        {renderSchemaTags([
-          ...buildArticleSchemas({
+  const schemaEntries = [
+...buildArticleSchemas({
             path: '/blog/dog-friendly-dining-guide',
             headline: post.title,
             description: post.excerpt,
@@ -144,126 +137,31 @@ export default function DogFriendlyDiningPage() {
                 'Our large terrace garden is fully fenced and provides a secure, comfortable space for dogs of all sizes. There are shaded areas for warmer weather and plenty of room to move around.',
             },
           ]),
-        ])}
+  ];
 
-        <div className="min-h-screen bg-neutral-50">
-          {/* Breadcrumbs */}
-          <nav className="bg-white py-4 border-b">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center space-x-2 text-sm text-neutral-600">
-                <Link href="/" className="hover:text-brand-600">Home</Link>
-                <span>→</span>
-                <Link href="/blog" className="hover:text-brand-600">Blog</Link>
-                <span>→</span>
-                <span className="text-brand-600">{post.category}</span>
-              </div>
-            </div>
-          </nav>
-
-          {/* Article Header */}
-          <header className="bg-white py-16">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-8">
-                <span className="inline-block px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm font-medium mb-4">
-                  {post.category}
-                </span>
-                <h1 className="text-3xl md:text-4xl font-display font-bold text-brand-700 mb-4 leading-tight">
-                  {post.title}
-                </h1>
-                <div className="flex items-center justify-center gap-4 text-sm text-neutral-600">
-                  <span>By {post.author.name}</span>
-                  <span>•</span>
-                  <time dateTime={post.publishedDate}>
-                    {new Date(post.publishedDate).toLocaleDateString('en-GB', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
-                  <span>•</span>
-                  <span>{post.readTime}</span>
-                </div>
-              </div>
-
-              <div className="relative h-64 md:h-96 rounded-xl overflow-hidden">
-                <MotionDiv className="absolute inset-0" layoutId={`post:${post.slug}:image`}>
-                  <Image
-                    src={post.image}
-                    alt="Dog-friendly dining at Old Crown Girton terrace garden"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 1024px"
-                    priority
-                  />
-                </MotionDiv>
-              </div>
-            </div>
-          </header>
-
-          {/* Article Content */}
-          <main className="py-16 bg-white">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <article className="prose prose-lg prose-brand max-w-none">
-                <div
-                  className="blog-content"
-                  dangerouslySetInnerHTML={{ __html: post.content }}
-                />
-              </article>
-
-              {/* Tags */}
-              <div className="mt-12 pt-8 border-t">
-                <h3 className="text-lg font-semibold text-brand-700 mb-4">Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Author Bio */}
-              <div className="mt-12 p-6 bg-brand-50 rounded-xl">
-                <h3 className="text-lg font-semibold text-brand-700 mb-2">About the Author</h3>
-                <p className="text-neutral-600">{post.author.bio}</p>
-              </div>
-
-              {/* Call to Action */}
-              <div className="mt-12 p-8 bg-brand-600 text-white rounded-xl text-center">
-                <h3 className="text-2xl font-bold mb-4">Ready to Dine with Your Dog?</h3>
-                <p className="text-brand-100 mb-6">Experience Cambridge&apos;s most welcoming dog-friendly pub. Book your table and bring your four-legged family member along!</p>
-                <Link
-                  href="https://www.nabatable.com/restaurants/the-old-crown-girton/book"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-8 py-3 bg-white text-brand-600 font-semibold rounded-lg hover:bg-brand-50"
-                >
-                  Book Your Table
-                </Link>
-              </div>
-
-              {/* Navigation */}
-              <div className="mt-12 flex justify-between items-center">
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center text-brand-600 font-semibold hover:text-brand-700"
-                >
-                  <svg className="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-                  </svg>
-                  Back to Blog
-                </Link>
-
-                <div className="flex gap-4">
-                  <button className="text-neutral-600 hover:text-brand-600">
-                    Share
-                  </button>
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
-      </RestaurantLayout>
-    </>
+  return (
+    <BlogArticlePage
+      path="/blog/dog-friendly-dining-guide"
+      post={post}
+      schemaEntries={schemaEntries}
+      cta={{
+        title: 'Bringing the dog along?',
+        body: 'Book ahead for an easier visit, especially if you want a specific area or are coming with family as well.',
+        primaryHref: '/book-a-table',
+        primaryLabel: 'Book a Table',
+        secondaryHref: '/contact',
+        secondaryLabel: 'Contact the Team'
+}}
+      quickLinks={[
+        {
+                label: 'View menu',
+                href: '/menu'
+        },
+        {
+                label: 'Find us',
+                href: '/contact'
+        }
+]}
+    />
   );
 }

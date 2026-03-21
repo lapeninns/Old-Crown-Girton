@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "About Himalayan Spice",
-    "subtitle": "A unique blend of authentic Nepalese cuisine and traditional British pub culture"
+    "title": "About Old Crown Girton",
+    "subtitle": "Historic thatched pub character, authentic Nepalese cooking, and relaxed hospitality just outside Cambridge"
   },
   "story": {
     "title": "Our Story",
@@ -20,13 +20,13 @@
       {
         "period": "Today",
         "title": "The Nepalese-British Fusion",
-        "description": "Under current management, we've discovered our unique identity: combining authentic Nepalese cuisine with traditional British pub classics. This fusion represents Cambridge's multicultural community while honoring our heritage."
+        "description": "Today, Old Crown brings together authentic Nepalese cooking, British pub favourites, and a welcoming village-pub atmosphere for everyday meals, celebrations, and community gatherings."
       }
     ]
   },
   "cta": {
-    "title": "Ready to Book?",
-    "description": "Experience the perfect blend of Nepalese hospitality and British pub tradition.",
+    "title": "Ready to Experience Old Crown?",
+    "description": "Plan a relaxed meal, a family get-together, or a bigger occasion in one of Girton's most distinctive hospitality spaces.",
     "button": "Book Online",
     "contact": {
       "address": "89 High St, Girton, Cambridge CB3 0QD",

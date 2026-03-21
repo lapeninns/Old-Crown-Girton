@@ -20,7 +20,7 @@ interface NavContentResult {
   links: SanitizedNavLink[];
   error: Error | null;
   errorLabel: string;
-  contactLabel: string;
+  primaryCtaLabel: string;
   navLabel: string;
   menuButtonOpenLabel: string;
   menuButtonCloseLabel: string;
@@ -69,7 +69,10 @@ export function useNavContent(initialContent?: any): NavContentResult {
 
   const uiLabels = content?.global?.ui?.labels;
   const ariaLabels = content?.global?.accessibility?.ariaLabels;
-  const contactLabel = content?.global?.ui?.buttons?.contact || 'Contact';
+  const primaryCtaLabel =
+    content?.global?.marketing?.buttons?.bookTable ||
+    content?.global?.ui?.buttons?.bookOnline ||
+    'Book a Table';
   const navLabel = ariaLabels?.mainNavigation || 'Main navigation';
   const menuButtonOpenLabel =
     ariaLabels?.menuButton ||
@@ -87,7 +90,7 @@ export function useNavContent(initialContent?: any): NavContentResult {
     links: sanitizedLinks,
     error,
     errorLabel: uiLabels?.error || 'Nav failed',
-    contactLabel,
+    primaryCtaLabel,
     navLabel,
     menuButtonOpenLabel,
     menuButtonCloseLabel,
@@ -192,7 +195,7 @@ export function ContactCTA({
 
   return (
     <Link
-      href="/contact"
+      href="/book-a-table"
       onClick={onClick}
       className={fullWidth ? `${baseClasses} btn-block` : baseClasses}
     >
