@@ -105,7 +105,7 @@ export default function EveningStandardPressPage() {
       schemaEntries={schemaEntries}
       cta={{
         title: 'Seen the coverage. Now try the place.',
-        body: 'Press helps with trust, but conversion comes from making the next visit easy to act on.',
+        body: 'If the review has sparked your interest, come and experience the food, atmosphere, and welcome for yourself.',
         primaryHref: '/book-a-table',
         primaryLabel: 'Book a Table',
         secondaryHref: '/press',

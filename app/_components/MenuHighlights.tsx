@@ -67,8 +67,8 @@ export default function MenuHighlights() {
             Nepalese dishes that stand out, plus pub classics that keep mixed groups happy
           </h2>
           <p className={sectionDescriptionRecipe('max-w-3xl')}>
-            The menu is one of Old Crown&apos;s strongest conversion points, so this section should do more than look
-            good. It needs to reassure people that everyone at the table will find a reason to come.
+            From comforting pub favourites to bold Nepalese dishes, the menu makes it easy to bring different tastes
+            together around one table.
           </p>
         </div>
 

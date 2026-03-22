@@ -52,7 +52,8 @@ export default function VisitMomentsSection() {
             Old Crown works for more than one kind of plan
           </h2>
           <p className={sectionDescriptionRecipe('mt-4 text-left max-w-none')}>
-            Instead of making everyone dig through the site, we route people quickly to the right next step.
+            Whether you are planning dinner, drinks, a family meal, a group booking, or a quick takeaway, there is an
+            easy route from here.
           </p>
         </div>
 

@@ -37,8 +37,9 @@ export default function ConversionProofSection() {
               Distinctive enough to feel special, practical enough to book today
             </h2>
             <p className={sectionDescriptionRecipe('text-left max-w-none')}>
-              Old Crown works because it combines character, authentic food, and an easy visit. This is the part of
-              the decision where guests realise they do not need to compromise between atmosphere and convenience.
+              Come for the setting, stay for the food, and enjoy a visit that feels easy from the moment you arrive.
+              Old Crown gives you the character of a historic pub with the convenience people want when choosing where
+              to eat.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link href="/book-a-table" className={buttonRecipe({ variant: 'brand', size: 'md' })}>

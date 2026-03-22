@@ -114,11 +114,11 @@ export default function EventsPage() {
             <section aria-labelledby="event-use-cases-heading">
               <div className="max-w-3xl">
                 <h2 id="event-use-cases-heading" className="text-3xl font-display font-bold text-brand-700">
-                  The main reasons people book this page
+                  Events that feel easy to organise
                 </h2>
                 <p className="mt-4 leading-8 text-brand-600">
-                  The goal here is to help planners recognise their use case quickly, then feel confident that the
-                  venue can handle it.
+                  From family gatherings to wakes and business lunches, Old Crown offers the kind of setting that feels
+                  welcoming, flexible, and straightforward to plan.
                 </p>
               </div>
               <div className="mt-10 grid gap-4 md:grid-cols-2">
@@ -136,7 +136,7 @@ export default function EventsPage() {
             <section className="mt-16 grid gap-8 lg:grid-cols-[1.05fr,0.95fr]" aria-labelledby="event-strengths-heading">
               <div className="rounded-[32px] bg-neutral-50 p-8 shadow-sm">
                 <h2 id="event-strengths-heading" className="text-3xl font-display font-bold text-brand-700">
-                  Why Old Crown converts well for events
+                  Why guests choose Old Crown for group occasions
                 </h2>
                 <ul className="mt-6 space-y-3 text-brand-700">
                   {EVENT_STRENGTHS.map((item) => (
@@ -150,10 +150,10 @@ export default function EventsPage() {
 
               <div className="rounded-[32px] bg-brand-700 p-8 text-white shadow-xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-100">Good fit for</p>
-                <h3 className="mt-3 text-2xl font-display font-bold">Private hire without unnecessary complexity</h3>
+                <h3 className="mt-3 text-2xl font-display font-bold">Private hire with a warm, practical approach</h3>
                 <p className="mt-4 leading-8 text-brand-100">
-                  Guests need clear next steps, not a wall of information. If you already know the occasion, the best
-                  move is simply to contact the team and get availability confirmed.
+                  If you already know the occasion, simply get in touch with the team. We will talk through what you
+                  need and help you plan the right setup.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link href="/contact" className="rounded-full bg-white px-6 py-3 font-semibold text-brand-700 transition hover:bg-brand-50">

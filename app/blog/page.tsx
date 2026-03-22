@@ -93,10 +93,10 @@ export default function BlogPage() {
                 <div className="rounded-[32px] bg-gradient-to-r from-brand-600 to-brand-800 p-8 md:p-12 text-white shadow-xl">
                   <div className="text-center">
                     <h2 id="blog-next-step-heading" className="text-3xl md:text-4xl font-display font-bold">
-                      Reading is useful, but the point is to move people forward
+                      Found what you were looking for?
                     </h2>
                     <p className="mt-4 text-lg text-neutral-100 max-w-3xl mx-auto leading-relaxed">
-                      If a story has done its job, the next step should feel obvious.
+                      Take the next step and turn a little inspiration into a meal, a booking, or a visit.
                     </p>
                     <div className="mt-8 flex flex-wrap justify-center gap-3">
                       <a href="/menu" className="rounded-full bg-white px-6 py-3 font-semibold text-brand-700 transition hover:bg-brand-50">

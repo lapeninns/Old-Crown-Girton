@@ -28,7 +28,7 @@ export default function AboutSection() {
             <p className={sectionDescriptionRecipe('text-left max-w-none')}>
               Old Crown brings together heritage, authentic Nepalese cooking, and the kind of practical hospitality
               that makes repeat visits easy. It feels special enough for a planned evening and relaxed enough for a
-              casual meal, a family lunch, or a quick decision after work.
+              casual meal, a family lunch, or an easy midweek visit.
             </p>
 
             <ul className="mt-6 space-y-3 text-brand-700">
@@ -54,8 +54,8 @@ export default function AboutSection() {
             <div className="grid gap-4 sm:grid-cols-[1.15fr,0.85fr]">
               <div className="relative h-96 lg:h-[500px] overflow-hidden rounded-[28px] shadow-2xl">
                 <Image
-                  src="/images/slideshow/interior/elegant-pub-lounge-with-fireplace-and-sofas.jpeg"
-                  alt="Inside Old Crown Girton dining and lounge space"
+                  src="/images/slideshow/interior/comfy-bar-lounge-with-armchairs-and-tv.jpeg"
+                  alt="Inside Old Crown Girton lounge space"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"

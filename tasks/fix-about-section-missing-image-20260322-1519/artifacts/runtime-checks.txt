@@ -1,0 +1,5 @@
+asset_exists=public/images/slideshow/interior/comfy-bar-lounge-with-armchairs-and-tv.jpeg
+build=pass
+homepage_html_check=pass
+homepage_html_match=About section now renders the comfy-bar-lounge-with-armchairs-and-tv.jpeg path with alt text "Inside Old Crown Girton lounge space".
+note=Local image optimizer requests returned 500s for all Next image URLs in the standalone runtime, including unrelated images, so endpoint-level image verification appears to be an existing environment-wide issue rather than a regression from this fix.

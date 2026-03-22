@@ -132,9 +132,8 @@ export default async function AboutPage() {
                     More than heritage alone
                   </h2>
                   <p className={panelTextRecipe('mt-4')}>
-                    The story matters, but it only converts if people can see why the place is useful now. Old Crown
-                    works because it gives guests a distinctive setting, memorable food, and a visit that feels easy
-                    to plan.
+                    The history gives Old Crown its charm, but the reason people return is simple: memorable food, a
+                    warm welcome, and a setting that suits everything from a relaxed meal to a bigger occasion.
                   </p>
                 </div>
                 <div className="mt-10 grid gap-4 md:grid-cols-3">

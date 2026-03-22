@@ -121,8 +121,8 @@ export default async function ContactPage() {
                   <h2 id="contact-info-heading" className={subsectionTitleRecipe('mb-6')}>Make visiting easy</h2>
                   <div className="rounded-3xl border border-brand-100 bg-brand-50 p-6 shadow-sm">
                     <p className={panelTextRecipe()}>
-                      People land here because they want the practical details fast. This page should answer those
-                      questions before they need to call.
+                      Find the essentials quickly, from parking and directions to opening hours and direct ways to get
+                      in touch with the team.
                     </p>
                     <ul className="mt-5 space-y-3 text-brand-700">
                       {VISIT_REASONS.map((item) => (

@@ -168,10 +168,10 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 									<div className="rounded-3xl border border-brand-100 bg-neutral-50 p-6 shadow-sm">
 										<p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">Start here</p>
 										<h2 id="menu-next-step-heading" className="mt-3 text-2xl font-display font-bold text-brand-700">
-											Choose the quickest next step
+											Choose the easiest way in
 										</h2>
 										<p className="mt-3 text-brand-600 leading-relaxed">
-											If you already know what you need, use one of these routes instead of scrolling the entire menu first.
+											If you already know whether you are booking, collecting, or simply browsing, you can jump straight to the right option here.
 										</p>
 									</div>
 									<div className="rounded-3xl border border-brand-100 bg-white p-6 shadow-sm">
@@ -247,7 +247,7 @@ export default async function MenuPage({ searchParams }: { searchParams?: { cate
 											</h3>
 
 											<p className="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
-												Use the filters if you want detail, but the main goal here is simple: make the next decision easy.
+												Browse the menu at your own pace, then book a table or call for takeaway when you are ready.
 											</p>
 
 											<div className="flex flex-wrap gap-4 justify-center mb-6">

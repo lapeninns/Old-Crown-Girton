@@ -181,7 +181,7 @@ export default function ThatchedPubHistoryPage() {
       schemaEntries={schemaEntries}
       cta={{
         title: 'Want the atmosphere as well as the history?',
-        body: 'The building is a draw, but the real next step is to experience it with food, drinks, and the full setting in person.',
+        body: 'The history is part of the charm, but the best way to enjoy Old Crown is to settle in for food, drinks, and the full setting in person.',
         primaryHref: '/book-a-table',
         primaryLabel: 'Plan a Visit',
         secondaryHref: '/about',

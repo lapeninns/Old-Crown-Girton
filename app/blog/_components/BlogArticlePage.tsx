@@ -153,7 +153,7 @@ export default function BlogArticlePage({
 
               <aside className="lg:sticky lg:top-24 lg:self-start">
                 <div className="rounded-[32px] bg-gradient-to-br from-brand-600 to-brand-800 p-6 text-white shadow-xl">
-                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-100">Next step</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-100">Plan your visit</p>
                   <h2 className="mt-3 text-2xl font-display font-bold">{cta.title}</h2>
                   <p className="mt-4 text-sm leading-7 text-brand-100">{cta.body}</p>
                   <div className="mt-6 flex flex-col gap-3">
@@ -170,7 +170,7 @@ export default function BlogArticlePage({
 
                 {quickLinks.length > 0 ? (
                   <div className="mt-6 rounded-[28px] border border-brand-100 bg-neutral-50 p-6 shadow-sm">
-                    <h3 className="text-lg font-semibold text-brand-700">Useful routes</h3>
+                    <h3 className="text-lg font-semibold text-brand-700">Keep exploring</h3>
                     <div className="mt-4 flex flex-col gap-3">
                       {quickLinks.map((link) => (
                         <Link key={link.href + link.label} href={link.href} className="text-sm font-semibold text-brand-700 hover:text-brand-900">
