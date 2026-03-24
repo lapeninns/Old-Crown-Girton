@@ -99,7 +99,7 @@ export const CRITICAL_PRELOAD_HINTS = [
   },
   {
     rel: 'preload',
-    href: '/images/logo.png',
+    href: '/images/brand/OldCrownLogo.png',
     as: 'image'
   },
   {

@@ -7,9 +7,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useContent } from "@/hooks/useContent";
 import config from "@/config";
 
-// A simple button to sign in with our providers (Google & Magic Links).
-// It automatically redirects user to callbackUrl (config.auth.callbackUrl) after login, which is normally a private page for users to manage their accounts.
-// If the user is already logged in, it will show their profile picture & redirect them to callbackUrl immediately.
+// Auth CTA used by the legacy header account area.
 const ButtonSignin = ({
   text,
   extraStyle,
@@ -21,7 +19,7 @@ const ButtonSignin = ({
   const [user, setUser] = useState<any>(null);
   const { data: content } = useContent();
   
-  const defaultText = content?.global?.ui?.buttons?.getStarted || 'Get started';
+  const defaultText = content?.global?.ui?.buttons?.getStarted || 'Book a Table';
   const accountLabel = content?.global?.ui?.labels?.account || 'Account';
 
   useEffect(() => {

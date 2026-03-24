@@ -1,12 +1,12 @@
 {
-  "name": "Old Crown Restaurant - Authentic Nepalese Cuisine",
+  "name": "The Old Crown Girton",
   "short_name": "Old Crown",
   "description": "Authentic Nepalese cuisine and traditional pub classics in Girton, Cambridge. Book a table, order takeaway, or explore our award-winning menu.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FEF7ED",
   "theme_color": "#D4941E",
-  "id": "old-crown-restaurant-app",
+  "id": "old-crown-girton-app",
   "orientation": "portrait-primary",
   "scope": "/",
   "categories": ["food", "lifestyle", "business"],
@@ -102,8 +102,8 @@
     {
       "name": "Book Table",
       "short_name": "Book",
-      "description": "Reserve a table at Old Crown Restaurant",
-      "url": "/contact?action=booking",
+      "description": "Reserve a table at The Old Crown Girton",
+      "url": "/book-a-table",
       "icons": [
         {
           "src": "/booking-shortcut-96.png",
@@ -128,7 +128,7 @@
     {
       "name": "Contact Us",
       "short_name": "Contact",
-      "description": "Get in touch with Old Crown Restaurant",
+      "description": "Get in touch with The Old Crown Girton",
       "url": "/contact",
       "icons": [
         {
@@ -145,16 +145,6 @@
   "launch_handler": {
     "client_mode": "focus-existing"
   },
-  "related_applications": [
-    {
-      "platform": "play",
-      "url": "https://play.google.com/store/apps/details?id=com.oldcrown.restaurant"
-    },
-    {
-      "platform": "itunes",
-      "url": "https://apps.apple.com/app/old-crown-restaurant/id123456789"
-    }
-  ],
   "prefer_related_applications": false,
   "protocol_handlers": [
     {
@@ -165,29 +155,5 @@
       "protocol": "tel",
       "url": "/contact?phone=%s"
     }
-  ],
-  "file_handlers": [
-    {
-      "action": "/share",
-      "accept": {
-        "image/*": [".jpg", ".jpeg", ".png", ".gif", ".webp"]
-      }
-    }
-  ],
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url",
-      "files": [
-        {
-          "name": "file",
-          "accept": ["image/*"]
-        }
-      ]
-    }
-  }
+  ]
 }

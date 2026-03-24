@@ -324,7 +324,7 @@ export const useRestaurantSchema = () => {
     return {
       '@context': 'https://schema.org',
       '@type': 'Menu',
-      name: 'Old Crown Restaurant Menu',
+      name: 'The Old Crown Girton Menu',
       description: 'Authentic Nepalese cuisine and traditional pub classics',
       hasMenuSection: [
         {

@@ -58,9 +58,9 @@ const ButtonPopover = () => {
                       </svg>
                     </span>
                     <div className="">
-                      <p className="font-bold">Get Started</p>
+                      <p className="font-bold">Book a Table</p>
                       <p className="opacity-70">
-                        Loreum ipseum de la madre de papa
+                        Reserve a table for Nepalese dishes and pub classics.
                       </p>
                     </div>
                   </div>
@@ -82,9 +82,9 @@ const ButtonPopover = () => {
                       </svg>
                     </span>
                     <div className="">
-                      <p className="font-bold">Rewards</p>
+                      <p className="font-bold">View Menu</p>
                       <p className="opacity-70">
-                        Loreum ipseum de el papi de la mama
+                        Browse signature dishes, specials, and dietary guidance.
                       </p>
                     </div>
                   </div>
@@ -106,9 +106,9 @@ const ButtonPopover = () => {
                       </svg>
                     </span>
                     <div className="">
-                      <p className="font-bold">Academics</p>
+                      <p className="font-bold">Plan an Event</p>
                       <p className="opacity-70">
-                        Loreum ipseum de la madre de papa
+                        Explore private hire, wakes, and group booking options.
                       </p>
                     </div>
                   </div>

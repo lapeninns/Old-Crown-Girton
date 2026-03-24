@@ -302,7 +302,7 @@ export function CLSOptimizedHeader() {
           className="flex items-center"
         >
           <CLSImage
-            src="/images/logo.png"
+            src="/images/brand/OldCrownLogo.png"
             alt="Old Crown Girton"
             width={40}
             height={40}

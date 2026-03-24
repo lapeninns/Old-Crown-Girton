@@ -38,8 +38,7 @@ const links: {
 
 const cta: JSX.Element = <ButtonSignin extraStyle="btn-primary" />;
 
-// A header with a logo on the left, links in the center (like Pricing, etc...), and a CTA (like Get Started or Login) on the right.
-// The header is responsive, and on mobile, the links are hidden behind a burger button.
+// Primary site header with branded navigation and booking CTA.
 const Header = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname() || '/';
@@ -56,7 +55,7 @@ const Header = () => {
         className="container flex items-center justify-between px-8 py-4 mx-auto"
         aria-label="Global"
       >
-        {/* Your logo/name on large screens */}
+        {/* Brand logo and home link on large screens */}
         <div className="flex lg:flex-1">
           <Link
             className="flex items-center gap-2 shrink-0 "
@@ -102,7 +101,7 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Your links on large screens */}
+        {/* Primary links on large screens */}
         <div className="hidden lg:flex lg:justify-center lg:gap-12 lg:items-center relative">
           {links.map((link) => (
             <Link
@@ -119,7 +118,7 @@ const Header = () => {
           ))}
         </div>
 
-        {/* CTA on large screens */}
+        {/* Primary CTA on large screens */}
         <div className="hidden lg:flex lg:justify-end lg:flex-1">{cta}</div>
       </nav>
 
@@ -129,7 +128,7 @@ const Header = () => {
           <div className="relative z-50" id="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
             <MotionDiv {...(navMotion.mobileDrawer.backdrop as any)} className="fixed inset-0 bg-black/30" onClick={() => setIsOpen(false)} />
             <MotionDiv {...(navMotion.mobileDrawer.panel as any)} className="fixed inset-y-0 right-0 z-10 w-full px-8 py-4 overflow-y-auto bg-base-200 sm:max-w-sm sm:ring-1 sm:ring-neutral/10">
-              {/* Your logo/name on small screens */}
+              {/* Brand logo and home link on small screens */}
               <div className="flex items-center justify-between">
                 <Link
                   className="flex items-center gap-2 shrink-0 "
@@ -167,7 +166,7 @@ const Header = () => {
                 </button>
               </div>
 
-              {/* Your links on small screens */}
+              {/* Primary links on small screens */}
               <div className="flow-root mt-6">
                 <div className="py-4">
                   <div className="flex flex-col gap-y-4 items-start">
@@ -185,7 +184,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="divider"></div>
-                {/* Your CTA on small screens */}
+                {/* Primary CTA on small screens */}
                 <div className="flex flex-col">{cta}</div>
               </div>
             </MotionDiv>

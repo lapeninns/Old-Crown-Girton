@@ -1,5 +1,4 @@
-// Restaurant Data Utility - Unified Template Integration
-// This file provides utilities to work with the unified restaurant template data
+// Restaurant Data utility for the Old Crown Girton content model.
 
 
 // Import the restaurant data statically (works in Next.js)
@@ -7,7 +6,7 @@ import restaurantTemplate from '../config/restaurant.json';
 // Import the validated menu data
 
 
-// Types for the unified restaurant template
+// Types for the shared restaurant data shape
 export interface RestaurantTemplate {
   restaurant: {
     identity: {
@@ -336,5 +335,4 @@ export const getSEO = (): any => ({ title: "Old Crown Girton", description: "His
 export const getSocialMedia = (): any => ({ facebook: { url: "", handle: "" }, instagram: { url: "", handle: "" }, twitter: { url: "", handle: "" }, website: "https://oldcrowngirton.com/" });
 export const getDeliveryInfo = (): any => ({ available: true, radius_miles: 5, minimum_order: { amount: 15, display: "£15.00" }, delivery_fee: { amount: 2.50, display: "£2.50" }, free_delivery_threshold: { amount: 25, display: "£25.00" }, estimated_time: "30-45 minutes", partners: [], coverage_areas: [] });
 export const getFeatures = (): any => ({ services: {}, dining: {}, accessibility: {}, amenities: {}, payment_methods: ["Cash", "Card"] });
-
 

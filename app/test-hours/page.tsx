@@ -1,4 +1,14 @@
 import OpeningHoursDebug from '@/components/debug/OpeningHoursDebug';
+import { getSEOTags } from '@/libs/seo';
+
+export const metadata = getSEOTags({
+  title: 'Opening Hours Debug - Old Crown Girton',
+  description: 'Internal opening hours debug route. Not intended for search indexing.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+});
 
 export default function TestPage() {
   return (

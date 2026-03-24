@@ -15,7 +15,7 @@ const CRITICAL_RESOURCES = [
   '/_next/static/css/app/layout.css',
   '/_next/static/chunks/webpack.js',
   '/_next/static/chunks/main.js',
-  '/images/logo.png',
+  '/images/brand/OldCrownLogo.png',
   '/fonts/inter-var.woff2',
   '/fonts/playfair-display-var.woff2'
 ];

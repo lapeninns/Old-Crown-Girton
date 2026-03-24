@@ -152,7 +152,7 @@ export default function MobilePerformanceDashboard() {
     };
     
     img.onerror = () => setNetworkSpeed('failed');
-    img.src = '/images/logo.png?' + Date.now();
+    img.src = '/images/brand/OldCrownLogo.png?' + Date.now();
   };
 
   const getMetricColor = (metric: string, value: number): string => {
