@@ -1,28 +1,27 @@
 # Continuity Ledger
 
-Last updated: 2026-03-20T11:44:00Z
+Last updated: 2026-04-29T18:22:32Z
 
 ## Goal (incl. success criteria)
 
-- Strengthen SEO, GEO, and related ranking foundations so search engines and AI-driven answer systems can better crawl, understand, and present the business, its public pages, and its editorial content.
-- Success: article, collection, and page signals are consistent, structured, and easier for search engines and AI systems to cite correctly.
+- Replace the wakes buffet explanatory copy on `/wakes-menu` with the user-provided wording.
+- Success: `app/wakes-menu/page.tsx` contains the exact requested paragraph and no unrelated page changes are made.
 
 ## Constraints/Assumptions
 
 - Follow AGENTS SDLC phases; task artifacts must exist before implementation.
 - Worktree is already dirty; do not revert or disturb unrelated in-progress changes.
 - Manual UI QA via Chrome DevTools MCP is required for UI changes, but this environment may require temporary fallback verification if MCP is unavailable.
-- Keep this pass focused on in-repo ranking signals rather than off-site SEO or a full content rewrite.
+- Keep this pass focused on the requested copy replacement only.
 
 ## Key decisions
 
-- Use `src/lib/site/site.ts`, `src/lib/seo/metadata.ts`, and `src/lib/seo/schema.ts` as the canonical SEO foundation.
-- Create a new task folder at `tasks/seo-geo-editorial-rollout-20260320-1042/`.
-- Prioritize shared article/collection schema, broader page metadata coverage, and editorial discoverability signals.
+- Use a direct text replacement in the existing wakes menu page; no component, layout, or behavior changes are needed.
+- Create a new task folder at `tasks/wakes-buffet-copy-update-20260429-1820/`.
 
 ## State
 
-- SEO/GEO foundation and editorial rollout are complete locally; takeaway CTA copy, CTA text-color consistency, and legacy brand-asset cleanup are complete as well. External validation and a few legacy lint debts remain.
+- Phase 4 verification is complete for the wakes buffet copy update; targeted lint has unrelated pre-existing color-token failures in the touched file.
 
 ## Done
 
@@ -54,60 +53,32 @@ Last updated: 2026-03-20T11:44:00Z
 - Created SDLC artifacts for `tasks/brand-asset-cleanup-20260320-1123/`.
 - Removed legacy starter branding residue from package metadata, social preview images, and the favicon.
 - Replaced the remaining legacy preview/logo surfaces with Old Crown branded assets and verified with residue search plus a full production build.
+- Located the existing wakes buffet copy in `app/wakes-menu/page.tsx`.
+- Created task artifacts for `tasks/wakes-buffet-copy-update-20260429-1820/`.
+- Replaced the requested paragraph in `app/wakes-menu/page.tsx`.
+- Verified the new paragraph with search, `git diff --check`, and a Playwright render check at `http://localhost:3001/wakes-menu`.
+- Ran targeted lint; it failed on existing RGB/RGBA lint violations at `app/wakes-menu/page.tsx` lines 185, 194, 353, and 362.
 
 ## Now
 
-- Report the completed branding cleanup and exact replaced assets.
+- Report the completed copy replacement and verification results.
 
 ## Next
 
-- Run external SEO validation in Rich Results Test, Search Console, and Bing Webmaster tools.
-- Keep the broader legal/menu-page lint debt separate unless requested.
+- Stop the local dev server before final response.
 
 ## Open questions (UNCONFIRMED if needed)
 
-- Should a later pass wire IndexNow after operational key setup is available? (UNCONFIRMED)
+- None.
 
 ## Working set (files/ids/commands)
 
 - CONTINUITY.md
-- tasks/design-system-consistency-foundation-20260319-2301/research.md
-- tasks/design-system-consistency-foundation-20260319-2301/plan.md
-- tasks/design-system-rollout-20260320-0012/research.md
-- tasks/design-system-rollout-20260320-0012/plan.md
-- tasks/design-system-rollout-20260320-0012/todo.md
-- tasks/design-system-rollout-20260320-0012/verification.md
-- tasks/seo-geo-ranking-pass-20260320-1036/research.md
-- tasks/seo-geo-ranking-pass-20260320-1036/plan.md
-- tasks/seo-geo-ranking-pass-20260320-1036/todo.md
-- tasks/seo-geo-ranking-pass-20260320-1036/verification.md
-- tasks/seo-geo-editorial-rollout-20260320-1042/research.md
-- tasks/seo-geo-editorial-rollout-20260320-1042/plan.md
-- tasks/seo-geo-editorial-rollout-20260320-1042/todo.md
-- tasks/seo-geo-editorial-rollout-20260320-1042/verification.md
-- tasks/seo-geo-editorial-rollout-20260320-1042/artifacts/checks.md
-- tasks/takeaway-cta-consistency-20260320-1103/research.md
-- tasks/takeaway-cta-consistency-20260320-1103/plan.md
-- tasks/takeaway-cta-consistency-20260320-1103/todo.md
-- tasks/takeaway-cta-consistency-20260320-1103/verification.md
-- tasks/takeaway-cta-consistency-20260320-1103/artifacts/checks.md
-- tasks/cta-text-color-consistency-20260320-1111/research.md
-- tasks/cta-text-color-consistency-20260320-1111/plan.md
-- tasks/cta-text-color-consistency-20260320-1111/todo.md
-- tasks/cta-text-color-consistency-20260320-1111/verification.md
-- tasks/cta-text-color-consistency-20260320-1111/artifacts/checks.md
-- tasks/brand-asset-cleanup-20260320-1123/research.md
-- tasks/brand-asset-cleanup-20260320-1123/plan.md
-- tasks/brand-asset-cleanup-20260320-1123/todo.md
-- tasks/brand-asset-cleanup-20260320-1123/verification.md
-- tasks/brand-asset-cleanup-20260320-1123/artifacts/checks.md
-- src/lib/site/site.ts
-- src/lib/site/editorial.ts
-- src/lib/seo/metadata.ts
-- src/lib/seo/schema.ts
-- src/design-system/recipes.ts
-- app/blog/page.tsx
-- app/press/page.tsx
-- app/layout.tsx
-- app/robots.ts
-- app/sitemap.ts
+- app/wakes-menu/page.tsx
+- tasks/wakes-buffet-copy-update-20260429-1820/research.md
+- tasks/wakes-buffet-copy-update-20260429-1820/plan.md
+- tasks/wakes-buffet-copy-update-20260429-1820/todo.md
+- tasks/wakes-buffet-copy-update-20260429-1820/verification.md
+- tasks/wakes-buffet-copy-update-20260429-1820/artifacts/checks.md
+- tasks/wakes-buffet-copy-update-20260429-1820/artifacts/playwright-render-check.json
+- tasks/wakes-buffet-copy-update-20260429-1820/artifacts/wakes-menu-desktop.png

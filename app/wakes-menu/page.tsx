@@ -215,7 +215,7 @@ export default function WakesMenuPage() {
                 How the £13 wakes buffet is served
               </h2>
               <p className="text-lg text-brand-600 leading-relaxed">
-                The buffet is designed so every guest receives one item from each course below, plus chicken pakora and a hot drink. We label platters clearly and can adapt fillings with advance notice.
+                The buffet is designed to offer a generous selection for all guests, with choices from each course below, along with chicken pakora and a hot drink. Platters will be clearly labelled, and fillings can be adapted with advance notice.
               </p>
               <p className="text-sm font-semibold text-brand-500 uppercase tracking-wide">
                 Example plate: Egg & mayo sandwich · Chicken wing · Vegetable samosa · Chicken pakora · Tea or coffee (£13 per guest)
